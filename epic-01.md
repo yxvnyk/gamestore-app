@@ -463,6 +463,4 @@ Type: DELETE
 
 Implement the [GetAccountOwnersTotalBalance](BankSystem.Services/Services/OwnerService.cs) method 
 
-Please use the following CI with pipelines, quality gate by code style, and unit-tests coverage for your project:
-
-CI.zip
+Please use the following CI with pipelines, quality gate by code style, and unit-tests coverage for your project see in AdditionalInfo folder.
