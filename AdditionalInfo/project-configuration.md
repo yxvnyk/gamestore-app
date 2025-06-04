@@ -5,7 +5,7 @@ A template for setting up a CI pipeline for the `Gamestore` project.
 
 ## Requirements  
 - Update Visual Studio to the latest version (2022+).    
-- The solution must be located in the `Gamestore` folder.    
+- The solution must be located in the `Gamestore` folder. Compliance with the following repository structure is mandatory.    
 
 ![](AdditionalInfo/RepositoryStructure.png)
 
