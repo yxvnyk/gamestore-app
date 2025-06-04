@@ -5,8 +5,9 @@ A template for setting up a CI pipeline for the `Gamestore` project.
 
 ## Requirements  
 - Update Visual Studio to the latest version (2022+).    
-- The solution must be located in the `Gamestore` folder.  
-![](/RepositoryStructure.png)
+- The solution must be located in the `Gamestore` folder.    
+
+![](AdditionalInfo/RepositoryStructure.png)
 
 ## Installation  
 1. Copy the [.gitlab-ci.yml](.gitlab-ci.yml) file to the repository root folder.  
