@@ -458,9 +458,4 @@ Type: DELETE
        Add GET endpoints responses caching for 1 minute.  
 
 
-
-#### 3.2. Owner Service
-
-Implement the [GetAccountOwnersTotalBalance](BankSystem.Services/Services/OwnerService.cs) method 
-
 Please use the following CI with pipelines, quality gate by code style, and unit-tests coverage for your project see in AdditionalInfo folder.
