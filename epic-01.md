@@ -99,7 +99,7 @@ CI.zip
 
 Add a new Game endpoint
 ```{xml} 
-Url: /games
+Url: /games     
 Type: POST 
 Request Example:
 {
@@ -229,7 +229,8 @@ Result: file downloading is started
 ### US6E1 - User story 6
 Get All games endpoint
 ```{xml} 
-Url: /gamesType: GET
+Url: /games 
+Type: GET  
 Response example:
 [
   {
