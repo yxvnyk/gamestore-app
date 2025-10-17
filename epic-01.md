@@ -452,6 +452,3 @@ Type: DELETE
        Use the latest stable version of Microsoft Entity framework Core.   
 **NFR3E1**
        Add GET endpoints responses caching for 1 minute.  
-
-
-Please use the following CI with pipelines, quality gate by code style, and unit-tests coverage for your project see in AdditionalInfo folder.
