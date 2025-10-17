@@ -90,11 +90,6 @@ The system should contain predefined platforms:
 
 ## Task Description
 
-Please use the following CI with pipelines, quality gate by code style, and unit-tests coverage for your project:
-
-CI.zip
-
-
 ### US1E1 - User story 1
 
 Add a new Game endpoint
