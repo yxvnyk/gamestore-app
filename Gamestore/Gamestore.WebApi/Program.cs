@@ -2,10 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using Gamestore.DataAccess.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<GamestoreDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GamestoreDb")));
 
 var app = builder.Build();
 
