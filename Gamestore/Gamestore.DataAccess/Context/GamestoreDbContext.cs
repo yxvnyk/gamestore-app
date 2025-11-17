@@ -1,4 +1,5 @@
 ﻿using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Context;
@@ -38,5 +39,9 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
             .WithOne(g => g.Platform)
             .HasForeignKey(g => g.PlatformId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // data seeding
+        _ = modelBuilder.Entity<PlatformEntity>().HasData(DataSeeding.GetPlatforms());
+        _ = modelBuilder.Entity<GenreEntity>().HasData(DataSeeding.GetGenres());
     }
 }
