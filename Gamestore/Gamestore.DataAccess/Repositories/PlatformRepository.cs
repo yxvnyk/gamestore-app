@@ -2,6 +2,6 @@
 
 namespace Gamestore.DataAccess.Repositories;
 
-internal class PlatformRepository : IPlatformRepository
+public class PlatformRepository : IPlatformRepository
 {
 }
