@@ -2,4 +2,5 @@
 
 public interface IGenreRepository : ICrud
 {
+    Task<bool> GenreExistsAsync(Guid id);
 }

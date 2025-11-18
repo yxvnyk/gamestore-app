@@ -2,4 +2,5 @@
 
 public interface IPlatformRepository : ICrud
 {
+    Task<bool> PlatformExistsAsync(Guid id);
 }
