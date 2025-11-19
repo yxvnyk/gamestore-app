@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Entities;
 
 [Table("Platforms")]
+[Index(nameof(Type), IsUnique = true)]
 public class PlatformEntity
 {
     [Key]

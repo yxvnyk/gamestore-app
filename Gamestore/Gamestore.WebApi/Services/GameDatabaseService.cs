@@ -15,6 +15,12 @@ public class GameDatabaseService(IGameRepository gameRepository,
     private readonly IPlatformRepository _platformRepository = platformRepository;
     private readonly IMapper _mapper = mapper;
 
+    public async Task<GameDto> GetGameAsync(string key)
+    {
+        var gameEntity = await _gameRepository.GetGameByKeyAsync(key);
+        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : null;
+    }
+
     public async Task CreateGameAsync(GameCreateDto game)
     {
         foreach (var genreId in game.Genres)

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Entities;
 
 [Table("Games")]
+[Index(nameof(Key), IsUnique = true)]
 public class GameEntity
 {
     [Key]
