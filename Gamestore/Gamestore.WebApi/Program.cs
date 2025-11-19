@@ -5,6 +5,7 @@
 using Gamestore.DataAccess.Context;
 using Gamestore.DataAccess.Repositories;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.WebApi.Helpers;
 using Gamestore.WebApi.Services;
 using Gamestore.WebApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(GameProfile));
 
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();

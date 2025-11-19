@@ -1,1 +1,44 @@
-﻿
+﻿using AutoMapper;
+using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.WebApi.Models.Models.DTO;
+using Gamestore.WebApi.Services.Interfaces;
+
+namespace Gamestore.WebApi.Services;
+
+public class GameDatabaseService(IGameRepository gameRepository,
+    IGenreRepository genreRepository, IPlatformRepository platformRepository,
+    IMapper mapper) : IGameDatabaseService
+{
+    private readonly IGameRepository _gameRepository = gameRepository;
+    private readonly IGenreRepository _genreRepository = genreRepository;
+    private readonly IPlatformRepository _platformRepository = platformRepository;
+    private readonly IMapper _mapper = mapper;
+
+    public async Task CreateGameAsync(GameCreateDto game)
+    {
+        foreach (var genreId in game.Genres)
+        {
+            var genreExists = await _genreRepository.GenreExistsAsync(genreId);
+            if (!genreExists)
+            {
+                throw new ArgumentException($"Genre with ID {genreId} does not exist.");
+            }
+        }
+
+        foreach (var platformId in game.Platforms)
+        {
+            var platformExists = await _platformRepository.PlatformExistsAsync(platformId);
+            if (!platformExists)
+            {
+                throw new ArgumentException($"Platform with ID {platformId} does not exist.");
+            }
+        }
+
+        game.Genres = [.. game.Genres.Distinct()];
+        game.Platforms = [.. game.Platforms.Distinct()];
+        var gameEntity = _mapper.Map<GameEntity>(game);
+
+        await _gameRepository.CreateGameAsync(gameEntity);
+    }
+}
