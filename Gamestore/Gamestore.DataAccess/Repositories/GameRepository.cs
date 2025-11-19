@@ -20,4 +20,26 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         var game = await _context.Games.FirstOrDefaultAsync(g => g.Key == key);
         return game;
     }
+
+    public async Task<ICollection<GameEntity>> GetGamesByPlatformAsync(Guid id)
+    {
+        return await _context.Games
+            .Include(g => g.GamePlatforms)
+            .ThenInclude(gp => gp.Platform)
+            .Where(g => g.GamePlatforms.Any(gp => gp.PlatformId == id)).ToListAsync();
+    }
+
+    public async Task<ICollection<GameEntity>> GetGamesByGenreAsync(Guid id)
+    {
+        return await _context.Games
+            .Include(g => g.GameGenres)
+            .ThenInclude(gp => gp.Genre)
+            .Where(g => g.GameGenres.Any(gp => gp.GenreId == id)).ToListAsync();
+    }
+
+    public async Task<GameEntity?> GetGameByIdAsync(Guid id)
+    {
+        var game = await _context.Games.FindAsync(id);
+        return game;
+    }
 }

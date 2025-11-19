@@ -41,4 +41,55 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
         var game = await gameDatabaseService.GetGameAsync(key);
         return Ok(game);
     }
+
+    [HttpGet("/find/{id:guid}")]
+    public async Task<IActionResult> GetGameById(Guid id)
+    {
+        if (id == Guid.Empty)
+        {
+            return BadRequest("Key is required.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return NotFound(ModelState);
+        }
+
+        var game = await gameDatabaseService.GetGameAsync(id);
+        return Ok(game);
+    }
+
+    [HttpGet("/platforms/{id:guid}/games")]
+    public async Task<IActionResult> GetGamesByPlatform(Guid id)
+    {
+        if (id == Guid.Empty)
+        {
+            return BadRequest("Key is required.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return NotFound(ModelState);
+        }
+
+        var game = await gameDatabaseService.GetGamesByPlatformAsync(id);
+        return Ok(game);
+    }
+
+    [HttpGet("/genres/{id:guid}/games")]
+    public async Task<IActionResult> GetGamesByGenre(Guid id)
+    {
+        if (id == Guid.Empty)
+        {
+            return BadRequest("Key is required.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return NotFound(ModelState);
+        }
+
+        var game = await gameDatabaseService.GetGamesByGenreAsync(id);
+        return Ok(game);
+    }
 }

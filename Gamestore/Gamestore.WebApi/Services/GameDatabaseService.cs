@@ -21,6 +21,26 @@ public class GameDatabaseService(IGameRepository gameRepository,
         return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : null;
     }
 
+    public async Task<GameDto> GetGameAsync(Guid id)
+    {
+        var gameEntity = await _gameRepository.GetGameByIdAsync(id);
+        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : null;
+    }
+
+    public async Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id)
+    {
+        var gameEntities = await _gameRepository.GetGamesByPlatformAsync(id);
+        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
+        return gameDtos;
+    }
+
+    public async Task<ICollection<GameDto>> GetGamesByGenreAsync(Guid id)
+    {
+        var gameEntities = await _gameRepository.GetGamesByGenreAsync(id);
+        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
+        return gameDtos;
+    }
+
     public async Task CreateGameAsync(GameCreateDto game)
     {
         foreach (var genreId in game.Genres)
