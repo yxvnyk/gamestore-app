@@ -21,6 +21,12 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         return game;
     }
 
+    public async Task<bool> GameKeyExistAsync(string key)
+    {
+        var exist = await _context.Games.AnyAsync(g => g.Key == key);
+        return exist;
+    }
+
     public async Task<ICollection<GameEntity>> GetGamesByPlatformAsync(Guid id)
     {
         return await _context.Games

@@ -7,12 +7,13 @@ using Gamestore.WebApi.Services.Interfaces;
 namespace Gamestore.WebApi.Services;
 
 public class GameDatabaseService(IGameRepository gameRepository,
-    IGenreRepository genreRepository, IPlatformRepository platformRepository,
+    IGenreRepository genreRepository, IPlatformRepository platformRepository, UniqueKeyGenerator uniqueKeyGenerator,
     IMapper mapper) : IGameDatabaseService
 {
     private readonly IGameRepository _gameRepository = gameRepository;
     private readonly IGenreRepository _genreRepository = genreRepository;
     private readonly IPlatformRepository _platformRepository = platformRepository;
+    private readonly UniqueKeyGenerator _uniqueKeyGenerator = uniqueKeyGenerator;
     private readonly IMapper _mapper = mapper;
 
     public async Task<GameDto> GetGameAsync(string key)
@@ -64,6 +65,11 @@ public class GameDatabaseService(IGameRepository gameRepository,
         game.Genres = [.. game.Genres.Distinct()];
         game.Platforms = [.. game.Platforms.Distinct()];
         var gameEntity = _mapper.Map<GameEntity>(game);
+
+        if (string.IsNullOrWhiteSpace(gameEntity.Key))
+        {
+            gameEntity.Key = await _uniqueKeyGenerator.GenerateUniqueKeyAsync(gameEntity.Name);
+        }
 
         await _gameRepository.CreateGameAsync(gameEntity);
     }
