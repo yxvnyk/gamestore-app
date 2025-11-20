@@ -2,7 +2,7 @@
 
 namespace Gamestore.WebApi.Services.Interfaces;
 
-public interface IGameDatabaseService : ICrud
+public interface IGameDatabaseService
 {
     Task CreateGameAsync(GameCreateExtendedDto game);
 
@@ -16,7 +16,7 @@ public interface IGameDatabaseService : ICrud
 
     Task<ICollection<GameDto>> GetAllGamesAsync();
 
-    Task<bool> UpdateGameAsync(GameUpdateExtendedDto model);
+    Task UpdateGameAsync(GameUpdateExtendedDto model);
 
     Task<bool> DeleteByKeyAsync(string key);
 }

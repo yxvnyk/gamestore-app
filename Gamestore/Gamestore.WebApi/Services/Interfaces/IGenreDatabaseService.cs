@@ -1,5 +1,8 @@
-﻿namespace Gamestore.WebApi.Services.Interfaces;
+﻿using Gamestore.WebApi.Models.Models.DTO;
 
-public interface IGenreDatabaseService : ICrud
+namespace Gamestore.WebApi.Services.Interfaces;
+
+public interface IGenreDatabaseService
 {
+    Task CreateGenreAsync(GenreDto genre);
 }

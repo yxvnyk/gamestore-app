@@ -1,5 +1,5 @@
 ﻿namespace Gamestore.WebApi.Services.Interfaces;
 
-public interface IPlatformDatabaseService : ICrud
+public interface IPlatformDatabaseService
 {
 }

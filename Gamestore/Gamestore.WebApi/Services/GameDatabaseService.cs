@@ -16,14 +16,9 @@ public class GameDatabaseService(IGameRepository gameRepository,
     private readonly UniqueKeyGenerator _uniqueKeyGenerator = uniqueKeyGenerator;
     private readonly IMapper _mapper = mapper;
 
-    public async Task<bool> UpdateGameAsync(GameUpdateExtendedDto model)
+    public async Task UpdateGameAsync(GameUpdateExtendedDto model)
     {
-        var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id);
-        if (entity is null)
-        {
-            return false;
-        }
-
+        var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id) ?? throw new ArgumentException($"Game with ID {model.Game.Id} does not exist.");
         entity.GameGenres.Clear();
         entity.GamePlatforms.Clear();
 
@@ -49,7 +44,6 @@ public class GameDatabaseService(IGameRepository gameRepository,
         entity.GameGenres = [.. model.Genres.Distinct().Select(id => new GameGenreEntity { GenreId = id })];
         entity.GamePlatforms = [.. model.Platforms.Distinct().Select(id => new GamePlatformEntity { PlatformId = id })];
         await _gameRepository.SaveChangesAsync();
-        return true;
     }
 
     public async Task<GameDto> GetGameAsync(string key)

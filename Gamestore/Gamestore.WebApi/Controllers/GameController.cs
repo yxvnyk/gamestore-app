@@ -84,8 +84,8 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
             return BadRequest(ModelState);
         }
 
-        var games = await gameDatabaseService.GetAllGamesAsync();
-        return Ok(games);
+        var game = await gameDatabaseService.GetAllGamesAsync();
+        return Ok(game);
     }
 
     [HttpGet("/genres/{id:guid}/games")]
@@ -118,8 +118,8 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
             return BadRequest(ModelState);
         }
 
-        var result = await gameDatabaseService.UpdateGameAsync(game);
-        return !result ? NotFound("Game with the given ID does not exist.") : Ok("Game successfuly updated");
+        await gameDatabaseService.UpdateGameAsync(game);
+        return Ok("Game successfuly updated");
     }
 
     [HttpDelete("/games/{key:alpha}")]
