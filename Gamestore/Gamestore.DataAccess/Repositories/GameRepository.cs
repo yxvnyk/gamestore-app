@@ -48,4 +48,18 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         var game = await _context.Games.FindAsync(id);
         return game;
     }
+
+    public async Task<GameEntity?> GetGameWithJoinsAsync(Guid id)
+    {
+        var game = await _context.Games
+            .Include(g => g.GameGenres)
+            .Include(p => p.GamePlatforms)
+            .FirstOrDefaultAsync(g => g.Id == id);
+        return game;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
 }

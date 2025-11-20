@@ -14,5 +14,9 @@ public interface IGameRepository : ICrud
 
     Task<ICollection<GameEntity>> GetGamesByPlatformAsync(Guid id);
 
+    Task<GameEntity?> GetGameWithJoinsAsync(Guid id);
+
     Task<bool> GameKeyExistAsync(string key);
+
+    Task SaveChangesAsync();
 }

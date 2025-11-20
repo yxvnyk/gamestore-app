@@ -20,7 +20,7 @@ public class GameEntity
     public string Key { get; set; }
 
     [MaxLength(500)]
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     public ICollection<GameGenreEntity> GameGenres { get; set; }
 

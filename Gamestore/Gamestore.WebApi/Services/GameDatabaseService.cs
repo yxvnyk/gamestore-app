@@ -16,6 +16,42 @@ public class GameDatabaseService(IGameRepository gameRepository,
     private readonly UniqueKeyGenerator _uniqueKeyGenerator = uniqueKeyGenerator;
     private readonly IMapper _mapper = mapper;
 
+    public async Task<bool> UpdateGameAsync(GameUpdateExtendedDto model)
+    {
+        var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id);
+        if (entity is null)
+        {
+            return false;
+        }
+
+        entity.GameGenres.Clear();
+        entity.GamePlatforms.Clear();
+
+        foreach (var genreId in model.Genres)
+        {
+            var genreExists = await _genreRepository.GenreExistsAsync(genreId);
+            if (!genreExists)
+            {
+                throw new ArgumentException($"Genre with ID {genreId} does not exist.");
+            }
+        }
+
+        foreach (var platformId in model.Platforms)
+        {
+            var platformExists = await _platformRepository.PlatformExistsAsync(platformId);
+            if (!platformExists)
+            {
+                throw new ArgumentException($"Platform with ID {platformId} does not exist.");
+            }
+        }
+
+        _mapper.Map(model, entity);
+        entity.GameGenres = [.. model.Genres.Distinct().Select(id => new GameGenreEntity { GenreId = id })];
+        entity.GamePlatforms = [.. model.Platforms.Distinct().Select(id => new GamePlatformEntity { PlatformId = id })];
+        await _gameRepository.SaveChangesAsync();
+        return true;
+    }
+
     public async Task<GameDto> GetGameAsync(string key)
     {
         var gameEntity = await _gameRepository.GetGameByKeyAsync(key);
@@ -42,7 +78,7 @@ public class GameDatabaseService(IGameRepository gameRepository,
         return gameDtos;
     }
 
-    public async Task CreateGameAsync(GameCreateDto game)
+    public async Task CreateGameAsync(GameCreateExtendedDto game)
     {
         foreach (var genreId in game.Genres)
         {

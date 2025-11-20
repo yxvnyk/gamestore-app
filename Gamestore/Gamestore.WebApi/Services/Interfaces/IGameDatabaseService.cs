@@ -4,7 +4,7 @@ namespace Gamestore.WebApi.Services.Interfaces;
 
 public interface IGameDatabaseService : ICrud
 {
-    Task CreateGameAsync(GameCreateDto game);
+    Task CreateGameAsync(GameCreateExtendedDto game);
 
     Task<GameDto> GetGameAsync(string key);
 
@@ -13,4 +13,6 @@ public interface IGameDatabaseService : ICrud
     Task<ICollection<GameDto>> GetGamesByGenreAsync(Guid id);
 
     Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id);
+
+    Task<bool> UpdateGameAsync(GameUpdateExtendedDto model);
 }

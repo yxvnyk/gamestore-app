@@ -9,7 +9,7 @@ namespace Gamestore.WebApi.Controllers;
 public class GameController(IGameDatabaseService gameDatabaseService) : Controller
 {
     [HttpPost("")]
-    public async Task<IActionResult> CreateGame([FromBody] GameCreateDto game)
+    public async Task<IActionResult> CreateGame([FromBody] GameCreateExtendedDto game)
     {
         if (game == null)
         {
@@ -18,7 +18,7 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
 
         if (!ModelState.IsValid)
         {
-            return NotFound(ModelState);
+            return BadRequest(ModelState);
         }
 
         await gameDatabaseService.CreateGameAsync(game);
@@ -52,7 +52,7 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
 
         if (!ModelState.IsValid)
         {
-            return NotFound(ModelState);
+            return BadRequest(ModelState);
         }
 
         var game = await gameDatabaseService.GetGameAsync(id);
@@ -69,7 +69,7 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
 
         if (!ModelState.IsValid)
         {
-            return NotFound(ModelState);
+            return BadRequest(ModelState);
         }
 
         var game = await gameDatabaseService.GetGamesByPlatformAsync(id);
@@ -91,5 +91,22 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
 
         var game = await gameDatabaseService.GetGamesByGenreAsync(id);
         return Ok(game);
+    }
+
+    [HttpPut("/games")]
+    public async Task<IActionResult> UpdateGame([FromBody] GameUpdateExtendedDto game)
+    {
+        if (game == null)
+        {
+            return BadRequest("Game data is required.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await gameDatabaseService.UpdateGameAsync(game);
+        return !result ? NotFound("Game with the given ID does not exist.") : Ok("Game successfuly updated");
     }
 }
