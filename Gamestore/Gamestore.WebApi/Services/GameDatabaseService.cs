@@ -109,4 +109,9 @@ public class GameDatabaseService(IGameRepository gameRepository,
 
         await _gameRepository.CreateGameAsync(gameEntity);
     }
+
+    public async Task<bool> DeleteByKeyAsync(string key)
+    {
+        return await _gameRepository.DeleteByKeyAsync(key);
+    }
 }

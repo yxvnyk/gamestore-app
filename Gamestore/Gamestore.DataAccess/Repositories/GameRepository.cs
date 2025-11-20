@@ -62,4 +62,17 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
     {
         await _context.SaveChangesAsync();
     }
+
+    public async Task<bool> DeleteByKeyAsync(string key)
+    {
+        var exist = await _context.Games.FirstOrDefaultAsync(g => g.Key == key);
+        if (exist != null)
+        {
+            _ = _context.Games.Remove(exist);
+            _ = await _context.SaveChangesAsync();
+            return true;
+        }
+
+        return false;
+    }
 }

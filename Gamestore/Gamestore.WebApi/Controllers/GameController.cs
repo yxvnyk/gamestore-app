@@ -109,4 +109,11 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
         var result = await gameDatabaseService.UpdateGameAsync(game);
         return !result ? NotFound("Game with the given ID does not exist.") : Ok("Game successfuly updated");
     }
+
+    [HttpDelete("/games/{key:alpha}")]
+    public async Task<IActionResult> DeleteGame(string key)
+    {
+        bool result = await gameDatabaseService.DeleteByKeyAsync(key);
+        return result ? NoContent() : NotFound($"Task with Key {key} not found.");
+    }
 }

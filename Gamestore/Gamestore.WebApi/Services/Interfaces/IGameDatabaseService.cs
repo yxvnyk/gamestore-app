@@ -15,4 +15,6 @@ public interface IGameDatabaseService : ICrud
     Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id);
 
     Task<bool> UpdateGameAsync(GameUpdateExtendedDto model);
+
+    Task<bool> DeleteByKeyAsync(string key);
 }

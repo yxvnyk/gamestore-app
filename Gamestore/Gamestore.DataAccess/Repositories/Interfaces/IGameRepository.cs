@@ -19,4 +19,6 @@ public interface IGameRepository : ICrud
     Task<bool> GameKeyExistAsync(string key);
 
     Task SaveChangesAsync();
+
+    Task<bool> DeleteByKeyAsync(string key);
 }
