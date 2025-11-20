@@ -78,6 +78,13 @@ public class GameDatabaseService(IGameRepository gameRepository,
         return gameDtos;
     }
 
+    public async Task<ICollection<GameDto>> GetAllGamesAsync()
+    {
+        var gameEntities = await _gameRepository.GetAllGamesAsync();
+        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
+        return gameDtos;
+    }
+
     public async Task CreateGameAsync(GameCreateExtendedDto game)
     {
         foreach (var genreId in game.Genres)

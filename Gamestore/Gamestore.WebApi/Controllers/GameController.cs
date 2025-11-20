@@ -76,6 +76,18 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
         return Ok(game);
     }
 
+    [HttpGet("/games")]
+    public async Task<IActionResult> GetAllGames()
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var games = await gameDatabaseService.GetAllGamesAsync();
+        return Ok(games);
+    }
+
     [HttpGet("/genres/{id:guid}/games")]
     public async Task<IActionResult> GetGamesByGenre(Guid id)
     {
