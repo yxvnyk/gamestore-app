@@ -15,4 +15,6 @@ public interface IGenreDatabaseService
     Task<ICollection<GenreDto>> GetGenresByParentIdAsync(Guid id);
 
     Task UpdateGenreAsync(GenreUpdateDto model);
+
+    Task<bool> DeleteByIdAsync(Guid id);
 }

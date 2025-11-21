@@ -126,7 +126,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
     public async Task<IActionResult> DeleteGame(string key)
     {
         bool result = await gameDatabaseService.DeleteByKeyAsync(key);
-        return result ? NoContent() : NotFound($"Task with Key {key} not found.");
+        return result ? NoContent() : NotFound($"Game with key {key} not found.");
     }
 
     [HttpGet("/games/{key:alpha}/file")]

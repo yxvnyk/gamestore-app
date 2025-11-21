@@ -43,6 +43,19 @@ public class GenreRepository(GamestoreDbContext context) : IGenreRepository
         return await _context.Genres.Where(g => g.ParentGenreId == id).ToListAsync();
     }
 
+    public async Task<bool> DeleteByIdAsync(Guid id)
+    {
+        var exist = await _context.Genres.FindAsync(id);
+        if (exist != null)
+        {
+            _ = _context.Genres.Remove(exist);
+            _ = await _context.SaveChangesAsync();
+            return true;
+        }
+
+        return false;
+    }
+
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();

@@ -79,4 +79,11 @@ public class GenreController(IGenreDatabaseService genreDatabaseService) : Contr
         await genreDatabaseService.UpdateGenreAsync(genre);
         return Ok($"Game successfuly updated");
     }
+
+    [HttpDelete("/genres/{id:guid}")]
+    public async Task<IActionResult> DeleteGame(Guid id)
+    {
+        bool result = await genreDatabaseService.DeleteByIdAsync(id);
+        return result ? NoContent() : NotFound($"Game with ID {id} not found.");
+    }
 }

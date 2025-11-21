@@ -57,4 +57,9 @@ public class GenreDatabaseService(IGenreRepository genreRepository, IMapper mapp
         mapper.Map(model, entity);
         await genreRepository.SaveChangesAsync();
     }
+
+    public async Task<bool> DeleteByIdAsync(Guid id)
+    {
+        return await genreRepository.DeleteByIdAsync(id);
+    }
 }

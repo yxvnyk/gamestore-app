@@ -17,4 +17,6 @@ public interface IGenreRepository : ICrud
     Task<IEnumerable<GenreEntity>> GetGenresByParentIdAsync(Guid id);
 
     Task SaveChangesAsync();
+
+    Task<bool> DeleteByIdAsync(Guid id);
 }
