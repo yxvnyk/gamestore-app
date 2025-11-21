@@ -12,7 +12,7 @@ public interface IPlatformDatabaseService
 
     Task<IEnumerable<PlatformFullDto>> GetPlatformsByGameKeyAsync(string key);
 
-    Task UpdatePlatformAsync(PlatformDto model);
+    Task UpdatePlatformAsync(PlatformUpdateDto model);
 
     Task<bool> DeleteByIdAsync(Guid id);
 }

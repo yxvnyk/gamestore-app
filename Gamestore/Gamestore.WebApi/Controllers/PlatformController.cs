@@ -56,7 +56,7 @@ public class PlatformController(IPlatformDatabaseService platformDatabaseService
     }
 
     [HttpPut("/platform")]
-    public async Task<IActionResult> UpdatePlatform([FromBody] PlatformDto platform)
+    public async Task<IActionResult> UpdatePlatform([FromBody] PlatformUpdateDto platform)
     {
         if (platform == null)
         {

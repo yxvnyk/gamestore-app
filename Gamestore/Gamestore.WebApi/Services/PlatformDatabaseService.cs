@@ -14,9 +14,9 @@ public class PlatformDatabaseService(IPlatformRepository platformRepository, IGa
         await platformRepository.CreatePlatformAsync(entity);
     }
 
-    public Task<bool> DeleteByIdAsync(Guid id)
+    public async Task<bool> DeleteByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await platformRepository.DeleteByIdAsync(id);
     }
 
     public async Task<IEnumerable<PlatformFullDto>> GetAllPlatformsAsync()
@@ -43,8 +43,10 @@ public class PlatformDatabaseService(IPlatformRepository platformRepository, IGa
         return [.. platformEntities.Select(mapper.Map<PlatformFullDto>)];
     }
 
-    public Task UpdatePlatformAsync(PlatformDto model)
+    public async Task UpdatePlatformAsync(PlatformUpdateDto model)
     {
-        throw new NotImplementedException();
+        var entity = await platformRepository.GetPlatformByIdAsync(model.Id) ?? throw new ArgumentException($"Game with ID {model.Id} does not exist.");
+        mapper.Map(model, entity);
+        await platformRepository.SaveChangesAsync();
     }
 }

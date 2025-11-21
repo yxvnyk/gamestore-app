@@ -15,9 +15,17 @@ public class PlatformRepository(GamestoreDbContext context) : IPlatformRepositor
         _context.SaveChanges();
     }
 
-    public Task<bool> DeleteByIdAsync(Guid id)
+    public async Task<bool> DeleteByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var exist = await _context.Platforms.FindAsync(id);
+        if (exist != null)
+        {
+            _ = _context.Platforms.Remove(exist);
+            _ = await _context.SaveChangesAsync();
+            return true;
+        }
+
+        return false;
     }
 
     public async Task<IEnumerable<PlatformEntity>> GetAllPlatformsAsync()
