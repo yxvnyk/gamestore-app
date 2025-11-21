@@ -7,13 +7,13 @@ using Gamestore.WebApi.Services.Interfaces;
 namespace Gamestore.WebApi.Services;
 
 public class GameDatabaseService(IGameRepository gameRepository,
-    IGenreRepository genreRepository, IPlatformRepository platformRepository, UniqueKeyGenerator uniqueKeyGenerator,
+    IGenreRepository genreRepository, IPlatformRepository platformRepository, IKeyGenerator uniqueKeyGenerator,
     IMapper mapper) : IGameDatabaseService
 {
     private readonly IGameRepository _gameRepository = gameRepository;
     private readonly IGenreRepository _genreRepository = genreRepository;
     private readonly IPlatformRepository _platformRepository = platformRepository;
-    private readonly UniqueKeyGenerator _uniqueKeyGenerator = uniqueKeyGenerator;
+    private readonly IKeyGenerator _uniqueKeyGenerator = uniqueKeyGenerator;
     private readonly IMapper _mapper = mapper;
 
     public async Task UpdateGameAsync(GameUpdateExtendedDto model)
@@ -46,36 +46,36 @@ public class GameDatabaseService(IGameRepository gameRepository,
         await _gameRepository.SaveChangesAsync();
     }
 
-    public async Task<GenreDto> GetGameAsync(string key)
+    public async Task<GameDto> GetGameAsync(string key)
     {
         var gameEntity = await _gameRepository.GetGameByKeyAsync(key);
-        return gameEntity is not null ? _mapper.Map<GenreDto>(gameEntity) : null;
+        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotImplementedException($"Game with key '{key}' not found.");
     }
 
-    public async Task<GenreDto> GetGameAsync(Guid id)
+    public async Task<GameDto> GetGameAsync(Guid id)
     {
         var gameEntity = await _gameRepository.GetGameByIdAsync(id);
-        return gameEntity is not null ? _mapper.Map<GenreDto>(gameEntity) : null;
+        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotImplementedException($"Game with ID '{id}' not found.");
     }
 
-    public async Task<ICollection<GenreDto>> GetGamesByPlatformAsync(Guid id)
+    public async Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id)
     {
         var gameEntities = await _gameRepository.GetGamesByPlatformAsync(id);
-        var gameDtos = gameEntities.Select(_mapper.Map<GenreDto>).ToList();
+        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
         return gameDtos;
     }
 
-    public async Task<ICollection<GenreDto>> GetGamesByGenreAsync(Guid id)
+    public async Task<ICollection<GameDto>> GetGamesByGenreAsync(Guid id)
     {
         var gameEntities = await _gameRepository.GetGamesByGenreAsync(id);
-        var gameDtos = gameEntities.Select(_mapper.Map<GenreDto>).ToList();
+        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
         return gameDtos;
     }
 
-    public async Task<ICollection<GenreDto>> GetAllGamesAsync()
+    public async Task<ICollection<GameDto>> GetAllGamesAsync()
     {
         var gameEntities = await _gameRepository.GetAllGamesAsync();
-        var gameDtos = gameEntities.Select(_mapper.Map<GenreDto>).ToList();
+        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
         return gameDtos;
     }
 

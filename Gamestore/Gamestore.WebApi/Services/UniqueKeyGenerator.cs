@@ -1,8 +1,9 @@
 ﻿using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.WebApi.Services.Interfaces;
 
 namespace Gamestore.WebApi.Services;
 
-public class UniqueKeyGenerator(IGameRepository gameRepository)
+public class UniqueKeyGenerator(IGameRepository gameRepository) : IKeyGenerator
 {
     private readonly IGameRepository _gameRepository = gameRepository;
 
@@ -23,7 +24,6 @@ public class UniqueKeyGenerator(IGameRepository gameRepository)
 
     public static string ToKey(string value)
     {
-        // Простейший slug
         return value
             .Trim()
             .ToLower(System.Globalization.CultureInfo.CurrentCulture)

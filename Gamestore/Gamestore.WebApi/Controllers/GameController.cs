@@ -6,7 +6,7 @@ namespace Gamestore.WebApi.Controllers;
 
 [ApiController]
 [Route("games")]
-public class GameController(IGameDatabaseService gameDatabaseService) : Controller
+public class GameController(IGameDatabaseService gameDatabaseService, IGenerateGameFile generateGameFile) : Controller
 {
     [HttpPost("")]
     public async Task<IActionResult> CreateGame([FromBody] GameCreateExtendedDto game)
@@ -25,7 +25,7 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
         return Ok();
     }
 
-    [HttpGet("/{key:alpha}")]
+    [HttpGet("/games/{key:alpha}")]
     public async Task<IActionResult> GetGameByKey(string key)
     {
         if (key == null)
@@ -127,5 +127,24 @@ public class GameController(IGameDatabaseService gameDatabaseService) : Controll
     {
         bool result = await gameDatabaseService.DeleteByKeyAsync(key);
         return result ? NoContent() : NotFound($"Task with Key {key} not found.");
+    }
+
+    [HttpGet("/games/{key:alpha}/file")]
+    public async Task<IActionResult> GetGameFileByKey(string key)
+    {
+        if (string.IsNullOrEmpty(key))
+        {
+            return BadRequest("Key is required.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        GameDto game = await gameDatabaseService.GetGameAsync(key);
+        var file = generateGameFile.GenerateFileDto(game);
+
+        return File(file.Content, "text/plain", file.FileName);
     }
 }
