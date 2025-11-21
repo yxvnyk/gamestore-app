@@ -42,4 +42,9 @@ public class GenreRepository(GamestoreDbContext context) : IGenreRepository
     {
         return await _context.Genres.Where(g => g.ParentGenreId == id).ToListAsync();
     }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
 }

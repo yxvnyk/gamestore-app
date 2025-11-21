@@ -15,4 +15,6 @@ public interface IGenreRepository : ICrud
     Task<GenreEntity?> GetGenreByGameKeyAsync(string key);
 
     Task<IEnumerable<GenreEntity>> GetGenresByParentIdAsync(Guid id);
+
+    Task SaveChangesAsync();
 }

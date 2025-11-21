@@ -4,7 +4,7 @@ namespace Gamestore.WebApi.Services.Interfaces;
 
 public interface IGenreDatabaseService
 {
-    Task CreateGenreAsync(GenreDtoCreate genre);
+    Task CreateGenreAsync(GenreCreateDto genre);
 
     Task<GenreFullDto?> GetGenreByIdAsync(Guid id);
 
@@ -13,4 +13,6 @@ public interface IGenreDatabaseService
     Task<GenreDto> GetGenreByGameKeyAsync(string key);
 
     Task<ICollection<GenreDto>> GetGenresByParentIdAsync(Guid id);
+
+    Task UpdateGenreAsync(GenreUpdateDto model);
 }

@@ -12,4 +12,9 @@ public class PlatformRepository(GamestoreDbContext context) : IPlatformRepositor
         var exist = await _context.Platforms.FindAsync(id);
         return exist != null;
     }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
 }

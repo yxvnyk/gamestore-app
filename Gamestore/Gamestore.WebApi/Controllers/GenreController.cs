@@ -9,7 +9,7 @@ namespace Gamestore.WebApi.Controllers;
 public class GenreController(IGenreDatabaseService genreDatabaseService) : Controller
 {
     [HttpPost("/genres")]
-    public async Task<IActionResult> CreateGenre([FromBody] GenreDtoCreate genre)
+    public async Task<IActionResult> CreateGenre([FromBody] GenreCreateDto genre)
     {
         if (genre == null)
         {
@@ -61,5 +61,22 @@ public class GenreController(IGenreDatabaseService genreDatabaseService) : Contr
     {
         var genres = await genreDatabaseService.GetGenresByParentIdAsync(id);
         return Ok(genres);
+    }
+
+    [HttpPut("/genres")]
+    public async Task<IActionResult> UpdateGenre([FromBody] GenreUpdateDto genre)
+    {
+        if (genre == null)
+        {
+            return BadRequest("Genre data is required.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        await genreDatabaseService.UpdateGenreAsync(genre);
+        return Ok($"Game successfuly updated");
     }
 }

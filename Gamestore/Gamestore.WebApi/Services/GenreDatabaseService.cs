@@ -8,7 +8,7 @@ namespace Gamestore.WebApi.Services;
 
 public class GenreDatabaseService(IGenreRepository genreRepository, IMapper mapper) : IGenreDatabaseService
 {
-    public async Task CreateGenreAsync(GenreDtoCreate genre)
+    public async Task CreateGenreAsync(GenreCreateDto genre)
     {
         if (genre.ParentGenreId != null)
         {
@@ -18,7 +18,7 @@ public class GenreDatabaseService(IGenreRepository genreRepository, IMapper mapp
             }
         }
 
-        var enity = mapper.Map<GenreDtoCreate, GenreEntity>(genre);
+        var enity = mapper.Map<GenreCreateDto, GenreEntity>(genre);
         await genreRepository.CreateGenreAsync(enity);
     }
 
@@ -49,5 +49,12 @@ public class GenreDatabaseService(IGenreRepository genreRepository, IMapper mapp
 
         var genreEntities = await genreRepository.GetGenresByParentIdAsync(id);
         return [.. genreEntities.Select(mapper.Map<GenreDto>)];
+    }
+
+    public async Task UpdateGenreAsync(GenreUpdateDto model)
+    {
+        var entity = await genreRepository.GetGenreByIdAsync(model.Id) ?? throw new ArgumentException($"Game with ID {model.Id} does not exist.");
+        mapper.Map(model, entity);
+        await genreRepository.SaveChangesAsync();
     }
 }
