@@ -9,7 +9,7 @@ namespace Gamestore.WebApi.Controllers;
 public class GenreController(IGenreDatabaseService genreDatabaseService) : Controller
 {
     [HttpPost("/genres")]
-    public async Task<IActionResult> CreateGenre([FromBody] GenreDto genre)
+    public async Task<IActionResult> CreateGenre([FromBody] GenreDtoCreate genre)
     {
         if (genre == null)
         {
@@ -23,5 +23,43 @@ public class GenreController(IGenreDatabaseService genreDatabaseService) : Contr
 
         await genreDatabaseService.CreateGenreAsync(genre);
         return Ok();
+    }
+
+    [HttpGet("/genres/{id:guid}")]
+    public async Task<IActionResult> GetGenreById(Guid id)
+    {
+        var game = await genreDatabaseService.GetGenreByIdAsync(id);
+        return Ok(game);
+    }
+
+    [HttpGet("/genres")]
+    public async Task<IActionResult> GetAllGenres()
+    {
+        var genres = await genreDatabaseService.GetAllGenresAsync();
+        return Ok(genres);
+    }
+
+    [HttpGet("/games/{key:alpha}/genres")]
+    public async Task<IActionResult> GetGamesByGameKey(string key)
+    {
+        if (string.IsNullOrEmpty(key))
+        {
+            return BadRequest("Key is required.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var game = await genreDatabaseService.GetGenreByGameKeyAsync(key);
+        return Ok(game);
+    }
+
+    [HttpGet("/genres/{id:guid}/genres")]
+    public async Task<IActionResult> GetGenreByParentId(Guid id)
+    {
+        var genres = await genreDatabaseService.GetGenresByParentIdAsync(id);
+        return Ok(genres);
     }
 }

@@ -8,7 +8,7 @@ namespace Gamestore.WebApi.Services;
 
 public class GenreDatabaseService(IGenreRepository genreRepository, IMapper mapper) : IGenreDatabaseService
 {
-    public async Task CreateGenreAsync(GenreDto genre)
+    public async Task CreateGenreAsync(GenreDtoCreate genre)
     {
         if (genre.ParentGenreId != null)
         {
@@ -18,7 +18,36 @@ public class GenreDatabaseService(IGenreRepository genreRepository, IMapper mapp
             }
         }
 
-        var enity = mapper.Map<GenreDto, GenreEntity>(genre);
+        var enity = mapper.Map<GenreDtoCreate, GenreEntity>(genre);
         await genreRepository.CreateGenreAsync(enity);
+    }
+
+    public async Task<IEnumerable<GenreDto>> GetAllGenresAsync()
+    {
+        var genreEntities = await genreRepository.GetAllGenresAsync();
+        return [.. genreEntities.Select(mapper.Map<GenreDto>)];
+    }
+
+    public async Task<GenreDto> GetGenreByGameKeyAsync(string key)
+    {
+        var genreEntity = await genreRepository.GetGenreByGameKeyAsync(key);
+        return genreEntity is not null ? mapper.Map<GenreDto>(genreEntity) : null;
+    }
+
+    public async Task<GenreFullDto?> GetGenreByIdAsync(Guid id)
+    {
+        var genreEntity = await genreRepository.GetGenreByIdAsync(id);
+        return genreEntity is not null ? mapper.Map<GenreFullDto>(genreEntity) : null;
+    }
+
+    public async Task<ICollection<GenreDto>> GetGenresByParentIdAsync(Guid id)
+    {
+        if (!await genreRepository.GenreExistsAsync(id))
+        {
+            throw new ArgumentException($"Parent genre with ID {id} does not exist.");
+        }
+
+        var genreEntities = await genreRepository.GetGenresByParentIdAsync(id);
+        return [.. genreEntities.Select(mapper.Map<GenreDto>)];
     }
 }

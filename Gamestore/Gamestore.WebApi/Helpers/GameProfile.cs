@@ -19,7 +19,7 @@ public class GameProfile : Profile
                 src.Platforms.Select(id => new GamePlatformEntity { PlatformId = id })))
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
-        _ = CreateMap<GameEntity, GameDto>();
+        _ = CreateMap<GameEntity, GenreDto>();
 
         CreateMap<GameUpdateExtendedDto, GameEntity>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
@@ -28,6 +28,6 @@ public class GameProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Game.Description))
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
-        _ = CreateMap<GameEntity, GameDto>();
+        _ = CreateMap<GameEntity, GenreDto>();
     }
 }

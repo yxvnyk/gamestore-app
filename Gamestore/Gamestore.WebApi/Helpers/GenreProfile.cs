@@ -8,6 +8,8 @@ public class GenreProfile : Profile
 {
     public GenreProfile()
     {
-        _ = CreateMap<GenreDto, GenreEntity>();
+        _ = CreateMap<GenreDtoCreate, GenreEntity>();
+        _ = CreateMap<GenreEntity, GenreDto>();
+        _ = CreateMap<GenreEntity, GenreFullDto>();
     }
 }

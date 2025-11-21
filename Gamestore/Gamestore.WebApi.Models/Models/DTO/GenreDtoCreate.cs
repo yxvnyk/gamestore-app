@@ -2,12 +2,11 @@
 
 namespace Gamestore.WebApi.Models.Models.DTO;
 
-public class GenreDto
+public class GenreDtoCreate
 {
-    [Required]
-    public Guid Id { get; set; }
-
     [Required]
     [MaxLength(50)]
     public string Name { get; set; }
+
+    public Guid? ParentGenreId { get; set; }
 }

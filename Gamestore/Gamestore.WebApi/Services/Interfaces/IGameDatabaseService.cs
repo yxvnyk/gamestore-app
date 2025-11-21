@@ -6,15 +6,15 @@ public interface IGameDatabaseService
 {
     Task CreateGameAsync(GameCreateExtendedDto game);
 
-    Task<GameDto> GetGameAsync(string key);
+    Task<GenreDto> GetGameAsync(string key);
 
-    Task<GameDto> GetGameAsync(Guid id);
+    Task<GenreDto> GetGameAsync(Guid id);
 
-    Task<ICollection<GameDto>> GetGamesByGenreAsync(Guid id);
+    Task<ICollection<GenreDto>> GetGamesByGenreAsync(Guid id);
 
-    Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id);
+    Task<ICollection<GenreDto>> GetGamesByPlatformAsync(Guid id);
 
-    Task<ICollection<GameDto>> GetAllGamesAsync();
+    Task<ICollection<GenreDto>> GetAllGamesAsync();
 
     Task UpdateGameAsync(GameUpdateExtendedDto model);
 
