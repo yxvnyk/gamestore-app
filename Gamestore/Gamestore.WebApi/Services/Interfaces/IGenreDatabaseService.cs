@@ -10,7 +10,7 @@ public interface IGenreDatabaseService
 
     Task<IEnumerable<GenreDto>> GetAllGenresAsync();
 
-    Task<GenreDto> GetGenreByGameKeyAsync(string key);
+    Task<IEnumerable<GenreDto>> GetGenreByGameKeyAsync(string key);
 
     Task<ICollection<GenreDto>> GetGenresByParentIdAsync(Guid id);
 

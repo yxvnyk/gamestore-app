@@ -26,11 +26,11 @@ public class GenreRepository(GamestoreDbContext context) : IGenreRepository
         return await _context.Genres.ToListAsync();
     }
 
-    public async Task<GenreEntity?> GetGenreByGameKeyAsync(string key)
+    public async Task<IEnumerable<GenreEntity?>> GetGenreByGameKeyAsync(string key)
     {
         return await _context.Genres
-        .Where(g => g.GameGenres.Any(gg => gg.Game.Key == key))
-        .FirstOrDefaultAsync();
+        .Where(p => p.GameGenres.Any(gp => gp.Game.Key == key))
+        .ToListAsync();
     }
 
     public async Task<GenreEntity> GetGenreByIdAsync(Guid id)

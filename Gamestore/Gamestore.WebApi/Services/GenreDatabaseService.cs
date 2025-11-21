@@ -6,7 +6,7 @@ using Gamestore.WebApi.Services.Interfaces;
 
 namespace Gamestore.WebApi.Services;
 
-public class GenreDatabaseService(IGenreRepository genreRepository, IMapper mapper) : IGenreDatabaseService
+public class GenreDatabaseService(IGenreRepository genreRepository, IGameRepository gameRepository, IMapper mapper) : IGenreDatabaseService
 {
     public async Task CreateGenreAsync(GenreCreateDto genre)
     {
@@ -28,10 +28,16 @@ public class GenreDatabaseService(IGenreRepository genreRepository, IMapper mapp
         return [.. genreEntities.Select(mapper.Map<GenreDto>)];
     }
 
-    public async Task<GenreDto> GetGenreByGameKeyAsync(string key)
+    public async Task<IEnumerable<GenreDto>> GetGenreByGameKeyAsync(string key)
     {
-        var genreEntity = await genreRepository.GetGenreByGameKeyAsync(key);
-        return genreEntity is not null ? mapper.Map<GenreDto>(genreEntity) : null;
+        var gameExists = await gameRepository.GameKeyExistAsync(key);
+        if (!gameExists)
+        {
+            throw new NotImplementedException($"Game with key '{key}' not found.");
+        }
+
+        var genreEntities = await genreRepository.GetGenreByGameKeyAsync(key);
+        return [.. genreEntities.Select(mapper.Map<GenreDto>)];
     }
 
     public async Task<GenreFullDto?> GetGenreByIdAsync(Guid id)

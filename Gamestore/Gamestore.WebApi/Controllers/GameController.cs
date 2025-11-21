@@ -25,7 +25,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
         return Ok();
     }
 
-    [HttpGet("/games/{key:alpha}")]
+    [HttpGet("/games/{key}")]
     public async Task<IActionResult> GetGameByKey(string key)
     {
         if (key == null)
@@ -122,14 +122,14 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
         return Ok("Game successfuly updated");
     }
 
-    [HttpDelete("/games/{key:alpha}")]
+    [HttpDelete("/games/{key}")]
     public async Task<IActionResult> DeleteGame(string key)
     {
         bool result = await gameDatabaseService.DeleteByKeyAsync(key);
         return result ? NoContent() : NotFound($"Game with key {key} not found.");
     }
 
-    [HttpGet("/games/{key:alpha}/file")]
+    [HttpGet("/games/{key}/file")]
     public async Task<IActionResult> GetGameFileByKey(string key)
     {
         if (string.IsNullOrEmpty(key))

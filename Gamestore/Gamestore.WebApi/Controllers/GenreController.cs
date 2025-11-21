@@ -39,7 +39,7 @@ public class GenreController(IGenreDatabaseService genreDatabaseService) : Contr
         return Ok(genres);
     }
 
-    [HttpGet("/games/{key:alpha}/genres")]
+    [HttpGet("/games/{key}/genres")]
     public async Task<IActionResult> GetGamesByGameKey(string key)
     {
         if (string.IsNullOrEmpty(key))

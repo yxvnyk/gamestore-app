@@ -12,7 +12,7 @@ public interface IGenreRepository : ICrud
 
     Task<IEnumerable<GenreEntity>> GetAllGenresAsync();
 
-    Task<GenreEntity?> GetGenreByGameKeyAsync(string key);
+    Task<IEnumerable<GenreEntity?>> GetGenreByGameKeyAsync(string key);
 
     Task<IEnumerable<GenreEntity>> GetGenresByParentIdAsync(Guid id);
 
