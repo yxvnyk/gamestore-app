@@ -11,12 +11,9 @@ public class GenreDatabaseService(IGenreRepository genreRepository, IGameReposit
 {
     public async Task CreateGenreAsync(GenreCreateDto genre)
     {
-        if (genre.ParentGenreId != null)
+        if (genre.ParentGenreId != null && !await genreRepository.GenreExistsAsync(genre.ParentGenreId.Value))
         {
-            if (!await genreRepository.GenreExistsAsync(genre.ParentGenreId.Value))
-            {
-                throw new ArgumentException($"Parent genre with ID {genre.ParentGenreId} does not exist.");
-            }
+            throw new ArgumentException($"Parent genre with ID {genre.ParentGenreId} does not exist.");
         }
 
         var enity = mapper.Map<GenreCreateDto, GenreEntity>(genre);

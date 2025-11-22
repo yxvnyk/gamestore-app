@@ -14,6 +14,8 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        // This method should be empty because all configuraion set by
+        // Dependency Injection in Program.cs
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
