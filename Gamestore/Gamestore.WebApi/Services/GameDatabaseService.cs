@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.WebApi.Exceptions;
 using Gamestore.WebApi.Models.Models.DTO;
 using Gamestore.WebApi.Services.Interfaces;
 
@@ -18,44 +19,36 @@ public class GameDatabaseService(IGameRepository gameRepository,
 
     public async Task UpdateGameAsync(GameUpdateExtendedDto model)
     {
-        var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id) ?? throw new ArgumentException($"Game with ID {model.Game.Id} does not exist.");
+        var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id) ?? throw new NotFoundException($"Game with ID {model.Game.Id} does not exist.");
         entity.GameGenres.Clear();
         entity.GamePlatforms.Clear();
 
-        foreach (var genreId in model.Genres)
+        if (model.Game is not null)
         {
-            var genreExists = await _genreRepository.GenreExistsAsync(genreId);
-            if (!genreExists)
-            {
-                throw new ArgumentException($"Genre with ID {genreId} does not exist.");
-            }
+            await ValidateEntitiesExistAsync(model.Genres!, _genreRepository.GenreExistsAsync, "Genre");
         }
 
-        foreach (var platformId in model.Platforms)
+        if (model.Platforms is not null)
         {
-            var platformExists = await _platformRepository.PlatformExistsAsync(platformId);
-            if (!platformExists)
-            {
-                throw new ArgumentException($"Platform with ID {platformId} does not exist.");
-            }
+            await ValidateEntitiesExistAsync(model.Platforms, _platformRepository.PlatformExistsAsync, "Platform");
         }
 
         _mapper.Map(model, entity);
-        entity.GameGenres = [.. model.Genres.Distinct().Select(id => new GameGenreEntity { GenreId = id })];
-        entity.GamePlatforms = [.. model.Platforms.Distinct().Select(id => new GamePlatformEntity { PlatformId = id })];
+        entity.GameGenres = [.. model.Genres!.Distinct().Select(id => new GameGenreEntity { GenreId = id })];
+        entity.GamePlatforms = [.. model.Platforms!.Distinct().Select(id => new GamePlatformEntity { PlatformId = id })];
         await _gameRepository.SaveChangesAsync();
     }
 
     public async Task<GameDto> GetGameAsync(string key)
     {
         var gameEntity = await _gameRepository.GetGameByKeyAsync(key);
-        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotImplementedException($"Game with key '{key}' not found.");
+        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotFoundException($"Game with key '{key}' not found.");
     }
 
     public async Task<GameDto> GetGameAsync(Guid id)
     {
         var gameEntity = await _gameRepository.GetGameByIdAsync(id);
-        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotImplementedException($"Game with ID '{id}' not found.");
+        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotFoundException($"Game with ID '{id}' not found.");
     }
 
     public async Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id)
@@ -81,23 +74,8 @@ public class GameDatabaseService(IGameRepository gameRepository,
 
     public async Task CreateGameAsync(GameCreateExtendedDto game)
     {
-        foreach (var genreId in game.Genres)
-        {
-            var genreExists = await _genreRepository.GenreExistsAsync(genreId);
-            if (!genreExists)
-            {
-                throw new ArgumentException($"Genre with ID {genreId} does not exist.");
-            }
-        }
-
-        foreach (var platformId in game.Platforms)
-        {
-            var platformExists = await _platformRepository.PlatformExistsAsync(platformId);
-            if (!platformExists)
-            {
-                throw new ArgumentException($"Platform with ID {platformId} does not exist.");
-            }
-        }
+        await ValidateEntitiesExistAsync(game.Genres, _genreRepository.GenreExistsAsync, "Genre");
+        await ValidateEntitiesExistAsync(game.Platforms, _platformRepository.PlatformExistsAsync, "Platform");
 
         game.Genres = [.. game.Genres.Distinct()];
         game.Platforms = [.. game.Platforms.Distinct()];
@@ -114,5 +92,16 @@ public class GameDatabaseService(IGameRepository gameRepository,
     public async Task<bool> DeleteByKeyAsync(string key)
     {
         return await _gameRepository.DeleteByKeyAsync(key);
+    }
+
+    private static async Task ValidateEntitiesExistAsync(IEnumerable<Guid> ids, Func<Guid, Task<bool>> isExistFunc, string entityName)
+    {
+        foreach (var id in ids.Distinct())
+        {
+            if (!await isExistFunc(id))
+            {
+                throw new NotFoundException($"{entityName} with ID {id} does not exist.");
+            }
+        }
     }
 }

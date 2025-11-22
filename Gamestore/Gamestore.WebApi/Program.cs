@@ -5,7 +5,8 @@
 using Gamestore.DataAccess.Context;
 using Gamestore.DataAccess.Repositories;
 using Gamestore.DataAccess.Repositories.Interfaces;
-using Gamestore.WebApi.Helpers;
+using Gamestore.WebApi.Helpers.Middleware;
+using Gamestore.WebApi.Helpers.Profiles;
 using Gamestore.WebApi.Services;
 using Gamestore.WebApi.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(GameProfile));
+
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 builder.Services.AddSingleton<IGenerateGameFile, GenerateGameFile>();
 
@@ -30,6 +33,8 @@ builder.Services.AddDbContext<GamestoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("GamestoreDb")));
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

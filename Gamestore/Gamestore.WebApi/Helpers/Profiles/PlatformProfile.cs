@@ -2,7 +2,7 @@
 using Gamestore.DataAccess.Entities;
 using Gamestore.WebApi.Models.Models.DTO;
 
-namespace Gamestore.WebApi.Helpers;
+namespace Gamestore.WebApi.Helpers.Profiles;
 
 public class PlatformProfile : Profile
 {

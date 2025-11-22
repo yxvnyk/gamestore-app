@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.WebApi.Exceptions;
 using Gamestore.WebApi.Models.Models.DTO;
 using Gamestore.WebApi.Services.Interfaces;
 
@@ -28,7 +29,7 @@ public class PlatformDatabaseService(IPlatformRepository platformRepository, IGa
     public async Task<PlatformFullDto?> GetPlatformByIdAsync(Guid id)
     {
         var platformEntity = await platformRepository.GetPlatformByIdAsync(id);
-        return platformEntity is not null ? mapper.Map<PlatformFullDto>(platformEntity) : null;
+        return platformEntity is not null ? mapper.Map<PlatformFullDto>(platformEntity) : throw new NotFoundException($"Platform with ID {id} does not exist.");
     }
 
     public async Task<IEnumerable<PlatformFullDto>> GetPlatformsByGameKeyAsync(string key)
@@ -36,7 +37,7 @@ public class PlatformDatabaseService(IPlatformRepository platformRepository, IGa
         var gameExists = await gameRepository.GameKeyExistAsync(key);
         if (!gameExists)
         {
-            throw new NotImplementedException($"Game with key '{key}' not found.");
+            throw new NotFoundException($"Game with key {key} not found.");
         }
 
         var platformEntities = await platformRepository.GetPlatformsByGameKeyAsync(key);
@@ -45,7 +46,7 @@ public class PlatformDatabaseService(IPlatformRepository platformRepository, IGa
 
     public async Task UpdatePlatformAsync(PlatformUpdateDto model)
     {
-        var entity = await platformRepository.GetPlatformByIdAsync(model.Id) ?? throw new ArgumentException($"Game with ID {model.Id} does not exist.");
+        var entity = await platformRepository.GetPlatformByIdAsync(model.Id) ?? throw new NotFoundException($"Platform with ID {model.Id} does not exist.");
         mapper.Map(model, entity);
         await platformRepository.SaveChangesAsync();
     }

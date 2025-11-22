@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.WebApi.Exceptions;
 using Gamestore.WebApi.Models.Models.DTO;
 using Gamestore.WebApi.Services.Interfaces;
 
@@ -33,7 +34,7 @@ public class GenreDatabaseService(IGenreRepository genreRepository, IGameReposit
         var gameExists = await gameRepository.GameKeyExistAsync(key);
         if (!gameExists)
         {
-            throw new NotImplementedException($"Game with key '{key}' not found.");
+            throw new NotFoundException($"Game with key '{key}' not found.");
         }
 
         var genreEntities = await genreRepository.GetGenreByGameKeyAsync(key);
@@ -43,14 +44,14 @@ public class GenreDatabaseService(IGenreRepository genreRepository, IGameReposit
     public async Task<GenreFullDto?> GetGenreByIdAsync(Guid id)
     {
         var genreEntity = await genreRepository.GetGenreByIdAsync(id);
-        return genreEntity is not null ? mapper.Map<GenreFullDto>(genreEntity) : null;
+        return genreEntity is not null ? mapper.Map<GenreFullDto>(genreEntity) : throw new NotFoundException($"Genre with ID '{id}' not found.");
     }
 
     public async Task<ICollection<GenreDto>> GetGenresByParentIdAsync(Guid id)
     {
         if (!await genreRepository.GenreExistsAsync(id))
         {
-            throw new ArgumentException($"Parent genre with ID {id} does not exist.");
+            throw new NotFoundException($"Parent genre with ID {id} does not exist.");
         }
 
         var genreEntities = await genreRepository.GetGenresByParentIdAsync(id);
@@ -59,7 +60,7 @@ public class GenreDatabaseService(IGenreRepository genreRepository, IGameReposit
 
     public async Task UpdateGenreAsync(GenreUpdateDto model)
     {
-        var entity = await genreRepository.GetGenreByIdAsync(model.Id) ?? throw new ArgumentException($"Game with ID {model.Id} does not exist.");
+        var entity = await genreRepository.GetGenreByIdAsync(model.Id) ?? throw new NotFoundException($"Genre with ID {model.Id} does not exist.");
         mapper.Map(model, entity);
         await genreRepository.SaveChangesAsync();
     }
