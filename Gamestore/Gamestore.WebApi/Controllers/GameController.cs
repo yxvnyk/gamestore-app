@@ -5,10 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Gamestore.WebApi.Controllers;
 
 [ApiController]
-[Route("games")]
 public class GameController(IGameDatabaseService gameDatabaseService, IGenerateGameFile generateGameFile) : Controller
 {
-    [HttpPost("")]
+    [HttpPost("/games")]
     public async Task<IActionResult> CreateGame([FromBody] GameCreateExtendedDto game)
     {
         if (game == null)
@@ -26,6 +25,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
     }
 
     [HttpGet("/games/{key}")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGameByKey(string key)
     {
         if (key == null)
@@ -35,7 +35,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
 
         if (!ModelState.IsValid)
         {
-            return NotFound(ModelState);
+            return BadRequest(ModelState);
         }
 
         var game = await gameDatabaseService.GetGameAsync(key);
@@ -43,6 +43,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
     }
 
     [HttpGet("/find/{id:guid}")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGameById(Guid id)
     {
         if (id == Guid.Empty)
@@ -60,6 +61,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
     }
 
     [HttpGet("/platforms/{id:guid}/games")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGamesByPlatform(Guid id)
     {
         if (id == Guid.Empty)
@@ -77,6 +79,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
     }
 
     [HttpGet("/games")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetAllGames()
     {
         if (!ModelState.IsValid)
@@ -89,6 +92,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
     }
 
     [HttpGet("/genres/{id:guid}/games")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGamesByGenre(Guid id)
     {
         if (id == Guid.Empty)
@@ -98,7 +102,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
 
         if (!ModelState.IsValid)
         {
-            return NotFound(ModelState);
+            return BadRequest(ModelState);
         }
 
         var game = await gameDatabaseService.GetGamesByGenreAsync(id);
@@ -130,6 +134,7 @@ public class GameController(IGameDatabaseService gameDatabaseService, IGenerateG
     }
 
     [HttpGet("/games/{key}/file")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGameFileByKey(string key)
     {
         if (string.IsNullOrEmpty(key))

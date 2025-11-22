@@ -46,6 +46,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseResponseCaching();
+
 app.MapControllers();
 
 app.Run();

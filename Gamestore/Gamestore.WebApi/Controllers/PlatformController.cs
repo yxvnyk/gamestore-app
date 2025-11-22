@@ -25,6 +25,7 @@ public class PlatformController(IPlatformDatabaseService platformDatabaseService
     }
 
     [HttpGet("/platforms/{id:guid}")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetPlatformById(Guid id)
     {
         var game = await platformDatabaseService.GetPlatformByIdAsync(id);
@@ -32,6 +33,7 @@ public class PlatformController(IPlatformDatabaseService platformDatabaseService
     }
 
     [HttpGet("/platforms")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetAllPlatfomrs()
     {
         var genres = await platformDatabaseService.GetAllPlatformsAsync();
@@ -39,6 +41,7 @@ public class PlatformController(IPlatformDatabaseService platformDatabaseService
     }
 
     [HttpGet("/games/{key}/platform")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetPlatformыByGameKey(string key)
     {
         if (string.IsNullOrEmpty(key))

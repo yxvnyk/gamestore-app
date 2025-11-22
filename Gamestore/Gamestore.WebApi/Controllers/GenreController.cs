@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Gamestore.WebApi.Controllers;
 
 [ApiController]
-[Route("")]
 public class GenreController(IGenreDatabaseService genreDatabaseService) : Controller
 {
     [HttpPost("/genres")]
@@ -26,6 +25,7 @@ public class GenreController(IGenreDatabaseService genreDatabaseService) : Contr
     }
 
     [HttpGet("/genres/{id:guid}")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGenreById(Guid id)
     {
         var game = await genreDatabaseService.GetGenreByIdAsync(id);
@@ -33,6 +33,7 @@ public class GenreController(IGenreDatabaseService genreDatabaseService) : Contr
     }
 
     [HttpGet("/genres")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetAllGenres()
     {
         var genres = await genreDatabaseService.GetAllGenresAsync();
@@ -40,6 +41,7 @@ public class GenreController(IGenreDatabaseService genreDatabaseService) : Contr
     }
 
     [HttpGet("/games/{key}/genres")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGamesByGameKey(string key)
     {
         if (string.IsNullOrEmpty(key))
@@ -57,6 +59,7 @@ public class GenreController(IGenreDatabaseService genreDatabaseService) : Contr
     }
 
     [HttpGet("/genres/{id:guid}/genres")]
+    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGenreByParentId(Guid id)
     {
         var genres = await genreDatabaseService.GetGenresByParentIdAsync(id);
