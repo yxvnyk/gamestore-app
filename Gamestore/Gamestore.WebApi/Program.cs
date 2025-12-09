@@ -2,35 +2,20 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Gamestore.DataAccess.Context;
-using Gamestore.DataAccess.Repositories;
-using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.WebApi.Extensions;
 using Gamestore.WebApi.Helpers.Middleware;
-using Gamestore.WebApi.Helpers.Profiles;
-using Gamestore.WebApi.Services;
-using Gamestore.WebApi.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(GameProfile));
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
-builder.Services.AddSingleton<IGenerateGameFile, GenerateGameFile>();
-
-builder.Services.AddScoped<IKeyGenerator, UniqueKeyGenerator>();
-builder.Services.AddScoped<IGameRepository, GameRepository>();
-builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-builder.Services.AddScoped<IGameDatabaseService, GameDatabaseService>();
-builder.Services.AddScoped<IGenreDatabaseService, GenreDatabaseService>();
-builder.Services.AddScoped<IPlatformDatabaseService, PlatformDatabaseService>();
+builder.Services.ConfigureDatabase(builder.Configuration);
+builder.Services.AddDataAccess();
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<GamestoreDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("GamestoreDb")));
 
 var app = builder.Build();
 

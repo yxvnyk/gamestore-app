@@ -2,25 +2,25 @@
 
 namespace Gamestore.DataAccess.Repositories.Interfaces;
 
-public interface IGameRepository : ICrud
+public interface IGameRepository
 {
-    Task CreateGameAsync(GameEntity entity);
+    Task CreateGameAsync(Game entity);
 
-    Task<GameEntity?> GetGameByKeyAsync(string key);
+    Task<Game?> GetGameByKeyAsync(string key);
 
-    Task<GameEntity?> GetGameByIdAsync(Guid id);
+    Task<Game?> GetGameByIdAsync(Guid id);
 
-    Task<ICollection<GameEntity>> GetGamesByGenreAsync(Guid id);
+    Task<ICollection<Game>> GetGamesByGenreAsync(Guid id);
 
-    Task<ICollection<GameEntity>> GetGamesByPlatformAsync(Guid id);
+    Task<ICollection<Game>> GetGamesByPlatformAsync(Guid id);
 
-    Task<ICollection<GameEntity>> GetAllGamesAsync();
+    Task<ICollection<Game>> GetAllGamesAsync();
 
-    Task<GameEntity?> GetGameWithJoinsAsync(Guid id);
+    Task<Game?> GetGameWithJoinsAsync(Guid id);
 
     Task<bool> GameKeyExistAsync(string key);
 
-    Task SaveChangesAsync();
+    Task UpdateGameAsync(Game entity);
 
     Task<bool> DeleteByKeyAsync(string key);
 }

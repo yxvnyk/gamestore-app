@@ -9,7 +9,7 @@ public class GenreRepository(GamestoreDbContext context) : IGenreRepository
 {
     private readonly GamestoreDbContext _context = context;
 
-    public async Task CreateGenreAsync(GenreEntity entity)
+    public async Task CreateGenreAsync(Genre entity)
     {
         await _context.Genres.AddAsync(entity);
         await _context.SaveChangesAsync();
@@ -17,28 +17,27 @@ public class GenreRepository(GamestoreDbContext context) : IGenreRepository
 
     public async Task<bool> GenreExistsAsync(Guid id)
     {
-        var exist = await _context.Genres.FindAsync(id);
-        return exist != null;
+        return await _context.Genres.AnyAsync(g => g.Id == id);
     }
 
-    public async Task<IEnumerable<GenreEntity>> GetAllGenresAsync()
+    public async Task<IEnumerable<Genre>> GetAllGenresAsync()
     {
         return await _context.Genres.ToListAsync();
     }
 
-    public async Task<IEnumerable<GenreEntity?>> GetGenreByGameKeyAsync(string key)
+    public async Task<IEnumerable<Genre?>> GetGenreByGameKeyAsync(string key)
     {
         return await _context.Genres
         .Where(p => p.GameGenres.Any(gp => gp.Game.Key == key))
         .ToListAsync();
     }
 
-    public async Task<GenreEntity> GetGenreByIdAsync(Guid id)
+    public async Task<Genre> GetGenreByIdAsync(Guid id)
     {
         return await _context.Genres.FindAsync(id);
     }
 
-    public async Task<IEnumerable<GenreEntity>> GetGenresByParentIdAsync(Guid id)
+    public async Task<IEnumerable<Genre>> GetGenresByParentIdAsync(Guid id)
     {
         return await _context.Genres.Where(g => g.ParentGenreId == id).ToListAsync();
     }
@@ -56,8 +55,9 @@ public class GenreRepository(GamestoreDbContext context) : IGenreRepository
         return false;
     }
 
-    public async Task SaveChangesAsync()
+    public async Task UpdateGenreAsync(Genre entity)
     {
+        _context.Genres.Update(entity);
         await _context.SaveChangesAsync();
     }
 }

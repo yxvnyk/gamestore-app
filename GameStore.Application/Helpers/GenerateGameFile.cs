@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
-using Gamestore.WebApi.Models.Models.DTO;
-using Gamestore.WebApi.Services.Interfaces;
+using Gamestore.Domain.Models.DTO;
+using GameStore.Application.Helpers.Interfaces;
 
-namespace Gamestore.WebApi.Services;
+namespace GameStore.Application.Helpers;
 
 public class GenerateGameFile : IGenerateGameFile
 {

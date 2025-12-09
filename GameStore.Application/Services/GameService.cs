@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
-using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
-using Gamestore.WebApi.Exceptions;
-using Gamestore.WebApi.Models.Models.DTO;
-using Gamestore.WebApi.Services.Interfaces;
+using Gamestore.Application.Exceptions;
+using Gamestore.Domain.Models.DTO;
+using Gamestore.Application.Services.Interfaces;
+using Gamestore.DataAccess.Entities;
+using GameStore.Application.Helpers.Interfaces;
 
-namespace Gamestore.WebApi.Services;
+namespace Gamestore.Application.Services;
 
-public class GameDatabaseService(IGameRepository gameRepository,
+public class GameService(IGameRepository gameRepository,
     IGenreRepository genreRepository, IPlatformRepository platformRepository, IKeyGenerator uniqueKeyGenerator,
-    IMapper mapper) : IGameDatabaseService
+    IMapper mapper) : IGameService
 {
     private readonly IGameRepository _gameRepository = gameRepository;
     private readonly IGenreRepository _genreRepository = genreRepository;
@@ -19,7 +20,8 @@ public class GameDatabaseService(IGameRepository gameRepository,
 
     public async Task UpdateGameAsync(GameUpdateExtendedDto model)
     {
-        var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id) ?? throw new NotFoundException($"Game with ID {model.Game.Id} does not exist.");
+        var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id) 
+            ?? throw new NotFoundException($"Game with ID {model.Game.Id} does not exist.");
         entity.GameGenres.Clear();
         entity.GamePlatforms.Clear();
 
@@ -34,9 +36,9 @@ public class GameDatabaseService(IGameRepository gameRepository,
         }
 
         _mapper.Map(model, entity);
-        entity.GameGenres = [.. model.Genres!.Distinct().Select(id => new GameGenreEntity { GenreId = id })];
-        entity.GamePlatforms = [.. model.Platforms!.Distinct().Select(id => new GamePlatformEntity { PlatformId = id })];
-        await _gameRepository.SaveChangesAsync();
+        entity.GameGenres = [.. model.Genres!.Distinct().Select(id => new GameGenre { GenreId = id })];
+        entity.GamePlatforms = [.. model.Platforms!.Distinct().Select(id => new GamePlatform { PlatformId = id })];
+        await _gameRepository.UpdateGameAsync(entity);
     }
 
     public async Task<GameDto> GetGameAsync(string key)
@@ -79,7 +81,7 @@ public class GameDatabaseService(IGameRepository gameRepository,
 
         game.Genres = [.. game.Genres.Distinct()];
         game.Platforms = [.. game.Platforms.Distinct()];
-        var gameEntity = _mapper.Map<GameEntity>(game);
+        var gameEntity = _mapper.Map<Game>(game);
 
         if (string.IsNullOrWhiteSpace(gameEntity.Key))
         {
@@ -96,7 +98,8 @@ public class GameDatabaseService(IGameRepository gameRepository,
 
     private static async Task ValidateEntitiesExistAsync(IEnumerable<Guid> ids, Func<Guid, Task<bool>> isExistFunc, string entityName)
     {
-        foreach (var id in ids.Distinct())
+        var uniqueIds = ids.Distinct();
+        foreach (var id in uniqueIds)
         {
             if (!await isExistFunc(id))
             {

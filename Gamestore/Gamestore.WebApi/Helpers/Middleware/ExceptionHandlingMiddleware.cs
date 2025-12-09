@@ -1,4 +1,4 @@
-﻿using Gamestore.WebApi.Exceptions;
+﻿using Gamestore.Application.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;

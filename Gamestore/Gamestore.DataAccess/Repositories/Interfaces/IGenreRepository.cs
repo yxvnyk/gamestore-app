@@ -2,21 +2,21 @@
 
 namespace Gamestore.DataAccess.Repositories.Interfaces;
 
-public interface IGenreRepository : ICrud
+public interface IGenreRepository
 {
     Task<bool> GenreExistsAsync(Guid id);
 
-    Task CreateGenreAsync(GenreEntity entity);
+    Task CreateGenreAsync(Genre entity);
 
-    Task<GenreEntity> GetGenreByIdAsync(Guid id);
+    Task<Genre> GetGenreByIdAsync(Guid id);
 
-    Task<IEnumerable<GenreEntity>> GetAllGenresAsync();
+    Task<IEnumerable<Genre>> GetAllGenresAsync();
 
-    Task<IEnumerable<GenreEntity?>> GetGenreByGameKeyAsync(string key);
+    Task<IEnumerable<Genre?>> GetGenreByGameKeyAsync(string key);
 
-    Task<IEnumerable<GenreEntity>> GetGenresByParentIdAsync(Guid id);
+    Task<IEnumerable<Genre>> GetGenresByParentIdAsync(Guid id);
 
-    Task SaveChangesAsync();
+    Task UpdateGenreAsync(Genre entity);
 
     Task<bool> DeleteByIdAsync(Guid id);
 }

@@ -1,4 +1,4 @@
-﻿namespace Gamestore.WebApi.Services.Interfaces;
+﻿namespace GameStore.Application.Helpers.Interfaces;
 
 public interface IKeyGenerator
 {

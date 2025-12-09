@@ -1,12 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Entities;
 
-[Table("Games")]
 [Index(nameof(Key), IsUnique = true)]
-public class GameEntity
+public class Game
 {
     [Key]
     public Guid Id { get; set; }
@@ -22,7 +20,7 @@ public class GameEntity
     [MaxLength(500)]
     public string? Description { get; set; }
 
-    public ICollection<GameGenreEntity> GameGenres { get; set; }
+    public ICollection<GameGenre> GameGenres { get; set; }
 
-    public ICollection<GamePlatformEntity> GamePlatforms { get; set; }
+    public ICollection<GamePlatform> GamePlatforms { get; set; }
 }

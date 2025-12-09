@@ -9,13 +9,13 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
 {
     private readonly GamestoreDbContext _context = context;
 
-    public async Task CreateGameAsync(GameEntity entity)
+    public async Task CreateGameAsync(Game entity)
     {
         await _context.Games.AddAsync(entity);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<GameEntity?> GetGameByKeyAsync(string key)
+    public async Task<Game?> GetGameByKeyAsync(string key)
     {
         var game = await _context.Games.FirstOrDefaultAsync(g => g.Key == key);
         return game;
@@ -27,7 +27,7 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         return exist;
     }
 
-    public async Task<ICollection<GameEntity>> GetGamesByPlatformAsync(Guid id)
+    public async Task<ICollection<Game>> GetGamesByPlatformAsync(Guid id)
     {
         return await _context.Games
             .Include(g => g.GamePlatforms)
@@ -35,7 +35,7 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
             .Where(g => g.GamePlatforms.Any(gp => gp.PlatformId == id)).ToListAsync();
     }
 
-    public async Task<ICollection<GameEntity>> GetGamesByGenreAsync(Guid id)
+    public async Task<ICollection<Game>> GetGamesByGenreAsync(Guid id)
     {
         return await _context.Games
             .Include(g => g.GameGenres)
@@ -43,18 +43,18 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
             .Where(g => g.GameGenres.Any(gp => gp.GenreId == id)).ToListAsync();
     }
 
-    public async Task<ICollection<GameEntity>> GetAllGamesAsync()
+    public async Task<ICollection<Game>> GetAllGamesAsync()
     {
         return await _context.Games.ToListAsync();
     }
 
-    public async Task<GameEntity?> GetGameByIdAsync(Guid id)
+    public async Task<Game?> GetGameByIdAsync(Guid id)
     {
         var game = await _context.Games.FindAsync(id);
         return game;
     }
 
-    public async Task<GameEntity?> GetGameWithJoinsAsync(Guid id)
+    public async Task<Game?> GetGameWithJoinsAsync(Guid id)
     {
         var game = await _context.Games
             .Include(g => g.GameGenres)
@@ -63,8 +63,9 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         return game;
     }
 
-    public async Task SaveChangesAsync()
+    public async Task UpdateGameAsync(Game entity)
     {
+        _context.Games.Update(entity);
         await _context.SaveChangesAsync();
     }
 

@@ -6,11 +6,11 @@ namespace Gamestore.DataAccess.Context;
 
 public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : DbContext(options)
 {
-    public DbSet<GameEntity> Games { get; set; }
+    public DbSet<Game> Games { get; set; }
 
-    public DbSet<GenreEntity> Genres { get; set; }
+    public DbSet<Genre> Genres { get; set; }
 
-    public DbSet<PlatformEntity> Platforms { get; set; }
+    public DbSet<Platform> Platforms { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -20,30 +20,33 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        _ = modelBuilder.Entity<GameGenreEntity>().HasKey(gg => new { gg.GameId, gg.GenreId });
-        _ = modelBuilder.Entity<GamePlatformEntity>().HasKey(gp => new { gp.GameId, gp.PlatformId });
+        modelBuilder.Entity<GameGenre>().ToTable("GameGenres");
+        modelBuilder.Entity<GamePlatform>().ToTable("GamePlatforms");
+
+        _ = modelBuilder.Entity<GameGenre>().HasKey(gg => new { gg.GameId, gg.GenreId });
+        _ = modelBuilder.Entity<GamePlatform>().HasKey(gp => new { gp.GameId, gp.PlatformId });
 
         // Cascade deleting
-        _ = modelBuilder.Entity<GameEntity>()
+        _ = modelBuilder.Entity<Game>()
             .HasMany(g => g.GameGenres)
             .WithOne(g => g.Game)
             .HasForeignKey(g => g.GameId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        _ = modelBuilder.Entity<GenreEntity>()
+        _ = modelBuilder.Entity<Genre>()
             .HasMany(g => g.GameGenres)
             .WithOne(g => g.Genre)
             .HasForeignKey(g => g.GenreId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        _ = modelBuilder.Entity<PlatformEntity>()
+        _ = modelBuilder.Entity<Platform>()
             .HasMany(g => g.GamePlatforms)
             .WithOne(g => g.Platform)
             .HasForeignKey(g => g.PlatformId)
             .OnDelete(DeleteBehavior.Cascade);
 
         // data seeding
-        _ = modelBuilder.Entity<PlatformEntity>().HasData(DataSeeding.GetPlatforms());
-        _ = modelBuilder.Entity<GenreEntity>().HasData(DataSeeding.GetGenres());
+        _ = modelBuilder.Entity<Platform>().HasData(DataSeeding.GetPlatforms());
+        _ = modelBuilder.Entity<Genre>().HasData(DataSeeding.GetGenres());
     }
 }

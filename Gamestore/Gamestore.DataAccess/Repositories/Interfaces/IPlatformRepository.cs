@@ -2,19 +2,19 @@
 
 namespace Gamestore.DataAccess.Repositories.Interfaces;
 
-public interface IPlatformRepository : ICrud
+public interface IPlatformRepository
 {
     Task<bool> PlatformExistsAsync(Guid id);
 
-    Task SaveChangesAsync();
+    Task UpdatePlatformAsync(Platform entity);
 
-    Task CreatePlatformAsync(PlatformEntity entity);
+    Task CreatePlatformAsync(Platform entity);
 
-    Task<PlatformEntity> GetPlatformByIdAsync(Guid id);
+    Task<Platform> GetPlatformByIdAsync(Guid id);
 
-    Task<IEnumerable<PlatformEntity>> GetAllPlatformsAsync();
+    Task<IEnumerable<Platform>> GetAllPlatformsAsync();
 
-    Task<IEnumerable<PlatformEntity>> GetPlatformsByGameKeyAsync(string key);
+    Task<IEnumerable<Platform>> GetPlatformsByGameKeyAsync(string key);
 
     Task<bool> DeleteByIdAsync(Guid id);
 }

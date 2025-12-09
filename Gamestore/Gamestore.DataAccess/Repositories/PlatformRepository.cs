@@ -9,7 +9,7 @@ public class PlatformRepository(GamestoreDbContext context) : IPlatformRepositor
 {
     private readonly GamestoreDbContext _context = context;
 
-    public async Task CreatePlatformAsync(PlatformEntity entity)
+    public async Task CreatePlatformAsync(Platform entity)
     {
         await _context.Platforms.AddAsync(entity);
         _context.SaveChanges();
@@ -28,17 +28,17 @@ public class PlatformRepository(GamestoreDbContext context) : IPlatformRepositor
         return false;
     }
 
-    public async Task<IEnumerable<PlatformEntity>> GetAllPlatformsAsync()
+    public async Task<IEnumerable<Platform>> GetAllPlatformsAsync()
     {
         return await _context.Platforms.ToListAsync();
     }
 
-    public async Task<PlatformEntity> GetPlatformByIdAsync(Guid id)
+    public async Task<Platform> GetPlatformByIdAsync(Guid id)
     {
         return await _context.Platforms.FindAsync(id);
     }
 
-    public async Task<IEnumerable<PlatformEntity>> GetPlatformsByGameKeyAsync(string key)
+    public async Task<IEnumerable<Platform>> GetPlatformsByGameKeyAsync(string key)
     {
         return await _context.Platforms
         .Where(p => p.GamePlatforms.Any(gp => gp.Game.Key == key))
@@ -47,12 +47,12 @@ public class PlatformRepository(GamestoreDbContext context) : IPlatformRepositor
 
     public async Task<bool> PlatformExistsAsync(Guid id)
     {
-        var exist = await _context.Platforms.FindAsync(id);
-        return exist != null;
+        return await _context.Platforms.AnyAsync(p => p.Id == id);
     }
 
-    public async Task SaveChangesAsync()
+    public async Task UpdatePlatformAsync(Platform entity)
     {
+        _ = _context.Platforms.Update(entity);
         await _context.SaveChangesAsync();
     }
 }

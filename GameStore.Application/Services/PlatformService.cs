@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
-using Gamestore.WebApi.Exceptions;
-using Gamestore.WebApi.Models.Models.DTO;
-using Gamestore.WebApi.Services.Interfaces;
+using Gamestore.Application.Exceptions;
+using Gamestore.Domain.Models.DTO;
+using Gamestore.Application.Services.Interfaces;
 
-namespace Gamestore.WebApi.Services;
+namespace Gamestore.Application.Services;
 
-public class PlatformDatabaseService(IPlatformRepository platformRepository, IGameRepository gameRepository, IMapper mapper) : IPlatformDatabaseService
+public class PlatformService(IPlatformRepository platformRepository, IGameRepository gameRepository, IMapper mapper) : IPlatformService
 {
     public async Task CreatePlatformAsync(PlatformDto model)
     {
-        var entity = mapper.Map<PlatformDto, PlatformEntity>(model);
+        var entity = mapper.Map<PlatformDto, Platform>(model);
         await platformRepository.CreatePlatformAsync(entity);
     }
 
@@ -48,6 +48,6 @@ public class PlatformDatabaseService(IPlatformRepository platformRepository, IGa
     {
         var entity = await platformRepository.GetPlatformByIdAsync(model.Id) ?? throw new NotFoundException($"Platform with ID {model.Id} does not exist.");
         mapper.Map(model, entity);
-        await platformRepository.SaveChangesAsync();
+        await platformRepository.UpdatePlatformAsync(entity);
     }
 }

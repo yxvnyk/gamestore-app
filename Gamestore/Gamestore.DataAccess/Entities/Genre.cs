@@ -5,9 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Gamestore.DataAccess.Entities;
 
-[Table("Genres")]
 [Index(nameof(Name), IsUnique = true)]
-public class GenreEntity
+public class Genre
 {
     [Key]
     public Guid Id { get; set; }
@@ -19,7 +18,7 @@ public class GenreEntity
     public Guid? ParentGenreId { get; set; }
 
     [ForeignKey("ParentGenreId")]
-    public GenreEntity? ParentGenre { get; set; }
+    public Genre? ParentGenre { get; set; }
 
-    public ICollection<GameGenreEntity> GameGenres { get; set; }
+    public ICollection<GameGenre> GameGenres { get; set; }
 }

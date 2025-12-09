@@ -27,30 +27,30 @@ internal static class DataSeeding
     public static readonly Guid AdventureGenreId = Guid.Parse("55555555-5555-5555-5555-555555555555");
     public static readonly Guid PuzzleGenreId = Guid.Parse("66666666-6666-6666-6666-666666666666");
 
-    public static PlatformEntity[] GetPlatforms() =>
+    public static Platform[] GetPlatforms() =>
     [
-        new PlatformEntity { Id = MobilePlatformId,  Type = "Mobile" },
-        new PlatformEntity { Id = BrowserPlatformId, Type = "Browser" },
-        new PlatformEntity { Id = DesktopPlatformId, Type = "Desktop" },
-        new PlatformEntity { Id = ConsolePlatformId, Type = "Console" },
+        new Platform { Id = MobilePlatformId,  Type = "Mobile" },
+        new Platform { Id = BrowserPlatformId, Type = "Browser" },
+        new Platform { Id = DesktopPlatformId, Type = "Desktop" },
+        new Platform { Id = ConsolePlatformId, Type = "Console" },
     ];
 
-    public static GenreEntity[] GetGenres() =>
+    public static Genre[] GetGenres() =>
     [
-        new GenreEntity { Id = StrategyGenreId, Name = "Strategy" },
-        new GenreEntity { Id = RTSGenreId, Name = "RTS", ParentGenreId = StrategyGenreId },
-        new GenreEntity { Id = TBSGenreId, Name = "TBS", ParentGenreId = StrategyGenreId },
-        new GenreEntity { Id = RPGGenreId, Name = "RPG" },
-        new GenreEntity { Id = SportsGenreId, Name = "Sports" },
-        new GenreEntity { Id = RacesGenreId, Name = "Races" },
-        new GenreEntity { Id = RallyGenreId, Name = "Rally", ParentGenreId = RacesGenreId },
-        new GenreEntity { Id = FormulaGenreId, Name = "Formula", ParentGenreId = RacesGenreId },
-        new GenreEntity { Id = OffroadGenreId, Name = "Off-road", ParentGenreId = RacesGenreId },
-        new GenreEntity { Id = ArcadeGenreId, Name = "Arcade" },
-        new GenreEntity { Id = ActionGenreId, Name = "Action" },
-        new GenreEntity { Id = FPSGenreId, Name = "FPS", ParentGenreId = ActionGenreId },
-        new GenreEntity { Id = TPSGenreId, Name = "TPS", ParentGenreId = ActionGenreId },
-        new GenreEntity { Id = AdventureGenreId, Name = "Adventure" },
-        new GenreEntity { Id = PuzzleGenreId, Name = "Puzzle & Skill" }
+        new Genre { Id = StrategyGenreId, Name = "Strategy" },
+        new Genre { Id = RTSGenreId, Name = "RTS", ParentGenreId = StrategyGenreId },
+        new Genre { Id = TBSGenreId, Name = "TBS", ParentGenreId = StrategyGenreId },
+        new Genre { Id = RPGGenreId, Name = "RPG" },
+        new Genre { Id = SportsGenreId, Name = "Sports" },
+        new Genre { Id = RacesGenreId, Name = "Races" },
+        new Genre { Id = RallyGenreId, Name = "Rally", ParentGenreId = RacesGenreId },
+        new Genre { Id = FormulaGenreId, Name = "Formula", ParentGenreId = RacesGenreId },
+        new Genre { Id = OffroadGenreId, Name = "Off-road", ParentGenreId = RacesGenreId },
+        new Genre { Id = ArcadeGenreId, Name = "Arcade" },
+        new Genre { Id = ActionGenreId, Name = "Action" },
+        new Genre { Id = FPSGenreId, Name = "FPS", ParentGenreId = ActionGenreId },
+        new Genre { Id = TPSGenreId, Name = "TPS", ParentGenreId = ActionGenreId },
+        new Genre { Id = AdventureGenreId, Name = "Adventure" },
+        new Genre { Id = PuzzleGenreId, Name = "Puzzle & Skill" }
     ];
 }

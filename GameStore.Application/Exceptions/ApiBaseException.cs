@@ -1,12 +1,12 @@
-﻿namespace Gamestore.WebApi.Exceptions;
+﻿namespace Gamestore.Application.Exceptions;
 
 public class ApiBaseException : Exception
 {
-    protected ApiBaseException(string message, int statusCode, string errorCode = null)
+    protected ApiBaseException(string message, int statusCode, string? errorCode = null)
         : base(message)
     {
         StatusCode = statusCode;
-        ErrorCode = errorCode;
+        ErrorCode = errorCode!;
     }
 
     public int StatusCode { get; }

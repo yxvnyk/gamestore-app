@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Gamestore.WebApi.Models.Models.DTO;
+namespace Gamestore.Domain.Models.DTO;
 
 public class PlatformUpdateDto
 {

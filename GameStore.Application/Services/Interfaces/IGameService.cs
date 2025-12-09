@@ -1,8 +1,8 @@
-﻿using Gamestore.WebApi.Models.Models.DTO;
+﻿using Gamestore.Domain.Models.DTO;
 
-namespace Gamestore.WebApi.Services.Interfaces;
+namespace Gamestore.Application.Services.Interfaces;
 
-public interface IGameDatabaseService
+public interface IGameService
 {
     Task CreateGameAsync(GameCreateExtendedDto game);
 
