@@ -1,5 +1,5 @@
-﻿using Gamestore.DataAccess.Repositories.Interfaces;
-using GameStore.Application.Helpers.Interfaces;
+﻿using GameStore.Application.Helpers.Interfaces;
+using Gamestore.DataAccess.Repositories.Interfaces;
 
 namespace GameStore.Application.Helpers;
 

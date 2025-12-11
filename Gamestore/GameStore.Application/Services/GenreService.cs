@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Gamestore.Application.Exceptions;
+using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
-using Gamestore.Application.Exceptions;
 using Gamestore.Domain.Models.DTO;
-using Gamestore.Application.Services.Interfaces;
 
 namespace Gamestore.Application.Services;
 

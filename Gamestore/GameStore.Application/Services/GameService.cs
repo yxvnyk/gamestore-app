@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Application.Exceptions;
-using Gamestore.Domain.Models.DTO;
+using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
-using GameStore.Application.Helpers.Interfaces;
+using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.Domain.Models.DTO;
 
 namespace Gamestore.Application.Services;
 
@@ -20,7 +20,7 @@ public class GameService(IGameRepository gameRepository,
 
     public async Task UpdateGameAsync(GameUpdateExtendedDto model)
     {
-        var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id) 
+        var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id)
             ?? throw new NotFoundException($"Game with ID {model.Game.Id} does not exist.");
         entity.GameGenres.Clear();
         entity.GamePlatforms.Clear();
