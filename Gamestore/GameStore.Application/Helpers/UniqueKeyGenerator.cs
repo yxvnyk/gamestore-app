@@ -3,9 +3,9 @@ using Gamestore.DataAccess.Repositories.Interfaces;
 
 namespace GameStore.Application.Helpers;
 
-public class UniqueKeyGenerator(IGameRepository gameRepository) : IKeyGenerator
+public class UniqueKeyGenerator(IGameService gameRepository) : IKeyGenerator
 {
-    private readonly IGameRepository _gameRepository = gameRepository;
+    private readonly IGameService _gameRepository = gameRepository;
 
     public async Task<string> GenerateUniqueKeyAsync(string name)
     {

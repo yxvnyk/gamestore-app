@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Repositories;
 
-public class GameRepository(GamestoreDbContext context) : IGameRepository
+public class GameRepository(GamestoreDbContext context) : IGameService
 {
     private readonly GamestoreDbContext _context = context;
 
@@ -80,5 +80,10 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         }
 
         return false;
+    }
+
+    public async Task<int> GetTotalGamesCountAsync()
+    {
+        return await _context.Games.CountAsync();
     }
 }

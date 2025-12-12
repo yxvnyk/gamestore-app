@@ -1,18 +1,17 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Exceptions;
 using GameStore.Application.Helpers.Interfaces;
-using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Models.DTO;
 
 namespace Gamestore.Application.Services;
 
-public class GameService(IGameRepository gameRepository,
+public class GameService(IGameService gameRepository,
     IGenreRepository genreRepository, IPlatformRepository platformRepository, IKeyGenerator uniqueKeyGenerator,
-    IMapper mapper) : IGameService
+    IMapper mapper) : Interfaces.IGameService
 {
-    private readonly IGameRepository _gameRepository = gameRepository;
+    private readonly IGameService _gameRepository = gameRepository;
     private readonly IGenreRepository _genreRepository = genreRepository;
     private readonly IPlatformRepository _platformRepository = platformRepository;
     private readonly IKeyGenerator _uniqueKeyGenerator = uniqueKeyGenerator;
@@ -94,6 +93,11 @@ public class GameService(IGameRepository gameRepository,
     public async Task<bool> DeleteByKeyAsync(string key)
     {
         return await _gameRepository.DeleteByKeyAsync(key);
+    }
+
+    public async Task<int> GetTotalGamesCountAsync()
+    {
+        return await _gameRepository.GetTotalGamesCountAsync();
     }
 
     private static async Task ValidateEntitiesExistAsync(IEnumerable<Guid> ids, Func<Guid, Task<bool>> isExistFunc, string entityName)

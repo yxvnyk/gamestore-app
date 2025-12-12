@@ -19,4 +19,6 @@ public interface IGameService
     Task UpdateGameAsync(GameUpdateExtendedDto model);
 
     Task<bool> DeleteByKeyAsync(string key);
+
+    Task<int> GetTotalGamesCountAsync();
 }

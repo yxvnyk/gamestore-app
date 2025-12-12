@@ -2,7 +2,7 @@
 
 namespace Gamestore.DataAccess.Repositories.Interfaces;
 
-public interface IGameRepository
+public interface IGameService
 {
     Task CreateGameAsync(Game entity);
 
@@ -23,4 +23,6 @@ public interface IGameRepository
     Task UpdateGameAsync(Game entity);
 
     Task<bool> DeleteByKeyAsync(string key);
+
+    Task<int> GetTotalGamesCountAsync();
 }
