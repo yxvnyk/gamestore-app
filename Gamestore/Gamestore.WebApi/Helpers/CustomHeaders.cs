@@ -2,5 +2,5 @@
 
 public static class CustomHeaders
 {
-    public const string TotalGamesCount = "X-Total-Numbers-Of-Games";
+    public const string TotalGamesCount = "x-total-numbers-of-games";
 }

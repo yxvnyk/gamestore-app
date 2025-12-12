@@ -1,17 +1,26 @@
 ﻿using Gamestore.DataAccess.Repositories.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Gamestore.WebApi.Helpers.Middleware;
 
-public class TotalGamesHeaderMiddleware(IGameService gameSerivece) : IMiddleware
+public class TotalGamesHeaderMiddleware(IGameService gameSerivece, IMemoryCache cache) : IMiddleware
 {
     private readonly IGameService _gameService = gameSerivece;
+    private readonly IMemoryCache _cache = cache;
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        context.Response.OnStarting(async () =>
+        var cachedTotalGames = await _cache.GetOrCreateAsync(CustomHeaders.TotalGamesCount, async entry =>
         {
-            var totalGames = await _gameService.GetTotalGamesCountAsync();
-            context.Response.Headers[CustomHeaders.TotalGamesCount] = totalGames.ToString();
+            // or SlidingExpiration
+            entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
+            return await _gameService.GetTotalGamesCountAsync();
+        });
+
+        context.Response.OnStarting(() =>
+        {
+            context.Response.Headers[CustomHeaders.TotalGamesCount] = cachedTotalGames.ToString();
+            return Task.CompletedTask;
         });
         await next(context);
     }
