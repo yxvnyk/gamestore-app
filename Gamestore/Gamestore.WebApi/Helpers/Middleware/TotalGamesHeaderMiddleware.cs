@@ -3,9 +3,9 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Gamestore.WebApi.Helpers.Middleware;
 
-public class TotalGamesHeaderMiddleware(IGameService gameSerivece, IMemoryCache cache) : IMiddleware
+public class TotalGamesHeaderMiddleware(IGameRepository gameSerivece, IMemoryCache cache) : IMiddleware
 {
-    private readonly IGameService _gameService = gameSerivece;
+    private readonly IGameRepository _gameService = gameSerivece;
     private readonly IMemoryCache _cache = cache;
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)

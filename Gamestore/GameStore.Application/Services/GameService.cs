@@ -7,11 +7,11 @@ using Gamestore.Domain.Models.DTO;
 
 namespace Gamestore.Application.Services;
 
-public class GameService(IGameService gameRepository,
+public class GameService(IGameRepository gameRepository,
     IGenreRepository genreRepository, IPlatformRepository platformRepository, IKeyGenerator uniqueKeyGenerator,
     IMapper mapper) : Interfaces.IGameService
 {
-    private readonly IGameService _gameRepository = gameRepository;
+    private readonly IGameRepository _gameRepository = gameRepository;
     private readonly IGenreRepository _genreRepository = genreRepository;
     private readonly IPlatformRepository _platformRepository = platformRepository;
     private readonly IKeyGenerator _uniqueKeyGenerator = uniqueKeyGenerator;

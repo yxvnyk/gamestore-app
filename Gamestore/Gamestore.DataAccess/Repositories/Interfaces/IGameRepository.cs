@@ -2,7 +2,7 @@
 
 namespace Gamestore.DataAccess.Repositories.Interfaces;
 
-public interface IGameService
+public interface IGameRepository
 {
     Task CreateGameAsync(Game entity);
 

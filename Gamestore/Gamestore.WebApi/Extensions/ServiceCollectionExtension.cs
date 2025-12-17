@@ -27,7 +27,7 @@ public static class ServiceCollectionExtension
 
     public static IServiceCollection AddDataAccess(this IServiceCollection services)
     {
-        services.AddScoped<DataAccess.Repositories.Interfaces.IGameService, GameRepository>();
+        services.AddScoped<DataAccess.Repositories.Interfaces.IGameRepository, GameRepository>();
         services.AddScoped<IPlatformRepository, PlatformRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
         return services;

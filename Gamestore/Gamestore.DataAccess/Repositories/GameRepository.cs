@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Repositories;
 
-public class GameRepository(GamestoreDbContext context) : IGameService
+public class GameRepository(GamestoreDbContext context) : IGameRepository
 {
     private readonly GamestoreDbContext _context = context;
 

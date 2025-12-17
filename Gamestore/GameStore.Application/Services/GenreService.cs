@@ -7,7 +7,7 @@ using Gamestore.Domain.Models.DTO;
 
 namespace Gamestore.Application.Services;
 
-public class GenreService(IGenreRepository genreRepository, DataAccess.Repositories.Interfaces.IGameService gameRepository, IMapper mapper) : IGenreService
+public class GenreService(IGenreRepository genreRepository, DataAccess.Repositories.Interfaces.IGameRepository gameRepository, IMapper mapper) : IGenreService
 {
     public async Task CreateGenreAsync(GenreCreateDto genre)
     {
