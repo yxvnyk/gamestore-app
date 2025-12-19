@@ -14,8 +14,6 @@ namespace Gamestore.Application.Tests
 {
     public class GenreServiceTest
     {
-        private readonly IMapper _mapper;
-
         private readonly Mock<IGameRepository> _mockGameRepo = new();
         private readonly Mock<IGenreRepository> _mockGenreRepo = new();
         private readonly Mock<IMapper> _mockMapper = new();
@@ -42,33 +40,22 @@ namespace Gamestore.Application.Tests
                 Id = genre.Id,
                 Name = genre.Name
             };
-        public GenreServiceTest()
+
+        [Fact]
+        public async Task CreateGenreAsync_ParentNotExist_ThrowsArgumentException()
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<GameProfile>();
-            });
-
-            _mapper = config.CreateMapper();
-        }
-
-
-        [Theory]
-        [InlineData("d2719b2a-6cc3-4d10-8b94-33c65e4c1f44")]
-        public async Task CreateGenreAsync_ParentNotExist_ThrowsArgumentException(string? parentId)
-        {
-            var gameId = Guid.NewGuid();
-            Guid? parent = parentId is null ? null : Guid.Parse(parentId);
+            var parentId = Guid.NewGuid();
             var genreDto = new GenreCreateDto
             {
                 Name = "Test Genre",
-                ParentGenreId = parent
+                ParentGenreId = parentId
             };
 
             _mockGenreRepo.Setup(r => r.GenreExistsAsync(It.IsAny<Guid>())).ReturnsAsync(false);
 
             var genreService = CreateService();
             await Assert.ThrowsAsync<ArgumentException>(async () => await genreService.CreateGenreAsync(genreDto));
+            _mockGenreRepo.Verify(r => r.GenreExistsAsync(It.IsAny<Guid>()), Times.Once);
         }
 
         [Fact]

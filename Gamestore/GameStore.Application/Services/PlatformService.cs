@@ -7,7 +7,7 @@ using Gamestore.Domain.Models.DTO;
 
 namespace Gamestore.Application.Services;
 
-public class PlatformService(IPlatformRepository platformRepository, DataAccess.Repositories.Interfaces.IGameRepository gameRepository, IMapper mapper) : IPlatformService
+public class PlatformService(IPlatformRepository platformRepository, IGameRepository gameRepository, IMapper mapper) : IPlatformService
 {
     public async Task CreatePlatformAsync(PlatformDto model)
     {
