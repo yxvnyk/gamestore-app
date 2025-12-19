@@ -119,7 +119,7 @@ public class GamesController(IGameService gameService, IGenreService genreServic
             return BadRequest("Key is required.");
         }
 
-        var genres = await genreService.GetGenreByGameKeyAsync(key);
+        var genres = await genreService.GetGenresByGameKeyAsync(key);
         return Ok(genres);
     }
 
