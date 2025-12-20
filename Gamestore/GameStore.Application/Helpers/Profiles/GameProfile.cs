@@ -26,8 +26,8 @@ public class GameProfile : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Game.Name))
             .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Game.Key))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Game.Description))
+            .ForMember(dest => dest.GameGenres, opt => opt.Ignore())
+            .ForMember(dest => dest.GamePlatforms, opt => opt.Ignore())
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-
-        _ = CreateMap<Game, GameDto>();
     }
 }

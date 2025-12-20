@@ -15,14 +15,14 @@ public class UniqueKeyGenerator(IGameRepository gameRepository) : IKeyGenerator
 
         while (await _gameRepository.GameKeyExistAsync(key))
         {
-            suffix++;
             key = $"{baseKey}-{suffix}";
+            suffix++;
         }
 
         return key;
     }
 
-    public static string ToKey(string value)
+    private static string ToKey(string value)
     {
         return value
             .Trim()
