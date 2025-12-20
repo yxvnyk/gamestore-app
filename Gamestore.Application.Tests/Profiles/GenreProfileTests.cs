@@ -4,7 +4,7 @@ using Gamestore.DataAccess.Entities;
 using Gamestore.Domain.Models.DTO;
 using Xunit;
 
-namespace Gamestore.Application.Tests
+namespace Gamestore.Application.UnitTests.Profiles
 {
     public class GenreProfileTests
     {

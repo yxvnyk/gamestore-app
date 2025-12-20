@@ -10,19 +10,11 @@ namespace Gamestore.WebApi.Controllers;
 public class GamesController(IGameService gameService, IGenreService genreService,
     IPlatformService platformService, IGenerateGameFile generateGameFile) : Controller
 {
+    private const string GameSuccessfullyUpdated = "Game successfuly updated";
+
     [HttpPost]
     public async Task<IActionResult> CreateGame([FromBody] GameCreateExtendedDto game)
     {
-        if (game == null)
-        {
-            return BadRequest("Game data is required.");
-        }
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         await gameService.CreateGameAsync(game);
         return Ok();
     }
@@ -31,16 +23,6 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGameByKey(string key)
     {
-        if (key == null)
-        {
-            return BadRequest("Key is required.");
-        }
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         var game = await gameService.GetGameAsync(key);
         return Ok(game);
     }
@@ -49,11 +31,6 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGameById(Guid id)
     {
-        if (id == Guid.Empty)
-        {
-            return BadRequest("Key is required.");
-        }
-
         var game = await gameService.GetGameAsync(id);
         return Ok(game);
     }
@@ -62,30 +39,15 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetAllGames()
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        var game = await gameService.GetAllGamesAsync();
-        return Ok(game);
+        var games = await gameService.GetAllGamesAsync();
+        return Ok(games);
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateGame([FromBody] GameUpdateExtendedDto game)
     {
-        if (game == null)
-        {
-            return BadRequest("Game data is required.");
-        }
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         await gameService.UpdateGameAsync(game);
-        return Ok("Game successfuly updated");
+        return Ok(GameSuccessfullyUpdated);
     }
 
     [HttpDelete("{key}")]
@@ -99,11 +61,6 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGameFileByKey(string key)
     {
-        if (string.IsNullOrEmpty(key))
-        {
-            return BadRequest("Key is required.");
-        }
-
         GameDto game = await gameService.GetGameAsync(key);
         var file = generateGameFile.GenerateFileDto(game);
 
@@ -114,24 +71,14 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGenreByGameKey(string key)
     {
-        if (string.IsNullOrEmpty(key))
-        {
-            return BadRequest("Key is required.");
-        }
-
         var genres = await genreService.GetGenresByGameKeyAsync(key);
         return Ok(genres);
     }
 
     [HttpGet("{key}/platform")]
     [ResponseCache(Duration = 60)]
-    public async Task<IActionResult> GetPlatformыByGameKey(string key)
+    public async Task<IActionResult> GetPlatformsByGameKey(string key)
     {
-        if (string.IsNullOrEmpty(key))
-        {
-            return BadRequest("Key is required.");
-        }
-
         var platforms = await platformService.GetPlatformsByGameKeyAsync(key);
         return Ok(platforms);
     }

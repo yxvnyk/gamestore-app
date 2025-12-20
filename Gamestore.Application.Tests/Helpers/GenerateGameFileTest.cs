@@ -11,7 +11,7 @@ using Moq;
 using System.Text;
 using System.Text.Json;
 
-namespace Gamestore.Application.Tests
+namespace Gamestore.Application.UnitTests.Helpers
 {
     public class GenerateGameFileTest
     {

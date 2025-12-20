@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gamestore.Application.UnitTests
+namespace Gamestore.Application.UnitTests.Exceptions
 {
     public class NotFoundExceptionTests
 

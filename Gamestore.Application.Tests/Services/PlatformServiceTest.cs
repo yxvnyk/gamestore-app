@@ -10,7 +10,7 @@ using GameStore.Application.Helpers;
 using GameStore.Application.Helpers.Interfaces;
 using Moq;
 
-namespace Gamestore.Application.Tests
+namespace Gamestore.Application.UnitTests.Services
 {
     public class PlatformServiceTest
     {
