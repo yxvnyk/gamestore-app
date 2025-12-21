@@ -33,7 +33,7 @@ namespace Gamestore.Application.UnitTests.Helpers
         };
 
         [Fact]
-        public async Task GenerateFileDto()
+        public void GenerateFileDto()
         {
             var gameDto = CreateGameDto();
 

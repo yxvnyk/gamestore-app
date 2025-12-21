@@ -44,7 +44,7 @@ public class GenreService(IGenreRepository genreRepository, IGameRepository game
         return genreEntity is not null ? mapper.Map<GenreFullDto>(genreEntity) : throw new NotFoundException($"Genre with ID '{id}' not found.");
     }
 
-    public async Task<ICollection<GenreDto>> GetGenresByParentIdAsync(Guid id)
+    public async Task<List<GenreDto>> GetGenresByParentIdAsync(Guid id)
     {
         if (!await genreRepository.GenreExistsAsync(id))
         {

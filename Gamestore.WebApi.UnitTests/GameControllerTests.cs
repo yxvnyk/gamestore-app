@@ -11,7 +11,7 @@ using System.Text.Json;
 
 namespace Gamestore.WebApi.UnitTests
 {
-    public class GamesControllerTests
+    public class GameControllerTests
     {
         private readonly Mock<IGameService> mockGameService = new();
         private readonly Mock<IGenreService> mockGenreService = new();
