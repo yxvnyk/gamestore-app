@@ -10,12 +10,7 @@ public class TotalGamesHeaderMiddleware(IGameRepository gameSerivece, IMemoryCac
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        var cachedTotalGames = await _cache.GetOrCreateAsync(CustomHeaders.TotalGamesCount, async entry =>
-        {
-            // or SlidingExpiration
-            entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
-            return await _gameService.GetTotalGamesCountAsync();
-        });
+        var cachedTotalGames = GetTotalGamesCountAsync();
 
         context.Response.OnStarting(() =>
         {
@@ -23,5 +18,15 @@ public class TotalGamesHeaderMiddleware(IGameRepository gameSerivece, IMemoryCac
             return Task.CompletedTask;
         });
         await next(context);
+    }
+
+    public async Task<int> GetTotalGamesCountAsync()
+    {
+        return await _cache.GetOrCreateAsync(CustomHeaders.TotalGamesCount, async entry =>
+        {
+            // or SlidingExpiration
+            entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
+            return await _gameService.GetTotalGamesCountAsync();
+        });
     }
 }

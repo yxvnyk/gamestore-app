@@ -16,7 +16,7 @@ public static class ServiceCollectionExtension
     {
         services.AddSingleton<IGenerateGameFile, GenerateGameFile>();
         services.AddScoped<IKeyGenerator, UniqueKeyGenerator>();
-        services.AddScoped<Application.Services.Interfaces.IGameService, GameService>();
+        services.AddScoped<IGameService, GameService>();
         services.AddScoped<IGenreService, GenreService>();
         services.AddScoped<IPlatformService, PlatformService>();
 
@@ -27,7 +27,7 @@ public static class ServiceCollectionExtension
 
     public static IServiceCollection AddDataAccess(this IServiceCollection services)
     {
-        services.AddScoped<DataAccess.Repositories.Interfaces.IGameRepository, GameRepository>();
+        services.AddScoped<IGameRepository, GameRepository>();
         services.AddScoped<IPlatformRepository, PlatformRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
         return services;

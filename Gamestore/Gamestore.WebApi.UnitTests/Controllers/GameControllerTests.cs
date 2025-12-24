@@ -6,7 +6,7 @@ using Gamestore.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace Gamestore.WebApi.UnitTests;
+namespace Gamestore.WebApi.UnitTests.Controllers;
 
 public class GameControllerTests
 {
