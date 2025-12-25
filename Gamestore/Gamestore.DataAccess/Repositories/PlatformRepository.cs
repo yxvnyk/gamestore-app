@@ -52,7 +52,7 @@ public class PlatformRepository(GamestoreDbContext context) : IPlatformRepositor
 
     public async Task UpdatePlatformAsync(Platform entity)
     {
-        _ = _context.Platforms.Update(entity);
+        _context.Platforms.Update(entity);
         await _context.SaveChangesAsync();
     }
 }
