@@ -3,7 +3,7 @@ using System.Text.Json;
 using GameStore.Application.Helpers;
 using Gamestore.Domain.Models.DTO;
 
-namespace Gamestore.Application.UnitTests.Helpers;
+namespace Gamestore.Application.Tests.Helpers;
 
 public class GenerateGameFileTest
 {

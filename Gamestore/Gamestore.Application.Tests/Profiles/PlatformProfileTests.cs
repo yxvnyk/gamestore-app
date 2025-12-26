@@ -3,7 +3,7 @@ using Gamestore.Application.Helpers.Profiles;
 using Gamestore.DataAccess.Entities;
 using Gamestore.Domain.Models.DTO;
 
-namespace Gamestore.Application.UnitTests.Profiles;
+namespace Gamestore.Application.Tests.Profiles;
 
 public class PlatformProfileTests
 {

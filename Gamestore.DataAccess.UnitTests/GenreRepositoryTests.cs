@@ -305,12 +305,12 @@ namespace Gamestore.DataAccess.IntegrationTests
                 Assert.Empty(result);
             }
         }
-        private async Task SeedGenre(GamestoreDbContext context, Genre genre)
+        private static async Task SeedGenre(GamestoreDbContext context, Genre genre)
         {
             context.Genres.Add(genre);
             await context.SaveChangesAsync();
         }
-        private Genre CreateGenre(string name = "Test Genre")
+        private static Genre CreateGenre(string name = "Test Genre")
         {
             var genre = new Genre()
             {
@@ -319,7 +319,7 @@ namespace Gamestore.DataAccess.IntegrationTests
             };
             return genre;
         }
-        private Game CreateGame()
+        private static Game CreateGame()
         {
             var game = new Game()
             {

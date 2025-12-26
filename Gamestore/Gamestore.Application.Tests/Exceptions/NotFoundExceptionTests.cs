@@ -1,6 +1,6 @@
 ﻿using Gamestore.Application.Exceptions;
 
-namespace Gamestore.Application.UnitTests.Exceptions;
+namespace Gamestore.Application.Tests.Exceptions;
 
 public class NotFoundExceptionTests
 {

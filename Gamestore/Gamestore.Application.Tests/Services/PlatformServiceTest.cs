@@ -6,7 +6,7 @@ using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Models.DTO;
 using Moq;
 
-namespace Gamestore.Application.UnitTests.Services;
+namespace Gamestore.Application.Tests.Services;
 
 public class PlatformServiceTest
 {

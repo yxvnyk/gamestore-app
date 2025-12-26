@@ -251,7 +251,7 @@ namespace Gamestore.DataAccess.IntegrationTests
             context.Platforms.Add(platform);
             await context.SaveChangesAsync();
         }
-        private Platform CreatePlatform(string type = "Test Platform")
+        private static Platform CreatePlatform(string type = "Test Platform")
         {
             var genre = new Platform()
             {
@@ -259,7 +259,7 @@ namespace Gamestore.DataAccess.IntegrationTests
             };
             return genre;
         }
-        private Game CreateGame()
+        private static Game CreateGame()
         {
             var game = new Game()
             {

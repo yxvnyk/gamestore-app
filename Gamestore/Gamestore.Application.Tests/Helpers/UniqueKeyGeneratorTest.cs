@@ -2,7 +2,7 @@
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Moq;
 
-namespace Gamestore.Application.UnitTests.Helpers;
+namespace Gamestore.Application.Tests.Helpers;
 
 public class UniqueKeyGeneratorTest
 {
