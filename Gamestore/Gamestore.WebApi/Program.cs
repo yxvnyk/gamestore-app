@@ -20,6 +20,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddTransient<TotalGamesHeaderMiddleware>();
