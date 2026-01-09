@@ -4,8 +4,12 @@
 
 using Gamestore.WebApi.Extensions;
 using Gamestore.WebApi.Helpers.Middleware;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((ctx, lc) => lc
+    .ReadFrom.Configuration(ctx.Configuration));
 
 builder.Services.AddSwaggerGen();
 
@@ -21,8 +25,9 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-
 app.UseMiddleware<RequestDetailsLoggingMiddleware>();
+
+app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {
