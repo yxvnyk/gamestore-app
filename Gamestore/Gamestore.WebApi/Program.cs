@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+builder.Services.AddTransient<RequestDetailsLoggingMiddleware>();
 
 builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.AddDataAccess();
@@ -20,6 +21,8 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseMiddleware<RequestDetailsLoggingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
