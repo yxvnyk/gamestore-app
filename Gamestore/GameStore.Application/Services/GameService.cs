@@ -3,6 +3,7 @@ using GameStore.Application.Helpers.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Extensions;
 using Gamestore.Domain.Models.DTO;
 using Microsoft.Extensions.Logging;
 

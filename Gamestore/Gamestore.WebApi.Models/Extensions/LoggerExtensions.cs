@@ -30,15 +30,6 @@ public static partial class LoggerExtensions
         "Exception type: {type}\nExceptions mesage: {message}\nInner exception: {innerException}\nException details: {details}\nStack trace: {trace}");
 
     /// <summary>
-    /// Defines a log action for logging warnings.
-    /// </summary>
-    private static readonly Action<ILogger, string, Exception?> Warning =
-    LoggerMessage.Define<string>(
-        LogLevel.Warning,
-        new EventId(1003, "Warning logging"),
-        "{Class}!");
-
-    /// <summary>
     /// Defines a log action for logging trace-level messages.
     /// </summary>
     private static readonly Action<ILogger, string, Exception?> Trace =
@@ -75,16 +66,6 @@ public static partial class LoggerExtensions
         var details = AgregateExceptionDetails(exception);
         var innerExceptions = GetAllInnerExceptions(exception);
         Exception(logger, exception.GetType().Name, exception.Message, innerExceptions, details, exception.StackTrace, exception);
-    }
-
-    /// <summary>
-    /// Logs a warning message with the specified class name.
-    /// </summary>
-    /// <param name="logger">The logger instance.</param>
-    /// <param name="class">The name of the class from which the log is generated.</param>
-    public static void LogWarning(this ILogger logger, string @class)
-    {
-        Warning(logger, @class, null);
     }
 
     /// <summary>
