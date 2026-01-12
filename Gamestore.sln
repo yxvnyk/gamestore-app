@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.DataAccess.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.WebApi.Tests", "Gamestore\Gamestore.WebApi.Tests\Gamestore.WebApi.Tests.csproj", "{219002F3-EC2A-7EB5-619D-329E3901BD72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain.Tests", "Gamestore.Domain.Tests\Gamestore.Domain.Tests.csproj", "{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{219002F3-EC2A-7EB5-619D-329E3901BD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{219002F3-EC2A-7EB5-619D-329E3901BD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{219002F3-EC2A-7EB5-619D-329E3901BD72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{2ADB278D-168D-7B3F-6E04-34E493A97605} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{E43ECB04-682B-7C37-7947-0FF82EE03705} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{219002F3-EC2A-7EB5-619D-329E3901BD72} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{FA4E0E1A-F123-4FB5-9B6D-22185F70314C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C82F5F6E-E169-4093-B97C-4A4FD04F84A2}

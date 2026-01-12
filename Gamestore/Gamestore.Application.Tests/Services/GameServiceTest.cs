@@ -19,7 +19,7 @@ public class GameServiceTest
     private readonly Mock<IGenreRepository> _mockGenreRepo = new();
     private readonly Mock<IPlatformRepository> _mockPlatformRepo = new();
     private readonly Mock<IKeyGenerator> _mockKeyGen = new();
-    private readonly Mock<Logger<GameService>> _mockLogger = new();
+    private readonly Mock<ILogger<GameService>> _mockLogger = new();
     private readonly Mock<IMapper> _mockMapper = new();
 
     public GameServiceTest()

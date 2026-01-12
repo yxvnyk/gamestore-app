@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.9495" branch-rate="1" version="1.9" timestamp="1768251789" lines-covered="207" lines-valid="218" branches-covered="6" branches-valid="6">
+<coverage line-rate="0.9495" branch-rate="1" version="1.9" timestamp="1768262048" lines-covered="207" lines-valid="218" branches-covered="6" branches-valid="6">
   <sources>
     <source>C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.DataAccess\</source>
   </sources>
