@@ -1,4 +1,4 @@
-﻿namespace Gamestore.Domain;
+﻿namespace Gamestore.Domain.Models;
 
 public class RequestDetailsModel
 {

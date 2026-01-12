@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Text;
 using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Gamestore.Domain.Extensions;

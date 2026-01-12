@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Gamestore.Domain;
+using Gamestore.Domain.Models;
 
 namespace Gamestore.WebApi.Helpers.Factories;
 

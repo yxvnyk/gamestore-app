@@ -29,6 +29,12 @@
 		<ExcludeFromCodeCoverage Include="**/*Snapshot.cs" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Remove="coverage\**" />
+	  <EmbeddedResource Remove="coverage\**" />
+	  <ExcludeFromCodeCoverage Remove="coverage\**" />
+	  <None Remove="coverage\**" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="coverlet.msbuild" Version="6.0.4" />
 	</ItemGroup>
 	<PropertyGroup>
