@@ -58,8 +58,8 @@ public class PlatformControllerTests
     [Fact]
     public async Task CreateGenreReturnOk()
     {
+        // Arrange
         var dto = new PlatformDto();
-
         var controller = CreateController();
 
         // Act
@@ -73,6 +73,7 @@ public class PlatformControllerTests
     [Fact]
     public async Task GetPlatformByIdReturnOk()
     {
+        // Arrange
         var id = Guid.NewGuid();
         var expectedPlatformDto = new PlatformFullDto
         {
@@ -101,6 +102,7 @@ public class PlatformControllerTests
     [Fact]
     public async Task GetAllPlatformsReturnOk()
     {
+        // Arrange
         var dtoList = _expectedPlatformDtos;
 
         _mockPlatformService
@@ -128,8 +130,8 @@ public class PlatformControllerTests
     [Fact]
     public async Task UpdatePlatformsReturnOk()
     {
+        // Arrange
         var dto = new PlatformUpdateDto();
-
         var controller = CreateController();
 
         // Act
@@ -144,6 +146,7 @@ public class PlatformControllerTests
     [Fact]
     public async Task DeleteGenreSuccessfullyDeleteReturnNoContent()
     {
+        // Arrange
         var id = Guid.NewGuid();
         var controller = CreateController();
         _mockPlatformService
@@ -161,6 +164,7 @@ public class PlatformControllerTests
     [Fact]
     public async Task DeleteGenreNotFoundReturnNotFound()
     {
+        // Arrange
         var id = Guid.NewGuid();
         var controller = CreateController();
         _mockPlatformService
@@ -178,6 +182,7 @@ public class PlatformControllerTests
     [Fact]
     public async Task GetGamesByPlatformReturnOk()
     {
+        // Arrange
         var expectedGames = _expectedGameDtos;
         var id = Guid.NewGuid();
         var controller = CreateController();

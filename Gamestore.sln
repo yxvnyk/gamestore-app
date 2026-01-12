@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain", "Gamesto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Application", "Gamestore\GameStore.Application\GameStore.Application.csproj", "{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gamestore.Tests", "Gamestore.Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application.Tests", "Gamestore\Gamestore.Application.Tests\Gamestore.Application.Tests.csproj", "{2ADB278D-168D-7B3F-6E04-34E493A97605}"
 EndProject

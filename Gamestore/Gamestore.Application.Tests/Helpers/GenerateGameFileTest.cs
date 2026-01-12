@@ -15,12 +15,15 @@ public class GenerateGameFileTest
     [Fact]
     public void GenerateFileDto()
     {
+        // Arrange
         var gameDto = CreateGameDto();
         var expectedJson = JsonSerializer.Serialize(gameDto, JsonOptions);
         var generator = new GenerateGameFile();
 
+        // Act
         var fileDto = generator.GenerateFileDto(gameDto);
 
+        // Assert
         Assert.NotNull(fileDto.Content);
 
         var actualString = Encoding.UTF8.GetString(fileDto.Content);

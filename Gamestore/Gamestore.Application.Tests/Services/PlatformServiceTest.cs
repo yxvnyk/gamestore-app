@@ -17,6 +17,7 @@ public class PlatformServiceTest
     [Fact]
     public async Task CreatePlatformAsync_HappyCreating_GenerateNewPlatformEntity()
     {
+        // Arrange
         var platformDto = new PlatformDto
         {
             Type = "Test Platform",
@@ -30,18 +31,18 @@ public class PlatformServiceTest
         _mockMapper.Setup(m => m.Map<Platform>(platformDto)).Returns(entity);
         var platformService = CreateService();
 
+        // Act
         await platformService.CreatePlatformAsync(platformDto);
 
+        // Assert
         _mockMapper.Verify(m => m.Map<PlatformDto, Platform>(platformDto), Times.Once);
-
-        _mockPlatformRepo.Verify(
-            r => r.CreatePlatformAsync(It.IsAny<Platform>()),
-            Times.Once);
+        _mockPlatformRepo.Verify(r => r.CreatePlatformAsync(It.IsAny<Platform>()), Times.Once);
     }
 
     [Fact]
     public async Task GetAllPlatformsAsync_WhenPlatformExists_ReturnPlatformDTOs()
     {
+        // Arrange
         var platform1 = CreatePlatform("Platform 1");
         var platform2 = CreatePlatform("Platform 2");
         var platformDto1 = CreatePlatformFullDto(platform1);
@@ -57,13 +58,14 @@ public class PlatformServiceTest
 
         var service = CreateService();
 
+        // Act
         var result = (await service.GetAllPlatformsAsync()).ToList();
 
+        // Assert
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
         Assert.Equal(platformDto1, result[0]);
         Assert.Equal(platformDto2, result[1]);
-
         _mockMapper.Verify(m => m.Map<PlatformFullDto>(It.IsAny<Platform>()), Times.Exactly(2));
         _mockPlatformRepo.Verify(r => r.GetAllPlatformsAsync(), Times.Once);
     }
@@ -90,12 +92,16 @@ public class PlatformServiceTest
     [Fact]
     public async Task GetAllPlatformByGameKeyAsync_NotFound_ThrowException()
     {
+        // Arrange
         string latformKey = "test-game-key";
         _mockGameRepo.Setup(r => r.GameKeyExistAsync(latformKey)).ReturnsAsync(false);
 
         var service = CreateService();
 
+        // Act
         var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await service.GetPlatformsByGameKeyAsync(latformKey));
+
+        // Assert
         Assert.Contains(latformKey, ex.Message);
         _mockGameRepo.Verify(r => r.GameKeyExistAsync(latformKey), Times.Once);
         _mockMapper.Verify(m => m.Map<PlatformFullDto>(It.IsAny<Platform>()), Times.Never);
@@ -104,6 +110,7 @@ public class PlatformServiceTest
     [Fact]
     public async Task GetPlatformByGameKeyAsync_PlatformFound_ReturnPlatformDTOsCollection()
     {
+        // Arrange
         string genreKey = "test-game-key";
 
         var platform1 = CreatePlatform("Genre 1");
@@ -122,7 +129,10 @@ public class PlatformServiceTest
 
         var service = CreateService();
 
+        // Act
         var resutl = await service.GetPlatformsByGameKeyAsync(genreKey);
+
+        // Assert
         _mockGameRepo.Verify(r => r.GameKeyExistAsync(genreKey), Times.Once);
         _mockPlatformRepo.Verify(r => r.GetPlatformsByGameKeyAsync(genreKey), Times.Once);
         _mockMapper.Verify(r => r.Map<PlatformFullDto>(It.IsAny<Platform>()), Times.Exactly(2));
@@ -131,6 +141,7 @@ public class PlatformServiceTest
     [Fact]
     public async Task GetPlatformByIdAsync_PlatformFound_ReturnPlatformsCollection()
     {
+        // Arrange
         var latformId = Guid.NewGuid();
         var platformDto = new PlatformFullDto
         {
@@ -143,7 +154,10 @@ public class PlatformServiceTest
 
         var service = CreateService();
 
+        // Act
         var result = await service.GetPlatformByIdAsync(latformId);
+
+        // Assert
         _mockPlatformRepo.Verify(r => r.GetPlatformByIdAsync(latformId), Times.Once);
         _mockMapper.Verify(m => m.Map<PlatformFullDto>(It.IsAny<Platform>()), Times.Once);
     }
@@ -151,12 +165,16 @@ public class PlatformServiceTest
     [Fact]
     public async Task GetPlatformByIdAsync_NotFound_ThrowsNotFoundException()
     {
+        // Arrange
         var platformId = Guid.NewGuid();
         _mockPlatformRepo.Setup(repo => repo.GetPlatformByIdAsync(platformId))!.ReturnsAsync((Platform?)null);
 
         var service = CreateService();
 
+        // Act
         var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await service.GetPlatformByIdAsync(platformId));
+
+        // Assert
         Assert.Contains(platformId.ToString(), ex.Message);
         _mockMapper.Verify(m => m.Map<PlatformFullDto>(It.IsAny<Platform>()), Times.Never);
     }
@@ -164,6 +182,7 @@ public class PlatformServiceTest
     [Fact]
     public async Task UpdatePlatformAsync_WhenPlatformExists_UpdatesSuccessfully()
     {
+        // Arrange
         var platformId = Guid.NewGuid();
         var type = "Test Platform";
         var platformDto = new PlatformUpdateDto
@@ -180,8 +199,10 @@ public class PlatformServiceTest
 
         var genreService = CreateService();
 
+        // Act
         await genreService.UpdatePlatformAsync(platformDto);
 
+        // Assert
         _mockMapper.Verify(m => m.Map(platformDto, genre), Times.Once);
         _mockPlatformRepo.Verify(r => r.GetPlatformByIdAsync(platformId), Times.Once);
         _mockPlatformRepo.Verify(r => r.UpdatePlatformAsync(genre), Times.Once);
@@ -190,6 +211,7 @@ public class PlatformServiceTest
     [Fact]
     public async Task UpdatePlatformAsync_PlatformNotExist_ThrowsNotFoundException()
     {
+        // Arrange
         var platformId = Guid.NewGuid();
         var type = "Test Platform";
         var platformDto = new PlatformUpdateDto
@@ -204,7 +226,10 @@ public class PlatformServiceTest
 
         var service = CreateService();
 
+        // Act
         var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await service.UpdatePlatformAsync(platformDto));
+
+        // Assert
         Assert.Contains(platformId.ToString(), ex.Message);
         _mockPlatformRepo.Verify(r => r.GetPlatformByIdAsync(platformId), Times.Once);
     }
@@ -212,28 +237,31 @@ public class PlatformServiceTest
     [Fact]
     public async Task DeleteByIdAsync_HappyDelete_ReturnTrue()
     {
+        // Arrange
         _mockPlatformRepo.Setup(r => r.DeleteByIdAsync(It.IsAny<Guid>())).ReturnsAsync(true);
 
         var service = CreateService();
 
+        // Act
         var result = await service.DeleteByIdAsync(Guid.NewGuid());
+
+        // Assert
         Assert.True(result);
         _mockPlatformRepo.Verify(r => r.DeleteByIdAsync(It.IsAny<Guid>()), Times.Once);
     }
 
     private PlatformService CreateService() => new(
-    _mockPlatformRepo.Object,
-    _mockGameRepo.Object,
-    _mockMapper.Object);
+        _mockPlatformRepo.Object,
+        _mockGameRepo.Object,
+        _mockMapper.Object);
 
     private static Platform CreatePlatform(
-    string type = "Platform")
-
-    => new()
-    {
-        Id = Guid.NewGuid(),
-        Type = type,
-    };
+        string type = "Platform")
+        => new()
+        {
+            Id = Guid.NewGuid(),
+            Type = type,
+        };
 
     private static PlatformFullDto CreatePlatformFullDto(Platform platform)
         => new()

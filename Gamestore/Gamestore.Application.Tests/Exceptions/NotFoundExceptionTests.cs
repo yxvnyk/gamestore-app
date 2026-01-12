@@ -7,6 +7,7 @@ public class NotFoundExceptionTests
     [Fact]
     public void NotFoundException_DefaultValues_AreSetCorrectly()
     {
+        // Arrange & Act
         var exception = new NotFoundException();
 
         // Assert
@@ -18,6 +19,7 @@ public class NotFoundExceptionTests
     [Fact]
     public void NotFoundException_CustomValues_AreSetCorrectly()
     {
+        // Arrange & Act
         var exception = new NotFoundException("Custom not found exception", "Custom");
 
         // Assert

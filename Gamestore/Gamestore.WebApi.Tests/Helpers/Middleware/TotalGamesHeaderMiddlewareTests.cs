@@ -23,7 +23,6 @@ public class TotalGamesHeaderMiddlewareTests
 
         // Assert
         Assert.Equal(totalGames, result);
-
         gameRepoMock.Verify(r => r.GetTotalGamesCountAsync(), Times.Once);
     }
 }

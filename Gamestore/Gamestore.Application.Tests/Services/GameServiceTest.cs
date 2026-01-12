@@ -33,6 +33,7 @@ public class GameServiceTest
     [Fact]
     public async Task UpdateGameAsync_GameNotFound_ThrowsNotFoundException()
     {
+        // Arrange
         var gameId = Guid.NewGuid();
         var gameDto = new GameUpdateExtendedDto
         {
@@ -50,12 +51,15 @@ public class GameServiceTest
         _mockGameRepo.Setup(repo => repo.GetGameWithJoinsAsync(gameId)).ReturnsAsync((Game?)null);
 
         var gameService = CreateService();
+
+        // Act & Assert
         await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.UpdateGameAsync(gameDto));
     }
 
     [Fact]
     public async Task UpdateGameAsync_ValidModel_UpdatesEntity()
     {
+        // Arrange
         var gameId = Guid.NewGuid();
         var genres = new Guid[] { Guid.NewGuid(), Guid.NewGuid() };
         var platforms = new Guid[] { Guid.NewGuid(), Guid.NewGuid() };
@@ -99,10 +103,12 @@ public class GameServiceTest
     [Fact]
     public async Task GetGameAsync_ByKey_GameNotFound_ThrowsNotFoundException()
     {
+        // Arrange
         var gameKey = "non-existent-game";
         _mockGameRepo.Setup(repo => repo.GetGameByKeyAsync(gameKey)).ReturnsAsync((Game?)null);
         var gameService = CreateService();
 
+        // Act & Assert
         await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.GetGameAsync(gameKey));
         _mockGameRepo.Verify(r => r.GetGameByKeyAsync(gameKey), Times.Once);
     }
@@ -110,6 +116,7 @@ public class GameServiceTest
     [Fact]
     public async Task GetGameAsync_ByKey_GameFound_ReturnGameWithTheSameKey()
     {
+        // Arrange
         var gameKey = "exist-game";
         var gameId = Guid.NewGuid();
         var gameName = "name";
@@ -147,10 +154,12 @@ public class GameServiceTest
     [Fact]
     public async Task GetGameAsync_ById_ByKeyGameNotFound_ThrowsNotFoundException()
     {
+        // Arrange
         var gameId = Guid.NewGuid();
         _mockGameRepo.Setup(repo => repo.GetGameByIdAsync(gameId)).ReturnsAsync((Game?)null);
         var gameService = CreateService();
 
+        // Act & Assert
         await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.GetGameAsync(gameId));
         _mockGameRepo.Verify(r => r.GetGameByIdAsync(gameId), Times.Once);
     }
@@ -158,6 +167,7 @@ public class GameServiceTest
     [Fact]
     public async Task GetGameAsync_ById_GameFound_ReturnGameWithTheSameKey()
     {
+        // Arrange
         var gameKey = "exist-game";
         var gameId = Guid.NewGuid();
         var gameName = "name";
@@ -372,6 +382,7 @@ public class GameServiceTest
     [Fact]
     public async Task CreateGameAsync_GenreNotExist_ThrowsNotFoundException()
     {
+        // Arrange
         var gameId = Guid.NewGuid();
         var gameDto = new GameCreateExtendedDto
         {
@@ -389,12 +400,15 @@ public class GameServiceTest
         _mockGenreRepo.Setup(r => r.GenreExistsAsync(It.IsAny<Guid>())).ReturnsAsync(false);
 
         var gameService = CreateService();
+
+        // Act & Assert
         await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.CreateGameAsync(gameDto));
     }
 
     [Fact]
     public async Task CreateGameAsync_PatformNotExist_ThrowsNotFoundException()
     {
+        // Arrange
         var gameId = Guid.NewGuid();
         var gameDto = new GameCreateExtendedDto
         {
@@ -412,6 +426,8 @@ public class GameServiceTest
         _mockPlatformRepo.Setup(r => r.PlatformExistsAsync(It.IsAny<Guid>())).ReturnsAsync(false);
 
         var gameService = CreateService();
+
+        // Act & Assert
         await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.CreateGameAsync(gameDto));
     }
 
@@ -421,6 +437,7 @@ public class GameServiceTest
     [InlineData(null)]
     public async Task CreateGameAsync_EmptyKey_GenerateNewKeyAndCreateEntity(string key)
     {
+        // Arrange
         var gameId = Guid.NewGuid();
         var genreId = Guid.NewGuid();
         var platformId = Guid.NewGuid();
@@ -448,8 +465,10 @@ public class GameServiceTest
 
         var gameService = CreateService();
 
+        // Act
         await gameService.CreateGameAsync(gameDto);
 
+        // Assert
         _mockKeyGen.Verify(m => m.GenerateUniqueKeyAsync("game"), Times.Once);
 
         _mockMapper.Verify(m => m.Map<Game>(gameDto), Times.Once);
@@ -481,6 +500,7 @@ public class GameServiceTest
     [Fact]
     public async Task DeleteByKeyAsync_RepositoryReturnsFalse_ReturnsFalse()
     {
+        // Arrange
         var key = "missing-key";
         _mockGameRepo
             .Setup(r => r.DeleteByKeyAsync(key))
@@ -488,8 +508,10 @@ public class GameServiceTest
 
         var service = CreateService();
 
+        // Act
         var result = await service.DeleteByKeyAsync(key);
 
+        // Assert
         Assert.False(result);
     }
 

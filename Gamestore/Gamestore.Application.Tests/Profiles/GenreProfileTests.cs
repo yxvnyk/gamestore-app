@@ -23,14 +23,17 @@ public class GenreProfileTests
     [Fact]
     public void Map_GenreCreateDto_To_Genre_Success()
     {
+        // Arrange
         var dto = new GenreCreateDto
         {
             Name = "Shooter",
             ParentGenreId = Guid.NewGuid(),
         };
 
+        // Act
         var entity = _mapper.Map<Genre>(dto);
 
+        // Assert
         Assert.Equal("Shooter", entity.Name);
         Assert.Equal(dto.ParentGenreId, entity.ParentGenreId);
         Assert.Equal(Guid.Empty, entity.Id);
@@ -39,14 +42,17 @@ public class GenreProfileTests
     [Fact]
     public void Map_Genre_To_GenreDto_Success()
     {
+        // Arrange
         var entity = new Genre
         {
             Id = Guid.NewGuid(),
             Name = "Action",
         };
 
+        // Act
         var dto = _mapper.Map<GenreDto>(entity);
 
+        // Assert
         Assert.Equal(entity.Id, dto.Id);
         Assert.Equal("Action", dto.Name);
     }
@@ -54,6 +60,7 @@ public class GenreProfileTests
     [Fact]
     public void Map_Genre_To_GenreFullDto_IncludesParent()
     {
+        // Arrange
         var entity = new Genre
         {
             Id = Guid.NewGuid(),
@@ -61,8 +68,10 @@ public class GenreProfileTests
             ParentGenreId = Guid.NewGuid(),
         };
 
+        // Act
         var dto = _mapper.Map<GenreFullDto>(entity);
 
+        // Assert
         Assert.Equal(entity.Id, dto.Id);
         Assert.Equal("RPG", dto.Name);
         Assert.Equal(entity.ParentGenreId, dto.ParentGenreId);
@@ -71,6 +80,7 @@ public class GenreProfileTests
     [Fact]
     public void Map_GenreUpdateDto_To_Genre_UpdatesName_AndParent()
     {
+        // Arrange
         var entity = new Genre
         {
             Id = Guid.NewGuid(),
@@ -85,8 +95,10 @@ public class GenreProfileTests
             ParentGenreId = Guid.NewGuid(),
         };
 
+        // Act
         _mapper.Map(dto, entity);
 
+        // Assert
         Assert.Equal("New", entity.Name);
         Assert.Equal(dto.ParentGenreId, entity.ParentGenreId);
     }
@@ -94,6 +106,7 @@ public class GenreProfileTests
     [Fact]
     public void Map_GenreUpdateDto_DoesNotOverride_Id()
     {
+        // Arrange
         var originalId = Guid.NewGuid();
 
         var entity = new Genre
@@ -108,14 +121,17 @@ public class GenreProfileTests
             Name = "Updated Name",
         };
 
+        // Act
         _mapper.Map(dto, entity);
 
+        // Assert
         Assert.Equal(originalId, entity.Id);
     }
 
     [Fact]
     public void Map_GenreUpdateDto_AllowsPartialUpdate_WhenNameIsNull()
     {
+        // Arrange
         var entity = new Genre
         {
             Id = Guid.NewGuid(),
@@ -130,8 +146,10 @@ public class GenreProfileTests
             ParentGenreId = Guid.NewGuid(),
         };
 
+        // Act
         _mapper.Map(dto, entity);
 
+        // Assert
         Assert.Equal("Before", entity.Name);
         Assert.Equal(dto.ParentGenreId, entity.ParentGenreId);
     }

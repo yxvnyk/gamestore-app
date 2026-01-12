@@ -23,6 +23,7 @@ public class GameProfileTests
     [Fact]
     public void Map_CreateExtendedDto_To_Game()
     {
+        // Arrange
         var dto = new GameCreateExtendedDto
         {
             Game = new GameDto
@@ -35,8 +36,10 @@ public class GameProfileTests
             Platforms = [Guid.NewGuid()],
         };
 
+        // Act
         var result = _mapper.Map<Game>(dto);
 
+        // Assert
         Assert.Equal("Test", result.Name);
         Assert.Equal("doom", result.Key);
         Assert.Equal("Shooter", result.Description);
@@ -50,6 +53,7 @@ public class GameProfileTests
     [Fact]
     public void Map_UpdateExtendedDto_To_Game()
     {
+        // Arrange
         var dto = new GameUpdateExtendedDto
         {
             Game = new GameUpdateDto
@@ -68,8 +72,10 @@ public class GameProfileTests
             Description = "Old desc",
         };
 
+        // Act
         _mapper.Map(dto, game);
 
+        // Assert
         Assert.Equal("Updated", game.Name);
         Assert.Equal("updated-key", game.Key);
         Assert.Equal("Updated desc", game.Description);
@@ -78,6 +84,7 @@ public class GameProfileTests
     [Fact]
     public void Map_Game_To_GameDto()
     {
+        // Arrange
         var game = new Game
         {
             Id = Guid.NewGuid(),
@@ -86,8 +93,10 @@ public class GameProfileTests
             Description = "desc",
         };
 
+        // Act
         var dto = _mapper.Map<GameDto>(game);
 
+        // Assert
         Assert.Equal(game.Id, dto.Id);
         Assert.Equal(game.Name, dto.Name);
         Assert.Equal(game.Key, dto.Key);
@@ -97,6 +106,7 @@ public class GameProfileTests
     [Fact]
     public void Map_UpdateExtendedDto_With_Null_DoesNotOverrideExistingValues()
     {
+        // Arrange
         var dto = new GameUpdateExtendedDto
         {
             Game = new GameUpdateDto
@@ -114,8 +124,10 @@ public class GameProfileTests
             Description = "Old Desc",
         };
 
+        // Act
         _mapper.Map(dto, game);
 
+        // Assert
         Assert.Equal("Old Name", game.Name);
         Assert.Equal("old-key", game.Key);
         Assert.Equal("New Desc", game.Description);
@@ -124,6 +136,7 @@ public class GameProfileTests
     [Fact]
     public void Map_CreateExtendedDto_Null_GameProperties_SkipAssignment()
     {
+        // Arrange
         var dto = new GameCreateExtendedDto
         {
             Game = new GameDto
@@ -136,8 +149,10 @@ public class GameProfileTests
             Platforms = [Guid.NewGuid(), Guid.NewGuid()],
         };
 
+        // Act
         var result = _mapper.Map<Game>(dto);
 
+        // Assert
         Assert.Null(result.Name);
         Assert.Null(result.Key);
         Assert.Null(result.Description);

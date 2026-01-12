@@ -77,8 +77,8 @@ public class GenreControllerTests
     [Fact]
     public async Task CreateGenreReturnOk()
     {
+        // Arrange
         var dto = new GenreCreateDto();
-
         var controller = CreateController();
 
         // Act
@@ -92,6 +92,7 @@ public class GenreControllerTests
     [Fact]
     public async Task GetGenreByIdReturnOk()
     {
+        // Arrange
         var id = Guid.NewGuid();
         var expectedGenreDto = new GenreFullDto
         {
@@ -121,6 +122,7 @@ public class GenreControllerTests
     [Fact]
     public async Task GetGenreByParentIdReturnOk()
     {
+        // Arrange
         var id = Guid.NewGuid();
         var expectedGenreDtos = _genreDtosWithSameParentId;
 
@@ -149,6 +151,7 @@ public class GenreControllerTests
     [Fact]
     public async Task GetAllGenresReturnOk()
     {
+        // Arrange
         var dtoList = _expectedGenreDtos;
 
         _mockGenreService
@@ -176,8 +179,8 @@ public class GenreControllerTests
     [Fact]
     public async Task UpdateGenresReturnOk()
     {
+        // Arrange
         var dto = new GenreUpdateDto();
-
         var controller = CreateController();
 
         // Act
@@ -192,6 +195,7 @@ public class GenreControllerTests
     [Fact]
     public async Task DeleteGenreSuccessfullyDeleteReturnNoContent()
     {
+        // Arrange
         var id = Guid.NewGuid();
         var controller = CreateController();
         _mockGenreService
@@ -209,6 +213,7 @@ public class GenreControllerTests
     [Fact]
     public async Task DeleteGenreNotFoundReturnNotFound()
     {
+        // Arrange
         var id = Guid.NewGuid();
         var controller = CreateController();
         _mockGenreService
@@ -226,6 +231,7 @@ public class GenreControllerTests
     [Fact]
     public async Task GetGamesByGenreReturnOk()
     {
+        // Arrange
         var expectedGames = _expectedGameDtos;
         var id = Guid.NewGuid();
         var controller = CreateController();

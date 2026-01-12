@@ -86,8 +86,8 @@ public class GameControllerTests
     [Fact]
     public async Task CreateGameReturnOk()
     {
+        // Arrange
         var dto = new GameCreateExtendedDto();
-
         var controller = CreateController();
 
         // Act
@@ -102,6 +102,7 @@ public class GameControllerTests
     [InlineData("game-key-123")]
     public async Task GetGameByKeyReturnOk(string key)
     {
+        // Arrange
         var expectedGameDto = new GameDto
         {
             Key = key,
@@ -131,6 +132,7 @@ public class GameControllerTests
     [Fact]
     public async Task GetGameByIdReturnOk()
     {
+        // Arrange
         var id = Guid.NewGuid();
         var expectedGameDto = new GameDto
         {
@@ -161,6 +163,7 @@ public class GameControllerTests
     [Fact]
     public async Task GetAllGamesReturnOk()
     {
+        // Arrange
         var dtoList = _expectedGameDtos;
 
         _mockGameService
@@ -189,8 +192,8 @@ public class GameControllerTests
     [Fact]
     public async Task UpdateGameReturnOk()
     {
+        // Arrange
         var dto = new GameUpdateExtendedDto();
-
         var controller = CreateController();
 
         // Act
@@ -206,6 +209,7 @@ public class GameControllerTests
     [InlineData("game-key-123")]
     public async Task DeleteGameSuccessfullyDeleteReturnNoContent(string key)
     {
+        // Arrange
         var controller = CreateController();
         _mockGameService
             .Setup(s => s.DeleteByKeyAsync(key))
@@ -223,6 +227,7 @@ public class GameControllerTests
     [InlineData("game-key-123")]
     public async Task DeleteGameNotFoundReturnNotFound(string key)
     {
+        // Arrange
         var controller = CreateController();
         _mockGameService
             .Setup(s => s.DeleteByKeyAsync(key))
@@ -240,6 +245,7 @@ public class GameControllerTests
     [InlineData("game-key-123")]
     public async Task GetGameFileByKeyReturnOk(string key)
     {
+        // Arrange
         var expectedGameDto = new GameDto
         {
             Key = key,
@@ -281,6 +287,7 @@ public class GameControllerTests
     [InlineData("game-key-123")]
     public async Task GetGenreByKeyReturnOk(string key)
     {
+        // Arrange
         var games = _expectedGenreDtos;
 
         _mockGenreService
@@ -309,6 +316,7 @@ public class GameControllerTests
     [InlineData("game-key-123")]
     public async Task GetPlatoformByKeyReturnOk(string key)
     {
+        // Arrange
         var games = _expectedPlatformDtos;
 
         _mockPlatformService

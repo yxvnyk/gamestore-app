@@ -10,15 +10,18 @@ public class GameRepositoryTests
     [Fact]
     public async Task CreateGameAsync()
     {
+        // Arrange
         var options = CreateContextOptions();
         var game = CreateGame();
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             await repository.CreateGameAsync(game);
         }
 
+        // Assert
         using (var context = new GamestoreDbContext(options))
         {
             var createdGame = await context.Games.FirstOrDefaultAsync(g => g.Key == "test-game");
@@ -31,6 +34,7 @@ public class GameRepositoryTests
     [Fact]
     public async Task UpdateGameAsync_SuccessfulyUpdated()
     {
+        // Arrange
         var options = CreateContextOptions();
         var id = Guid.NewGuid();
         var game = CreateGame();
@@ -49,11 +53,14 @@ public class GameRepositoryTests
             await repository.CreateGameAsync(game);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             await repository.UpdateGameAsync(updatedGame);
             var result = await repository.GetGameByIdAsync(id);
+
+            // Assert
             Assert.NotNull(result);
             Assert.Equal("Updated Game", result.Name);
             Assert.Equal("updated-game", result.Key);
@@ -64,6 +71,7 @@ public class GameRepositoryTests
     [Fact]
     public async Task UpdateGameAsync_GameNotExist()
     {
+        // Arrange
         var options = CreateContextOptions();
         var id = Guid.NewGuid();
 
@@ -75,6 +83,7 @@ public class GameRepositoryTests
             Id = id,
         };
 
+        // Act & Assert
         using var context = new GamestoreDbContext(options);
         var repository = new GameRepository(context);
         await Assert.ThrowsAsync<DbUpdateConcurrencyException>(async () => await repository.UpdateGameAsync(updatedGame));
@@ -83,6 +92,7 @@ public class GameRepositoryTests
     [Fact]
     public async Task GameKeyExistAsync()
     {
+        // Arrange
         var options = CreateContextOptions();
         var game = CreateGame();
 
@@ -91,10 +101,13 @@ public class GameRepositoryTests
             await SeedGame(context, game);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             var result = await repository.GetGameByKeyAsync(game.Key);
+
+            // Assert
             Assert.NotNull(result);
             Assert.Equal("Test Game", result.Name);
         }
@@ -103,6 +116,7 @@ public class GameRepositoryTests
     [Fact]
     public async Task GetGameByIdAsync()
     {
+        // Arrange
         var options = CreateContextOptions();
         var id = Guid.NewGuid();
         var game = CreateGame();
@@ -113,10 +127,13 @@ public class GameRepositoryTests
             await SeedGame(context, game);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             var result = await repository.GetGameByIdAsync(id);
+
+            // Assert
             Assert.NotNull(result);
             Assert.Equal("Test Game", result.Name);
             Assert.Equal("This is a test game", result.Description);
@@ -128,6 +145,7 @@ public class GameRepositoryTests
     [Fact]
     public async Task GetGameWithJoinsAsync_ReturnGameWithPlatformsAndGenres()
     {
+        // Arrange
         var options = CreateContextOptions();
         var platformIds = new[] { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() };
         var genreIds = new[] { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() };
@@ -141,10 +159,13 @@ public class GameRepositoryTests
             await SeedGame(context, game);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             var result = await repository.GetGameWithJoinsAsync(game.Id);
+
+            // Assert
             Assert.NotNull(result);
             Assert.Equal("Test Game", result.Name);
             Assert.Equal("This is a test game", result.Description);
@@ -168,6 +189,7 @@ public class GameRepositoryTests
     [Fact]
     public async Task GetAllGamesAsync_()
     {
+        // Arrange
         var options = CreateContextOptions();
         var games = new List<Game>()
         {
@@ -190,11 +212,14 @@ public class GameRepositoryTests
             await context.SaveChangesAsync();
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             var gamesCollection = await repository.GetAllGamesAsync();
             var result = gamesCollection.ToList();
+
+            // Assert
             for (int i = 0; i < result.Count; i++)
             {
                 Assert.Equal($"Test Game {i + 1}", result[i].Name);
@@ -207,17 +232,22 @@ public class GameRepositoryTests
     [Fact]
     public async Task GetTotalGamesCountAsync_ZeroGamesInDatabase()
     {
+        // Arrange
         var options = CreateContextOptions();
 
+        // Act
         using var context = new GamestoreDbContext(options);
         var repository = new GameRepository(context);
         var count = await repository.GetTotalGamesCountAsync();
+
+        // Assert
         Assert.Equal(0, count);
     }
 
     [Fact]
     public async Task GetTotalGamesCountAsync_DbContainSameGames()
     {
+        // Arrange
         var options = CreateContextOptions();
         var games = new List<Game>()
         {
@@ -240,10 +270,13 @@ public class GameRepositoryTests
             await context.SaveChangesAsync();
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             var count = await repository.GetTotalGamesCountAsync();
+
+            // Assert
             Assert.Equal(games.Count, count);
         }
     }
@@ -251,6 +284,7 @@ public class GameRepositoryTests
     [Fact]
     public async Task GetGameByPlatformAsync()
     {
+        // Arrange
         var options = CreateContextOptions();
         var platformId = Guid.NewGuid();
         var platform = new Platform()
@@ -274,10 +308,13 @@ public class GameRepositoryTests
             await context.SaveChangesAsync();
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             var result = await repository.GetGamesByPlatformAsync(platformId);
+
+            // Assert
             foreach (var item in result)
             {
                 Assert.Equal("Test Game", item.Name);
@@ -290,6 +327,7 @@ public class GameRepositoryTests
     [Fact]
     public async Task GetGameByGenreAsync_ReturnGamesList()
     {
+        // Arrange
         var options = CreateContextOptions();
         var genreId = Guid.NewGuid();
         var genre = new Genre()
@@ -313,10 +351,13 @@ public class GameRepositoryTests
             await context.SaveChangesAsync();
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             var result = await repository.GetGamesByGenreAsync(genreId);
+
+            // Assert
             foreach (var item in result)
             {
                 Assert.Equal("Test Game", item.Name);
@@ -329,18 +370,23 @@ public class GameRepositoryTests
     [Fact]
     public async Task GetGameByGenreAsync_NoGamesWithThisGenre()
     {
+        // Arrange
         var options = CreateContextOptions();
         var genreId = Guid.NewGuid();
 
+        // Act
         using var context = new GamestoreDbContext(options);
         var repository = new GameRepository(context);
         var result = await repository.GetGamesByGenreAsync(genreId);
+
+        // Assert
         Assert.Empty(result);
     }
 
     [Fact]
     public async Task GetGameByKeyAsync_KeyExist()
     {
+        // Arrange
         var options = CreateContextOptions();
         var id = Guid.NewGuid();
         var game = CreateGame();
@@ -351,10 +397,13 @@ public class GameRepositoryTests
             await SeedGame(context, game);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             var result = await repository.GetGameByKeyAsync(game.Key);
+
+            // Assert
             Assert.NotNull(result);
             Assert.Equal("Test Game", result.Name);
             Assert.Equal("This is a test game", result.Description);
@@ -366,17 +415,22 @@ public class GameRepositoryTests
     [Fact]
     public async Task GetGameByKeyAsync_KeyNotExist()
     {
+        // Arrange
         var options = CreateContextOptions();
 
+        // Act
         using var context = new GamestoreDbContext(options);
         var repository = new GameRepository(context);
         var result = await repository.GetGameByKeyAsync("test-game");
+
+        // Assert
         Assert.Null(result);
     }
 
     [Fact]
     public async Task DeleteByKeyAsync_KeyExist()
     {
+        // Arrange
         var options = CreateContextOptions();
         var game = new Game()
         {
@@ -390,10 +444,13 @@ public class GameRepositoryTests
             await SeedGame(context, game);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
             var result = await repository.DeleteByKeyAsync(game.Key);
+
+            // Assert
             Assert.True(result);
             var notExistEntity = await repository.GetGameByKeyAsync(game.Key);
             Assert.Null(notExistEntity);
@@ -403,11 +460,15 @@ public class GameRepositoryTests
     [Fact]
     public async Task DeleteByKeyAsync_KeyNotExist()
     {
+        // Arrange
         var options = CreateContextOptions();
 
+        // Act
         using var context = new GamestoreDbContext(options);
         var repository = new GameRepository(context);
         var result = await repository.DeleteByKeyAsync("test-game");
+
+        // Assert
         Assert.False(result);
     }
 
@@ -419,7 +480,8 @@ public class GameRepositoryTests
 
     private static Game CreateGame()
     {
-        var game = new Game()
+        var game = new
+ Game()
         {
             Key = "test-game",
             Description = "This is a test game",

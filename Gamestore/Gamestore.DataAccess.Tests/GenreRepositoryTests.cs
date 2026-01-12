@@ -10,15 +10,18 @@ public class GenreRepositoryTests
     [Fact]
     public async Task CreateGenreAsync()
     {
+        // Arrange
         var options = CreateContextOptions();
         var genre = CreateGenre();
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GenreRepository(context);
             await repository.CreateGenreAsync(genre);
         }
 
+        // Assert
         using (var context = new GamestoreDbContext(options))
         {
             var createdGame = await context.Genres.FirstOrDefaultAsync(g => g.Id == genre.Id);
@@ -31,6 +34,7 @@ public class GenreRepositoryTests
     [Fact]
     public async Task UpdateGameAsync_SuccessfulyUpdated()
     {
+        // Arrange
         var options = CreateContextOptions();
         var id = Guid.NewGuid();
         var genre = CreateGenre();
@@ -48,11 +52,14 @@ public class GenreRepositoryTests
             await repository.CreateGenreAsync(genre);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GenreRepository(context);
             await repository.UpdateGenreAsync(updatedGenre);
             var result = await repository.GetGenreByIdAsync(id);
+
+            // Assert
             Assert.NotNull(result);
             Assert.Equal("Updated Genre", result.Name);
             Assert.Equal(updatedGenre.ParentGenreId, result.ParentGenreId);
@@ -62,6 +69,7 @@ public class GenreRepositoryTests
     [Fact]
     public async Task UpdateGenreAsync_GenreNotExist()
     {
+        // Arrange
         var options = CreateContextOptions();
         var id = Guid.NewGuid();
 
@@ -72,6 +80,7 @@ public class GenreRepositoryTests
             ParentGenreId = Guid.NewGuid(),
         };
 
+        // Act & Assert
         using var context = new GamestoreDbContext(options);
         var repository = new GenreRepository(context);
         await Assert.ThrowsAsync<DbUpdateConcurrencyException>(async () => await repository.UpdateGenreAsync(updatedGenre));
@@ -80,6 +89,7 @@ public class GenreRepositoryTests
     [Fact]
     public async Task GetGenreByIdAsync()
     {
+        // Arrange
         var options = CreateContextOptions();
         var id = Guid.NewGuid();
         var genre = CreateGenre();
@@ -90,10 +100,13 @@ public class GenreRepositoryTests
             await SeedGenre(context, genre);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GenreRepository(context);
             var result = await repository.GetGenreByIdAsync(id);
+
+            // Assert
             Assert.NotNull(result);
             Assert.Equal("Test Genre", result.Name);
             Assert.Equal(genre.ParentGenreId, result.ParentGenreId);
@@ -103,6 +116,7 @@ public class GenreRepositoryTests
     [Fact]
     public async Task GetAllGenresAsync()
     {
+        // Arrange
         var options = CreateContextOptions();
         var genres = new List<Genre>()
         {
@@ -115,11 +129,14 @@ public class GenreRepositoryTests
             await context.SaveChangesAsync();
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GenreRepository(context);
             var genresCollection = await repository.GetAllGenresAsync();
             var result = genresCollection.ToList();
+
+            // Assert
             for (int i = 0; i < result.Count; i++)
             {
                 Assert.Equal($"Test Genre {i + 1}", result[i].Name);
@@ -131,6 +148,7 @@ public class GenreRepositoryTests
     [Fact]
     public async Task GetGenresByGameKeyAsync_KeyExist()
     {
+        // Arrange
         var options = CreateContextOptions();
         var id = Guid.NewGuid();
         var genres = new List<Genre>()
@@ -158,10 +176,13 @@ public class GenreRepositoryTests
             await context.SaveChangesAsync();
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GenreRepository(context);
             var result = (await repository.GetGenresByGameKeyAsync(game.Key)).ToList();
+
+            // Assert
             Assert.NotNull(result);
             for (int i = 0; i < result.Count; i++)
             {
@@ -174,17 +195,22 @@ public class GenreRepositoryTests
     [Fact]
     public async Task GetGenresByGameKeyAsync_KeyNotExist()
     {
+        // Arrange
         var options = CreateContextOptions();
 
+        // Act
         using var context = new GamestoreDbContext(options);
         var repository = new GenreRepository(context);
         var result = await repository.GetGenresByGameKeyAsync("test-game");
+
+        // Assert
         Assert.Empty(result);
     }
 
     [Fact]
     public async Task DeleteByIdAsync_KeyExist()
     {
+        // Arrange
         var options = CreateContextOptions();
         var genre = CreateGenre();
 
@@ -193,10 +219,13 @@ public class GenreRepositoryTests
             await SeedGenre(context, genre);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GenreRepository(context);
             var result = await repository.DeleteByIdAsync(genre.Id);
+
+            // Assert
             Assert.True(result);
             var notExistEntity = await repository.GetGenreByIdAsync(genre.Id);
             Assert.Null(notExistEntity);
@@ -206,17 +235,22 @@ public class GenreRepositoryTests
     [Fact]
     public async Task DeleteByKeyAsync_KeyNotExist()
     {
+        // Arrange
         var options = CreateContextOptions();
 
+        // Act
         using var context = new GamestoreDbContext(options);
         var repository = new GenreRepository(context);
         var result = await repository.DeleteByIdAsync(Guid.NewGuid());
+
+        // Assert
         Assert.False(result);
     }
 
     [Fact]
     public async Task GenreExistAsync_Exist()
     {
+        // Arrange
         var options = CreateContextOptions();
         var genre = CreateGenre();
         using (var context = new GamestoreDbContext(options))
@@ -224,10 +258,13 @@ public class GenreRepositoryTests
             await SeedGenre(context, genre);
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GenreRepository(context);
             var result = await repository.GenreExistsAsync(genre.Id);
+
+            // Assert
             Assert.True(result);
         }
     }
@@ -235,16 +272,22 @@ public class GenreRepositoryTests
     [Fact]
     public async Task GenreExistAsync_NotExist()
     {
+        // Arrange
         var options = CreateContextOptions();
+
+        // Act
         using var context = new GamestoreDbContext(options);
         var repository = new GenreRepository(context);
         var result = await repository.GenreExistsAsync(Guid.NewGuid());
+
+        // Assert
         Assert.False(result);
     }
 
     [Fact]
     public async Task GetGenresByParentId_ParentExist()
     {
+        // Arrange
         var parentId = Guid.NewGuid();
         var options = CreateContextOptions();
         var parentGenre = CreateGenre("Parent Genre");
@@ -265,10 +308,13 @@ public class GenreRepositoryTests
             await context.SaveChangesAsync();
         }
 
+        // Act
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GenreRepository(context);
             var result = (await repository.GetGenresByParentIdAsync(parentId)).ToList();
+
+            // Assert
             Assert.Equal(2, result.Count);
             for (int i = 0; i < result.Count; i++)
             {
@@ -281,10 +327,15 @@ public class GenreRepositoryTests
     [Fact]
     public async Task GetGenresByParentId_ParentNotExist()
     {
+        // Arrange
         var options = CreateContextOptions();
+
+        // Act
         using var context = new GamestoreDbContext(options);
         var repository = new GenreRepository(context);
         var result = await repository.GetGenresByParentIdAsync(Guid.NewGuid());
+
+        // Assert
         Assert.Empty(result);
     }
 

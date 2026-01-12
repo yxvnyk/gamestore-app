@@ -23,7 +23,6 @@ public class ExceptionHandlingMiddlewareTests
     {
         // Arrange
         var context = CreateHttpContext();
-
         var middleware = new ExceptionHandlingMiddleware();
 
         // Act
@@ -50,7 +49,6 @@ public class ExceptionHandlingMiddlewareTests
     {
         // Arrange
         var context = CreateHttpContext();
-
         var middleware = new ExceptionHandlingMiddleware();
 
         // Act
@@ -77,7 +75,6 @@ public class ExceptionHandlingMiddlewareTests
     {
         // Arrange
         var context = CreateHttpContext();
-
         var middleware = new ExceptionHandlingMiddleware();
 
         var dummyMessage = "Dummy SQL exception message";
@@ -109,7 +106,6 @@ public class ExceptionHandlingMiddlewareTests
     [InlineData("IX_Platforms_Type", "A platform with the same type already exists.", 2627)]
     [InlineData("IX_Genres_Name", "A genre with the same name already exists.", 2627)]
     [InlineData("FK_Genres_Genres_ParentGenreId", "Cannot delete genre because it has child genres.", 547)]
-
     public async Task InvokeAsyncDbUpdateExceptionReturns409(string constraint, string expectedMesage, int errorNumber)
     {
         // Arrange
