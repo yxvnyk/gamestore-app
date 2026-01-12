@@ -11,16 +11,6 @@ public class GenresController(IGenreService genreService, IGameService gameServi
     [HttpPost]
     public async Task<IActionResult> CreateGenre([FromBody] GenreCreateDto genre)
     {
-        if (genre == null)
-        {
-            return BadRequest("Genre data is required.");
-        }
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         await genreService.CreateGenreAsync(genre);
         return Ok();
     }
@@ -52,16 +42,6 @@ public class GenresController(IGenreService genreService, IGameService gameServi
     [HttpPut]
     public async Task<IActionResult> UpdateGenre([FromBody] GenreUpdateDto genre)
     {
-        if (genre == null)
-        {
-            return BadRequest("Genre data is required.");
-        }
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         await genreService.UpdateGenreAsync(genre);
         return Ok($"Genre successfuly updated");
     }
@@ -77,11 +57,6 @@ public class GenresController(IGenreService genreService, IGameService gameServi
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGamesByGenre(Guid id)
     {
-        if (id == Guid.Empty)
-        {
-            return BadRequest("Genre ID is required.");
-        }
-
         var game = await gameService.GetGamesByGenreAsync(id);
         return Ok(game);
     }

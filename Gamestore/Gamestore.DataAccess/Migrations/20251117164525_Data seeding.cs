@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -7,6 +8,7 @@
 namespace Gamestore.DataAccess.Migrations;
 
 /// <inheritdoc />
+[ExcludeFromCodeCoverage]
 public partial class Dataseeding : Migration
 {
     private static readonly string[] Columns = ["Id", "Name", "ParentGenreId"];

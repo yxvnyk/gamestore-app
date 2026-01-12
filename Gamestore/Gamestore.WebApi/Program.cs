@@ -3,18 +3,35 @@
 // </copyright>
 
 using Gamestore.WebApi.Extensions;
+using Gamestore.WebApi.Helpers;
 using Gamestore.WebApi.Helpers.Middleware;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((ctx, lc) => lc
-    .ReadFrom.Configuration(ctx.Configuration));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .WithExposedHeaders(CustomHeaders.TotalGamesCount);
+    });
+});
+
+builder.Host.UseSerilog((context, services, configuration) =>
+    configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services));
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddTransient<RequestDetailsLoggingMiddleware>();
+
+builder.Services.AddTransient<TotalGamesHeaderMiddleware>();
 
 builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.AddDataAccess();
@@ -36,6 +53,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+
+app.UseCors("AllowAll");
+app.UseMiddleware<TotalGamesHeaderMiddleware>();
 
 app.UseAuthorization();
 

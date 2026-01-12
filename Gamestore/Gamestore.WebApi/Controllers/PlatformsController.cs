@@ -11,16 +11,6 @@ public class PlatformsController(IPlatformService platformService, IGameService 
     [HttpPost]
     public async Task<IActionResult> CreatePlatform([FromBody] PlatformDto platform)
     {
-        if (platform == null)
-        {
-            return BadRequest("Platform data is required.");
-        }
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         await platformService.CreatePlatformAsync(platform);
         return Ok();
     }
@@ -44,16 +34,6 @@ public class PlatformsController(IPlatformService platformService, IGameService 
     [HttpPut]
     public async Task<IActionResult> UpdatePlatform([FromBody] PlatformUpdateDto platform)
     {
-        if (platform == null)
-        {
-            return BadRequest("Platform data is required.");
-        }
-
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         await platformService.UpdatePlatformAsync(platform);
         return Ok($"Platform successfuly updated");
     }
@@ -69,11 +49,6 @@ public class PlatformsController(IPlatformService platformService, IGameService 
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGamesByPlatform(Guid id)
     {
-        if (id == Guid.Empty)
-        {
-            return BadRequest("Key is required.");
-        }
-
         var game = await gameService.GetGamesByPlatformAsync(id);
         return Ok(game);
     }

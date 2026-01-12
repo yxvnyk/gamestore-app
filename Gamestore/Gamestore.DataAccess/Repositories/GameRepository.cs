@@ -81,4 +81,9 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
 
         return false;
     }
+
+    public async Task<int> GetTotalGamesCountAsync()
+    {
+        return await _context.Games.CountAsync();
+    }
 }
