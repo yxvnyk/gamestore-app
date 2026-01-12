@@ -11,8 +11,8 @@ public class PlatformRepository(GamestoreDbContext context) : IPlatformRepositor
 
     public async Task CreatePlatformAsync(Platform entity)
     {
-        await _context.Platforms.AddAsync(entity);
-        _context.SaveChanges();
+        _context.Platforms.Add(entity);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<bool> DeleteByIdAsync(Guid id)
@@ -52,7 +52,7 @@ public class PlatformRepository(GamestoreDbContext context) : IPlatformRepositor
 
     public async Task UpdatePlatformAsync(Platform entity)
     {
-        _ = _context.Platforms.Update(entity);
+        _context.Platforms.Update(entity);
         await _context.SaveChangesAsync();
     }
 }

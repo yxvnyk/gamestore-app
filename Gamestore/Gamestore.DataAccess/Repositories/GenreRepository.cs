@@ -25,7 +25,7 @@ public class GenreRepository(GamestoreDbContext context) : IGenreRepository
         return await _context.Genres.ToListAsync();
     }
 
-    public async Task<IEnumerable<Genre?>> GetGenreByGameKeyAsync(string key)
+    public async Task<IEnumerable<Genre?>> GetGenresByGameKeyAsync(string key)
     {
         return await _context.Genres
         .Where(p => p.GameGenres.Any(gp => gp.Game.Key == key))

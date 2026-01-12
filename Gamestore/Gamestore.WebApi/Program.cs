@@ -3,13 +3,27 @@
 // </copyright>
 
 using Gamestore.WebApi.Extensions;
+using Gamestore.WebApi.Helpers;
 using Gamestore.WebApi.Helpers.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .WithExposedHeaders(CustomHeaders.TotalGamesCount);
+    });
+});
+
 builder.Services.AddSwaggerGen();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+builder.Services.AddTransient<TotalGamesHeaderMiddleware>();
 
 builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.AddDataAccess();
@@ -28,6 +42,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+
+app.UseCors("AllowAll");
+app.UseMiddleware<TotalGamesHeaderMiddleware>();
 
 app.UseAuthorization();
 
