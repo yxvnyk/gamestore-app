@@ -1345,3 +1345,347 @@ Url: /Games,
 2026-01-13 02:06:02.977 +02:00 [DBG] Request did not match any endpoints
 2026-01-13 02:06:03.759 +02:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
 2026-01-13 02:06:04.861 +02:00 [DBG] Connection id "0HNII6U3VR9KF" received FIN.
+2026-01-13 02:35:52.836 +02:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2026-01-13 02:35:54.054 +02:00 [DBG] Hosting starting
+2026-01-13 02:35:54.120 +02:00 [DBG] Middleware loaded
+2026-01-13 02:35:54.244 +02:00 [DBG] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16517 B).
+2026-01-13 02:35:54.280 +02:00 [DBG] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+2026-01-13 02:35:54.649 +02:00 [DBG] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+2026-01-13 02:35:54.836 +02:00 [DBG] Connection id "0HNII7ER4TAP0" received FIN.
+2026-01-13 02:35:54.855 +02:00 [DBG] Connection id "0HNII7ER4TAP0" accepted.
+2026-01-13 02:35:54.859 +02:00 [DBG] Connection id "0HNII7ER4TAP0" started.
+2026-01-13 02:35:54.860 +02:00 [INF] Now listening on: http://localhost:5225
+2026-01-13 02:35:54.864 +02:00 [DBG] Loaded hosting startup assembly Gamestore.WebApi
+2026-01-13 02:35:54.866 +02:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2026-01-13 02:35:54.868 +02:00 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2026-01-13 02:35:54.870 +02:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2026-01-13 02:35:54.885 +02:00 [DBG] Connection id "0HNII7ER4TAP0" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-01-13 02:35:54.893 +02:00 [DBG] Connection id "0HNII7ER4TAP0" disconnecting.
+2026-01-13 02:35:54.919 +02:00 [DBG] Connection id "0HNII7ER4TAP0" stopped.
+2026-01-13 02:35:55.179 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-01-13 02:35:55.180 +02:00 [INF] Hosting environment: Development
+2026-01-13 02:35:55.183 +02:00 [INF] Content root path: C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi
+2026-01-13 02:35:55.186 +02:00 [DBG] Hosting started
+2026-01-13 02:36:05.026 +02:00 [DBG] Connection id "0HNII7ER4TAP1" accepted.
+2026-01-13 02:36:05.575 +02:00 [DBG] Connection id "0HNII7ER4TAP1" started.
+2026-01-13 02:36:06.448 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/ - null null
+2026-01-13 02:36:08.009 +02:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2026-01-13 02:36:08.048 +02:00 [VRB] All hosts are allowed.
+2026-01-13 02:36:08.914 +02:00 [DBG] No candidates found for the request path '/'
+2026-01-13 02:36:08.920 +02:00 [DBG] Request did not match any endpoints
+2026-01-13 02:36:09.726 +02:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2026-01-13 02:36:11.937 +02:00 [DBG] The index {'GameId'} was not created on entity type 'GameGenre' as the properties are already covered by the index {'GameId', 'GenreId'}.
+2026-01-13 02:36:11.944 +02:00 [DBG] The index {'GameId'} was not created on entity type 'GamePlatform' as the properties are already covered by the index {'GameId', 'PlatformId'}.
+2026-01-13 02:36:13.138 +02:00 [DBG] Entity Framework Core 8.0.0 initialized 'GamestoreDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.0' with options: None
+2026-01-13 02:36:13.330 +02:00 [DBG] Compiling query expression: 
+'DbSet<Game>()
+    .Count()'
+2026-01-13 02:36:13.836 +02:00 [DBG] Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleAsync<int>(
+    asyncEnumerable: new SingleQueryingEnumerable<int>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> 0
+            SELECT COUNT(*)
+            FROM Games AS g), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, int>, 
+        Gamestore.DataAccess.Context.GamestoreDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)'
+2026-01-13 02:36:13.950 +02:00 [DBG] Creating DbConnection.
+2026-01-13 02:36:14.027 +02:00 [DBG] Created DbConnection. (68ms).
+2026-01-13 02:36:14.040 +02:00 [DBG] Opening connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:36:18.904 +02:00 [DBG] Opened connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:36:18.917 +02:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2026-01-13 02:36:18.937 +02:00 [DBG] Created DbCommand for 'ExecuteReader' (13ms).
+2026-01-13 02:36:18.948 +02:00 [DBG] Initialized DbCommand for 'ExecuteReader' (32ms).
+2026-01-13 02:36:18.967 +02:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Games] AS [g]
+2026-01-13 02:36:19.156 +02:00 [INF] Executed DbCommand (193ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Games] AS [g]
+2026-01-13 02:36:19.206 +02:00 [DBG] Closing data reader to 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:36:19.224 +02:00 [DBG] A data reader for 'GamestoreDB' on server '(localdb)\MSSQLLocalDB' is being disposed after spending 50ms reading results.
+2026-01-13 02:36:19.238 +02:00 [DBG] Closing connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:36:19.255 +02:00 [DBG] Closed connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB' (17ms).
+2026-01-13 02:36:19.519 +02:00 [INF] No cached response available for this request.
+2026-01-13 02:36:19.608 +02:00 [DBG] Response is not cacheable because it does not contain the 'public' cache directive.
+2026-01-13 02:36:19.610 +02:00 [INF] The response could not be cached for this request.
+2026-01-13 02:36:19.621 +02:00 [INF] HTTP GET / responded 404 in 11007.7003 ms
+2026-01-13 02:36:19.665 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /,
+ Status: 404,
+ Request: ,
+ Response: ,
+ Elapsed: N/A
+2026-01-13 02:36:19.766 +02:00 [DBG] Connection id "0HNII7ER4TAP1" completed keep alive response.
+2026-01-13 02:36:19.782 +02:00 [DBG] 'GamestoreDbContext' disposed.
+2026-01-13 02:36:20.454 +02:00 [DBG] Disposing connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:36:20.461 +02:00 [DBG] Disposed connection to database '' on server '' (7ms).
+2026-01-13 02:36:20.477 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/ - 404 0 null 14041.478ms
+2026-01-13 02:36:20.493 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5225/, Response status code: 404
+2026-01-13 02:36:41.500 +02:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2026-01-13 02:36:42.818 +02:00 [DBG] Hosting starting
+2026-01-13 02:36:43.074 +02:00 [DBG] Middleware loaded
+2026-01-13 02:36:43.289 +02:00 [DBG] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16517 B).
+2026-01-13 02:36:43.545 +02:00 [DBG] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+2026-01-13 02:36:44.813 +02:00 [DBG] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+2026-01-13 02:36:45.751 +02:00 [DBG] Connection id "0HNII7FAAFIQH" received FIN.
+2026-01-13 02:36:45.813 +02:00 [INF] Now listening on: http://localhost:5225
+2026-01-13 02:36:46.295 +02:00 [DBG] Connection id "0HNII7FAAFIQH" accepted.
+2026-01-13 02:36:46.625 +02:00 [DBG] Loaded hosting startup assembly Gamestore.WebApi
+2026-01-13 02:36:46.633 +02:00 [DBG] Connection id "0HNII7FAAFIQH" started.
+2026-01-13 02:36:46.638 +02:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2026-01-13 02:36:46.642 +02:00 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2026-01-13 02:36:46.644 +02:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2026-01-13 02:36:46.660 +02:00 [DBG] Connection id "0HNII7FAAFIQH" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-01-13 02:36:46.667 +02:00 [DBG] Connection id "0HNII7FAAFIQH" disconnecting.
+2026-01-13 02:36:46.691 +02:00 [DBG] Connection id "0HNII7FAAFIQH" stopped.
+2026-01-13 02:36:47.173 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-01-13 02:36:48.870 +02:00 [INF] Hosting environment: Development
+2026-01-13 02:36:49.577 +02:00 [INF] Content root path: C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi
+2026-01-13 02:36:49.583 +02:00 [DBG] Hosting started
+2026-01-13 02:36:52.397 +02:00 [DBG] Connection id "0HNII7FAAFIQI" accepted.
+2026-01-13 02:36:52.408 +02:00 [DBG] Connection id "0HNII7FAAFIQI" started.
+2026-01-13 02:36:52.499 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/ - null null
+2026-01-13 02:36:53.030 +02:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2026-01-13 02:36:53.093 +02:00 [VRB] All hosts are allowed.
+2026-01-13 02:36:53.292 +02:00 [DBG] No candidates found for the request path '/'
+2026-01-13 02:36:53.338 +02:00 [DBG] Request did not match any endpoints
+2026-01-13 02:36:54.139 +02:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2026-01-13 02:36:57.261 +02:00 [DBG] The index {'GameId'} was not created on entity type 'GameGenre' as the properties are already covered by the index {'GameId', 'GenreId'}.
+2026-01-13 02:36:57.278 +02:00 [DBG] The index {'GameId'} was not created on entity type 'GamePlatform' as the properties are already covered by the index {'GameId', 'PlatformId'}.
+2026-01-13 02:36:58.978 +02:00 [DBG] Entity Framework Core 8.0.0 initialized 'GamestoreDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.0' with options: None
+2026-01-13 02:36:59.139 +02:00 [DBG] Compiling query expression: 
+'DbSet<Game>()
+    .Count()'
+2026-01-13 02:37:00.368 +02:00 [DBG] Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleAsync<int>(
+    asyncEnumerable: new SingleQueryingEnumerable<int>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> 0
+            SELECT COUNT(*)
+            FROM Games AS g), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, int>, 
+        Gamestore.DataAccess.Context.GamestoreDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)'
+2026-01-13 02:37:00.630 +02:00 [DBG] Creating DbConnection.
+2026-01-13 02:37:00.763 +02:00 [DBG] Created DbConnection. (133ms).
+2026-01-13 02:37:00.787 +02:00 [DBG] Opening connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:37:03.222 +02:00 [DBG] Opened connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:37:03.235 +02:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2026-01-13 02:37:03.258 +02:00 [DBG] Created DbCommand for 'ExecuteReader' (12ms).
+2026-01-13 02:37:03.269 +02:00 [DBG] Initialized DbCommand for 'ExecuteReader' (34ms).
+2026-01-13 02:37:03.295 +02:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Games] AS [g]
+2026-01-13 02:37:03.431 +02:00 [INF] Executed DbCommand (130ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Games] AS [g]
+2026-01-13 02:37:03.482 +02:00 [DBG] Closing data reader to 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:37:03.500 +02:00 [DBG] A data reader for 'GamestoreDB' on server '(localdb)\MSSQLLocalDB' is being disposed after spending 51ms reading results.
+2026-01-13 02:37:03.513 +02:00 [DBG] Closing connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:37:03.533 +02:00 [DBG] Closed connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB' (20ms).
+2026-01-13 02:37:03.568 +02:00 [INF] No cached response available for this request.
+2026-01-13 02:37:03.593 +02:00 [DBG] Response is not cacheable because it does not contain the 'public' cache directive.
+2026-01-13 02:37:03.595 +02:00 [INF] The response could not be cached for this request.
+2026-01-13 02:37:03.608 +02:00 [INF] HTTP GET / responded 404 in 10447.1419 ms
+2026-01-13 02:37:03.758 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /,
+ Status: 404,
+ Request: ,
+ Response: ,
+ Elapsed: N/A
+2026-01-13 02:37:03.781 +02:00 [DBG] Connection id "0HNII7FAAFIQI" completed keep alive response.
+2026-01-13 02:37:03.792 +02:00 [DBG] 'GamestoreDbContext' disposed.
+2026-01-13 02:37:03.820 +02:00 [DBG] Disposing connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-13 02:37:03.835 +02:00 [DBG] Disposed connection to database '' on server '' (15ms).
+2026-01-13 02:37:03.842 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/ - 404 0 null 11358.8093ms
+2026-01-13 02:37:04.370 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5225/, Response status code: 404
+2026-01-13 02:37:22.699 +02:00 [DBG] Connection id "0HNII7FAAFIQI" received FIN.
+2026-01-13 02:37:22.717 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/swagger/index.html - null null
+2026-01-13 02:37:22.737 +02:00 [DBG] Connection id "0HNII7FAAFIQI" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-01-13 02:37:22.754 +02:00 [DBG] Connection id "0HNII7FAAFIQI" disconnecting.
+2026-01-13 02:37:22.770 +02:00 [VRB] All hosts are allowed.
+2026-01-13 02:37:22.828 +02:00 [ERR] HTTP GET /swagger/index.html responded 500 in 51.9694 ms
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+   at System.IO.StreamReader.ReadToEndAsyncInternal(CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.RespondWithFile(HttpResponse response, String fileName, CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-01-13 02:37:23.012 +02:00 [DBG] Connection id "0HNII7FAAFIQJ" received FIN.
+2026-01-13 02:37:23.399 +02:00 [DBG] Connection id "0HNII7FAAFIQJ" accepted.
+2026-01-13 02:37:23.403 +02:00 [DBG] Connection id "0HNII7FAAFIQK" received FIN.
+2026-01-13 02:37:23.403 +02:00 [DBG] Connection id "0HNII7FAAFIQJ" started.
+2026-01-13 02:37:23.406 +02:00 [DBG] Connection id "0HNII7FAAFIQK" accepted.
+2026-01-13 02:37:23.408 +02:00 [DBG] Connection id "0HNII7FAAFIQJ" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-01-13 02:37:23.410 +02:00 [DBG] Connection id "0HNII7FAAFIQK" started.
+2026-01-13 02:37:23.411 +02:00 [DBG] Connection id "0HNII7FAAFIQL" accepted.
+2026-01-13 02:37:23.414 +02:00 [DBG] Connection id "0HNII7FAAFIQJ" disconnecting.
+2026-01-13 02:37:23.416 +02:00 [DBG] Connection id "0HNII7FAAFIQK" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-01-13 02:37:23.419 +02:00 [DBG] Connection id "0HNII7FAAFIQL" started.
+2026-01-13 02:37:23.420 +02:00 [DBG] Connection id "0HNII7FAAFIQM" accepted.
+2026-01-13 02:37:23.422 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/swagger/swagger-ui.css - null null
+2026-01-13 02:37:23.426 +02:00 [DBG] Connection id "0HNII7FAAFIQK" disconnecting.
+2026-01-13 02:37:23.429 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/_vs/browserLink - null null
+2026-01-13 02:37:23.432 +02:00 [DBG] Connection id "0HNII7FAAFIQM" started.
+2026-01-13 02:37:23.438 +02:00 [VRB] All hosts are allowed.
+2026-01-13 02:37:23.439 +02:00 [ERR] Exception type: TaskCanceledException
+Exceptions mesage: A task was canceled.
+Inner exception: 
+Exception details: null
+Stack trace:    at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+   at System.IO.StreamReader.ReadToEndAsyncInternal(CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.RespondWithFile(HttpResponse response, String fileName, CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+   at System.IO.StreamReader.ReadToEndAsyncInternal(CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.RespondWithFile(HttpResponse response, String fileName, CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+2026-01-13 02:37:23.441 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/swagger/index.css - null null
+2026-01-13 02:37:23.497 +02:00 [VRB] All hosts are allowed.
+2026-01-13 02:37:23.449 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/_framework/aspnetcore-browser-refresh.js - null null
+2026-01-13 02:37:23.514 +02:00 [ERR] HTTP GET /swagger/index.css responded 500 in 15.1491 ms
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.IO.Stream.<CopyToAsync>g__Core|27_0(Stream source, Stream destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-01-13 02:37:23.523 +02:00 [DBG] Script injected: /_framework/aspnetcore-browser-refresh.js
+2026-01-13 02:37:23.526 +02:00 [ERR] HTTP GET /swagger/swagger-ui.css responded 500 in 72.3032 ms
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.IO.Stream.<CopyToAsync>g__Core|27_0(Stream source, Stream destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-01-13 02:37:23.684 +02:00 [ERR] Exception type: TaskCanceledException
+Exceptions mesage: A task was canceled.
+Inner exception: 
+Exception details: null
+Stack trace:    at System.IO.Stream.<CopyToAsync>g__Core|27_0(Stream source, Stream destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.IO.Stream.<CopyToAsync>g__Core|27_0(Stream source, Stream destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+2026-01-13 02:37:23.788 +02:00 [ERR] Exception type: TaskCanceledException
+Exceptions mesage: A task was canceled.
+Inner exception: 
+Exception details: null
+Stack trace:    at System.IO.Stream.<CopyToAsync>g__Core|27_0(Stream source, Stream destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.IO.Stream.<CopyToAsync>g__Core|27_0(Stream source, Stream destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+2026-01-13 02:37:23.845 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/swagger/index.css - 499 152 application/json; charset=utf-8 404.0064ms
+2026-01-13 02:37:23.883 +02:00 [DBG] Connection id "0HNII7FAAFIQK" stopped.
+2026-01-13 02:37:23.843 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/swagger/index.html - 499 null application/json; charset=utf-8 1126.6146ms
+2026-01-13 02:37:23.876 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/swagger/swagger-ui.css - 499 23649 application/json; charset=utf-8 454.6434ms
+2026-01-13 02:37:23.904 +02:00 [DBG] Connection id "0HNII7FAAFIQJ" stopped.
+2026-01-13 02:37:23.888 +02:00 [DBG] Connection id "0HNII7FAAFIQL" completed keep alive response.
+2026-01-13 02:37:23.916 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/_vs/browserLink - 200 null text/javascript; charset=UTF-8 486.9468ms
+2026-01-13 02:37:23.637 +02:00 [DBG] Connection id "0HNII7FAAFIQM" completed keep alive response.
+2026-01-13 02:37:23.928 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/_framework/aspnetcore-browser-refresh.js - 200 16517 application/javascript; charset=utf-8 479.7618ms
+2026-01-13 02:37:23.898 +02:00 [DBG] Connection id "0HNII7FAAFIQI" stopped.
+2026-01-13 02:37:23.936 +02:00 [DBG] Connection id "0HNII7FAAFIQL" received FIN.
+2026-01-13 02:37:23.948 +02:00 [DBG] Connection id "0HNII7FAAFIQL" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-01-13 02:37:23.939 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/swagger/favicon-32x32.png - null null
+2026-01-13 02:37:23.959 +02:00 [DBG] Connection id "0HNII7FAAFIQL" disconnecting.
+2026-01-13 02:37:23.968 +02:00 [VRB] All hosts are allowed.
+2026-01-13 02:37:23.978 +02:00 [ERR] HTTP GET /swagger/favicon-32x32.png responded 500 in 2.8731 ms
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-01-13 02:37:24.604 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/swagger/v1/swagger.json - null null
+2026-01-13 02:37:24.659 +02:00 [ERR] Exception type: TaskCanceledException
+Exceptions mesage: A task was canceled.
+Inner exception: 
+Exception details: null
+Stack trace:    at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+2026-01-13 02:37:24.665 +02:00 [VRB] All hosts are allowed.
+2026-01-13 02:37:24.688 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/swagger/favicon-32x32.png - 499 628 application/json; charset=utf-8 748.2127ms
+2026-01-13 02:37:24.704 +02:00 [DBG] Connection id "0HNII7FAAFIQL" stopped.
+2026-01-13 02:37:24.735 +02:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 48.1671 ms
+2026-01-13 02:37:24.742 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /swagger/v1/swagger.json,
+ Status: 200,
+ Request: ,
+ Response: Request body too large (14806 bytes), skipping log,
+ Elapsed: N/A
+2026-01-13 02:37:24.759 +02:00 [DBG] Connection id "0HNII7FAAFIQM" completed keep alive response.
+2026-01-13 02:37:24.762 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 157.6357ms
