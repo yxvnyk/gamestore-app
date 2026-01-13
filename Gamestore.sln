@@ -7,10 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.WebApi", "Gamesto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.DataAccess", "Gamestore\Gamestore.DataAccess\Gamestore.DataAccess.csproj", "{0D17929F-28EC-46BE-A269-355F9583D0ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain", "Gamestore\Gamestore.WebApi.Models\Gamestore.Domain.csproj", "{1F207499-E234-4639-8B5F-E4069263EFD8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application", "Gamestore\GameStore.Application\Gamestore.Application.csproj", "{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application.Tests", "Gamestore\Gamestore.Application.Tests\Gamestore.Application.Tests.csproj", "{2ADB278D-168D-7B3F-6E04-34E493A97605}"
@@ -19,7 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.DataAccess.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.WebApi.Tests", "Gamestore\Gamestore.WebApi.Tests\Gamestore.WebApi.Tests.csproj", "{219002F3-EC2A-7EB5-619D-329E3901BD72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain.Tests", "Gamestore.Domain.Tests\Gamestore.Domain.Tests.csproj", "{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain.Tests", "Gamestore\Gamestore.Domain.Tests\Gamestore.Domain.Tests.csproj", "{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application", "Gamestore\GameStore.Application\Gamestore.Application.csproj", "{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain", "Gamestore\Gamestore.Domain\Gamestore.Domain.csproj", "{6D0A4AA5-6F6C-D0BE-4960-6554049FB9F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +35,6 @@ Global
 		{0D17929F-28EC-46BE-A269-355F9583D0ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D17929F-28EC-46BE-A269-355F9583D0ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D17929F-28EC-46BE-A269-355F9583D0ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F207499-E234-4639-8B5F-E4069263EFD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F207499-E234-4639-8B5F-E4069263EFD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F207499-E234-4639-8B5F-E4069263EFD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F207499-E234-4639-8B5F-E4069263EFD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2ADB278D-168D-7B3F-6E04-34E493A97605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2ADB278D-168D-7B3F-6E04-34E493A97605}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ADB278D-168D-7B3F-6E04-34E493A97605}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,6 +51,14 @@ Global
 		{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D0A4AA5-6F6C-D0BE-4960-6554049FB9F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D0A4AA5-6F6C-D0BE-4960-6554049FB9F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D0A4AA5-6F6C-D0BE-4960-6554049FB9F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D0A4AA5-6F6C-D0BE-4960-6554049FB9F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

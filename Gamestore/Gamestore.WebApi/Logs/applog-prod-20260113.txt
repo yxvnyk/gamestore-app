@@ -1315,3 +1315,33 @@ Url: /Games,
 2026-01-13 00:31:08.841 +02:00 [DBG] Disposing connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
 2026-01-13 00:31:09.081 +02:00 [DBG] Disposed connection to database '' on server '' (239ms).
 2026-01-13 00:31:09.381 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/Games - 200 null application/json; charset=utf-8 8293.0548ms
+2026-01-13 02:05:57.585 +02:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2026-01-13 02:05:58.121 +02:00 [DBG] Hosting starting
+2026-01-13 02:05:58.162 +02:00 [DBG] Middleware loaded
+2026-01-13 02:05:58.198 +02:00 [DBG] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16517 B).
+2026-01-13 02:05:58.236 +02:00 [DBG] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+2026-01-13 02:05:58.647 +02:00 [DBG] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+2026-01-13 02:05:58.920 +02:00 [INF] Now listening on: http://localhost:5225
+2026-01-13 02:05:58.929 +02:00 [DBG] Loaded hosting startup assembly Gamestore.WebApi
+2026-01-13 02:05:58.931 +02:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2026-01-13 02:05:58.933 +02:00 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2026-01-13 02:05:58.935 +02:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2026-01-13 02:05:59.142 +02:00 [DBG] Connection id "0HNII6U3VR9KE" received FIN.
+2026-01-13 02:05:59.199 +02:00 [DBG] Connection id "0HNII6U3VR9KE" accepted.
+2026-01-13 02:05:59.315 +02:00 [DBG] Connection id "0HNII6U3VR9KE" started.
+2026-01-13 02:05:59.386 +02:00 [DBG] Connection id "0HNII6U3VR9KE" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-01-13 02:05:59.630 +02:00 [DBG] Connection id "0HNII6U3VR9KE" disconnecting.
+2026-01-13 02:05:59.709 +02:00 [DBG] Connection id "0HNII6U3VR9KE" stopped.
+2026-01-13 02:06:00.466 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-01-13 02:06:01.143 +02:00 [DBG] Connection id "0HNII6U3VR9KF" accepted.
+2026-01-13 02:06:01.763 +02:00 [INF] Hosting environment: Development
+2026-01-13 02:06:01.771 +02:00 [INF] Content root path: C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi
+2026-01-13 02:06:01.770 +02:00 [DBG] Connection id "0HNII6U3VR9KF" started.
+2026-01-13 02:06:01.774 +02:00 [DBG] Hosting started
+2026-01-13 02:06:01.862 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/ - null null
+2026-01-13 02:06:02.717 +02:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2026-01-13 02:06:02.721 +02:00 [VRB] All hosts are allowed.
+2026-01-13 02:06:02.961 +02:00 [DBG] No candidates found for the request path '/'
+2026-01-13 02:06:02.977 +02:00 [DBG] Request did not match any endpoints
+2026-01-13 02:06:03.759 +02:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2026-01-13 02:06:04.861 +02:00 [DBG] Connection id "0HNII6U3VR9KF" received FIN.
