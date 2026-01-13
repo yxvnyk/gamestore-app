@@ -9,7 +9,6 @@ public static class RequestDetailsFactory
 
     public static async Task<RequestDetailsModel> CreateAsync(HttpContext context)
     {
-        // TODO: skip sensetive endpoints
         var requestContent = await GetContentFromStreamAsync(context.Request.Body);
 
         var responseContent = string.Empty;

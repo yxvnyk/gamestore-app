@@ -90,10 +90,10 @@ public static partial class LoggerExtensions
             }
         }
 
-        if (exception is ApiBaseException)
+        if (exception is ApiBaseException apiEx)
         {
-            details.AppendLine($" Status code: {(exception as ApiBaseException)!.StatusCode}");
-            details.AppendLine($" Error code: {(exception as ApiBaseException)!.ErrorCode}");
+            details.AppendLine($" Status code: {apiEx.StatusCode}");
+            details.AppendLine($" Error code: {apiEx.ErrorCode}");
         }
 
         return details.Length > 0 ? details.ToString() : null;
