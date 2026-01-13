@@ -30,7 +30,6 @@
     <Using Include="Xunit" />
   </ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\GameStore.Application\Gamestore.Application.csproj" />
 	  <ProjectReference Include="..\Gamestore.WebApi\Gamestore.WebApi.csproj" />
 	</ItemGroup>
 	<PropertyGroup>
