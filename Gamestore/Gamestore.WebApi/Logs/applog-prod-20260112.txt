@@ -1,0 +1,254 @@
+2026-01-12 21:34:17.665 +02:00 [INF] HTTP GET / responded 404 in 5669.6562 ms
+2026-01-12 21:34:18.032 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /,
+ Status: 404,
+ Request: ,
+ Response: ,
+ Elapsed: N/A
+2026-01-12 21:34:18.506 +02:00 [ERR] An error occurred using the connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-12 21:48:35.668 +02:00 [ERR] HTTP GET /swagger/favicon-32x32.png responded 500 in 51.0578 ms
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-01-12 21:48:36.041 +02:00 [ERR] Exception type: TaskCanceledException
+Exceptions mesage: A task was canceled.
+Inner exception: 
+Exception details: null
+Stack trace:    at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Swashbuckle.AspNetCore.EmbeddedResourceProvider.TryRespondWithFileAsync(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+2026-01-12 21:48:36.063 +02:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 80.6813 ms
+2026-01-12 21:48:36.075 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /swagger/v1/swagger.json,
+ Status: 200,
+ Request: ,
+ Response: Request body too large (14806 bytes), skipping log,
+ Elapsed: N/A
+2026-01-12 21:48:46.415 +02:00 [ERR] An exception occurred while iterating over the results of a query for context type 'Gamestore.DataAccess.Context.GamestoreDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-01-12 21:48:47.103 +02:00 [ERR] HTTP POST /Games responded 500 in 1982.5160 ms
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Gamestore.DataAccess.Repositories.GenreRepository.GenreExistsAsync(Guid id) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.DataAccess\Repositories\GenreRepository.cs:line 20
+   at Gamestore.Application.Services.GameService.ValidateEntitiesExistAsync(IEnumerable`1 ids, Func`2 isExistFunc, String entityName) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\GameStore.Application\Services\GameService.cs:line 108
+   at Gamestore.Application.Services.GameService.CreateGameAsync(GameCreateExtendedDto game) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\GameStore.Application\Services\GameService.cs:line 78
+   at Gamestore.WebApi.Controllers.GamesController.CreateGame(GameCreateExtendedDto game) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Controllers\GamesController.cs:line 18
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Gamestore.WebApi.Helpers.Middleware.TotalGamesHeaderMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\TotalGamesHeaderMiddleware.cs:line 20
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-01-12 21:48:47.520 +02:00 [ERR] Exception type: InvalidOperationException
+Exceptions mesage: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+Inner exception: 
+Exception details: null
+Stack trace:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Gamestore.DataAccess.Repositories.GenreRepository.GenreExistsAsync(Guid id) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.DataAccess\Repositories\GenreRepository.cs:line 20
+   at Gamestore.Application.Services.GameService.ValidateEntitiesExistAsync(IEnumerable`1 ids, Func`2 isExistFunc, String entityName) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\GameStore.Application\Services\GameService.cs:line 108
+   at Gamestore.Application.Services.GameService.CreateGameAsync(GameCreateExtendedDto game) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\GameStore.Application\Services\GameService.cs:line 78
+   at Gamestore.WebApi.Controllers.GamesController.CreateGame(GameCreateExtendedDto game) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Controllers\GamesController.cs:line 18
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Gamestore.WebApi.Helpers.Middleware.TotalGamesHeaderMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\TotalGamesHeaderMiddleware.cs:line 20
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Gamestore.DataAccess.Repositories.GenreRepository.GenreExistsAsync(Guid id) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.DataAccess\Repositories\GenreRepository.cs:line 20
+   at Gamestore.Application.Services.GameService.ValidateEntitiesExistAsync(IEnumerable`1 ids, Func`2 isExistFunc, String entityName) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\GameStore.Application\Services\GameService.cs:line 108
+   at Gamestore.Application.Services.GameService.CreateGameAsync(GameCreateExtendedDto game) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\GameStore.Application\Services\GameService.cs:line 78
+   at Gamestore.WebApi.Controllers.GamesController.CreateGame(GameCreateExtendedDto game) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Controllers\GamesController.cs:line 18
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Gamestore.WebApi.Helpers.Middleware.TotalGamesHeaderMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\TotalGamesHeaderMiddleware.cs:line 20
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+2026-01-12 21:48:47.925 +02:00 [ERR] An error occurred using the connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-01-12 21:49:10.197 +02:00 [ERR] An exception occurred while iterating over the results of a query for context type 'Gamestore.DataAccess.Context.GamestoreDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-01-12 21:49:10.466 +02:00 [ERR] HTTP GET /Games responded 500 in 562.5291 ms
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Gamestore.DataAccess.Repositories.GameRepository.GetAllGamesAsync() in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.DataAccess\Repositories\GameRepository.cs:line 48
+   at Gamestore.Application.Services.GameService.GetAllGamesAsync() in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\GameStore.Application\Services\GameService.cs:line 71
+   at Gamestore.WebApi.Controllers.GamesController.GetAllGames() in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Controllers\GamesController.cs:line 42
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Gamestore.WebApi.Helpers.Middleware.TotalGamesHeaderMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\TotalGamesHeaderMiddleware.cs:line 20
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-01-12 21:49:10.663 +02:00 [ERR] Exception type: InvalidOperationException
+Exceptions mesage: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+Inner exception: 
+Exception details: null
+Stack trace:    at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Gamestore.DataAccess.Repositories.GameRepository.GetAllGamesAsync() in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.DataAccess\Repositories\GameRepository.cs:line 48
+   at Gamestore.Application.Services.GameService.GetAllGamesAsync() in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\GameStore.Application\Services\GameService.cs:line 71
+   at Gamestore.WebApi.Controllers.GamesController.GetAllGames() in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Controllers\GamesController.cs:line 42
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Gamestore.WebApi.Helpers.Middleware.TotalGamesHeaderMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\TotalGamesHeaderMiddleware.cs:line 20
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Gamestore.DataAccess.Repositories.GameRepository.GetAllGamesAsync() in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.DataAccess\Repositories\GameRepository.cs:line 48
+   at Gamestore.Application.Services.GameService.GetAllGamesAsync() in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\GameStore.Application\Services\GameService.cs:line 71
+   at Gamestore.WebApi.Controllers.GamesController.GetAllGames() in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Controllers\GamesController.cs:line 42
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.ResponseCaching.ResponseCachingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Gamestore.WebApi.Helpers.Middleware.TotalGamesHeaderMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\TotalGamesHeaderMiddleware.cs:line 20
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Gamestore.WebApi.Helpers.Middleware.RequestDetailsLoggingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\RequestDetailsLoggingMiddleware.cs:line 17
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Gamestore.WebApi.Helpers.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi\Helpers\Middleware\ExceptionHandlingMiddleware.cs:line 15
+2026-01-12 21:49:38.899 +02:00 [INF] HTTP GET /Games responded 200 in 198.4471 ms
+2026-01-12 21:49:38.907 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /Games,
+ Status: 200,
+ Request: ,
+ Response: [{"id":"5b837ce3-5b60-4870-853a-08de26f1acc1","name":"New name","key":"dfk2","description":"Updated desc1"},{"id":"4fce4de1-ed69-43af-3ba5-08de276a5df5","name":"string","key":"aaa","description":"string"},{"id":"9038c003-c01a-4254-bdb1-08de2770badb","name":"GameWithPlatform1","key":"dkfjlkf","description":"string"},{"id":"eb00d4a5-5e13-444d-ae26-08de2776df1b","name":"GameWithPlatform1","key":"GameWithPlatform1","description":"string"},{"id":"8efd8f00-ac5f-4aee-0dd9-08de27830a6f","name":"aaa","key":"staing","description":"string"},{"id":"1559b149-dc55-4925-0ddb-08de27830a6f","name":"aaa","key":"aaa-2","description":"string"},{"id":"8f94f94c-c599-4446-0ddc-08de27830a6f","name":"aaa","key":"aaa-3","description":"string"},{"id":"b00a1c68-9abb-493b-70b6-08de284ee75f","name":"New name","key":"newkey","description":"Updated desc"},{"id":"39c2b7cb-89eb-44a7-0269-08de285c8c1a","name":"string","key":"string-2","description":null},{"id":"7e01f788-c647-41e0-8c12-08de2867a0f0","name":"string","key":"string-3","description":"string"},{"id":"5d4b5d65-2cb2-456c-07e6-08de39854be6","name":"string","key":"aaaббб","description":"string"}],
+ Elapsed: N/A
+2026-01-12 21:49:51.512 +02:00 [INF] HTTP GET /Platforms responded 200 in 226.8196 ms
+2026-01-12 21:49:51.519 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /Platforms,
+ Status: 200,
+ Request: ,
+ Response: [{"id":"c787212a-6ef7-4303-5829-08de29204645","type":"aaaa"},{"id":"bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb","type":"Browser"},{"id":"dddddddd-dddd-dddd-dddd-dddddddddddd","type":"Console"},{"id":"cccccccc-cccc-cccc-cccc-cccccccccccc","type":"Desktop"},{"id":"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa","type":"Mobile"},{"id":"987ef5eb-c89b-4d89-5828-08de29204645","type":"Platform Name"},{"id":"f38f5a1e-e6fd-49fa-5827-08de29204645","type":"string"},{"id":"c4cea465-ff24-449b-b3ed-08de4e31966c","type":"stringjjjj"},{"id":"1f9ffbae-2e99-4ea5-0cc0-08de4e42602f","type":"stringmmmmmmmmmmmmmmmmmmmm"}],
+ Elapsed: N/A
