@@ -20,6 +20,21 @@ public class Game
     [MaxLength(500)]
     public string? Description { get; set; }
 
+    [Required]
+    public double Price { get; set; }
+
+    [Required]
+    public int UnitInStock { get; set; }
+
+    [Required]
+    public int Discount { get; set; }
+
+    [Required]
+    public Guid PublisherId { get; set; }
+
+    [Required]
+    public Publisher Publisher { get; set; }
+
     public ICollection<GameGenre> GameGenres { get; set; }
 
     public ICollection<GamePlatform> GamePlatforms { get; set; }

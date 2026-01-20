@@ -4,6 +4,7 @@ using Gamestore.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gamestore.DataAccess.Migrations
 {
     [DbContext(typeof(GamestoreDbContext))]
-    partial class GamestoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260120145741_Add PublisherId field to Game")]
+    partial class AddPublisherIdfieldtoGame
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace Gamestore.DataAccess.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("PublisherId")
+                    b.Property<Guid?>("PublisherId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("UnitInStock")
@@ -58,8 +61,6 @@ namespace Gamestore.DataAccess.Migrations
 
                     b.HasIndex("Key")
                         .IsUnique();
-
-                    b.HasIndex("PublisherId");
 
                     b.ToTable("Games");
                 });
@@ -270,17 +271,6 @@ namespace Gamestore.DataAccess.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("Gamestore.DataAccess.Entities.Game", b =>
-                {
-                    b.HasOne("Gamestore.DataAccess.Entities.Publisher", "Publisher")
-                        .WithMany("Games")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Publisher");
-                });
-
             modelBuilder.Entity("Gamestore.DataAccess.Entities.GameGenre", b =>
                 {
                     b.HasOne("Gamestore.DataAccess.Entities.Game", "Game")
@@ -343,11 +333,6 @@ namespace Gamestore.DataAccess.Migrations
             modelBuilder.Entity("Gamestore.DataAccess.Entities.Platform", b =>
                 {
                     b.Navigation("GamePlatforms");
-                });
-
-            modelBuilder.Entity("Gamestore.DataAccess.Entities.Publisher", b =>
-                {
-                    b.Navigation("Games");
                 });
 #pragma warning restore 612, 618
         }
