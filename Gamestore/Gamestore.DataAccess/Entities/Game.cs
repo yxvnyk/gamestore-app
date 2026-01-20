@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Entities;
@@ -32,8 +33,8 @@ public class Game
     [Required]
     public Guid PublisherId { get; set; }
 
-    [Required]
-    public Publisher Publisher { get; set; }
+    [ForeignKey("PublisherId")]
+    public Publisher? Publisher { get; set; }
 
     public ICollection<GameGenre> GameGenres { get; set; }
 

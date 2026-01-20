@@ -7,7 +7,7 @@ namespace Gamestore.DataAccess.Entities;
 [Index(nameof(CompanyName), IsUnique = true)]
 public class Publisher
 {
-    [Required]
+    [Key]
     public Guid Id { get; set; }
 
     [Required]
