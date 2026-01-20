@@ -31,6 +31,9 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
             case DbUpdateException dbEx when IsUniqueKeyViolation(dbEx, "IX_Games_Key"):
                 await HandlDBUpdatelException(context, "A game with the same key already exists.");
                 break;
+            case DbUpdateException dbUpdateEx when IsForeignKeyViolation(dbUpdateEx, "FK_Games_Publishers_PublisherId"):
+                await HandlDBUpdatelException(context, "Cannot insert game because the publisher does not exist.");
+                break;
             case DbUpdateException dbUpdateEx when IsForeignKeyViolation(dbUpdateEx, "FK_GameGenres_Games_GameId"):
                 await HandlDBUpdatelException(context, "Cannot insert game - genre relation because the game does not exist.");
                 break;

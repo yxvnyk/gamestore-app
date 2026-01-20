@@ -7,4 +7,6 @@ public class GameCreateExtendedDto
     public Guid[] Genres { get; set; }
 
     public Guid[] Platforms { get; set; }
+
+    public Guid Publisher { get; set; }
 }

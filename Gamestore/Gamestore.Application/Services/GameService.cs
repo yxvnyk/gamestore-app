@@ -10,12 +10,14 @@ using Microsoft.Extensions.Logging;
 namespace Gamestore.Application.Services;
 
 public class GameService(IGameRepository gameRepository,
-    IGenreRepository genreRepository, IPlatformRepository platformRepository, IKeyGenerator uniqueKeyGenerator,
+    IGenreRepository genreRepository, IPlatformRepository platformRepository, IPublisherRepository publisherRepository,
+    IKeyGenerator uniqueKeyGenerator,
     IMapper mapper, ILogger<GameService> logger) : Interfaces.IGameService
 {
     private readonly IGameRepository _gameRepository = gameRepository;
     private readonly IGenreRepository _genreRepository = genreRepository;
     private readonly IPlatformRepository _platformRepository = platformRepository;
+    private readonly IPublisherRepository _publisherRepository = publisherRepository;
     private readonly IKeyGenerator _uniqueKeyGenerator = uniqueKeyGenerator;
     private readonly IMapper _mapper = mapper;
 
@@ -93,6 +95,7 @@ public class GameService(IGameRepository gameRepository,
 
         await ValidateEntitiesExistAsync(game.Genres, _genreRepository.GenreExistsAsync, "Genre");
         await ValidateEntitiesExistAsync(game.Platforms, _platformRepository.PlatformExistsAsync, "Platform");
+        await ValidatePublisherExistAsync(game.Publisher);
 
         game.Genres = [.. game.Genres.Distinct()];
         game.Platforms = [.. game.Platforms.Distinct()];
@@ -129,6 +132,16 @@ public class GameService(IGameRepository gameRepository,
             {
                 throw new NotFoundException($"{entityName} with ID {id} does not exist.");
             }
+        }
+    }
+
+    private async Task ValidatePublisherExistAsync(Guid id)
+    {
+        var exist = await _publisherRepository.PublisherExistAsync(id);
+
+        if (!exist)
+        {
+            throw new NotFoundException($"Publisher with ID {id} does not exist.");
         }
     }
 }

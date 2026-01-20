@@ -61,7 +61,7 @@ namespace Gamestore.DataAccess.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("Gamestore.DataAccess.Entities.GameGenre", b =>
@@ -115,7 +115,7 @@ namespace Gamestore.DataAccess.Migrations
 
                     b.HasIndex("ParentGenreId");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
 
                     b.HasData(
                         new
@@ -218,7 +218,7 @@ namespace Gamestore.DataAccess.Migrations
                     b.HasIndex("Type")
                         .IsUnique();
 
-                    b.ToTable("Platforms");
+                    b.ToTable("Platforms", (string)null);
 
                     b.HasData(
                         new
@@ -267,7 +267,7 @@ namespace Gamestore.DataAccess.Migrations
                     b.HasIndex("CompanyName")
                         .IsUnique();
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publishers", (string)null);
                 });
 
             modelBuilder.Entity("Gamestore.DataAccess.Entities.Game", b =>

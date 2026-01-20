@@ -30,6 +30,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IGameRepository, GameRepository>();
         services.AddScoped<IPlatformRepository, PlatformRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
+        services.AddScoped<IPublisherRepository, PublisherRepository>();
         return services;
     }
 

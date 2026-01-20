@@ -18,6 +18,7 @@ public class GameServiceTest
     private readonly Mock<IGameRepository> _mockGameRepo = new();
     private readonly Mock<IGenreRepository> _mockGenreRepo = new();
     private readonly Mock<IPlatformRepository> _mockPlatformRepo = new();
+    private readonly Mock<IPublisherRepository> _mockPublisherRepo = new();
     private readonly Mock<IKeyGenerator> _mockKeyGen = new();
     private readonly Mock<ILogger<GameService>> _mockLogger = new();
     private readonly Mock<IMapper> _mockMapper = new();
@@ -462,6 +463,7 @@ public class GameServiceTest
 
         _mockGenreRepo.Setup(r => r.GenreExistsAsync(It.IsAny<Guid>())).ReturnsAsync(true);
         _mockPlatformRepo.Setup(r => r.PlatformExistsAsync(It.IsAny<Guid>())).ReturnsAsync(true);
+        _mockPublisherRepo.Setup(r => r.PublisherExistAsync(It.IsAny<Guid>())).ReturnsAsync(true);
 
         _mockKeyGen.Setup(g => g.GenerateUniqueKeyAsync(gameDto.Game.Name)).ReturnsAsync("game1");
 
@@ -560,6 +562,7 @@ public class GameServiceTest
     _mockGameRepo.Object,
     _mockGenreRepo.Object,
     _mockPlatformRepo.Object,
+    _mockPublisherRepo.Object,
     _mockKeyGen.Object,
     _mockMapper.Object,
     _mockLogger.Object);
