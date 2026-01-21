@@ -1,8 +1,8 @@
 ﻿namespace Gamestore.Domain.Exceptions;
 
-public class ApiBaseException : Exception
+public class BaseException : Exception
 {
-    protected ApiBaseException(string message, int statusCode, string? errorCode = null)
+    protected BaseException(string message, int statusCode, string? errorCode = null)
         : base(message)
     {
         StatusCode = statusCode;

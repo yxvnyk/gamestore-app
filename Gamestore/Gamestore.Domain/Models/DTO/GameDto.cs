@@ -20,8 +20,8 @@ public class GameDto
     public double Price { get; set; }
 
     [Required]
-    public int UnitInStock { get; set; }
+    public int Discount { get; set; }
 
     [Required]
-    public int Discount { get; set; }
+    public int UnitInStock { get; set; }
 }

@@ -25,7 +25,7 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
         logger.LogException(ex);
         switch (ex)
         {
-            case ApiBaseException apiEx:
+            case BaseException apiEx:
                 await HandleApiExceptionAsync(context, apiEx);
                 break;
             case DbUpdateException dbEx when IsUniqueKeyViolation(dbEx, "IX_Games_Key"):
@@ -58,7 +58,7 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
         }
     }
 
-    private static Task HandleApiExceptionAsync(HttpContext context, ApiBaseException exception)
+    private static Task HandleApiExceptionAsync(HttpContext context, BaseException exception)
     {
         var details = new ProblemDetails()
         {

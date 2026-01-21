@@ -20,4 +20,10 @@ public class PublisherRepository(GamestoreDbContext context) : IPublisherReposit
         var exist = await _context.Publishers.AnyAsync(p => p.Id == id);
         return exist;
     }
+
+    public async Task<bool> PublisherCompanyNameExistAsync(string companyName)
+    {
+        var exist = await _context.Publishers.AnyAsync(p => p.CompanyName == companyName);
+        return exist;
+    }
 }

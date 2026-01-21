@@ -19,6 +19,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IGameService, GameService>();
         services.AddScoped<IGenreService, GenreService>();
         services.AddScoped<IPlatformService, PlatformService>();
+        services.AddScoped<IPublisherService, PublisherService>();
 
         services.AddAutoMapper(typeof(GameProfile));
 

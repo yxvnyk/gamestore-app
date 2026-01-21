@@ -7,4 +7,6 @@ public interface IPublisherRepository
     Task CreatePublisherAsync(Publisher entity);
 
     Task<bool> PublisherExistAsync(Guid id);
+
+    Task<bool> PublisherCompanyNameExistAsync(string companyName);
 }

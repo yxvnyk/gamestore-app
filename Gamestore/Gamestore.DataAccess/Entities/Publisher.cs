@@ -14,7 +14,6 @@ public class Publisher
     [MaxLength(100)]
     public string CompanyName { get; set; }
 
-    [MaxLength(100)]
     public string? HomePage { get; set; }
 
     [MaxLength(500)]
