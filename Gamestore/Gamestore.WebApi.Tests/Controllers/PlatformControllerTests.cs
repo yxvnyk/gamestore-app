@@ -1,5 +1,6 @@
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Platform;
 using Gamestore.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -36,19 +37,19 @@ public class PlatformControllerTests
         },
     ];
 
-    private readonly List<PlatformFullDto> _expectedPlatformDtos =
+    private readonly List<PlatformDto> _expectedPlatformDtos =
     [
-        new PlatformFullDto
+        new PlatformDto
         {
             Id = Guid.NewGuid(),
             Type = "IOS",
         },
-        new PlatformFullDto
+        new PlatformDto
         {
             Id = Guid.NewGuid(),
             Type = "Android",
         },
-        new PlatformFullDto
+        new PlatformDto
         {
             Id = Guid.NewGuid(),
             Type = "Unix",
@@ -59,7 +60,7 @@ public class PlatformControllerTests
     public async Task CreateGenreReturnOk()
     {
         // Arrange
-        var dto = new PlatformDto();
+        var dto = new PlatformCreateDto();
         var controller = CreateController();
 
         // Act
@@ -75,7 +76,7 @@ public class PlatformControllerTests
     {
         // Arrange
         var id = Guid.NewGuid();
-        var expectedPlatformDto = new PlatformFullDto
+        var expectedPlatformDto = new PlatformDto
         {
             Type = "Sample Platform Name",
             Id = id,
@@ -93,7 +94,7 @@ public class PlatformControllerTests
         // Assert
         _mockPlatformService.Verify(s => s.GetPlatformByIdAsync(id), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var returnedGenre = Assert.IsType<PlatformFullDto>(okResult.Value);
+        var returnedGenre = Assert.IsType<PlatformDto>(okResult.Value);
 
         Assert.Equal(expectedPlatformDto.Id, returnedGenre.Id);
         Assert.Equal(expectedPlatformDto.Type, returnedGenre.Type);
@@ -117,7 +118,7 @@ public class PlatformControllerTests
         // Assert
         _mockPlatformService.Verify(s => s.GetAllPlatformsAsync(), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var returnedGenres = Assert.IsType<List<PlatformFullDto>>(okResult.Value);
+        var returnedGenres = Assert.IsType<List<PlatformDto>>(okResult.Value);
 
         Assert.Equal(dtoList.Count, returnedGenres.Count);
         for (int i = 0; i < dtoList.Count; i++)

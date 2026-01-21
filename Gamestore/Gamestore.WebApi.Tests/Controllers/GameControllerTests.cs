@@ -5,6 +5,7 @@ using Gamestore.Domain.Models.DTO;
 using Gamestore.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Gamestore.Domain.Models.DTO.Platform;
 
 namespace Gamestore.WebApi.Tests.Controllers;
 
@@ -59,19 +60,19 @@ public class GameControllerTests
         }
     ];
 
-    private readonly List<PlatformFullDto> _expectedPlatformDtos =
+    private readonly List<PlatformDto> _expectedPlatformDtos =
     [
-        new PlatformFullDto
+        new PlatformDto
         {
             Id = Guid.NewGuid(),
             Type = "PC",
         },
-        new PlatformFullDto
+        new PlatformDto
         {
             Id = Guid.NewGuid(),
             Type = "Console",
         },
-        new PlatformFullDto
+        new PlatformDto
         {
             Id = Guid.NewGuid(),
             Type = "Mobile",
@@ -331,7 +332,7 @@ public class GameControllerTests
         // Assert
         _mockPlatformService.Verify(s => s.GetPlatformsByGameKeyAsync(key), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var returnedFullGenres = Assert.IsType<List<PlatformFullDto>>(okResult.Value);
+        var returnedFullGenres = Assert.IsType<List<PlatformDto>>(okResult.Value);
 
         Assert.Equal(_expectedPlatformDtos.Count, returnedFullGenres.Count);
         for (int i = 0; i < returnedFullGenres.Count; i++)
