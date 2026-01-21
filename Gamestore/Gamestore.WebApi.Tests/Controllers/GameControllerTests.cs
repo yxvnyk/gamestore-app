@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Gamestore.Domain.Models.DTO.Platform;
 using Gamestore.Domain.Models.DTO.Game;
+using Gamestore.Domain.Models.DTO.Genre;
 
 namespace Gamestore.WebApi.Tests.Controllers;
 

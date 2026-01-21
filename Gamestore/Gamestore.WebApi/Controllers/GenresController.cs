@@ -1,5 +1,5 @@
 ﻿using Gamestore.Application.Services.Interfaces;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Genre;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
@@ -9,9 +9,9 @@ namespace Gamestore.WebApi.Controllers;
 public class GenresController(IGenreService genreService, IGameService gameService) : Controller
 {
     [HttpPost]
-    public async Task<IActionResult> CreateGenre([FromBody] GenreCreateDto genre)
+    public async Task<IActionResult> CreateGenre([FromBody] CreateGenreRequest genreRequest)
     {
-        await genreService.CreateGenreAsync(genre);
+        await genreService.CreateGenreAsync(genreRequest.Genre);
         return Ok();
     }
 
@@ -40,9 +40,9 @@ public class GenresController(IGenreService genreService, IGameService gameServi
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateGenre([FromBody] GenreUpdateDto genre)
+    public async Task<IActionResult> UpdateGenre([FromBody] UpdateGenreRequest genreRequest)
     {
-        await genreService.UpdateGenreAsync(genre);
+        await genreService.UpdateGenreAsync(genreRequest.Genre);
         return Ok($"Genre successfuly updated");
     }
 
