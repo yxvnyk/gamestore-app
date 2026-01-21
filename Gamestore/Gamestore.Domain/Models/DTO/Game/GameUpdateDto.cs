@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Gamestore.Domain.Models.DTO;
+namespace Gamestore.Domain.Models.DTO.Game;
 
 public class GameUpdateDto
 {
@@ -15,4 +15,10 @@ public class GameUpdateDto
 
     [MaxLength(500)]
     public string? Description { get; set; }
+
+    public double? Price { get; set; }
+
+    public int? Discount { get; set; }
+
+    public int? UnitInStock { get; set; }
 }

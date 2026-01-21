@@ -6,6 +6,7 @@ using Gamestore.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Gamestore.Domain.Models.DTO.Platform;
+using Gamestore.Domain.Models.DTO.Game;
 
 namespace Gamestore.WebApi.Tests.Controllers;
 
@@ -88,7 +89,7 @@ public class GameControllerTests
     public async Task CreateGameReturnOk()
     {
         // Arrange
-        var dto = new GameCreateExtendedDto();
+        var dto = new CreateGameRequest();
         var controller = CreateController();
 
         // Act
@@ -194,7 +195,7 @@ public class GameControllerTests
     public async Task UpdateGameReturnOk()
     {
         // Arrange
-        var dto = new GameUpdateExtendedDto();
+        var dto = new UpdateGameRequest();
         var controller = CreateController();
 
         // Act

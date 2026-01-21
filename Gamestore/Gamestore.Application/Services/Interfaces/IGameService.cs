@@ -1,10 +1,10 @@
-﻿using Gamestore.Domain.Models.DTO;
+﻿using Gamestore.Domain.Models.DTO.Game;
 
 namespace Gamestore.Application.Services.Interfaces;
 
 public interface IGameService
 {
-    Task CreateGameAsync(GameCreateExtendedDto game);
+    Task CreateGameAsync(CreateGameRequest createRequest);
 
     Task<GameDto> GetGameAsync(string key);
 
@@ -16,7 +16,7 @@ public interface IGameService
 
     Task<ICollection<GameDto>> GetAllGamesAsync();
 
-    Task UpdateGameAsync(GameUpdateExtendedDto model);
+    Task UpdateGameAsync(UpdateGameRequest updateRequest);
 
     Task<bool> DeleteByKeyAsync(string key);
 

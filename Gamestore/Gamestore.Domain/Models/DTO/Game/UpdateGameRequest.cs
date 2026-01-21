@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Gamestore.Domain.Models.DTO;
+namespace Gamestore.Domain.Models.DTO.Game;
 
-public class GameUpdateExtendedDto
+public class UpdateGameRequest
 {
     [Required]
     public GameUpdateDto Game { get; set; }
@@ -10,4 +10,6 @@ public class GameUpdateExtendedDto
     public Guid[]? Genres { get; set; }
 
     public Guid[]? Platforms { get; set; }
+
+    public Guid? Publisher { get; set; }
 }

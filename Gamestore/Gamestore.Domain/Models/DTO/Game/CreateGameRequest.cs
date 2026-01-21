@@ -1,6 +1,6 @@
-﻿namespace Gamestore.Domain.Models.DTO;
+﻿namespace Gamestore.Domain.Models.DTO.Game;
 
-public class GameCreateExtendedDto
+public class CreateGameRequest
 {
     public GameDto Game { get; set; }
 

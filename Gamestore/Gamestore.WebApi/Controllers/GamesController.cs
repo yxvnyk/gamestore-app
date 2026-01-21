@@ -1,6 +1,6 @@
 ﻿using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
@@ -13,7 +13,7 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     private const string GameSuccessfullyUpdated = "Game successfuly updated";
 
     [HttpPost]
-    public async Task<IActionResult> CreateGame([FromBody] GameCreateExtendedDto game)
+    public async Task<IActionResult> CreateGame([FromBody] CreateGameRequest game)
     {
         await gameService.CreateGameAsync(game);
         return Ok();
@@ -44,7 +44,7 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateGame([FromBody] GameUpdateExtendedDto game)
+    public async Task<IActionResult> UpdateGame([FromBody] UpdateGameRequest game)
     {
         await gameService.UpdateGameAsync(game);
         return Ok(GameSuccessfullyUpdated);

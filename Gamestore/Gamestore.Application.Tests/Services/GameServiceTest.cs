@@ -5,7 +5,7 @@ using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
 using Moq;
 
@@ -38,7 +38,7 @@ public class GameServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
-        var gameDto = new GameUpdateExtendedDto
+        var gameDto = new UpdateGameRequest
         {
             Game = new GameUpdateDto
             {
@@ -66,7 +66,7 @@ public class GameServiceTest
         var gameId = Guid.NewGuid();
         var genres = new Guid[] { Guid.NewGuid(), Guid.NewGuid() };
         var platforms = new Guid[] { Guid.NewGuid(), Guid.NewGuid() };
-        var gameDto = new GameUpdateExtendedDto
+        var gameDto = new UpdateGameRequest
         {
             Game = new GameUpdateDto
             {
@@ -387,7 +387,7 @@ public class GameServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
-        var gameDto = new GameCreateExtendedDto
+        var gameDto = new CreateGameRequest
         {
             Game = new GameDto
             {
@@ -413,7 +413,7 @@ public class GameServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
-        var gameDto = new GameCreateExtendedDto
+        var gameDto = new CreateGameRequest
         {
             Game = new GameDto
             {
@@ -445,7 +445,7 @@ public class GameServiceTest
         var genreId = Guid.NewGuid();
         var platformId = Guid.NewGuid();
 
-        var gameDto = new GameCreateExtendedDto
+        var gameDto = new CreateGameRequest
         {
             Game = new GameDto
             {

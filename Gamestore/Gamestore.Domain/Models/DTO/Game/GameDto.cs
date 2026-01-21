@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Gamestore.Domain.Models.DTO;
+namespace Gamestore.Domain.Models.DTO.Game;
 
 public class GameDto
 {

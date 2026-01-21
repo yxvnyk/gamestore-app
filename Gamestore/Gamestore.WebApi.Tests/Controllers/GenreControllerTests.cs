@@ -1,5 +1,6 @@
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Game;
 using Gamestore.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
