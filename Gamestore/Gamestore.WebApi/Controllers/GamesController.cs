@@ -8,7 +8,7 @@ namespace Gamestore.WebApi.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class GamesController(IGameService gameService, IGenreService genreService,
-    IPlatformService platformService, IGenerateGameFile generateGameFile) : Controller
+    IPlatformService platformService, IPublisherService publisherService, IGenerateGameFile generateGameFile) : Controller
 {
     private const string GameSuccessfullyUpdated = "Game successfuly updated";
 
@@ -81,5 +81,12 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     {
         var platforms = await platformService.GetPlatformsByGameKeyAsync(key);
         return Ok(platforms);
+    }
+
+    [HttpGet("{key}/publisher")]
+    public async Task<IActionResult> GetPublisherByCompanyName(string key)
+    {
+        var publisher = await publisherService.GetPublisherByGameKeyAsync(key);
+        return Ok(publisher);
     }
 }

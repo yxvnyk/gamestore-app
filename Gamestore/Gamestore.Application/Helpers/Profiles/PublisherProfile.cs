@@ -11,5 +11,7 @@ public class PublisherProfile : Profile
         CreateMap<PublisherDto, Publisher>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Games, opt => opt.Ignore());
+
+        CreateMap<Publisher, PublisherDto>();
     }
 }

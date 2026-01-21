@@ -24,4 +24,28 @@ public class PublisherService(IPublisherRepository publisherRepository,
         var gameEntity = mapper.Map<Publisher>(publisher);
         await publisherRepository.CreatePublisherAsync(gameEntity);
     }
+
+    public async Task<PublisherDto> GetPublisherByCompanyNameAsync(string companyName)
+    {
+        logger.LogTrace(nameof(this.GetPublisherByCompanyNameAsync));
+
+        var publisher = await publisherRepository.GetPublisherByCompanyNameAsync(companyName);
+        return mapper.Map<PublisherDto>(publisher);
+    }
+
+    public async Task<PublisherDto?> GetPublisherByGameKeyAsync(string key)
+    {
+        logger.LogTrace(nameof(this.GetPublisherByGameKeyAsync));
+
+        var publisher = await publisherRepository.GetPublisherByGameKeyAsync(key);
+        return mapper.Map<PublisherDto>(publisher);
+    }
+
+    public async Task<IEnumerable<PublisherDto>> GetAllPublishersAsync()
+    {
+        logger.LogTrace(nameof(this.GetAllPublishersAsync));
+
+        var publishers = await publisherRepository.GetAllPublishersAsync();
+        return [.. publishers.Select(mapper.Map<PublisherDto>)];
+    }
 }
