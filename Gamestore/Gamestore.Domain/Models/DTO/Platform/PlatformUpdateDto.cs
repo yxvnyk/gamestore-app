@@ -7,7 +7,6 @@ public class PlatformUpdateDto
     [Required]
     public Guid Id { get; set; }
 
-    [Required]
     [MaxLength(50)]
-    public string Type { get; set; } = string.Empty;
+    public string? Type { get; set; } = string.Empty;
 }

@@ -4,6 +4,12 @@ namespace Gamestore.DataAccess.Repositories.Interfaces;
 
 public interface IPublisherRepository
 {
+    Task UpdatePublisherAsync(Publisher entity);
+
+    Task<bool> DeletePublisherAsync(Guid id);
+
+    Task<Publisher?> GetPublisherByIdAsync(Guid id);
+
     Task<Publisher?> GetPublisherByGameKeyAsync(string key);
 
     Task<Publisher?> GetPublisherByCompanyNameAsync(string companyName);

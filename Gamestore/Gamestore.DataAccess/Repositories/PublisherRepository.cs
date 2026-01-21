@@ -15,10 +15,23 @@ public class PublisherRepository(GamestoreDbContext context) : IPublisherReposit
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeletePublisherAsync(Publisher entity)
+    public async Task UpdatePublisherAsync(Publisher entity)
     {
-        _context.Publishers.Remove(entity);
+        _context.Publishers.Update(entity);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<bool> DeletePublisherAsync(Guid id)
+    {
+        var exist = await _context.Publishers.FindAsync(id);
+        if (exist != null)
+        {
+            _ = _context.Publishers.Remove(exist);
+            _ = await _context.SaveChangesAsync();
+            return true;
+        }
+
+        return false;
     }
 
     public async Task<Publisher?> GetPublisherByGameKeyAsync(string key)
@@ -35,6 +48,11 @@ public class PublisherRepository(GamestoreDbContext context) : IPublisherReposit
         var publisher = await _context.Publishers
             .FirstOrDefaultAsync(p => p.CompanyName == companyName);
         return publisher;
+    }
+
+    public async Task<Publisher?> GetPublisherByIdAsync(Guid id)
+    {
+        return await _context.Publishers.FindAsync(id);
     }
 
     public async Task<IEnumerable<Publisher>> GetAllPublishersAsync()

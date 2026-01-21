@@ -11,7 +11,7 @@ namespace Gamestore.Application.Services;
 public class PublisherService(IPublisherRepository publisherRepository,
     IMapper mapper, ILogger<PublisherService> logger) : IPublisherService
 {
-    public async Task CreatePublisherAsync(PublisherDto publisher)
+    public async Task CreatePublisherAsync(PublisherCreateDto publisher)
     {
         logger.LogTrace(nameof(this.CreatePublisherAsync));
 
@@ -23,6 +23,22 @@ public class PublisherService(IPublisherRepository publisherRepository,
 
         var gameEntity = mapper.Map<Publisher>(publisher);
         await publisherRepository.CreatePublisherAsync(gameEntity);
+    }
+
+    public async Task UpdatePublisherAsync(PublisherUpdateDto publisher)
+    {
+        logger.LogTrace(nameof(this.CreatePublisherAsync));
+
+        var entity = await publisherRepository.GetPublisherByIdAsync(publisher.Id) ?? throw new NotFoundException("Publisher not found");
+        await VerifyCompanyName(publisher.CompanyName);
+
+        mapper.Map(publisher, entity);
+        await publisherRepository.UpdatePublisherAsync(entity);
+    }
+
+    public async Task<bool> DeletePublisherAsync(Guid id)
+    {
+        return await publisherRepository.DeletePublisherAsync(id);
     }
 
     public async Task<PublisherDto> GetPublisherByCompanyNameAsync(string companyName)
@@ -47,5 +63,19 @@ public class PublisherService(IPublisherRepository publisherRepository,
 
         var publishers = await publisherRepository.GetAllPublishersAsync();
         return [.. publishers.Select(mapper.Map<PublisherDto>)];
+    }
+
+    public async Task VerifyCompanyName(string? companyName)
+    {
+        if (companyName is null)
+        {
+            return;
+        }
+
+        var uniqueName = await publisherRepository.PublisherCompanyNameExistAsync(companyName);
+        if (uniqueName)
+        {
+            throw new NotUniqueCompanyNameException();
+        }
     }
 }

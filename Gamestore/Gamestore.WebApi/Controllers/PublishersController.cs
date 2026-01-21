@@ -9,10 +9,24 @@ namespace Gamestore.WebApi.Controllers;
 public class PublishersController(IPublisherService publisherService) : Controller
 {
     [HttpPost]
-    public async Task<IActionResult> CreatePublisher([FromBody] PublisherRequestDto publisher)
+    public async Task<IActionResult> CreatePublisher([FromBody] CreatePublisherRequest publisher)
     {
         await publisherService.CreatePublisherAsync(publisher.Publisher);
         return Ok();
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdatePublisher([FromBody] UpdatePublisherRequest publisher)
+    {
+        await publisherService.UpdatePublisherAsync(publisher.Publisher);
+        return Ok();
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteGenre(Guid id)
+    {
+        bool result = await publisherService.DeletePublisherAsync(id);
+        return result ? NoContent() : NotFound($"Publisher with ID {id} not found.");
     }
 
     [HttpGet("{companyName:alpha}")]

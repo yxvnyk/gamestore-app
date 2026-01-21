@@ -4,7 +4,11 @@ namespace Gamestore.Application.Services.Interfaces;
 
 public interface IPublisherService
 {
-    Task CreatePublisherAsync(PublisherDto publisher);
+    Task UpdatePublisherAsync(PublisherUpdateDto publisher);
+
+    Task<bool> DeletePublisherAsync(Guid id);
+
+    Task CreatePublisherAsync(PublisherCreateDto publisher);
 
     Task<PublisherDto> GetPublisherByCompanyNameAsync(string companyName);
 
