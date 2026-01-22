@@ -85,6 +85,15 @@ public class GameService(IGameRepository gameRepository,
         return gameDtos;
     }
 
+    public async Task<ICollection<GameDto>> GetGamesByCompanyNameAsync(string companyName)
+    {
+        logger.LogTrace(nameof(this.GetGamesByCompanyNameAsync));
+
+        var gameEntities = await _gameRepository.GetGamesByCompanyNameAsync(companyName);
+        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
+        return gameDtos;
+    }
+
     public async Task<ICollection<GameDto>> GetAllGamesAsync()
     {
         logger.LogTrace(nameof(this.GetAllGamesAsync));

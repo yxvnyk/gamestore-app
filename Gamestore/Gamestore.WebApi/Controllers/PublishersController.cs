@@ -6,7 +6,7 @@ namespace Gamestore.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class PublishersController(IPublisherService publisherService) : Controller
+public class PublishersController(IPublisherService publisherService, IGameService gameService) : Controller
 {
     [HttpPost]
     public async Task<IActionResult> CreatePublisher([FromBody] CreatePublisherRequest publisher)
@@ -41,5 +41,13 @@ public class PublishersController(IPublisherService publisherService) : Controll
     {
         var publishers = await publisherService.GetAllPublishersAsync();
         return Ok(publishers);
+    }
+
+    [HttpGet("{companyName:alpha}/games")]
+    [ResponseCache(Duration = 60)]
+    public async Task<IActionResult> GetGamesByPublisherName(string companyName)
+    {
+        var game = await gameService.GetGamesByCompanyNameAsync(companyName);
+        return Ok(game);
     }
 }
