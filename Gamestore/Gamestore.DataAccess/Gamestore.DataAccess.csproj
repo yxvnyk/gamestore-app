@@ -21,10 +21,4 @@
 		</PackageReference>
 	</ItemGroup>
 
-	<ItemGroup>
-		<Compile Update="Migrations/**/*.cs">
-			<ExcludeFromCodeCoverage>true</ExcludeFromCodeCoverage>
-		</Compile>
-	</ItemGroup>
-
 </Project>
