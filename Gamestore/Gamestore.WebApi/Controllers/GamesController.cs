@@ -47,7 +47,7 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     public async Task<IActionResult> UpdateGame([FromBody] UpdateGameRequest game)
     {
         await gameService.UpdateGameAsync(game);
-        return Ok(GameSuccessfullyUpdated);
+        return Ok(new { message = GameSuccessfullyUpdated });
     }
 
     [HttpDelete("{key}")]
@@ -75,7 +75,7 @@ public class GamesController(IGameService gameService, IGenreService genreServic
         return Ok(genres);
     }
 
-    [HttpGet("{key}/platform")]
+    [HttpGet("{key}/platforms")]
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetPlatformsByGameKey(string key)
     {

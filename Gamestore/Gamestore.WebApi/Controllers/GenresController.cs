@@ -8,6 +8,8 @@ namespace Gamestore.WebApi.Controllers;
 [Route("[controller]")]
 public class GenresController(IGenreService genreService, IGameService gameService) : Controller
 {
+    private const string GenreSuccessfullyUpdated = "Genre successfuly updated";
+
     [HttpPost]
     public async Task<IActionResult> CreateGenre([FromBody] CreateGenreRequest genreRequest)
     {
@@ -43,7 +45,7 @@ public class GenresController(IGenreService genreService, IGameService gameServi
     public async Task<IActionResult> UpdateGenre([FromBody] UpdateGenreRequest genreRequest)
     {
         await genreService.UpdateGenreAsync(genreRequest.Genre);
-        return Ok($"Genre successfuly updated");
+        return Ok(new { message = GenreSuccessfullyUpdated });
     }
 
     [HttpDelete("{id:guid}")]

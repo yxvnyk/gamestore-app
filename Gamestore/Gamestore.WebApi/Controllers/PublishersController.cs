@@ -8,6 +8,8 @@ namespace Gamestore.WebApi.Controllers;
 [Route("[controller]")]
 public class PublishersController(IPublisherService publisherService, IGameService gameService) : Controller
 {
+    private const string PublisherSuccessfullyUpdated = "Publisher successfuly updated";
+
     [HttpPost]
     public async Task<IActionResult> CreatePublisher([FromBody] CreatePublisherRequest publisher)
     {
@@ -19,7 +21,7 @@ public class PublishersController(IPublisherService publisherService, IGameServi
     public async Task<IActionResult> UpdatePublisher([FromBody] UpdatePublisherRequest publisher)
     {
         await publisherService.UpdatePublisherAsync(publisher.Publisher);
-        return Ok($"Publisher successfuly updated");
+        return Ok(new { message = PublisherSuccessfullyUpdated });
     }
 
     [HttpDelete("{id:guid}")]
