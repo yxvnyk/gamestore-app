@@ -2,12 +2,12 @@ using System.Text.Json;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Game;
+using Gamestore.Domain.Models.DTO.Genre;
+using Gamestore.Domain.Models.DTO.Platform;
 using Gamestore.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Gamestore.Domain.Models.DTO.Platform;
-using Gamestore.Domain.Models.DTO.Game;
-using Gamestore.Domain.Models.DTO.Genre;
 
 namespace Gamestore.WebApi.Tests.Controllers;
 
@@ -16,6 +16,7 @@ public class GameControllerTests
     private readonly Mock<IGameService> _mockGameService = new();
     private readonly Mock<IGenreService> _mockGenreService = new();
     private readonly Mock<IPlatformService> _mockPlatformService = new();
+    private readonly Mock<IPublisherService> _mockPublisherService = new();
     private readonly Mock<IGenerateGameFile> _mockGenerateGameFile = new();
 
     private readonly List<GameDto> _expectedGameDtos =
@@ -350,6 +351,7 @@ public class GameControllerTests
             _mockGameService.Object,
             _mockGenreService.Object,
             _mockPlatformService.Object,
+            _mockPublisherService.Object,
             _mockGenerateGameFile.Object);
     }
 }

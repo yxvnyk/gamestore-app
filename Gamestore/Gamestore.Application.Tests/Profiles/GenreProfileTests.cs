@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.DataAccess.Entities;
-using Gamestore.Domain.Models.DTO;
 using Gamestore.Domain.Models.DTO.Genre;
 
 namespace Gamestore.Application.Tests.Profiles;

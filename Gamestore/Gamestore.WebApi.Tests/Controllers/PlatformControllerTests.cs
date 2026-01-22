@@ -60,14 +60,14 @@ public class PlatformControllerTests
     public async Task CreateGenreReturnOk()
     {
         // Arrange
-        var dto = new PlatformCreateDto();
+        var dto = new CreatePlatformRequest();
         var controller = CreateController();
 
         // Act
         var result = await controller.CreatePlatform(dto);
 
         // Assert
-        _mockPlatformService.Verify(s => s.CreatePlatformAsync(dto), Times.Once);
+        _mockPlatformService.Verify(s => s.CreatePlatformAsync(dto.Platform), Times.Once);
         Assert.IsType<OkResult>(result);
     }
 
@@ -132,14 +132,14 @@ public class PlatformControllerTests
     public async Task UpdatePlatformsReturnOk()
     {
         // Arrange
-        var dto = new PlatformUpdateDto();
+        var dto = new UpdatePlatformRequest();
         var controller = CreateController();
 
         // Act
         var result = await controller.UpdatePlatform(dto);
 
         // Assert
-        _mockPlatformService.Verify(s => s.UpdatePlatformAsync(dto), Times.Once);
+        _mockPlatformService.Verify(s => s.UpdatePlatformAsync(dto.Platform), Times.Once);
         var resultValue = Assert.IsType<OkObjectResult>(result);
         Assert.Equal("Platform successfuly updated", resultValue.Value);
     }
