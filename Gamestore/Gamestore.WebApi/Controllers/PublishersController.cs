@@ -19,11 +19,11 @@ public class PublishersController(IPublisherService publisherService, IGameServi
     public async Task<IActionResult> UpdatePublisher([FromBody] UpdatePublisherRequest publisher)
     {
         await publisherService.UpdatePublisherAsync(publisher.Publisher);
-        return Ok();
+        return Ok($"Publisher successfuly updated");
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> DeleteGenre(Guid id)
+    public async Task<IActionResult> DeletePublisher(Guid id)
     {
         bool result = await publisherService.DeletePublisherAsync(id);
         return result ? NoContent() : NotFound($"Publisher with ID {id} not found.");
