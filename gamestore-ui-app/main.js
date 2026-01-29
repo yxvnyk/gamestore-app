@@ -2231,7 +2231,7 @@ class BasketPageComponent extends src_app_componetns_base_component__WEBPACK_IMP
     }
     ngOnInit() {
         this.refreshBasketItems();
-    }
+}
     refreshBasketItems() {
         this.orderService
             .getBasket()
