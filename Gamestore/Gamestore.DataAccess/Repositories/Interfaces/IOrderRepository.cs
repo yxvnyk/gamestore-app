@@ -10,6 +10,8 @@ public interface IOrderRepository
 
     Task<Order> GetOrderByIdAsync(Guid id);
 
+    Task<Guid?> GetOrderIdByCustomerIdAsync(Guid customerId);
+
     Task<bool> DeleteByIdAsync(Guid id);
 
     Task UpdateGenreAsync(Order entity);

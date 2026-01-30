@@ -18,9 +18,13 @@ public interface IGameRepository
 
     Task<ICollection<Game>> GetAllGamesAsync();
 
+    Task<Guid?> GetGameIdByKeyAsync(string key);
+
     Task<Game?> GetGameWithJoinsAsync(Guid id);
 
     Task<bool> GameKeyExistAsync(string key);
+
+    Task<int> GetUnitsInStockAsync(Guid gameId);
 
     Task UpdateGameAsync(Game entity);
 

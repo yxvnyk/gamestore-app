@@ -26,6 +26,14 @@ public class OrderRepository(GamestoreDbContext context) : IOrderRepository
         return await _context.Orders.FindAsync(id);
     }
 
+    public async Task<Guid?> GetOrderIdByCustomerIdAsync(Guid customerId)
+    {
+        return await _context.Orders
+            .Where(g => g.CustomerId == customerId)
+            .Select(o => (Guid?)o.Id)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<bool> DeleteByIdAsync(Guid id)
     {
         var exist = await _context.Orders.FindAsync(id);

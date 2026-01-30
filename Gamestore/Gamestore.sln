@@ -12,14 +12,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application", "Gamestore.Application\Gamestore.Application.csproj", "{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Gamestore.WebApi.Tests\Gamestore.WebApi.Tests.csproj = Gamestore.WebApi.Tests\Gamestore.WebApi.Tests.csproj
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application.Tests", "Gamestore\Gamestore.Application.Tests\Gamestore.Application.Tests.csproj", "{2ADB278D-168D-7B3F-6E04-34E493A97605}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application.Tests", "Gamestore.Application.Tests\Gamestore.Application.Tests.csproj", "{3D8F4C97-6CF0-8EE8-DECF-31FB1B52063A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.DataAccess.Tests", "Gamestore\Gamestore.DataAccess.Tests\Gamestore.DataAccess.Tests.csproj", "{E43ECB04-682B-7C37-7947-0FF82EE03705}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.DataAccess.Tests", "Gamestore.DataAccess.Tests\Gamestore.DataAccess.Tests.csproj", "{B3A705C9-7CC8-44FB-2662-F11A1974CAD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.WebApi.Tests", "Gamestore\Gamestore.WebApi.Tests\Gamestore.WebApi.Tests.csproj", "{219002F3-EC2A-7EB5-619D-329E3901BD72}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain.Tests", "Gamestore\Gamestore.Domain.Tests\Gamestore.Domain.Tests.csproj", "{FA4E0E1A-F123-4FB5-9B6D-22185F70314C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain.Tests", "Gamestore.Domain.Tests\Gamestore.Domain.Tests.csproj", "{3BBA043C-A467-E46A-1BB7-966033EC7466}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,9 +44,26 @@ Global
 		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D8F4C97-6CF0-8EE8-DECF-31FB1B52063A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D8F4C97-6CF0-8EE8-DECF-31FB1B52063A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D8F4C97-6CF0-8EE8-DECF-31FB1B52063A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D8F4C97-6CF0-8EE8-DECF-31FB1B52063A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3A705C9-7CC8-44FB-2662-F11A1974CAD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A705C9-7CC8-44FB-2662-F11A1974CAD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A705C9-7CC8-44FB-2662-F11A1974CAD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A705C9-7CC8-44FB-2662-F11A1974CAD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BBA043C-A467-E46A-1BB7-966033EC7466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BBA043C-A467-E46A-1BB7-966033EC7466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BBA043C-A467-E46A-1BB7-966033EC7466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BBA043C-A467-E46A-1BB7-966033EC7466}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3D8F4C97-6CF0-8EE8-DECF-31FB1B52063A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{B3A705C9-7CC8-44FB-2662-F11A1974CAD8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{3BBA043C-A467-E46A-1BB7-966033EC7466} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C82F5F6E-E169-4093-B97C-4A4FD04F84A2}

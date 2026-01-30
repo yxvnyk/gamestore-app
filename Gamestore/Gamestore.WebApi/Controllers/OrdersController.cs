@@ -5,8 +5,10 @@ namespace Gamestore.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class OrdersController(IOrderService orderService) : Controller
+public class OrdersController(IOrderService orderService, ICartService cartService) : Controller
 {
+    private static readonly Guid StubCustomerId = Guid.Parse("11111111-1111-1111-1111-111111111111");
+
     [HttpGet]
     public async Task<IActionResult> GetPaindAndCancelledOrders()
     {
@@ -19,5 +21,12 @@ public class OrdersController(IOrderService orderService) : Controller
     {
         var orders = await orderService.GetOrderByIdAsync(id);
         return Ok(orders);
+    }
+
+    [HttpDelete("/cart/{key}")]
+    public async Task<IActionResult> DeleteGameFromCart(string key)
+    {
+        bool result = await cartService.DeleteAsync(key, StubCustomerId);
+        return result ? NoContent() : NotFound($"Order not found.");
     }
 }

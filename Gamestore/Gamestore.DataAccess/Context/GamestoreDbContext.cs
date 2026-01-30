@@ -16,6 +16,8 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
 
     public DbSet<Order> Orders { get; set; }
 
+    public DbSet<OrderGame> OrderGames { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // This method should be empty because all configuraion set by
