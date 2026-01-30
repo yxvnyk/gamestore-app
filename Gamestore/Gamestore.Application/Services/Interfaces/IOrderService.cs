@@ -1,0 +1,15 @@
+﻿using Gamestore.DataAccess.Entities;
+using Gamestore.Domain.Models.DTO.Order;
+
+namespace Gamestore.Application.Services.Interfaces;
+
+public interface IOrderService
+{
+    Task<IEnumerable<OrderDto>> GetPaidAndCancelledOrdersAsync();
+
+    Task<OrderDto> GetOrderByIdAsync(Guid id);
+
+    Task<bool> DeleteByIdAsync(Guid id);
+
+    Task UpdateGenreAsync(Order entity);
+}
