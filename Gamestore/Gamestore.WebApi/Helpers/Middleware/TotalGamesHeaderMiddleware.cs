@@ -10,7 +10,7 @@ public class TotalGamesHeaderMiddleware(IGameRepository gameSerivece, IMemoryCac
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        var cachedTotalGames = GetTotalGamesCountAsync();
+        var cachedTotalGames = await GetTotalGamesCountAsync();
 
         context.Response.OnStarting(() =>
         {

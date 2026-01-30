@@ -151,11 +151,11 @@ public class PlatformRepositoryTests
         [
             new GamePlatform()
             {
-                Platform = platforms[1],
+                Platform = platforms[0],
             },
             new GamePlatform()
             {
-                Platform = platforms[2],
+                Platform = platforms[1],
             },
         ];
         game.Id = id;

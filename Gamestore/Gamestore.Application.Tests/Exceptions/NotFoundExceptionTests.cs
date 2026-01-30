@@ -1,4 +1,4 @@
-﻿using Gamestore.Application.Exceptions;
+﻿using Gamestore.Domain.Exceptions;
 
 namespace Gamestore.Application.Tests.Exceptions;
 

@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
-using Gamestore.Application.Exceptions;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Extensions;
 using Gamestore.Domain.Models.DTO;
+using Microsoft.Extensions.Logging;
 
 namespace Gamestore.Application.Services;
 
 public class GameService(IGameRepository gameRepository,
     IGenreRepository genreRepository, IPlatformRepository platformRepository, IKeyGenerator uniqueKeyGenerator,
-    IMapper mapper) : Interfaces.IGameService
+    IMapper mapper, ILogger<GameService> logger) : Interfaces.IGameService
 {
     private readonly IGameRepository _gameRepository = gameRepository;
     private readonly IGenreRepository _genreRepository = genreRepository;
@@ -19,6 +21,8 @@ public class GameService(IGameRepository gameRepository,
 
     public async Task UpdateGameAsync(GameUpdateExtendedDto model)
     {
+        logger.LogTrace(nameof(this.UpdateGameAsync));
+
         var entity = await _gameRepository.GetGameWithJoinsAsync(model.Game.Id)
             ?? throw new NotFoundException($"Game with ID {model.Game.Id} does not exist.");
         entity.GameGenres.Clear();
@@ -42,18 +46,24 @@ public class GameService(IGameRepository gameRepository,
 
     public async Task<GameDto> GetGameAsync(string key)
     {
+        logger.LogTrace(nameof(this.GetGameAsync));
+
         var gameEntity = await _gameRepository.GetGameByKeyAsync(key);
         return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotFoundException($"Game with key '{key}' not found.");
     }
 
     public async Task<GameDto> GetGameAsync(Guid id)
     {
+        logger.LogTrace(nameof(this.GetGameAsync));
+
         var gameEntity = await _gameRepository.GetGameByIdAsync(id);
         return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotFoundException($"Game with ID '{id}' not found.");
     }
 
     public async Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id)
     {
+        logger.LogTrace(nameof(this.GetGamesByPlatformAsync));
+
         var gameEntities = await _gameRepository.GetGamesByPlatformAsync(id);
         var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
         return gameDtos;
@@ -61,6 +71,8 @@ public class GameService(IGameRepository gameRepository,
 
     public async Task<ICollection<GameDto>> GetGamesByGenreAsync(Guid id)
     {
+        logger.LogTrace(nameof(this.GetGamesByGenreAsync));
+
         var gameEntities = await _gameRepository.GetGamesByGenreAsync(id);
         var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
         return gameDtos;
@@ -68,6 +80,8 @@ public class GameService(IGameRepository gameRepository,
 
     public async Task<ICollection<GameDto>> GetAllGamesAsync()
     {
+        logger.LogTrace(nameof(this.GetAllGamesAsync));
+
         var gameEntities = await _gameRepository.GetAllGamesAsync();
         var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
         return gameDtos;
@@ -75,6 +89,8 @@ public class GameService(IGameRepository gameRepository,
 
     public async Task CreateGameAsync(GameCreateExtendedDto game)
     {
+        logger.LogTrace(nameof(this.CreateGameAsync));
+
         await ValidateEntitiesExistAsync(game.Genres, _genreRepository.GenreExistsAsync, "Genre");
         await ValidateEntitiesExistAsync(game.Platforms, _platformRepository.PlatformExistsAsync, "Platform");
 
@@ -92,11 +108,15 @@ public class GameService(IGameRepository gameRepository,
 
     public async Task<bool> DeleteByKeyAsync(string key)
     {
+        logger.LogTrace(nameof(this.DeleteByKeyAsync));
+
         return await _gameRepository.DeleteByKeyAsync(key);
     }
 
     public async Task<int> GetTotalGamesCountAsync()
     {
+        logger.LogTrace(nameof(this.GetTotalGamesCountAsync));
+
         return await _gameRepository.GetTotalGamesCountAsync();
     }
 

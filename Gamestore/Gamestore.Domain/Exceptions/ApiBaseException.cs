@@ -1,4 +1,4 @@
-﻿namespace Gamestore.Application.Exceptions;
+﻿namespace Gamestore.Domain.Exceptions;
 
 public class ApiBaseException : Exception
 {

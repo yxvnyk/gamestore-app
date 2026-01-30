@@ -1,11 +1,12 @@
-﻿using Gamestore.Application.Exceptions;
+﻿using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.WebApi.Helpers.Middleware;
 
-public class ExceptionHandlingMiddleware : IMiddleware
+public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger) : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -13,37 +14,44 @@ public class ExceptionHandlingMiddleware : IMiddleware
         {
             await next(context);
         }
-        catch (ApiBaseException ex)
+        catch (Exception ex)
         {
-            await HandleApiExceptionAsync(context, ex);
+            await HandleExceptionAsync(context, ex);
         }
-        catch (DbUpdateException ex) when (IsUniqueKeyViolation(ex, "IX_Games_Key"))
+    }
+
+    private async Task HandleExceptionAsync(HttpContext context, Exception ex)
+    {
+        logger.LogException(ex);
+        switch (ex)
         {
-            await HandlDBUpdatelException(context, "A game with the same key already exists.");
-        }
-        catch (DbUpdateException ex) when (IsForeignKeyViolation(ex, "FK_GameGenres_Games_GameId"))
-        {
-            await HandlDBUpdatelException(context, "Cannot insert game - genre relation because the game does not exist.");
-        }
-        catch (DbUpdateException ex) when (IsUniqueKeyViolation(ex, "IX_Platforms_Type"))
-        {
-            await HandlDBUpdatelException(context, "A platform with the same type already exists.");
-        }
-        catch (DbUpdateException ex) when (IsUniqueKeyViolation(ex, "IX_Genres_Name"))
-        {
-            await HandlDBUpdatelException(context, "A genre with the same name already exists.");
-        }
-        catch (DbUpdateException ex) when (IsForeignKeyViolation(ex, "FK_Genres_Genres_ParentGenreId"))
-        {
-            await HandlDBUpdatelException(context, "Cannot delete genre because it has child genres.");
-        }
-        catch (TimeoutException)
-        {
-            await HandleTimeoutException(context);
-        }
-        catch (SqlException)
-        {
-            await HandleSqlException(context);
+            case ApiBaseException apiEx:
+                await HandleApiExceptionAsync(context, apiEx);
+                break;
+            case DbUpdateException dbEx when IsUniqueKeyViolation(dbEx, "IX_Games_Key"):
+                await HandlDBUpdatelException(context, "A game with the same key already exists.");
+                break;
+            case DbUpdateException dbUpdateEx when IsForeignKeyViolation(dbUpdateEx, "FK_GameGenres_Games_GameId"):
+                await HandlDBUpdatelException(context, "Cannot insert game - genre relation because the game does not exist.");
+                break;
+            case DbUpdateException dbUpdateEx when IsUniqueKeyViolation(dbUpdateEx, "IX_Platforms_Type"):
+                await HandlDBUpdatelException(context, "A platform with the same type already exists.");
+                break;
+            case DbUpdateException dbUpdateEx when IsUniqueKeyViolation(dbUpdateEx, "IX_Genres_Name"):
+                await HandlDBUpdatelException(context, "A genre with the same name already exists.");
+                break;
+            case DbUpdateException dbUpdateEx when IsForeignKeyViolation(dbUpdateEx, "FK_Genres_Genres_ParentGenreId"):
+                await HandlDBUpdatelException(context, "Cannot delete genre because it has child genres.");
+                break;
+            case TimeoutException:
+                await HandleTimeoutException(context);
+                break;
+            case SqlException:
+                await HandleSqlException(context);
+                break;
+            default:
+                await UnknownExceptionHandler(context);
+                break;
         }
     }
 
@@ -97,6 +105,17 @@ public class ExceptionHandlingMiddleware : IMiddleware
 
         context.Response.StatusCode = 500;
         await context.Response.WriteAsJsonAsync(details);
+    }
+
+    private static async Task UnknownExceptionHandler(HttpContext context)
+    {
+        context.Response.StatusCode = 500;
+        await context.Response.WriteAsJsonAsync(new ProblemDetails
+        {
+            Title = "Internal Server Error",
+            Detail = "An unexpected error occurred.",
+            Status = 500,
+        });
     }
 
     private static bool IsUniqueKeyViolation(DbUpdateException ex, string indexName)

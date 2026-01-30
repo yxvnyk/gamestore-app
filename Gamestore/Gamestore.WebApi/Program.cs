@@ -5,6 +5,7 @@
 using Gamestore.WebApi.Extensions;
 using Gamestore.WebApi.Helpers;
 using Gamestore.WebApi.Helpers.Middleware;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,10 +20,17 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Host.UseSerilog((context, services, configuration) =>
+    configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services));
+
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+builder.Services.AddTransient<RequestDetailsLoggingMiddleware>();
+
 builder.Services.AddTransient<TotalGamesHeaderMiddleware>();
 
 builder.Services.ConfigureDatabase(builder.Configuration);
@@ -34,6 +42,9 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<RequestDetailsLoggingMiddleware>();
+
+app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {

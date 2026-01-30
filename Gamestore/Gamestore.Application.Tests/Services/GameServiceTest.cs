@@ -1,11 +1,12 @@
 using AutoMapper;
-using Gamestore.Application.Exceptions;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Models.DTO;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace Gamestore.Application.Tests.Services;
@@ -18,6 +19,7 @@ public class GameServiceTest
     private readonly Mock<IGenreRepository> _mockGenreRepo = new();
     private readonly Mock<IPlatformRepository> _mockPlatformRepo = new();
     private readonly Mock<IKeyGenerator> _mockKeyGen = new();
+    private readonly Mock<ILogger<GameService>> _mockLogger = new();
     private readonly Mock<IMapper> _mockMapper = new();
 
     public GameServiceTest()
@@ -559,5 +561,6 @@ public class GameServiceTest
     _mockGenreRepo.Object,
     _mockPlatformRepo.Object,
     _mockKeyGen.Object,
-    _mockMapper.Object);
+    _mockMapper.Object,
+    _mockLogger.Object);
 }

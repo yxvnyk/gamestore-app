@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.WebApi", "Gamesto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.DataAccess", "Gamestore.DataAccess\Gamestore.DataAccess.csproj", "{0D17929F-28EC-46BE-A269-355F9583D0ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.WebApi.Models", "Gamestore.WebApi.Models\Gamestore.WebApi.Models.csproj", "{1F207499-E234-4639-8B5F-E4069263EFD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain", "Gamestore.Domain\Gamestore.Domain.csproj", "{6D0A4AA5-6F6C-D0BE-4960-6554049FB9F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application", "Gamestore.Application\Gamestore.Application.csproj", "{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

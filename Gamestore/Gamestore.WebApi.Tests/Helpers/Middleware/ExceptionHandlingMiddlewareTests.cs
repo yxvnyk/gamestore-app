@@ -1,12 +1,14 @@
 ﻿using System.Reflection;
 using System.Text.Json;
-using Gamestore.Application.Exceptions;
+using Gamestore.Domain.Exceptions;
 using Gamestore.WebApi.Helpers.Middleware;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace Gamestore.WebApi.Tests.Helpers.Middleware;
 
@@ -23,7 +25,8 @@ public class ExceptionHandlingMiddlewareTests
     {
         // Arrange
         var context = CreateHttpContext();
-        var middleware = new ExceptionHandlingMiddleware();
+        var loggerMock = new Mock<ILogger<ExceptionHandlingMiddleware>>();
+        var middleware = new ExceptionHandlingMiddleware(loggerMock.Object);
 
         // Act
         await middleware.InvokeAsync(context, contx => throw new NotFoundException());
@@ -49,7 +52,8 @@ public class ExceptionHandlingMiddlewareTests
     {
         // Arrange
         var context = CreateHttpContext();
-        var middleware = new ExceptionHandlingMiddleware();
+        var loggerMock = new Mock<ILogger<ExceptionHandlingMiddleware>>();
+        var middleware = new ExceptionHandlingMiddleware(loggerMock.Object);
 
         // Act
         await middleware.InvokeAsync(context, contx => throw new TimeoutException());
@@ -75,7 +79,8 @@ public class ExceptionHandlingMiddlewareTests
     {
         // Arrange
         var context = CreateHttpContext();
-        var middleware = new ExceptionHandlingMiddleware();
+        var loggerMock = new Mock<ILogger<ExceptionHandlingMiddleware>>();
+        var middleware = new ExceptionHandlingMiddleware(loggerMock.Object);
 
         var dummyMessage = "Dummy SQL exception message";
         var dummyNumber = 1234;
@@ -112,7 +117,8 @@ public class ExceptionHandlingMiddlewareTests
         var sqlException = CreateSqlException(errorNumber, constraint);
         var dbEx = new DbUpdateException("error", sqlException);
         var context = CreateHttpContext();
-        var middleware = new ExceptionHandlingMiddleware();
+        var loggerMock = new Mock<ILogger<ExceptionHandlingMiddleware>>();
+        var middleware = new ExceptionHandlingMiddleware(loggerMock.Object);
 
         // Act
         await middleware.InvokeAsync(context, contx => throw dbEx);

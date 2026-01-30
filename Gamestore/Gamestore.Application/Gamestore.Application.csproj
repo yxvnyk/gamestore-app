@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gamestore.DataAccess\Gamestore.DataAccess.csproj" />
-    <ProjectReference Include="..\Gamestore.WebApi.Models\Gamestore.Domain.csproj" />
+    <ProjectReference Include="..\Gamestore.Domain\Gamestore.Domain.csproj" />
   </ItemGroup>
 
 </Project>
