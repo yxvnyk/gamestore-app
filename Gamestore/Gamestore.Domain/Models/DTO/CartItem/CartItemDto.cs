@@ -1,8 +1,8 @@
-﻿namespace Gamestore.Domain.Models.DTO.Cart;
+﻿namespace Gamestore.Domain.Models.DTO.CartItem;
 
-public class CartDto
+public class CartItemDto
 {
-    public Guid PeroductId { get; set; }
+    public Guid ProductId { get; set; }
 
     public double Price { get; set; }
 

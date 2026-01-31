@@ -2,9 +2,13 @@
 
 namespace Gamestore.DataAccess.Repositories.Interfaces;
 
-public interface ICartRepository
+public interface ICartItemRepository
 {
     Task<OrderGame?> GetByOrderIdProductIdAsync(Guid orderId, Guid productId);
+
+    Task CreateAsync(OrderGame entity);
+
+    Task<IEnumerable<OrderGame>> GetByOrderIdAsync(Guid orderId);
 
     Task<bool> DeleteByOrderIdProductIdAsync(Guid orderId, Guid productId);
 

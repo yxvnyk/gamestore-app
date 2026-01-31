@@ -5,9 +5,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Repositories;
 
-public class CartRepository(GamestoreDbContext context) : ICartRepository
+public class CartItemRepository(GamestoreDbContext context) : ICartItemRepository
 {
     private readonly GamestoreDbContext _context = context;
+
+    public async Task CreateAsync(OrderGame entity)
+    {
+        await _context.OrderGames.AddAsync(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<OrderGame>> GetByOrderIdAsync(Guid orderId)
+    {
+        return await _context.OrderGames
+            .Where(og => og.OrderId == orderId)
+            .ToListAsync();
+    }
 
     public async Task<OrderGame?> GetByOrderIdProductIdAsync(Guid orderId, Guid productId)
     {
