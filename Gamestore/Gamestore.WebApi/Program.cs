@@ -36,6 +36,7 @@ builder.Services.AddTransient<TotalGamesHeaderMiddleware>();
 builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.AddDataAccess();
 builder.Services.AddApplicationServices();
+builder.Services.ConfigurePayments(builder.Configuration);
 
 builder.Services.AddControllers();
 

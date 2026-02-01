@@ -5,7 +5,7 @@ namespace Gamestore.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class OrdersController(IOrderService orderService, IOrderItemService cartService) : Controller
+public class OrdersController(IOrderService orderService, IOrderItemService cartService, IPaymentService paymentService) : Controller
 {
     private static readonly Guid StubCustomerId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
@@ -42,5 +42,11 @@ public class OrdersController(IOrderService orderService, IOrderItemService cart
     {
         var orderDetails = await cartService.GetCartByCustomerId(StubCustomerId);
         return Ok(orderDetails);
+    }
+
+    [HttpGet("payment-methods")]
+    public IActionResult GetPaymentMethods()
+    {
+        return Ok(paymentService.GetPaymentMethods());
     }
 }

@@ -1,0 +1,10 @@
+﻿namespace Gamestore.Domain.Models.DTO.PaymentMethod;
+
+public class PaymentMethodDto
+{
+    public Uri ImageUrl { get; set; }
+
+    public string Title { get; set; }
+
+    public string Description { get; set; }
+}

@@ -6,6 +6,7 @@ using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Context;
 using Gamestore.DataAccess.Repositories;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.Domain.Models.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.WebApi.Extensions;
@@ -22,6 +23,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IPublisherService, PublisherService>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IOrderItemService, OrderItemService>();
+        services.AddScoped<IPaymentService, PaymentService>();
 
         services.AddAutoMapper(typeof(GameProfile));
 
@@ -43,6 +45,13 @@ public static class ServiceCollectionExtension
     {
         services.AddDbContext<GamestoreDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("GamestoreDb")));
+        return services;
+    }
+
+    public static IServiceCollection ConfigurePayments(this IServiceCollection services, IConfiguration configuration)
+    {
+        var config = configuration.GetSection("PaymentSettings");
+        services.Configure<PaymentSettings>(config);
         return services;
     }
 }
