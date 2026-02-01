@@ -1,6 +1,6 @@
-﻿namespace Gamestore.Domain.Models.DTO.CartItem;
+﻿namespace Gamestore.Domain.Models.DTO.OrderItem;
 
-public class CartItemDto
+public class OrderItemDto
 {
     public Guid ProductId { get; set; }
 

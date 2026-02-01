@@ -9,6 +9,13 @@ public class OrderRepository(GamestoreDbContext context) : IOrderRepository
 {
     private readonly GamestoreDbContext _context = context;
 
+    public async Task<Guid> AddAsync(Order entity)
+    {
+        await _context.Orders.AddAsync(entity);
+        await _context.SaveChangesAsync();
+        return entity.Id;
+    }
+
     public async Task<bool> OrderExistsAsync(Guid id)
     {
         return await _context.Orders.AnyAsync(g => g.Id == id);
@@ -34,6 +41,12 @@ public class OrderRepository(GamestoreDbContext context) : IOrderRepository
             .FirstOrDefaultAsync();
     }
 
+    public async Task<bool> IsOrderEmptyAsync(Guid orderId)
+    {
+        return !await _context.OrderGames
+            .AnyAsync(og => og.OrderId == orderId);
+    }
+
     public async Task<bool> DeleteByIdAsync(Guid id)
     {
         var exist = await _context.Orders.FindAsync(id);
@@ -47,7 +60,7 @@ public class OrderRepository(GamestoreDbContext context) : IOrderRepository
         return false;
     }
 
-    public async Task UpdateGenreAsync(Order entity)
+    public async Task UpdateAsync(Order entity)
     {
         _context.Orders.Update(entity);
         await _context.SaveChangesAsync();

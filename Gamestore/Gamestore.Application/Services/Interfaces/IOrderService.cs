@@ -11,5 +11,5 @@ public interface IOrderService
 
     Task<bool> DeleteByIdAsync(Guid id);
 
-    Task UpdateGenreAsync(Order entity);
+    Task UpdateAsync(Order entity);
 }

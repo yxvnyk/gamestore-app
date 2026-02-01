@@ -32,8 +32,8 @@ public class OrderService(IOrderRepository orderRepository, IMapper mapper, ILog
         return await orderRepository.DeleteByIdAsync(id);
     }
 
-    public async Task UpdateGenreAsync(Order entity)
+    public async Task UpdateAsync(Order entity)
     {
-        await orderRepository.UpdateGenreAsync(entity);
+        await orderRepository.UpdateAsync(entity);
     }
 }

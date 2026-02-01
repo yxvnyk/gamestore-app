@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Gamestore.DataAccess.Entities;
-using Gamestore.Domain.Models.DTO.CartItem;
+using Gamestore.Domain.Models.DTO.OrderItem;
 
 namespace Gamestore.Application.Helpers.Profiles;
 
-public class CartProfile : Profile
+public class OrderItemProfile : Profile
 {
-    public CartProfile()
+    public OrderItemProfile()
     {
-        CreateMap<OrderGame, CartItemDto>()
+        CreateMap<OrderGame, OrderItemDto>()
             .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId));
     }
 }

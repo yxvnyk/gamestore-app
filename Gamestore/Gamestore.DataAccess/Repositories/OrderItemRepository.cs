@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Repositories;
 
-public class CartItemRepository(GamestoreDbContext context) : ICartItemRepository
+public class OrderItemRepository(GamestoreDbContext context) : IOrderItemRepository
 {
     private readonly GamestoreDbContext _context = context;
 
@@ -42,7 +42,7 @@ public class CartItemRepository(GamestoreDbContext context) : ICartItemRepositor
         return false;
     }
 
-    public async Task UpdateGenreAsync(OrderGame entity)
+    public async Task UpdateAsync(OrderGame entity)
     {
         _context.OrderGames.Update(entity);
         await _context.SaveChangesAsync();
