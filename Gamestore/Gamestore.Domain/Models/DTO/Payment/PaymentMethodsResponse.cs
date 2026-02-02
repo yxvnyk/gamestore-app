@@ -1,4 +1,4 @@
-﻿namespace Gamestore.Domain.Models.DTO.PaymentMethod;
+﻿namespace Gamestore.Domain.Models.DTO.Payment;
 
 public class PaymentMethodsResponse
 {

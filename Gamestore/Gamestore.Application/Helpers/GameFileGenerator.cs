@@ -5,7 +5,7 @@ using Gamestore.Domain.Models.DTO.Game;
 
 namespace GameStore.Application.Helpers;
 
-public class GenerateGameFile : IGenerateGameFile
+public class GameFileGenerator : IGenerateGameFile
 {
     private static readonly JsonSerializerOptions _jsonOptions = new()
     {

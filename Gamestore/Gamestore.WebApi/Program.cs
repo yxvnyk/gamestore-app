@@ -5,7 +5,10 @@
 using Gamestore.WebApi.Extensions;
 using Gamestore.WebApi.Helpers;
 using Gamestore.WebApi.Helpers.Middleware;
+using QuestPDF.Infrastructure;
 using Serilog;
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +40,7 @@ builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.AddDataAccess();
 builder.Services.AddApplicationServices();
 builder.Services.ConfigurePayments(builder.Configuration);
+builder.Services.ConfigurePaymentOptions(builder.Configuration);
 
 builder.Services.AddControllers();
 

@@ -1,4 +1,5 @@
 ﻿using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Models.DTO.Payment;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
@@ -48,5 +49,16 @@ public class OrdersController(IOrderService orderService, IOrderItemService cart
     public IActionResult GetPaymentMethods()
     {
         return Ok(paymentService.GetPaymentMethods());
+    }
+
+    [HttpPost("payment")]
+    public async Task<IActionResult> Pay([FromBody] PaymentRequestDto paymentRequestDto)
+    {
+        var result = await paymentService.ProcessPaymentAsync(paymentRequestDto, StubCustomerId);
+        return !result.IsSuccess
+            ? BadRequest(new { error = result.ErrorMessage })
+            : result.FileBytes != null
+            ? File(result.FileBytes, result.ContentType!, result.FileName)
+            : result.Data != null ? Ok(result.Data) : Ok();
     }
 }

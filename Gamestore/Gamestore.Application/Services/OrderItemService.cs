@@ -106,13 +106,13 @@ public class OrderItemService(
 
     private async Task<Guid> GetActiveOrderIdOrThrowAsync(Guid customerId)
     {
-        return await orderRepository.GetActiveOrderIdByCustomerIdAsync(customerId)
+        return await orderRepository.GetOpenOrderIdByCustomerIdAsync(customerId)
                ?? throw new NotFoundException($"Active order for customer {customerId} not found.");
     }
 
     private async Task<Guid> GetOrCreateActiveOrderAsync(Guid customerId)
     {
-        var orderId = await orderRepository.GetActiveOrderIdByCustomerIdAsync(customerId);
+        var orderId = await orderRepository.GetOpenOrderIdByCustomerIdAsync(customerId);
         if (orderId != null && orderId != Guid.Empty)
         {
             return orderId.Value;

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Gamestore.Application.Services;
 
-public class OrderService(IOrderRepository orderRepository, IMapper mapper, ILogger<OrderService> logger) : IOrderService
+public class OrderService(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IMapper mapper, ILogger<OrderService> logger) : IOrderService
 {
     public async Task<IEnumerable<OrderDto>> GetPaidAndCancelledOrdersAsync()
     {
@@ -24,6 +24,19 @@ public class OrderService(IOrderRepository orderRepository, IMapper mapper, ILog
 
         var order = await orderRepository.GetOrderByIdAsync(id);
         return order is not null ? mapper.Map<OrderDto>(order) : throw new NotFoundException($"Order with ID {id} does not exist.");
+    }
+
+    public async Task<Guid> GetOpenOrderIdAsync(Guid customerId)
+    {
+        var orderId = await orderRepository.GetOpenOrderIdByCustomerIdAsync(customerId);
+        return orderId ?? throw new NotFoundException($"Open order for customer ID {customerId} does not exist.");
+    }
+
+    public async Task<double> CalculataOrderTotalAsync(Guid orderId)
+    {
+        logger.LogInformation(nameof(this.CalculataOrderTotalAsync));
+        var items = await orderItemRepository.GetByOrderIdAsync(orderId);
+        return items.Sum(x => x.Price * x.Quantity);
     }
 
     public async Task<bool> DeleteByIdAsync(Guid id)

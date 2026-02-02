@@ -18,7 +18,7 @@ public class GenerateGameFileTest
         // Arrange
         var gameDto = CreateGameDto();
         var expectedJson = JsonSerializer.Serialize(gameDto, JsonOptions);
-        var generator = new GenerateGameFile();
+        var generator = new GameFileGenerator();
 
         // Act
         var fileDto = generator.GenerateFileDto(gameDto);

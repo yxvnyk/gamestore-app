@@ -9,6 +9,10 @@ public interface IOrderService
 
     Task<OrderDto> GetOrderByIdAsync(Guid id);
 
+    Task<double> CalculataOrderTotalAsync(Guid orderId);
+
+    Task<Guid> GetOpenOrderIdAsync(Guid customerId);
+
     Task<bool> DeleteByIdAsync(Guid id);
 
     Task UpdateAsync(Order entity);

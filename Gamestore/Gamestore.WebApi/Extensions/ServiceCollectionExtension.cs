@@ -1,4 +1,6 @@
-﻿using GameStore.Application.Helpers;
+﻿using Gamestore.Application.Helpers;
+using GameStore.Application.Helpers;
+using Gamestore.Application.Helpers.Interfaces;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.Application.Services;
@@ -15,14 +17,18 @@ public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddSingleton<IGenerateGameFile, GenerateGameFile>();
+        services.AddSingleton<IGenerateGameFile, GameFileGenerator>();
+        services.AddSingleton<IPdfInvoiceGenerator, PdfInvoiceGenerator>();
         services.AddScoped<IKeyGenerator, UniqueKeyGenerator>();
+
         services.AddScoped<IGameService, GameService>();
         services.AddScoped<IGenreService, GenreService>();
         services.AddScoped<IPlatformService, PlatformService>();
         services.AddScoped<IPublisherService, PublisherService>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IOrderItemService, OrderItemService>();
+
+        services.AddScoped<IPaymentStrategy, BankPaymentStrategy>();
         services.AddScoped<IPaymentService, PaymentService>();
 
         services.AddAutoMapper(typeof(GameProfile));
@@ -52,6 +58,13 @@ public static class ServiceCollectionExtension
     {
         var config = configuration.GetSection("PaymentSettings");
         services.Configure<PaymentSettings>(config);
+        return services;
+    }
+
+    public static IServiceCollection ConfigurePaymentOptions(this IServiceCollection services, IConfiguration configuration)
+    {
+        var config = configuration.GetSection("PaymentOptions");
+        services.Configure<PaymentOptions>(config);
         return services;
     }
 }

@@ -14,7 +14,9 @@ public interface IOrderRepository
 
     Task<bool> IsOrderEmptyAsync(Guid orderId);
 
-    Task<Guid?> GetActiveOrderIdByCustomerIdAsync(Guid customerId);
+    Task<Guid?> GetOpenOrderIdByCustomerIdAsync(Guid customerId);
+
+    Task<Order?> GetOpenOrderByCustomerIdAsync(Guid customerId);
 
     Task<bool> DeleteByIdAsync(Guid id);
 

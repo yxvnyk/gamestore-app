@@ -33,11 +33,18 @@ public class OrderRepository(GamestoreDbContext context) : IOrderRepository
         return await _context.Orders.FindAsync(id);
     }
 
-    public async Task<Guid?> GetActiveOrderIdByCustomerIdAsync(Guid customerId)
+    public async Task<Guid?> GetOpenOrderIdByCustomerIdAsync(Guid customerId)
     {
         return await _context.Orders
             .Where(g => g.CustomerId == customerId && g.Status == Domain.Enums.OrderStatus.Open)
             .Select(o => (Guid?)o.Id)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<Order?> GetOpenOrderByCustomerIdAsync(Guid customerId)
+    {
+        return await _context.Orders
+            .Where(g => g.CustomerId == customerId && g.Status == Domain.Enums.OrderStatus.Open)
             .FirstOrDefaultAsync();
     }
 
