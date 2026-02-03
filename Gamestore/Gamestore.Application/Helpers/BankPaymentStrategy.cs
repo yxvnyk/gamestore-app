@@ -23,7 +23,7 @@ public class BankPaymentStrategy(IPdfInvoiceGenerator pdfGenerator, IOptions<Pay
 
         var invoiceData = new InvoiceDataDto(
             OrderId: orderId,
-            CustomerId: customerId,
+            UserId: customerId,
             Amount: amount,
             CreatedAt: creationDate,
             ValidUntil: validUntil);

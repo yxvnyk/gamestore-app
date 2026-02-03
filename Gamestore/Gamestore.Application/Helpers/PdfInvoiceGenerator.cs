@@ -99,9 +99,9 @@ public class PdfInvoiceGenerator : IPdfInvoiceGenerator
             }
 
             AddRow(OrderIdLabel, data.OrderId.ToString());
-            AddRow(CustomerIdLabel, data.CustomerId.ToString());
+            AddRow(CustomerIdLabel, data.UserId.ToString());
             AddRow(DateLabel, data.CreatedAt.ToString(DateFormat));
-            AddRow(ValidUntilLabel, data.ValidUntil.ToString(DateFormat), WarningStyle);
+            AddRow(ValidUntilLabel, data.ValidUntil?.ToString(DateFormat) ?? "N/A", WarningStyle);
         });
     }
 

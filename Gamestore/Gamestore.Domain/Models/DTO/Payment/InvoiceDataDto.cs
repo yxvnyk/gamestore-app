@@ -2,7 +2,7 @@
 
 public record InvoiceDataDto(
     Guid OrderId,
-    Guid CustomerId,
+    Guid UserId,
     double Amount,
     DateTime CreatedAt,
-    DateTime ValidUntil);
+    DateTime? ValidUntil);
