@@ -27,8 +27,13 @@ public class OrderItemService(
 
     public async Task<IEnumerable<OrderItemDto>> GetCartByCustomerId(Guid customerId)
     {
-        var orderId = await GetActiveOrderIdOrThrowAsync(customerId);
-        var items = await orderItemRepository.GetByOrderIdAsync(orderId);
+        var orderId = await GetActiveOrderIdAsync(customerId);
+        if (orderId == null)
+        {
+            return [];
+        }
+
+        var items = await orderItemRepository.GetByOrderIdAsync(orderId.Value);
         return mapper.Map<IEnumerable<OrderItemDto>>(items);
     }
 
@@ -43,18 +48,23 @@ public class OrderItemService(
         logger.LogInformation("Deleting game {GameKey} from cart for customer {CustomerId}", gameKey, customerId);
 
         var gameId = await GetGameIdOrThrowAsync(gameKey);
-        var orderId = await GetActiveOrderIdOrThrowAsync(customerId);
+        var orderId = await GetActiveOrderIdAsync(customerId);
+
+        if (orderId == null)
+        {
+            return;
+        }
 
         using var scope = CreateTransactionScope();
 
-        if (!await orderItemRepository.DeleteByOrderIdProductIdAsync(orderId, gameId))
+        if (!await orderItemRepository.DeleteByOrderIdProductIdAsync(orderId.Value, gameId))
         {
             throw new NotFoundException($"Item not found in order {orderId}");
         }
 
-        if (await orderRepository.IsOrderEmptyAsync(orderId))
+        if (await orderRepository.IsOrderEmptyAsync(orderId.Value))
         {
-            await orderRepository.DeleteByIdAsync(orderId);
+            await orderRepository.DeleteByIdAsync(orderId.Value);
         }
 
         scope.Complete();
@@ -104,10 +114,9 @@ public class OrderItemService(
                ?? throw new NotFoundException($"Game with key {gameKey} not found.");
     }
 
-    private async Task<Guid> GetActiveOrderIdOrThrowAsync(Guid customerId)
+    private async Task<Guid?> GetActiveOrderIdAsync(Guid customerId)
     {
-        return await orderRepository.GetOpenOrderIdByCustomerIdAsync(customerId)
-               ?? throw new NotFoundException($"Active order for customer {customerId} not found.");
+        return await orderRepository.GetOpenOrderIdByCustomerIdAsync(customerId);
     }
 
     private async Task<Guid> GetOrCreateActiveOrderAsync(Guid customerId)
