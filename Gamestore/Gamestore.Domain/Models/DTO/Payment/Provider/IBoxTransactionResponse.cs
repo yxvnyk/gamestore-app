@@ -1,10 +1,16 @@
 ﻿namespace Gamestore.Domain.Models.DTO.Payment.Provider;
 
-public class IBoxPayRequestDto
+public class IBoxTransactionResponse
 {
     public double TransactionAmount { get; set; }
 
     public Guid AccountNumber { get; set; }
 
     public Guid InvoiceNumber { get; set; }
+
+    public int PaymentMethod { get; set; }
+
+    public Guid AccountId { get; set; }
+
+    public double Amount { get; set; }
 }

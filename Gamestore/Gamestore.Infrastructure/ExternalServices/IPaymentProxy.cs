@@ -4,7 +4,7 @@ namespace Gamestore.Infrastructure.ExternalServices;
 
 public interface IPaymentProxy
 {
-    Task<IBoxPayResponseDto> PayIBoxAsync(IBoxPayRequestDto dto);
+    Task<IBoxTransactionResponse> PayIBoxAsync(IBoxTransactionRequest dto);
 
-    Task<IBoxPayResponseDto> PayVisaAsync(IBoxPayRequestDto dto);
+    Task PayVisaAsync(VisaTransactionRequestDto dto);
 }

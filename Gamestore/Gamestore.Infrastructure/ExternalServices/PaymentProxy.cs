@@ -10,12 +10,12 @@ public class PaymentProxy(HttpClient httpClient) : IPaymentProxy
     private readonly string _ibox_api_path = "/api/payments/ibox";
     private readonly string _visa_api_path = "/api/payments/visa";
 
-    public async Task<IBoxPayResponseDto> PayIBoxAsync(IBoxPayRequestDto dto)
+    public async Task<IBoxTransactionResponse> PayIBoxAsync(IBoxTransactionRequest dto)
     {
         var response = await httpClient.PostAsJsonAsync(_ibox_api_path, dto);
         if (response.IsSuccessStatusCode)
         {
-            var result = await response.Content.ReadFromJsonAsync<IBoxPayResponseDto>();
+            var result = await response.Content.ReadFromJsonAsync<IBoxTransactionResponse>();
             return result ?? throw new ExternalServiceUnavailableException("Empty response from payment provider");
         }
 
@@ -32,13 +32,12 @@ public class PaymentProxy(HttpClient httpClient) : IPaymentProxy
         throw new ExternalServiceUnavailableException();
     }
 
-    public async Task<IBoxPayResponseDto> PayVisaAsync(IBoxPayRequestDto dto)
+    public async Task PayVisaAsync(VisaTransactionRequestDto dto)
     {
         var response = await httpClient.PostAsJsonAsync(_visa_api_path, dto);
         if (response.IsSuccessStatusCode)
         {
-            var result = await response.Content.ReadFromJsonAsync<IBoxPayResponseDto>();
-            return result ?? throw new ExternalServiceUnavailableException("Empty response from payment provider");
+            return;
         }
 
         if (response.StatusCode == HttpStatusCode.PaymentRequired)

@@ -1,6 +1,7 @@
 ﻿using Gamestore.Application.Helpers.Interfaces;
 using Gamestore.Domain.Models.DTO.Payment;
 using Gamestore.Domain.Models.DTO.Payment.Provider;
+using Gamestore.Domain.Models.DTO.Payment.Strategy;
 using Gamestore.Infrastructure.ExternalServices;
 
 namespace Gamestore.Application.Helpers;
@@ -14,23 +15,23 @@ public class IBoxPaymentStrategy(IPaymentProxy paymentProxy) : IPaymentStrategy
         return PaymentMethod;
     }
 
-    public async Task<PaymentResult> ProcessPaymentAsync(Guid customerId, Guid orderId, double amount)
+    public async Task<PaymentResult> ProcessPaymentAsync(SimplePayDto payDto)
     {
         var creationDate = DateTime.UtcNow;
-        var dto = new IBoxPayRequestDto
+        var dto = new IBoxTransactionRequest
         {
-            AccountNumber = customerId,
-            InvoiceNumber = orderId,
-            TransactionAmount = amount,
+            AccountNumber = payDto.CustomerId,
+            InvoiceNumber = payDto.OrderId,
+            TransactionAmount = payDto.Amount,
         };
 
         await paymentProxy.PayIBoxAsync(dto);
         IBoxPaymentDataDto data = new()
         {
-            UserId = customerId,
-            OrderId = orderId,
+            UserId = payDto.CustomerId,
+            OrderId = payDto.OrderId,
             PaymentData = creationDate,
-            Sum = amount,
+            Sum = payDto.Amount,
         };
 
         return await Task.FromResult(PaymentResult.SuccessWithData(data));

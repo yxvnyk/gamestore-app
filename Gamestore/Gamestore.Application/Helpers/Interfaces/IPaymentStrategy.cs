@@ -1,10 +1,11 @@
 ﻿using Gamestore.Domain.Models.DTO.Payment;
+using Gamestore.Domain.Models.DTO.Payment.Strategy;
 
 namespace Gamestore.Application.Helpers.Interfaces;
 
 public interface IPaymentStrategy
 {
-    Task<PaymentResult> ProcessPaymentAsync(Guid customerId, Guid orderId, double amount);
+    Task<PaymentResult> ProcessPaymentAsync(SimplePayDto payDto);
 
     string PaymentMethodName();
 }

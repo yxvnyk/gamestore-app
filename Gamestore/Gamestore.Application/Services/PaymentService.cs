@@ -7,6 +7,7 @@ using Gamestore.Domain.Enums;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Models.Configuration;
 using Gamestore.Domain.Models.DTO.Payment;
+using Gamestore.Domain.Models.DTO.Payment.Strategy;
 using Microsoft.Extensions.Options;
 
 namespace Gamestore.Application.Services;
@@ -26,7 +27,6 @@ public class PaymentService(IOrderService orderService, IOrderItemRepository ord
 
     public async Task<PaymentResult> ProcessPaymentAsync(PaymentRequestDto paymentRequest, Guid customerId)
     {
-        // 1. Подготовка данных
         var strategy = GetPaymentStrategyOrThrow(paymentRequest.Method);
         var orderId = await orderService.GetOpenOrderIdAsync(customerId);
         var order = await orderRepository.GetOrderByIdAsync(orderId);
@@ -37,36 +37,35 @@ public class PaymentService(IOrderService orderService, IOrderItemRepository ord
             throw new BadRequestException("Cannot checkout an empty order.");
         }
 
-        // 2. Резервирование товаров (Списание со склада)
-        // Это делается в транзакции БД
         await ReserveStockForOrderAsync(orderItems);
 
-        // Обновляем статус, что мы начали процесс
         await UpdateOrderStatusAsync(order, OrderStatus.Checkout);
 
         PaymentResult result;
         try
         {
-            // 3. Проведение оплаты (Внешний сервис)
-            // ВАЖНО: Выполняется БЕЗ транзакции БД, чтобы не блокировать таблицы
             var amount = await orderService.CalculataOrderTotalAsync(orderId);
-            result = await strategy.ProcessPaymentAsync(customerId, orderId, amount);
+            SimplePayDto simplePayDto = new()
+            {
+                CustomerId = customerId,
+                OrderId = orderId,
+                Amount = amount,
+                VisaDetails = paymentRequest.Model,
+            };
+            result = await strategy.ProcessPaymentAsync(simplePayDto);
         }
         catch (Exception)
         {
-            // Ошибка сети или кода - полная отмена
             await HandleFailedPaymentAsync(order, orderItems);
             throw;
         }
 
-        // 4. Финализация
         if (result.IsSuccess)
         {
             await UpdateOrderStatusAsync(order, OrderStatus.Paid);
         }
         else
         {
-            // Оплата отклонена банком - возвращаем товары
             await HandleFailedPaymentAsync(order, orderItems);
         }
 
@@ -119,11 +118,10 @@ public class PaymentService(IOrderService orderService, IOrderItemRepository ord
         await orderRepository.UpdateAsync(order);
     }
 
-    // Метод "Компенсации" (Rollback)
     private async Task HandleFailedPaymentAsync(Order order, IEnumerable<OrderGame> items)
     {
         await RestoreStockForOrderAsync(items);
-        await UpdateOrderStatusAsync(order, OrderStatus.Open); // Или Cancelled, по желанию
+        await UpdateOrderStatusAsync(order, OrderStatus.Open);
     }
 
     private static TransactionScope CreateTransactionScope()
