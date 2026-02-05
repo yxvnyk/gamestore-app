@@ -41,6 +41,7 @@ builder.Services.AddDataAccess();
 builder.Services.AddApplicationServices();
 builder.Services.ConfigurePayments(builder.Configuration);
 builder.Services.ConfigurePaymentOptions(builder.Configuration);
+builder.Services.ConfigurePaymentService(builder.Configuration);
 
 builder.Services.AddControllers();
 

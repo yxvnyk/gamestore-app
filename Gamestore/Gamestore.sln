@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Domain", "Gamesto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application", "Gamestore.Application\Gamestore.Application.csproj", "{7DC7EDD1-3903-D5DD-202F-07E19CDFCC6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Infrastructure", "Gamestore.Infrastructure\Gamestore.Infrastructure.csproj", "{4545ECE2-5636-455F-8FE8-791B354FEF49}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamestore.Application.Tests", "Gamestore.Application.Tests\Gamestore.Application.Tests.csproj", "{3D8F4C97-6CF0-8EE8-DECF-31FB1B52063A}"
@@ -59,6 +61,10 @@ Global
 		{8F33ECD2-ADDE-B4F2-DC75-8A5250F3BFB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F33ECD2-ADDE-B4F2-DC75-8A5250F3BFB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F33ECD2-ADDE-B4F2-DC75-8A5250F3BFB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4545ECE2-5636-455F-8FE8-791B354FEF49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4545ECE2-5636-455F-8FE8-791B354FEF49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4545ECE2-5636-455F-8FE8-791B354FEF49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4545ECE2-5636-455F-8FE8-791B354FEF49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,6 +9,7 @@ using Gamestore.DataAccess.Context;
 using Gamestore.DataAccess.Repositories;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Models.Configuration;
+using Gamestore.Infrastructure.ExternalServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.WebApi.Extensions;
@@ -53,6 +54,23 @@ public static class ServiceCollectionExtension
     {
         services.AddDbContext<GamestoreDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("GamestoreDb")));
+        return services;
+    }
+
+    public static IServiceCollection ConfigurePaymentService(this IServiceCollection services, IConfiguration configuration)
+    {
+        var url = configuration["ApiSettings:PaymentService"];
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            throw new InvalidOperationException("Payment Service URL is missing in configuration!");
+        }
+
+        services.AddHttpClient<IPaymentProxy, PaymentProxy>(client =>
+        {
+            client.BaseAddress = new Uri(url);
+            client.Timeout = TimeSpan.FromSeconds(30);
+        });
+
         return services;
     }
 

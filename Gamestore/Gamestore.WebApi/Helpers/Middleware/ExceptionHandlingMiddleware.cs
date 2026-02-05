@@ -30,8 +30,8 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
         logger.LogException(ex);
         switch (ex)
         {
-            case BaseInternalException apiEx:
-                await HandInternalExceptionAsync(context, apiEx);
+            case BaseCustomlException apiEx:
+                await HandCustomExceptionAsync(context, apiEx);
                 break;
             case DbUpdateException dbEx when IsUniqueKeyViolation(dbEx, "IX_Games_Key"):
                 await HandlDBUpdatelException(context, "A game with the same key already exists.");
@@ -63,7 +63,7 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
         }
     }
 
-    private static Task HandInternalExceptionAsync(HttpContext context, BaseInternalException exception)
+    private static Task HandCustomExceptionAsync(HttpContext context, BaseCustomlException exception)
     {
         var details = new ProblemDetails()
         {
