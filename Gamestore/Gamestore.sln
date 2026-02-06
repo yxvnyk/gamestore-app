@@ -61,10 +61,7 @@ Global
 		{8F33ECD2-ADDE-B4F2-DC75-8A5250F3BFB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F33ECD2-ADDE-B4F2-DC75-8A5250F3BFB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F33ECD2-ADDE-B4F2-DC75-8A5250F3BFB4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4545ECE2-5636-455F-8FE8-791B354FEF49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4545ECE2-5636-455F-8FE8-791B354FEF49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4545ECE2-5636-455F-8FE8-791B354FEF49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4545ECE2-5636-455F-8FE8-791B354FEF49}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>>>> Temporary merge branch 2
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
