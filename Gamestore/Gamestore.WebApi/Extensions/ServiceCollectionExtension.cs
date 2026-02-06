@@ -32,9 +32,10 @@ public static class ServiceCollectionExtension
         services.AddScoped<IOrderItemService, OrderItemService>();
 
         services.AddScoped<IPaymentStrategy, BankPaymentStrategy>();
-        services.AddScoped<IPaymentStrategy, IBoxPaymentStrategy>();
-        services.AddScoped<IPaymentService, PaymentService>();
+        services.AddScoped<IPaymentStrategy, BoxPaymentStrategy>();
         services.AddScoped<IPaymentStrategy, VisaPaymentStrategy>();
+        services.AddScoped<IInventoryService, InventoryService>();
+        services.AddScoped<IPaymentService, PaymentService>();
 
         services.AddAutoMapper(typeof(GameProfile));
 

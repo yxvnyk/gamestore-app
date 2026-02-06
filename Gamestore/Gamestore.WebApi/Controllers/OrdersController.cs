@@ -56,10 +56,23 @@ public class OrdersController(IOrderService orderService, IOrderItemService cart
     public async Task<IActionResult> Pay([FromBody] PaymentRequestDto paymentRequestDto)
     {
         var result = await paymentService.ProcessPaymentAsync(paymentRequestDto, StubCustomerId);
-        return !result.IsSuccess
-            ? BadRequest(new { error = result.ErrorMessage })
-            : result.FileBytes != null
-            ? File(result.FileBytes, result.ContentType!, result.FileName)
-            : result.Data != null ? Ok(result.Data) : Ok();
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(new { error = result.ErrorMessage });
+        }
+
+        if (result.FileBytes != null)
+        {
+            return File(result.FileBytes, result.ContentType ?? "application/octet-stream", result.FileName);
+        }
+
+        if (result.Data != null)
+        {
+            return Ok(result.Data);
+        }
+
+        // return success if there is no data or file to return
+        return Ok();
     }
 }

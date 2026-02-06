@@ -6,7 +6,7 @@ using Gamestore.Infrastructure.ExternalServices;
 
 namespace Gamestore.Application.Services.Payments.Strategies;
 
-public class IBoxPaymentStrategy(IPaymentProxy paymentProxy) : IPaymentStrategy
+public class BoxPaymentStrategy(IPaymentProxy paymentProxy) : IPaymentStrategy
 {
     private const string PaymentMethod = "IBox terminal";
 
@@ -18,7 +18,7 @@ public class IBoxPaymentStrategy(IPaymentProxy paymentProxy) : IPaymentStrategy
     public async Task<PaymentResult> ProcessPaymentAsync(PaymentContextDto context)
     {
         var creationDate = DateTime.UtcNow;
-        var dto = new IBoxTransactionRequest
+        var dto = new BoxTransactionRequest
         {
             AccountNumber = context.CustomerId,
             InvoiceNumber = context.OrderId,
@@ -26,7 +26,7 @@ public class IBoxPaymentStrategy(IPaymentProxy paymentProxy) : IPaymentStrategy
         };
 
         await paymentProxy.PayIBoxAsync(dto);
-        IBoxPaymenResult data = new()
+        BoxPaymenResult data = new()
         {
             UserId = context.CustomerId,
             OrderId = context.OrderId,

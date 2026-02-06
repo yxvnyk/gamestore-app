@@ -10,13 +10,13 @@ public class PaymentProxy(HttpClient httpClient) : IPaymentProxy
     private const string IBoxApiPath = "/api/payments/ibox";
     private const string VisaApiPath = "/api/payments/visa";
 
-    public async Task<IBoxTransactionResponse> PayIBoxAsync(IBoxTransactionRequest dto)
+    public async Task<BoxTransactionResponse> PayIBoxAsync(BoxTransactionRequest dto)
     {
         var response = await httpClient.PostAsJsonAsync(IBoxApiPath, dto);
 
         EnsureSuccessAsync(response);
 
-        var result = await response.Content.ReadFromJsonAsync<IBoxTransactionResponse>();
+        var result = await response.Content.ReadFromJsonAsync<BoxTransactionResponse>();
         return result ?? throw new ExternalServiceUnavailableException("Empty response from payment provider");
     }
 
@@ -36,7 +36,7 @@ public class PaymentProxy(HttpClient httpClient) : IPaymentProxy
 
         throw response.StatusCode switch
         {
-            HttpStatusCode.PaymentRequired => new PaymentDeclinedExcetion("Insufficient funds or limit reached"),
+            HttpStatusCode.PaymentRequired => new PaymentDeclinedException("Insufficient funds or limit reached"),
             HttpStatusCode.BadRequest => new BadRequestException("Invalid payment data sent to provider"),
             HttpStatusCode.Continue => throw new NotImplementedException(),
             HttpStatusCode.SwitchingProtocols => throw new NotImplementedException(),

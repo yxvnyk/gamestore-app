@@ -1,6 +1,6 @@
 ﻿namespace Gamestore.Domain.Models.DTO.Payment;
 
-public class IBoxPaymenResult
+public class BoxPaymenResult
 {
     public Guid UserId { get; set; }
 
