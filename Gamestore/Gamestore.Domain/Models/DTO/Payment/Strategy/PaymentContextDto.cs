@@ -1,6 +1,6 @@
 ﻿namespace Gamestore.Domain.Models.DTO.Payment.Strategy;
 
-public class SimplePayDto
+public class PaymentContextDto
 {
     public Guid CustomerId { get; set; }
 
@@ -8,5 +8,5 @@ public class SimplePayDto
 
     public double Amount { get; set; }
 
-    public VisaPayDto? VisaDetails { get; set; }
+    public VisaPayDto? VisaModel { get; set; }
 }

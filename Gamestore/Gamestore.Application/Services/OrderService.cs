@@ -2,6 +2,7 @@
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.Domain.Enums;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Models.DTO.Order;
 using Microsoft.Extensions.Logging;
@@ -43,6 +44,12 @@ public class OrderService(IOrderRepository orderRepository, IOrderItemRepository
     {
         logger.LogInformation(nameof(this.DeleteByIdAsync));
         return await orderRepository.DeleteByIdAsync(id);
+    }
+
+    public async Task UpdateOrderStatusAsync(Order order, OrderStatus status)
+    {
+        order.Status = status;
+        await orderRepository.UpdateAsync(order);
     }
 
     public async Task UpdateAsync(Order entity)

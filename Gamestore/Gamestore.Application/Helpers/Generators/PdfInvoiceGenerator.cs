@@ -4,7 +4,7 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
-namespace Gamestore.Application.Helpers;
+namespace Gamestore.Application.Helpers.Generators;
 
 public class PdfInvoiceGenerator : IPdfInvoiceGenerator
 {
@@ -26,7 +26,7 @@ public class PdfInvoiceGenerator : IPdfInvoiceGenerator
     private static readonly TextStyle TotalValueStyle = TextStyle.Default.FontSize(14).Bold();
     private static readonly TextStyle FooterStyle = TextStyle.Default.FontSize(10).FontColor(Colors.Grey.Medium);
 
-    public byte[] GenerateInvoice(InvoiceDataDto data)
+    public byte[] GenerateInvoice(BankInvoiceDto data)
     {
         var document = Document.Create(container =>
         {
@@ -68,7 +68,7 @@ public class PdfInvoiceGenerator : IPdfInvoiceGenerator
         });
     }
 
-    private static void ComposeContent(IContainer container, InvoiceDataDto data)
+    private static void ComposeContent(IContainer container, BankInvoiceDto data)
     {
         container.PaddingVertical(1, Unit.Centimetre).Column(column =>
         {
@@ -82,7 +82,7 @@ public class PdfInvoiceGenerator : IPdfInvoiceGenerator
         });
     }
 
-    private static void ComposeInfoTable(IContainer container, InvoiceDataDto data)
+    private static void ComposeInfoTable(IContainer container, BankInvoiceDto data)
     {
         container.Table(table =>
         {

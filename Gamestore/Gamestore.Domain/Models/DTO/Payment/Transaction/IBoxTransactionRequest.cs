@@ -1,4 +1,4 @@
-﻿namespace Gamestore.Domain.Models.DTO.Payment.Provider;
+﻿namespace Gamestore.Domain.Models.DTO.Payment.Transaction;
 
 public class IBoxTransactionRequest
 {

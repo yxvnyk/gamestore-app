@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
-using GameStore.Application.Helpers;
+using Gamestore.Application.Helpers.Generators;
 using Gamestore.Domain.Models.DTO.Game;
 
 namespace Gamestore.Application.Tests.Helpers;

@@ -4,5 +4,5 @@ namespace Gamestore.Application.Helpers.Interfaces;
 
 public interface IPdfInvoiceGenerator
 {
-    byte[] GenerateInvoice(InvoiceDataDto data);
+    byte[] GenerateInvoice(BankInvoiceDto data);
 }

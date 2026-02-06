@@ -1,6 +1,6 @@
-﻿namespace Gamestore.Domain.Models.DTO.Payment.Provider;
+﻿namespace Gamestore.Domain.Models.DTO.Payment.Transaction;
 
-public class VisaTransactionRequestDto
+public class VisaTransactionRequest
 {
     public decimal TransactionAmount { get; set; }
 

@@ -1,6 +1,4 @@
-﻿using Gamestore.Domain.Models.DTO.Payment;
-
-namespace Gamestore.Domain.Models.Configuration;
+﻿namespace Gamestore.Domain.Models.Configuration;
 
 public class PaymentSettings
 {

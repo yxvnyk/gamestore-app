@@ -1,10 +1,12 @@
-﻿using Gamestore.Application.Helpers;
-using GameStore.Application.Helpers;
+﻿using Gamestore.Application.Helpers.Generators;
 using Gamestore.Application.Helpers.Interfaces;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.Application.Services;
 using Gamestore.Application.Services.Interfaces;
+using Gamestore.Application.Services.Interfaces.Payments;
+using Gamestore.Application.Services.Payments;
+using Gamestore.Application.Services.Payments.Strategies;
 using Gamestore.DataAccess.Context;
 using Gamestore.DataAccess.Repositories;
 using Gamestore.DataAccess.Repositories.Interfaces;

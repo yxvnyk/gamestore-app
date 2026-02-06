@@ -1,10 +1,10 @@
 ﻿using Gamestore.Domain.Models.DTO.Payment;
 
-namespace Gamestore.Application.Services.Interfaces;
+namespace Gamestore.Application.Services.Interfaces.Payments;
 
 public interface IPaymentService
 {
-    PaymentMethodsResponse GetPaymentMethods();
+    PaymentMethodsWrapper GetPaymentMethods();
 
     Task<PaymentResult> ProcessPaymentAsync(PaymentRequestDto paymentRequest, Guid customerId);
 }

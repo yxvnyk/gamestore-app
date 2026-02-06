@@ -1,6 +1,6 @@
 ﻿namespace Gamestore.Domain.Models.DTO.Payment;
 
-public record InvoiceDataDto(
+public record BankInvoiceDto(
     Guid OrderId,
     Guid UserId,
     double Amount,
