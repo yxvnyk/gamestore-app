@@ -2,6 +2,9 @@ using System.Text.Json;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Game;
+using Gamestore.Domain.Models.DTO.Genre;
+using Gamestore.Domain.Models.DTO.Platform;
 using Gamestore.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -13,6 +16,7 @@ public class GameControllerTests
     private readonly Mock<IGameService> _mockGameService = new();
     private readonly Mock<IGenreService> _mockGenreService = new();
     private readonly Mock<IPlatformService> _mockPlatformService = new();
+    private readonly Mock<IPublisherService> _mockPublisherService = new();
     private readonly Mock<IGenerateGameFile> _mockGenerateGameFile = new();
 
     private readonly List<GameDto> _expectedGameDtos =
@@ -59,19 +63,19 @@ public class GameControllerTests
         }
     ];
 
-    private readonly List<PlatformFullDto> _expectedPlatformDtos =
+    private readonly List<PlatformDto> _expectedPlatformDtos =
     [
-        new PlatformFullDto
+        new PlatformDto
         {
             Id = Guid.NewGuid(),
             Type = "PC",
         },
-        new PlatformFullDto
+        new PlatformDto
         {
             Id = Guid.NewGuid(),
             Type = "Console",
         },
-        new PlatformFullDto
+        new PlatformDto
         {
             Id = Guid.NewGuid(),
             Type = "Mobile",
@@ -87,7 +91,7 @@ public class GameControllerTests
     public async Task CreateGameReturnOk()
     {
         // Arrange
-        var dto = new GameCreateExtendedDto();
+        var dto = new CreateGameRequest();
         var controller = CreateController();
 
         // Act
@@ -193,7 +197,7 @@ public class GameControllerTests
     public async Task UpdateGameReturnOk()
     {
         // Arrange
-        var dto = new GameUpdateExtendedDto();
+        var dto = new UpdateGameRequest();
         var controller = CreateController();
 
         // Act
@@ -331,7 +335,7 @@ public class GameControllerTests
         // Assert
         _mockPlatformService.Verify(s => s.GetPlatformsByGameKeyAsync(key), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var returnedFullGenres = Assert.IsType<List<PlatformFullDto>>(okResult.Value);
+        var returnedFullGenres = Assert.IsType<List<PlatformDto>>(okResult.Value);
 
         Assert.Equal(_expectedPlatformDtos.Count, returnedFullGenres.Count);
         for (int i = 0; i < returnedFullGenres.Count; i++)
@@ -347,6 +351,7 @@ public class GameControllerTests
             _mockGameService.Object,
             _mockGenreService.Object,
             _mockPlatformService.Object,
+            _mockPublisherService.Object,
             _mockGenerateGameFile.Object);
     }
 }

@@ -1,5 +1,6 @@
 using Gamestore.Application.Services.Interfaces;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Game;
+using Gamestore.Domain.Models.DTO.Genre;
 using Gamestore.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -78,14 +79,14 @@ public class GenreControllerTests
     public async Task CreateGenreReturnOk()
     {
         // Arrange
-        var dto = new GenreCreateDto();
+        var dto = new CreateGenreRequest();
         var controller = CreateController();
 
         // Act
         var result = await controller.CreateGenre(dto);
 
         // Assert
-        _mockGenreService.Verify(s => s.CreateGenreAsync(dto), Times.Once);
+        _mockGenreService.Verify(s => s.CreateGenreAsync(dto.Genre), Times.Once);
         Assert.IsType<OkResult>(result);
     }
 
@@ -180,14 +181,14 @@ public class GenreControllerTests
     public async Task UpdateGenresReturnOk()
     {
         // Arrange
-        var dto = new GenreUpdateDto();
+        var dto = new UpdateGenreRequest();
         var controller = CreateController();
 
         // Act
         var result = await controller.UpdateGenre(dto);
 
         // Assert
-        _mockGenreService.Verify(s => s.UpdateGenreAsync(dto), Times.Once);
+        _mockGenreService.Verify(s => s.UpdateGenreAsync(dto.Genre), Times.Once);
         var resultValue = Assert.IsType<OkObjectResult>(result);
         Assert.Equal("Genre successfuly updated", resultValue.Value);
     }

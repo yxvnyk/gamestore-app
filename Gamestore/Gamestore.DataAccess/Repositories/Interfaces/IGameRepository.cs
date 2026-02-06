@@ -14,6 +14,8 @@ public interface IGameRepository
 
     Task<ICollection<Game>> GetGamesByPlatformAsync(Guid id);
 
+    Task<ICollection<Game>> GetGamesByCompanyNameAsync(string companyName);
+
     Task<ICollection<Game>> GetAllGamesAsync();
 
     Task<Game?> GetGameWithJoinsAsync(Guid id);

@@ -43,6 +43,13 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
             .Where(g => g.GameGenres.Any(gp => gp.GenreId == id)).ToListAsync();
     }
 
+    public async Task<ICollection<Game>> GetGamesByCompanyNameAsync(string companyName)
+    {
+        return await _context.Games
+            .Include(g => g.Publisher)
+            .Where(g => g.Publisher.CompanyName == companyName).ToListAsync();
+    }
+
     public async Task<ICollection<Game>> GetAllGamesAsync()
     {
         return await _context.Games.ToListAsync();

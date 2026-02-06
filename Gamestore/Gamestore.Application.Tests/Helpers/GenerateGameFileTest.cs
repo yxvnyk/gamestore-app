@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 using GameStore.Application.Helpers;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Game;
 
 namespace Gamestore.Application.Tests.Helpers;
 

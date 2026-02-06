@@ -3,7 +3,7 @@ using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Genre;
 using Microsoft.Extensions.Logging;
 using Moq;
 

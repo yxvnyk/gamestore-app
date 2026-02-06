@@ -1,6 +1,6 @@
 ﻿using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
@@ -8,12 +8,12 @@ namespace Gamestore.WebApi.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class GamesController(IGameService gameService, IGenreService genreService,
-    IPlatformService platformService, IGenerateGameFile generateGameFile) : Controller
+    IPlatformService platformService, IPublisherService publisherService, IGenerateGameFile generateGameFile) : Controller
 {
     private const string GameSuccessfullyUpdated = "Game successfuly updated";
 
     [HttpPost]
-    public async Task<IActionResult> CreateGame([FromBody] GameCreateExtendedDto game)
+    public async Task<IActionResult> CreateGame([FromBody] CreateGameRequest game)
     {
         await gameService.CreateGameAsync(game);
         return Ok();
@@ -44,10 +44,10 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateGame([FromBody] GameUpdateExtendedDto game)
+    public async Task<IActionResult> UpdateGame([FromBody] UpdateGameRequest game)
     {
         await gameService.UpdateGameAsync(game);
-        return Ok(GameSuccessfullyUpdated);
+        return Ok(new { message = GameSuccessfullyUpdated });
     }
 
     [HttpDelete("{key}")]
@@ -75,11 +75,18 @@ public class GamesController(IGameService gameService, IGenreService genreServic
         return Ok(genres);
     }
 
-    [HttpGet("{key}/platform")]
+    [HttpGet("{key}/platforms")]
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetPlatformsByGameKey(string key)
     {
         var platforms = await platformService.GetPlatformsByGameKeyAsync(key);
         return Ok(platforms);
+    }
+
+    [HttpGet("{key}/publisher")]
+    public async Task<IActionResult> GetPublisherByCompanyName(string key)
+    {
+        var publisher = await publisherService.GetPublisherByGameKeyAsync(key);
+        return Ok(publisher);
     }
 }

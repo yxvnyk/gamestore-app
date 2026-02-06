@@ -1,5 +1,5 @@
 ﻿using Gamestore.Application.Services.Interfaces;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Platform;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
@@ -8,10 +8,12 @@ namespace Gamestore.WebApi.Controllers;
 [Route("[controller]")]
 public class PlatformsController(IPlatformService platformService, IGameService gameService) : Controller
 {
+    private const string PlatformSuccessfullyUpdated = "Platform successfuly updated";
+
     [HttpPost]
-    public async Task<IActionResult> CreatePlatform([FromBody] PlatformDto platform)
+    public async Task<IActionResult> CreatePlatform([FromBody] CreatePlatformRequest platformRequest)
     {
-        await platformService.CreatePlatformAsync(platform);
+        await platformService.CreatePlatformAsync(platformRequest.Platform);
         return Ok();
     }
 
@@ -32,10 +34,10 @@ public class PlatformsController(IPlatformService platformService, IGameService 
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdatePlatform([FromBody] PlatformUpdateDto platform)
+    public async Task<IActionResult> UpdatePlatform([FromBody] UpdatePlatformRequest platformRequest)
     {
-        await platformService.UpdatePlatformAsync(platform);
-        return Ok($"Platform successfuly updated");
+        await platformService.UpdatePlatformAsync(platformRequest.Platform);
+        return Ok(new { message = PlatformSuccessfullyUpdated });
     }
 
     [HttpDelete("{id:guid}")]

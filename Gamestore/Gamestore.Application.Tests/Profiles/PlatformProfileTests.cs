@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.DataAccess.Entities;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Platform;
 
 namespace Gamestore.Application.Tests.Profiles;
 
@@ -24,7 +24,7 @@ public class PlatformProfileTests
     public void Map_PlatformDto_To_Platform_Success()
     {
         // Arrange
-        var dto = new PlatformDto
+        var dto = new PlatformCreateDto
         {
             Type = "Mobile",
         };
@@ -47,7 +47,7 @@ public class PlatformProfileTests
         };
 
         // Act
-        var dto = _mapper.Map<PlatformDto>(entity);
+        var dto = _mapper.Map<PlatformCreateDto>(entity);
 
         // Assert
         Assert.Equal("Mobile", dto.Type);
@@ -63,7 +63,7 @@ public class PlatformProfileTests
         };
 
         // Act
-        var dto = _mapper.Map<PlatformFullDto>(entity);
+        var dto = _mapper.Map<PlatformDto>(entity);
 
         // Assert
         Assert.Equal("Mobile", dto.Type);

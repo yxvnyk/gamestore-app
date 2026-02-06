@@ -4,7 +4,7 @@ using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Extensions;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Platform;
 using Microsoft.Extensions.Logging;
 
 namespace Gamestore.Application.Services;
@@ -12,11 +12,11 @@ namespace Gamestore.Application.Services;
 public class PlatformService(IPlatformRepository platformRepository,
     IGameRepository gameRepository, IMapper mapper, ILogger<PlatformService> logger) : IPlatformService
 {
-    public async Task CreatePlatformAsync(PlatformDto model)
+    public async Task CreatePlatformAsync(PlatformCreateDto model)
     {
         logger.LogTrace(nameof(this.CreatePlatformAsync));
 
-        var entity = mapper.Map<PlatformDto, Platform>(model);
+        var entity = mapper.Map<PlatformCreateDto, Platform>(model);
         await platformRepository.CreatePlatformAsync(entity);
     }
 
@@ -27,23 +27,23 @@ public class PlatformService(IPlatformRepository platformRepository,
         return await platformRepository.DeleteByIdAsync(id);
     }
 
-    public async Task<IEnumerable<PlatformFullDto>> GetAllPlatformsAsync()
+    public async Task<IEnumerable<PlatformDto>> GetAllPlatformsAsync()
     {
         logger.LogTrace(nameof(this.GetAllPlatformsAsync));
 
         var genreEntities = await platformRepository.GetAllPlatformsAsync();
-        return [.. genreEntities.Select(mapper.Map<PlatformFullDto>)];
+        return [.. genreEntities.Select(mapper.Map<PlatformDto>)];
     }
 
-    public async Task<PlatformFullDto?> GetPlatformByIdAsync(Guid id)
+    public async Task<PlatformDto?> GetPlatformByIdAsync(Guid id)
     {
         logger.LogTrace(nameof(this.GetPlatformByIdAsync));
 
         var platformEntity = await platformRepository.GetPlatformByIdAsync(id);
-        return platformEntity is not null ? mapper.Map<PlatformFullDto>(platformEntity) : throw new NotFoundException($"Platform with ID {id} does not exist.");
+        return platformEntity is not null ? mapper.Map<PlatformDto>(platformEntity) : throw new NotFoundException($"Platform with ID {id} does not exist.");
     }
 
-    public async Task<IEnumerable<PlatformFullDto>> GetPlatformsByGameKeyAsync(string key)
+    public async Task<IEnumerable<PlatformDto>> GetPlatformsByGameKeyAsync(string key)
     {
         logger.LogTrace(nameof(this.GetPlatformsByGameKeyAsync));
 
@@ -54,7 +54,7 @@ public class PlatformService(IPlatformRepository platformRepository,
         }
 
         var platformEntities = await platformRepository.GetPlatformsByGameKeyAsync(key);
-        return [.. platformEntities.Select(mapper.Map<PlatformFullDto>)];
+        return [.. platformEntities.Select(mapper.Map<PlatformDto>)];
     }
 
     public async Task UpdatePlatformAsync(PlatformUpdateDto model)

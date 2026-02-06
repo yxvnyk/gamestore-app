@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.DataAccess.Entities;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.Game;
 
 namespace Gamestore.Application.Tests.Profiles;
 
@@ -24,7 +24,7 @@ public class GameProfileTests
     public void Map_CreateExtendedDto_To_Game()
     {
         // Arrange
-        var dto = new GameCreateExtendedDto
+        var dto = new CreateGameRequest
         {
             Game = new GameDto
             {
@@ -54,7 +54,7 @@ public class GameProfileTests
     public void Map_UpdateExtendedDto_To_Game()
     {
         // Arrange
-        var dto = new GameUpdateExtendedDto
+        var dto = new UpdateGameRequest
         {
             Game = new GameUpdateDto
             {
@@ -107,7 +107,7 @@ public class GameProfileTests
     public void Map_UpdateExtendedDto_With_Null_DoesNotOverrideExistingValues()
     {
         // Arrange
-        var dto = new GameUpdateExtendedDto
+        var dto = new UpdateGameRequest
         {
             Game = new GameUpdateDto
             {
@@ -137,7 +137,7 @@ public class GameProfileTests
     public void Map_CreateExtendedDto_Null_GameProperties_SkipAssignment()
     {
         // Arrange
-        var dto = new GameCreateExtendedDto
+        var dto = new CreateGameRequest
         {
             Game = new GameDto
             {
