@@ -2277,7 +2277,7 @@ class BasketPageComponent extends src_app_componetns_base_component__WEBPACK_IMP
             .cancelGameBuy(gameKey)
             .subscribe((_) => this.refreshBasketItems());
     }
-}
+    }
 BasketPageComponent.ɵfac = function BasketPageComponent_Factory(t) { return new (t || BasketPageComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_services_order_service__WEBPACK_IMPORTED_MODULE_1__.OrderService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_services_game_service__WEBPACK_IMPORTED_MODULE_2__.GameService)); };
 BasketPageComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: BasketPageComponent, selectors: [["gamestore-basket"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵInheritDefinitionFeature"]], decls: 1, vars: 1, consts: [["class", "basket-container", 4, "ngIf"], [1, "basket-container"], ["class", "empty-basket", 4, "ngIf"], ["class", "basket-item", 4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "empty-basket"], [1, "basket-item"], ["mat-button", "", 3, "routerLink"], ["mat-stroked-button", "", "color", "accent", "type", "button", 3, "click"], [1, "basket-item-info"], ["mat-raised-button", "", "color", "primary", 3, "routerLink"]], template: function BasketPageComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](0, BasketPageComponent_div_0_Template, 4, 3, "div", 0);
@@ -3411,7 +3411,7 @@ class GamePageComponent extends src_app_componetns_base_component__WEBPACK_IMPOR
         this.orderService
             .buyGame(this.game.key)
             .subscribe((_) => this.router.navigateByUrl(this.links.get(this.pageRoutes.Basket)));
-    }
+}
 }
 GamePageComponent.ɵfac = function GamePageComponent_Factory(t) { return new (t || GamePageComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_game_service__WEBPACK_IMPORTED_MODULE_1__.GameService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_genre_service__WEBPACK_IMPORTED_MODULE_2__.GenreService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_platform_service__WEBPACK_IMPORTED_MODULE_3__.PlatformService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_publisher_service__WEBPACK_IMPORTED_MODULE_4__.PublisherService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_order_service__WEBPACK_IMPORTED_MODULE_5__.OrderService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_10__.ActivatedRoute), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_10__.Router)); };
 GamePageComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineComponent"]({ type: GamePageComponent, selectors: [["gamestore-game"]], viewQuery: function GamePageComponent_Query(rf, ctx) { if (rf & 1) {
