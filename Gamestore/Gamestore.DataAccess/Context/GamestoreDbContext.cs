@@ -14,6 +14,8 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
 
     public DbSet<Publisher> Publishers { get; set; }
 
+    public DbSet<Comment> Comments { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // This method should be empty because all configuraion set by
@@ -41,6 +43,12 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
             .HasForeignKey(g => g.GameId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        _ = modelBuilder.Entity<Game>()
+            .HasMany(g => g.Comments)
+            .WithOne(c => c.Game)
+            .HasForeignKey(c => c.GameId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         _ = modelBuilder.Entity<Genre>()
             .HasMany(g => g.GameGenres)
             .WithOne(g => g.Genre)
@@ -58,6 +66,12 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
             .WithOne(g => g.Publisher)
             .HasForeignKey(g => g.PublisherId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        _ = modelBuilder.Entity<Comment>()
+            .HasOne(c => c.ParentComment)
+            .WithMany(g => g.Replies)
+            .HasForeignKey(c => c.ParentCommentId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // data seeding
         _ = modelBuilder.Entity<Platform>().HasData(DataSeeding.GetPlatforms());
