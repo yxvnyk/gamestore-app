@@ -69,7 +69,7 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
 
         _ = modelBuilder.Entity<Comment>()
             .HasOne(c => c.ParentComment)
-            .WithMany(g => g.Replies)
+            .WithMany(g => g.ChildComments)
             .HasForeignKey(c => c.ParentCommentId)
             .OnDelete(DeleteBehavior.Restrict);
 

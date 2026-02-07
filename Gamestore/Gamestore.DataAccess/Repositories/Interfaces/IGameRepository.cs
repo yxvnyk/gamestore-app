@@ -27,4 +27,6 @@ public interface IGameRepository
     Task<bool> DeleteByKeyAsync(string key);
 
     Task<int> GetTotalGamesCountAsync();
+
+    Task<Guid?> GetIdByKeyAsync(string key);
 }

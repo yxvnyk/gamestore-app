@@ -1,5 +1,6 @@
 ﻿using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Models.DTO.Comments;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,9 @@ namespace Gamestore.WebApi.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class GamesController(IGameService gameService, IGenreService genreService,
-    IPlatformService platformService, IPublisherService publisherService, IGenerateGameFile generateGameFile) : Controller
+    IPlatformService platformService, IPublisherService publisherService,
+    ICommentService commentService,
+    IGenerateGameFile generateGameFile) : Controller
 {
     private const string GameSuccessfullyUpdated = "Game successfuly updated";
 
@@ -88,5 +91,12 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     {
         var publisher = await publisherService.GetPublisherByGameKeyAsync(key);
         return Ok(publisher);
+    }
+
+    [HttpPost("{key}/comments")]
+    public async Task<IActionResult> CreateComment(string key, [FromBody] CommentCreateDto comment)
+    {
+        await commentService.CreateAsync(comment, key);
+        return Ok();
     }
 }

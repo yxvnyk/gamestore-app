@@ -12,6 +12,7 @@ public class Comment
     public Guid Id { get; set; }
 
     [Required]
+    [StringLength(50)]
     public string Name { get; set; }
 
     [Required]
@@ -32,5 +33,5 @@ public class Comment
     [ForeignKey(nameof(GameId))]
     public Game? Game { get; set; }
 
-    public ICollection<Comment> Replies { get; set; }
+    public ICollection<Comment> ChildComments { get; set; }
 }
