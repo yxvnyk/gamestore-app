@@ -33,5 +33,5 @@ public class Comment
     [ForeignKey(nameof(GameId))]
     public Game? Game { get; set; }
 
-    public ICollection<Comment> ChildComments { get; set; }
+    public ICollection<Comment> ChildComments { get; set; } = [];
 }

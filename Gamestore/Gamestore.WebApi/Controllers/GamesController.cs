@@ -99,4 +99,11 @@ public class GamesController(IGameService gameService, IGenreService genreServic
         await commentService.CreateAsync(comment, key);
         return Ok();
     }
+
+    [HttpGet("{key}/comments")]
+    public async Task<IActionResult> GetcommentsByGameKey(string key)
+    {
+        var publisher = await commentService.GetByGameKeyAsync(key);
+        return Ok(publisher);
+    }
 }

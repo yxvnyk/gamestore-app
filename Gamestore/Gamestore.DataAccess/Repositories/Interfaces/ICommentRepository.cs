@@ -6,11 +6,11 @@ public interface ICommentRepository
 {
     Task CreateAsync(Comment entity);
 
-    Task UpdateAsync(Publisher entity);
+    Task UpdateAsync(Comment entity);
 
     Task<bool> DeleteAsync(Guid id);
 
-    Task<Comment?> GetByGameKeyAsync(string key);
-
     Task<bool> IsExistAsync(Guid id);
+
+    Task<IEnumerable<Comment>?> GetByGameKeyAsync(string key);
 }

@@ -5,4 +5,6 @@ namespace Gamestore.Application.Services.Interfaces;
 public interface ICommentService
 {
     Task CreateAsync(CommentCreateDto request, string key);
+
+    Task<IEnumerable<CommentTreeDto>> GetByGameKeyAsync(string key);
 }

@@ -21,9 +21,9 @@ public class CommentRepository(GamestoreDbContext context) : ICommentRepository
         return exist;
     }
 
-    public async Task UpdateAsync(Publisher entity)
+    public async Task UpdateAsync(Comment entity)
     {
-        _context.Publishers.Update(entity);
+        _context.Comments.Update(entity);
         await _context.SaveChangesAsync();
     }
 
@@ -40,12 +40,12 @@ public class CommentRepository(GamestoreDbContext context) : ICommentRepository
         return false;
     }
 
-    public async Task<Comment?> GetByGameKeyAsync(string key)
+    public async Task<IEnumerable<Comment>?> GetByGameKeyAsync(string key)
     {
         var comments = await _context.Comments
             .AsNoTracking()
             .Where(p => p.Game.Key == key)
-            .FirstOrDefaultAsync();
+            .ToListAsync();
         return comments;
     }
 }
