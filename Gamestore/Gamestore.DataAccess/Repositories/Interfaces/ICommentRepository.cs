@@ -8,6 +8,8 @@ public interface ICommentRepository
 
     Task UpdateAsync(Comment entity);
 
+    Task<Comment?> GetByIdAsync(Guid id);
+
     Task<bool> DeleteAsync(Guid id);
 
     Task<bool> IsExistAsync(Guid id);

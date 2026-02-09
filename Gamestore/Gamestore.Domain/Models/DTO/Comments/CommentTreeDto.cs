@@ -8,5 +8,5 @@ public class CommentTreeDto
 
     public string Body { get; set; }
 
-    public ICollection<CommentTreeDto> ChildCommnets { get; set; } = [];
+    public ICollection<CommentTreeDto> ChildComments { get; set; } = [];
 }

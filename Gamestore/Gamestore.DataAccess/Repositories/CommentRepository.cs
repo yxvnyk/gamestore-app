@@ -40,6 +40,12 @@ public class CommentRepository(GamestoreDbContext context) : ICommentRepository
         return false;
     }
 
+    public async Task<Comment?> GetByIdAsync(Guid id)
+    {
+        var comment = await _context.Comments.FindAsync(id);
+        return comment;
+    }
+
     public async Task<IEnumerable<Comment>?> GetByGameKeyAsync(string key)
     {
         var comments = await _context.Comments

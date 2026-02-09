@@ -46,4 +46,22 @@ public class CommentService(ICommentRepository commentRepository, IGameRepositor
         var commentDtos = mapper.Map<IEnumerable<CommentTreeDto>>(commentsTree);
         return commentDtos;
     }
+
+    public async Task DeleteAsync(string key, Guid id)
+    {
+        logger.LogTrace(nameof(this.DeleteAsync));
+
+        var gameId = await gameRepository.GetIdByKeyAsync(key) ?? throw new NotFoundException($"Game with key {key} not found");
+
+        var comment = await commentRepository.GetByIdAsync(id) ?? throw new NotFoundException($"Comment with id {id} not found");
+
+        if (comment.GameId != gameId)
+        {
+            throw new NotFoundException($"Comment with id {id} not found in game with key {key}");
+        }
+
+        comment.IsDeleted = true;
+
+        await commentRepository.UpdateAsync(comment);
+    }
 }

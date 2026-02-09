@@ -101,9 +101,16 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     }
 
     [HttpGet("{key}/comments")]
-    public async Task<IActionResult> GetcommentsByGameKey(string key)
+    public async Task<IActionResult> GetCommentsByGameKey(string key)
     {
         var publisher = await commentService.GetByGameKeyAsync(key);
         return Ok(publisher);
+    }
+
+    [HttpDelete("{key}/comments/{id:guid}")]
+    public async Task<IActionResult> DeleteComment(string key, Guid id)
+    {
+        await commentService.DeleteAsync(key, id);
+        return NoContent();
     }
 }

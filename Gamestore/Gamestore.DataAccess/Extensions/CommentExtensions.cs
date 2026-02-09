@@ -1,17 +1,32 @@
 ﻿using Gamestore.DataAccess.Entities;
+using Gamestore.Domain.Enum;
 
 namespace Gamestore.DataAccess.Extensions;
 
 public static class CommentExtensions
 {
+    private const string DeletedBodyText = "A comment/quote was deleted";
+
     public static List<Comment> ToTree(this IEnumerable<Comment> flatComments)
     {
         var lookup = flatComments.ToDictionary(x => x.Id);
+
+        foreach (var c in flatComments)
+        {
+            c.ChildComments.Clear();
+        }
+
         var rootComments = new List<Comment>();
 
         foreach (var comment in flatComments)
         {
-            if (comment.ParentCommentId.HasValue && lookup.TryGetValue(comment.ParentCommentId.Value, out var parent))
+            Comment? parent = (comment.ParentCommentId.HasValue && lookup.TryGetValue(comment.ParentCommentId.Value, out var p))
+                ? p
+                : null;
+
+            comment.Body = GetFormattedBody(comment, parent);
+
+            if (parent != null)
             {
                 parent.ChildComments.Add(comment);
             }
@@ -22,5 +37,31 @@ public static class CommentExtensions
         }
 
         return rootComments;
+    }
+
+    private static string GetFormattedBody(Comment comment, Comment? parent)
+    {
+        return comment.IsDeleted
+            ? DeletedBodyText
+            : parent == null
+            ? comment.Body
+            : comment.Type switch
+            {
+                CommentType.Reply => FormatReply(comment.Body, parent.Name),
+                CommentType.Quote => FormatQuote(comment.Body, parent),
+                CommentType.Standard => comment.Body,
+                _ => comment.Body,
+            };
+    }
+
+    private static string FormatReply(string text, string authorName)
+    {
+        return $"[{authorName}], {text}";
+    }
+
+    private static string FormatQuote(string text, Comment parent)
+    {
+        var quotedText = parent.IsDeleted ? DeletedBodyText : parent.Body;
+        return $"\"{quotedText}\" {text}";
     }
 }

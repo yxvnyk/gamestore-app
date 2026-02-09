@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Gamestore.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -32,6 +33,8 @@ public class Comment
 
     [ForeignKey(nameof(GameId))]
     public Game? Game { get; set; }
+
+    public CommentType Type { get; set; }
 
     public ICollection<Comment> ChildComments { get; set; } = [];
 }
