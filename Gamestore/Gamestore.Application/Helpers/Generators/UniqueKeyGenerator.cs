@@ -1,7 +1,7 @@
 ﻿using GameStore.Application.Helpers.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 
-namespace GameStore.Application.Helpers;
+namespace Gamestore.Application.Helpers.Generators;
 
 public class UniqueKeyGenerator(IGameRepository gameRepository) : IKeyGenerator
 {

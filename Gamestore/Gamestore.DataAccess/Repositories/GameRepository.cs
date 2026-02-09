@@ -65,6 +65,14 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         return await _context.Games.ToListAsync();
     }
 
+    public async Task<Guid?> GetGameIdByKeyAsync(string key)
+    {
+        return await _context.Games
+            .Where(g => g.Key == key)
+            .Select(g => g.Id)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<Game?> GetGameByIdAsync(Guid id)
     {
         var game = await _context.Games.FindAsync(id);
@@ -97,6 +105,14 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         }
 
         return false;
+    }
+
+    public async Task<int> GetUnitsInStockAsync(Guid gameId)
+    {
+        return await _context.Games
+            .Where(g => g.Id == gameId)
+            .Select(g => g.UnitInStock)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<int> GetTotalGamesCountAsync()

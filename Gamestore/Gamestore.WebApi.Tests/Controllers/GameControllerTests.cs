@@ -1,7 +1,7 @@
 using System.Text.Json;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.File;
 using Gamestore.Domain.Models.DTO.Game;
 using Gamestore.Domain.Models.DTO.Genre;
 using Gamestore.Domain.Models.DTO.Platform;
@@ -17,6 +17,7 @@ public class GameControllerTests
     private readonly Mock<IGenreService> _mockGenreService = new();
     private readonly Mock<IPlatformService> _mockPlatformService = new();
     private readonly Mock<IPublisherService> _mockPublisherService = new();
+    private readonly Mock<IOrderItemService> _mockIOrderItemService = new();
     private readonly Mock<ICommentService> _mockCommentService = new();
     private readonly Mock<IGenerateGameFile> _mockGenerateGameFile = new();
 
@@ -207,7 +208,7 @@ public class GameControllerTests
         // Assert
         _mockGameService.Verify(s => s.UpdateGameAsync(dto), Times.Once);
         var resultValue = Assert.IsType<OkObjectResult>(result);
-        Assert.Equal("Game successfuly updated", resultValue.Value);
+        Assert.Equal("{ message = Game successfuly updated }", resultValue.Value.ToString());
     }
 
     [Theory]
@@ -353,6 +354,7 @@ public class GameControllerTests
             _mockGenreService.Object,
             _mockPlatformService.Object,
             _mockPublisherService.Object,
+            _mockIOrderItemService.Object,
             _mockCommentService.Object,
             _mockGenerateGameFile.Object);
     }

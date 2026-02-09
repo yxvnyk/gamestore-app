@@ -2333,6 +2333,51 @@ BasketPageModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5_
 
 /***/ }),
 
+/***/ 6323:
+/*!*********************************************************!*\
+  !*** ./src/app/pages/basket-page/basket-page.module.ts ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BasketPageModule": () => (/* binding */ BasketPageModule)
+/* harmony export */ });
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 4364);
+/* harmony import */ var src_app_componetns_common_components_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/componetns/common-components.module */ 1951);
+/* harmony import */ var src_app_app_routing_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/app-routing.module */ 158);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/button */ 781);
+/* harmony import */ var src_app_services_game_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/game.service */ 1397);
+/* harmony import */ var src_app_services_order_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/order.service */ 8132);
+/* harmony import */ var _basket_page_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./basket-page.component */ 7266);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2316);
+
+
+
+
+
+
+
+
+class BasketPageModule {
+}
+BasketPageModule.ɵfac = function BasketPageModule_Factory(t) { return new (t || BasketPageModule)(); };
+BasketPageModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineNgModule"]({ type: BasketPageModule });
+BasketPageModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjector"]({ providers: [src_app_services_order_service__WEBPACK_IMPORTED_MODULE_3__.OrderService, src_app_services_game_service__WEBPACK_IMPORTED_MODULE_2__.GameService, _angular_common__WEBPACK_IMPORTED_MODULE_6__.DatePipe], imports: [[
+            _angular_common__WEBPACK_IMPORTED_MODULE_6__.CommonModule,
+            src_app_componetns_common_components_module__WEBPACK_IMPORTED_MODULE_0__.CommonComponentsModule,
+            src_app_app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule,
+            _angular_material_button__WEBPACK_IMPORTED_MODULE_7__.MatButtonModule,
+        ]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsetNgModuleScope"](BasketPageModule, { declarations: [_basket_page_component__WEBPACK_IMPORTED_MODULE_4__.BasketPageComponent], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_6__.CommonModule,
+        src_app_componetns_common_components_module__WEBPACK_IMPORTED_MODULE_0__.CommonComponentsModule,
+        src_app_app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule,
+        _angular_material_button__WEBPACK_IMPORTED_MODULE_7__.MatButtonModule] }); })();
+
+
+/***/ }),
+
 /***/ 9217:
 /*!**********************************************************************!*\
   !*** ./src/app/pages/delete-game-page/delete-game-page.component.ts ***!

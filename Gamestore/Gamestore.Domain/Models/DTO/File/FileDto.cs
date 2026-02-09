@@ -1,4 +1,4 @@
-﻿namespace Gamestore.Domain.Models.DTO;
+﻿namespace Gamestore.Domain.Models.DTO.File;
 
 public class FileDto
 {

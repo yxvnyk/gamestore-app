@@ -90,7 +90,7 @@ public static partial class LoggerExtensions
             }
         }
 
-        if (exception is BaseException apiEx)
+        if (exception is BaseCustomlException apiEx)
         {
             details.AppendLine($" Status code: {apiEx.StatusCode}");
             details.AppendLine($" Error code: {apiEx.ErrorCode}");

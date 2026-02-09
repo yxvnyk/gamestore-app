@@ -1,4 +1,4 @@
-﻿using GameStore.Application.Helpers;
+﻿using Gamestore.Application.Helpers.Generators;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Moq;
 

@@ -1,8 +1,8 @@
 ﻿namespace Gamestore.Domain.Exceptions;
 
-public class BaseException : Exception
+public class BaseCustomlException : Exception
 {
-    protected BaseException(string message, int statusCode, string? errorCode = null)
+    protected BaseCustomlException(string message, int statusCode, string? errorCode = null)
         : base(message)
     {
         StatusCode = statusCode;

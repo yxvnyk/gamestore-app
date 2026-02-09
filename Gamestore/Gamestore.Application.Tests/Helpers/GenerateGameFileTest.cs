@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
-using GameStore.Application.Helpers;
+using Gamestore.Application.Helpers.Generators;
 using Gamestore.Domain.Models.DTO.Game;
 
 namespace Gamestore.Application.Tests.Helpers;
@@ -18,7 +18,7 @@ public class GenerateGameFileTest
         // Arrange
         var gameDto = CreateGameDto();
         var expectedJson = JsonSerializer.Serialize(gameDto, JsonOptions);
-        var generator = new GenerateGameFile();
+        var generator = new GameFileGenerator();
 
         // Act
         var fileDto = generator.GenerateFileDto(gameDto);

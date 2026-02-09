@@ -190,7 +190,7 @@ public class GenreControllerTests
         // Assert
         _mockGenreService.Verify(s => s.UpdateGenreAsync(dto.Genre), Times.Once);
         var resultValue = Assert.IsType<OkObjectResult>(result);
-        Assert.Equal("Genre successfuly updated", resultValue.Value);
+        Assert.Equal("{ message = Genre successfuly updated }", resultValue.Value.ToString());
     }
 
     [Fact]

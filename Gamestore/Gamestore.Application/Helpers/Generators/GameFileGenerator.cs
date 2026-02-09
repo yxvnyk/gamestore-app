@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using GameStore.Application.Helpers.Interfaces;
-using Gamestore.Domain.Models.DTO;
+using Gamestore.Domain.Models.DTO.File;
 using Gamestore.Domain.Models.DTO.Game;
 
-namespace GameStore.Application.Helpers;
+namespace Gamestore.Application.Helpers.Generators;
 
-public class GenerateGameFile : IGenerateGameFile
+public class GameFileGenerator : IGenerateGameFile
 {
     private static readonly JsonSerializerOptions _jsonOptions = new()
     {
