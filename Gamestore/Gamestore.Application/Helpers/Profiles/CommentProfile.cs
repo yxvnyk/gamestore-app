@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Gamestore.DataAccess.Entities;
-using Gamestore.Domain.Enum;
+using Gamestore.Domain.Enums;
 using Gamestore.Domain.Models.DTO.Comments;
 
 namespace Gamestore.Application.Helpers.Profiles;

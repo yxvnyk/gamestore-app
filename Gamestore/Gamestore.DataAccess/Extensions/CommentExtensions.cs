@@ -1,5 +1,5 @@
 ﻿using Gamestore.DataAccess.Entities;
-using Gamestore.Domain.Enum;
+using Gamestore.Domain.Enums;
 
 namespace Gamestore.DataAccess.Extensions;
 

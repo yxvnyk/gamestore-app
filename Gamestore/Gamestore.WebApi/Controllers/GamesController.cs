@@ -10,6 +10,7 @@ namespace Gamestore.WebApi.Controllers;
 [Route("[controller]")]
 public class GamesController(IGameService gameService, IGenreService genreService,
     IPlatformService platformService, IPublisherService publisherService,
+    IOrderItemService orderItemService,
     ICommentService commentService,
     IGenerateGameFile generateGameFile) : Controller
 {
@@ -111,7 +112,7 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     [HttpPost("{key}/buy")]
     public async Task<IActionResult> AddGameToCart(string key)
     {
-        await cartService.AddGameToCartAsync(key, StubCustomerId);
+        await orderItemService.AddGameToCartAsync(key, StubCustomerId);
         return Ok();
     }
 

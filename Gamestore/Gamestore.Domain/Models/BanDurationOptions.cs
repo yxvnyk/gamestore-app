@@ -15,4 +15,9 @@ public static class BanDurationOptions
     {
         return Options.Keys;
     }
+
+    public static bool IsSupported(string duration)
+    {
+        return Options.ContainsKey(duration);
+    }
 }

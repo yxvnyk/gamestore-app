@@ -1,4 +1,4 @@
-﻿namespace Gamestore.Domain.Enum;
+﻿namespace Gamestore.Domain.Enums;
 
 public enum CommentType
 {

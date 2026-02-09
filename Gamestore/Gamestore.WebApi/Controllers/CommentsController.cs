@@ -1,19 +1,22 @@
-﻿using Gamestore.Domain.Models;
+﻿using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Models;
+using Gamestore.Domain.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CommentsController() : Controller
+public class CommentsController(ICommentService commentService) : Controller
 {
     [HttpPost("ban")]
-    public IActionResult BanUser()
+    public async Task<IActionResult> BanUser([FromBody] BanDto ban)
     {
-        throw new NotImplementedException();
+        await commentService.BanUserByName(ban);
+        return Ok();
     }
 
-    [HttpGet("ban/duration")]
+    [HttpGet("ban/durations")]
     public IActionResult GetBanDurationOptions()
     {
         return Ok(BanDurationOptions.GetSupportedDurations());

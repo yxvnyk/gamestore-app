@@ -4,6 +4,7 @@ using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Extensions;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO;
 using Gamestore.Domain.Models.DTO.Comments;
 using Microsoft.Extensions.Logging;
@@ -68,6 +69,7 @@ public class CommentService(ICommentRepository commentRepository, IGameRepositor
 
     public Task BanUserByName(BanDto request)
     {
-        throw new NotImplementedException();
+        var durationIsSuported = BanDurationOptions.IsSupported(request.Duration);
+        return !durationIsSuported ? throw new BadRequestException($"Duration {request.Duration} is not supported") : Task.CompletedTask;
     }
 }
