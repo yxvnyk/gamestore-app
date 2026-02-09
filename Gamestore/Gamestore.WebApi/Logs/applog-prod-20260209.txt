@@ -3847,3 +3847,191 @@ Url: /games/dfk2/comments,
 2026-02-09 13:45:56.591 +02:00 [VRB] Connection id "0HNJ7PT2BMASQ" sending "DATA" frame for stream ID 77 with length 0 and flags "END_STREAM".
 2026-02-09 13:45:56.603 +02:00 [DBG] Disposed connection to database '' on server '' (20ms).
 2026-02-09 13:45:56.640 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7260/games/dfk2/comments - 200 null application/json; charset=utf-8 887.3537ms
+2026-02-09 14:05:43.849 +02:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2026-02-09 14:05:44.713 +02:00 [DBG] Hosting starting
+2026-02-09 14:05:44.768 +02:00 [DBG] Middleware loaded
+2026-02-09 14:05:44.775 +02:00 [DBG] Middleware loaded. Script /_framework/aspnetcore-browser-refresh.js (16517 B).
+2026-02-09 14:05:44.783 +02:00 [DBG] Middleware loaded. Script /_framework/blazor-hotreload.js (799 B).
+2026-02-09 14:05:45.137 +02:00 [DBG] Middleware loaded: DOTNET_MODIFIABLE_ASSEMBLIES=debug, __ASPNETCORE_BROWSER_TOOLS=true
+2026-02-09 14:05:45.509 +02:00 [DBG] Connection id "0HNJ7QE73IQ22" received FIN.
+2026-02-09 14:05:45.530 +02:00 [DBG] Connection id "0HNJ7QE73IQ22" accepted.
+2026-02-09 14:05:45.538 +02:00 [DBG] Connection id "0HNJ7QE73IQ22" started.
+2026-02-09 14:05:45.553 +02:00 [INF] Now listening on: http://localhost:5225
+2026-02-09 14:05:45.567 +02:00 [DBG] Connection id "0HNJ7QE73IQ22" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-02-09 14:05:45.588 +02:00 [INF] Now listening on: https://localhost:7260
+2026-02-09 14:05:45.594 +02:00 [DBG] Connection id "0HNJ7QE73IQ22" disconnecting.
+2026-02-09 14:05:45.595 +02:00 [DBG] Loaded hosting startup assembly Gamestore.WebApi
+2026-02-09 14:05:45.759 +02:00 [DBG] Connection id "0HNJ7QE73IQ22" stopped.
+2026-02-09 14:05:45.762 +02:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2026-02-09 14:05:45.791 +02:00 [DBG] Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2026-02-09 14:05:45.796 +02:00 [DBG] Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2026-02-09 14:05:46.854 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-02-09 14:05:46.868 +02:00 [INF] Hosting environment: Development
+2026-02-09 14:05:46.901 +02:00 [INF] Content root path: C:\Users\gobbl\Source\Repos\game-store-v2-with-branches\Gamestore\Gamestore.WebApi
+2026-02-09 14:05:48.052 +02:00 [DBG] Hosting started
+2026-02-09 14:05:54.348 +02:00 [DBG] Connection id "0HNJ7QE73IQ23" accepted.
+2026-02-09 14:05:54.373 +02:00 [DBG] Connection id "0HNJ7QE73IQ23" started.
+2026-02-09 14:05:54.520 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/ - null null
+2026-02-09 14:05:55.018 +02:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2026-02-09 14:05:55.023 +02:00 [VRB] All hosts are allowed.
+2026-02-09 14:05:55.215 +02:00 [DBG] No candidates found for the request path '/'
+2026-02-09 14:05:55.223 +02:00 [DBG] Request did not match any endpoints
+2026-02-09 14:05:55.741 +02:00 [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+2026-02-09 14:05:56.885 +02:00 [DBG] The index {'GameId'} was not created on entity type 'GameGenre' as the properties are already covered by the index {'GameId', 'GenreId'}.
+2026-02-09 14:05:56.891 +02:00 [DBG] The index {'GameId'} was not created on entity type 'GamePlatform' as the properties are already covered by the index {'GameId', 'PlatformId'}.
+2026-02-09 14:05:57.406 +02:00 [DBG] Entity Framework Core 8.0.0 initialized 'GamestoreDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.0' with options: None
+2026-02-09 14:05:57.508 +02:00 [DBG] Compiling query expression: 
+'DbSet<Game>()
+    .Count()'
+2026-02-09 14:05:57.829 +02:00 [DBG] Generated query execution expression: 
+'queryContext => ShapedQueryCompilingExpressionVisitor.SingleAsync<int>(
+    asyncEnumerable: new SingleQueryingEnumerable<int>(
+        (RelationalQueryContext)queryContext, 
+        RelationalCommandCache.QueryExpression(
+            Projection Mapping:
+                EmptyProjectionMember -> 0
+            SELECT COUNT(*)
+            FROM Games AS g), 
+        null, 
+        Func<QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator, int>, 
+        Gamestore.DataAccess.Context.GamestoreDbContext, 
+        False, 
+        False, 
+        True
+    ), 
+    cancellationToken: queryContext.CancellationToken)'
+2026-02-09 14:05:57.904 +02:00 [DBG] Creating DbConnection.
+2026-02-09 14:05:57.952 +02:00 [DBG] Created DbConnection. (47ms).
+2026-02-09 14:05:57.961 +02:00 [DBG] Opening connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:06:01.641 +02:00 [DBG] Opened connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:06:01.651 +02:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2026-02-09 14:06:01.668 +02:00 [DBG] Created DbCommand for 'ExecuteReader' (13ms).
+2026-02-09 14:06:01.677 +02:00 [DBG] Initialized DbCommand for 'ExecuteReader' (26ms).
+2026-02-09 14:06:01.697 +02:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Games] AS [g]
+2026-02-09 14:06:02.363 +02:00 [INF] Executed DbCommand (660ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Games] AS [g]
+2026-02-09 14:06:02.522 +02:00 [DBG] Closing data reader to 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:06:02.546 +02:00 [DBG] A data reader for 'GamestoreDB' on server '(localdb)\MSSQLLocalDB' is being disposed after spending 69ms reading results.
+2026-02-09 14:06:02.578 +02:00 [DBG] Closing connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:06:02.631 +02:00 [DBG] Closed connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB' (52ms).
+2026-02-09 14:06:02.675 +02:00 [INF] No cached response available for this request.
+2026-02-09 14:06:02.763 +02:00 [DBG] Response is not cacheable because it does not contain the 'public' cache directive.
+2026-02-09 14:06:02.766 +02:00 [INF] The response could not be cached for this request.
+2026-02-09 14:06:02.779 +02:00 [INF] HTTP GET / responded 404 in 7692.4517 ms
+2026-02-09 14:06:02.826 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /,
+ Status: 404,
+ Request: ,
+ Response: ,
+ Elapsed: N/A
+2026-02-09 14:06:02.851 +02:00 [DBG] Connection id "0HNJ7QE73IQ23" completed keep alive response.
+2026-02-09 14:06:02.864 +02:00 [DBG] 'GamestoreDbContext' disposed.
+2026-02-09 14:06:02.894 +02:00 [DBG] Disposing connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:06:02.902 +02:00 [DBG] Disposed connection to database '' on server '' (8ms).
+2026-02-09 14:06:02.932 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/ - 404 0 null 8419.8103ms
+2026-02-09 14:06:03.085 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5225/, Response status code: 404
+2026-02-09 14:07:12.792 +02:00 [DBG] Connection id "0HNJ7QE73IQ24" accepted.
+2026-02-09 14:07:12.795 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/_framework/aspnetcore-browser-refresh.js - null null
+2026-02-09 14:07:12.801 +02:00 [DBG] Connection id "0HNJ7QE73IQ24" started.
+2026-02-09 14:07:12.848 +02:00 [DBG] Script injected: /_framework/aspnetcore-browser-refresh.js
+2026-02-09 14:07:12.976 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/_vs/browserLink - null null
+2026-02-09 14:07:12.978 +02:00 [DBG] Connection id "0HNJ7QE73IQ23" completed keep alive response.
+2026-02-09 14:07:13.002 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/_framework/aspnetcore-browser-refresh.js - 200 16517 application/javascript; charset=utf-8 207.469ms
+2026-02-09 14:07:13.083 +02:00 [DBG] Connection id "0HNJ7QE73IQ24" completed keep alive response.
+2026-02-09 14:07:13.088 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/_vs/browserLink - 200 null text/javascript; charset=UTF-8 112.6471ms
+2026-02-09 14:07:13.393 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/swagger/v1/swagger.json - null null
+2026-02-09 14:07:13.450 +02:00 [VRB] All hosts are allowed.
+2026-02-09 14:07:13.535 +02:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 53.4769 ms
+2026-02-09 14:07:13.542 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /swagger/v1/swagger.json,
+ Status: 200,
+ Request: ,
+ Response: Request body too large (25533 bytes), skipping log,
+ Elapsed: N/A
+2026-02-09 14:07:13.552 +02:00 [DBG] Connection id "0HNJ7QE73IQ24" completed keep alive response.
+2026-02-09 14:07:13.569 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 175.7247ms
+2026-02-09 14:07:22.395 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5225/Comments/ban/duration - null null
+2026-02-09 14:07:22.410 +02:00 [VRB] All hosts are allowed.
+2026-02-09 14:07:22.432 +02:00 [DBG] 1 candidate(s) found for the request path '/Comments/ban/duration'
+2026-02-09 14:07:22.441 +02:00 [DBG] Endpoint 'Gamestore.WebApi.Controllers.CommentsController.GetBanDurationOptions (Gamestore.WebApi)' with route pattern 'Comments/ban/duration' is valid for the request path '/Comments/ban/duration'
+2026-02-09 14:07:22.453 +02:00 [DBG] Request matched endpoint 'Gamestore.WebApi.Controllers.CommentsController.GetBanDurationOptions (Gamestore.WebApi)'
+2026-02-09 14:07:22.465 +02:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2026-02-09 14:07:22.554 +02:00 [DBG] Entity Framework Core 8.0.0 initialized 'GamestoreDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:8.0.0' with options: None
+2026-02-09 14:07:22.566 +02:00 [DBG] Creating DbConnection.
+2026-02-09 14:07:22.576 +02:00 [DBG] Created DbConnection. (9ms).
+2026-02-09 14:07:22.580 +02:00 [DBG] Opening connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:07:22.588 +02:00 [DBG] Opened connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:07:22.593 +02:00 [DBG] Creating DbCommand for 'ExecuteReader'.
+2026-02-09 14:07:22.598 +02:00 [DBG] Created DbCommand for 'ExecuteReader' (4ms).
+2026-02-09 14:07:22.612 +02:00 [DBG] Initialized DbCommand for 'ExecuteReader' (19ms).
+2026-02-09 14:07:22.623 +02:00 [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Games] AS [g]
+2026-02-09 14:07:22.658 +02:00 [INF] Executed DbCommand (35ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Games] AS [g]
+2026-02-09 14:07:22.665 +02:00 [DBG] Closing data reader to 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:07:22.670 +02:00 [DBG] A data reader for 'GamestoreDB' on server '(localdb)\MSSQLLocalDB' is being disposed after spending 6ms reading results.
+2026-02-09 14:07:22.684 +02:00 [DBG] Closing connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:07:22.701 +02:00 [DBG] Closed connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB' (16ms).
+2026-02-09 14:07:22.737 +02:00 [INF] No cached response available for this request.
+2026-02-09 14:07:22.767 +02:00 [INF] Executing endpoint 'Gamestore.WebApi.Controllers.CommentsController.GetBanDurationOptions (Gamestore.WebApi)'
+2026-02-09 14:07:22.843 +02:00 [INF] Route matched with {action = "GetBanDurationOptions", controller = "Comments"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetBanDurationOptions() on controller Gamestore.WebApi.Controllers.CommentsController (Gamestore.WebApi).
+2026-02-09 14:07:22.857 +02:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2026-02-09 14:07:22.863 +02:00 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2026-02-09 14:07:22.879 +02:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648)","Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2026-02-09 14:07:22.893 +02:00 [DBG] Execution plan of exception filters (in the following order): ["None"]
+2026-02-09 14:07:22.903 +02:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2026-02-09 14:07:22.921 +02:00 [DBG] Executing controller factory for controller Gamestore.WebApi.Controllers.CommentsController (Gamestore.WebApi)
+2026-02-09 14:07:22.932 +02:00 [DBG] Executed controller factory for controller Gamestore.WebApi.Controllers.CommentsController (Gamestore.WebApi)
+2026-02-09 14:07:22.939 +02:00 [VRB] Action Filter: Before executing OnActionExecutionAsync on filter Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter.
+2026-02-09 14:07:22.955 +02:00 [VRB] Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2026-02-09 14:07:22.966 +02:00 [VRB] Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2026-02-09 14:07:22.973 +02:00 [VRB] Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2026-02-09 14:07:22.979 +02:00 [VRB] Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2026-02-09 14:07:22.989 +02:00 [INF] Executing action method Gamestore.WebApi.Controllers.CommentsController.GetBanDurationOptions (Gamestore.WebApi) - Validation state: "Valid"
+2026-02-09 14:07:23.010 +02:00 [INF] Executed action method Gamestore.WebApi.Controllers.CommentsController.GetBanDurationOptions (Gamestore.WebApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 8.5121ms.
+2026-02-09 14:07:23.018 +02:00 [VRB] Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2026-02-09 14:07:23.029 +02:00 [VRB] Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2026-02-09 14:07:23.040 +02:00 [VRB] Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2026-02-09 14:07:23.048 +02:00 [VRB] Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2026-02-09 14:07:23.063 +02:00 [VRB] Action Filter: After executing OnActionExecutionAsync on filter Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter.
+2026-02-09 14:07:23.069 +02:00 [VRB] Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2026-02-09 14:07:23.080 +02:00 [VRB] Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2026-02-09 14:07:23.093 +02:00 [VRB] Before executing action result Microsoft.AspNetCore.Mvc.OkObjectResult.
+2026-02-09 14:07:23.113 +02:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter"]
+2026-02-09 14:07:23.147 +02:00 [DBG] No information found on request to perform content negotiation.
+2026-02-09 14:07:23.153 +02:00 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2026-02-09 14:07:23.161 +02:00 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2026-02-09 14:07:23.183 +02:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter' and content type 'application/json' to write the response.
+2026-02-09 14:07:23.193 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.Dictionary`2+KeyCollection[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.TimeSpan, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-02-09 14:07:23.229 +02:00 [DBG] Response is not cacheable because it does not contain the 'public' cache directive.
+2026-02-09 14:07:23.232 +02:00 [VRB] After executing action result Microsoft.AspNetCore.Mvc.OkObjectResult.
+2026-02-09 14:07:23.236 +02:00 [VRB] Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2026-02-09 14:07:23.242 +02:00 [VRB] Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2026-02-09 14:07:23.259 +02:00 [INF] Executed action Gamestore.WebApi.Controllers.CommentsController.GetBanDurationOptions (Gamestore.WebApi) in 337.0391ms
+2026-02-09 14:07:23.263 +02:00 [INF] Executed endpoint 'Gamestore.WebApi.Controllers.CommentsController.GetBanDurationOptions (Gamestore.WebApi)'
+2026-02-09 14:07:23.272 +02:00 [INF] The response could not be cached for this request.
+2026-02-09 14:07:23.275 +02:00 [INF] HTTP GET /Comments/ban/duration responded 200 in 853.5429 ms
+2026-02-09 14:07:23.287 +02:00 [INF] User IP Address: 127.0.0.1,
+Url: /Comments/ban/duration,
+ Status: 200,
+ Request: ,
+ Response: ["1 hour","1 day","1 week","1 month","permanent"],
+ Elapsed: N/A
+2026-02-09 14:07:23.322 +02:00 [DBG] Connection id "0HNJ7QE73IQ24" completed keep alive response.
+2026-02-09 14:07:23.341 +02:00 [DBG] 'GamestoreDbContext' disposed.
+2026-02-09 14:07:23.345 +02:00 [DBG] Disposing connection to database 'GamestoreDB' on server '(localdb)\MSSQLLocalDB'.
+2026-02-09 14:07:23.355 +02:00 [DBG] Disposed connection to database '' on server '' (9ms).
+2026-02-09 14:07:23.389 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5225/Comments/ban/duration - 200 null application/json; charset=utf-8 994.2276ms
+2026-02-09 14:09:08.681 +02:00 [DBG] Connection id "0HNJ7QE73IQ23" received FIN.
+2026-02-09 14:09:08.702 +02:00 [DBG] Connection id "0HNJ7QE73IQ23" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-02-09 14:09:08.708 +02:00 [DBG] Connection id "0HNJ7QE73IQ23" disconnecting.
+2026-02-09 14:09:08.728 +02:00 [DBG] Connection id "0HNJ7QE73IQ23" stopped.
+2026-02-09 14:09:18.701 +02:00 [DBG] Connection id "0HNJ7QE73IQ24" received FIN.
+2026-02-09 14:09:18.706 +02:00 [DBG] Connection id "0HNJ7QE73IQ24" sending FIN because: "The Socket transport's send loop completed gracefully."
+2026-02-09 14:09:18.716 +02:00 [DBG] Connection id "0HNJ7QE73IQ24" disconnecting.
+2026-02-09 14:09:18.721 +02:00 [DBG] Connection id "0HNJ7QE73IQ24" stopped.
