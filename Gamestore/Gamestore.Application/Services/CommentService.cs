@@ -20,12 +20,10 @@ public class CommentService(ICommentRepository commentRepository, IGameRepositor
 
         var gameId = await gameRepository.GetIdByKeyAsync(key) ?? throw new NotFoundException($"Game with key {key} not found");
 
-        if (request.ParentId is not null)
+        if (request.ParentId is not null &&
+            !await commentRepository.IsExistAsync(request.ParentId.Value))
         {
-            if (!await commentRepository.IsExistAsync(request.ParentId.Value))
-            {
-                throw new NotFoundException($"Comment with id {request.ParentId} not found");
-            }
+            throw new NotFoundException($"Comment with id {request.ParentId} not found");
         }
 
         var comment = mapper.Map<Comment>(request);

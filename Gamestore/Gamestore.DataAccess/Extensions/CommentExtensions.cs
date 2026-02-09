@@ -41,17 +41,24 @@ public static class CommentExtensions
 
     private static string GetFormattedBody(Comment comment, Comment? parent)
     {
-        return comment.IsDeleted
-            ? DeletedBodyText
-            : parent == null
-            ? comment.Body
-            : comment.Type switch
-            {
-                CommentType.Reply => FormatReply(comment.Body, parent.Name),
-                CommentType.Quote => FormatQuote(comment.Body, parent),
-                CommentType.Standard => comment.Body,
-                _ => comment.Body,
-            };
+        if (comment.IsDeleted)
+        {
+            return DeletedBodyText;
+        }
+
+        if (parent is null)
+        {
+            return comment.Body;
+        }
+
+        // For replies and quotes, we want to show the parent comment's content (or a placeholder if it's deleted) in a specific format.
+        return comment.Type switch
+        {
+            CommentType.Reply => FormatReply(comment.Body, parent.Name),
+            CommentType.Quote => FormatQuote(comment.Body, parent),
+            CommentType.Standard => comment.Body,
+            _ => comment.Body,
+        };
     }
 
     private static string FormatReply(string text, string authorName)

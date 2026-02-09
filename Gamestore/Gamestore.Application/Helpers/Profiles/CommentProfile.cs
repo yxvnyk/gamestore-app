@@ -25,8 +25,17 @@ public class CommentProfile : Profile
 
     private static CommentType ParseCommentType(string? action)
     {
-        return string.IsNullOrWhiteSpace(action)
-            ? CommentType.Standard
-            : Enum.TryParse<CommentType>(action, true, out var result) ? result : CommentType.Standard;
+        if (string.IsNullOrWhiteSpace(action))
+        {
+            return CommentType.Standard;
+        }
+
+        if (Enum.TryParse<CommentType>(action, true, out var result))
+        {
+            return result;
+        }
+
+        // return standart type
+        return CommentType.Standard;
     }
 }
