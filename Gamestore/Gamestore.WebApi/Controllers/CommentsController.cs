@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Gamestore.Domain.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
 
@@ -7,14 +8,14 @@ namespace Gamestore.WebApi.Controllers;
 public class CommentsController() : Controller
 {
     [HttpPost("ban")]
-    public Task<IActionResult> BanUser()
+    public IActionResult BanUser()
     {
         throw new NotImplementedException();
     }
 
     [HttpGet("ban/duration")]
-    public Task<IActionResult> GetGamesByGenre(Guid id)
+    public IActionResult GetBanDurationOptions()
     {
-        throw new NotImplementedException();
+        return Ok(BanDurationOptions.GetSupportedDurations());
     }
 }
