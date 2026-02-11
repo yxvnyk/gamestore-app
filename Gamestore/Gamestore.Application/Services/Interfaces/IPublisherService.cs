@@ -1,0 +1,18 @@
+﻿using Gamestore.Domain.Models.DTO.Publisher;
+
+namespace Gamestore.Application.Services.Interfaces;
+
+public interface IPublisherService
+{
+    Task UpdatePublisherAsync(PublisherUpdateDto publisher);
+
+    Task<bool> DeletePublisherAsync(Guid id);
+
+    Task CreatePublisherAsync(PublisherCreateDto publisher);
+
+    Task<PublisherDto> GetPublisherByCompanyNameAsync(string companyName);
+
+    Task<PublisherDto?> GetPublisherByGameKeyAsync(string key);
+
+    Task<IEnumerable<PublisherDto>> GetAllPublishersAsync();
+}
