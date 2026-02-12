@@ -346,7 +346,7 @@ function CheckboxesInputComponent_div_2_Template(rf, ctx) { if (rf & 1) {
 class CheckboxesInputComponent extends _base_component__WEBPACK_IMPORTED_MODULE_0__.BaseComponent {
     constructor() {
         super(...arguments);
-        this.id = guid_typescript__WEBPACK_IMPORTED_MODULE_0__.Guid.create().toString();
+        /*this.id = guid_typescript__WEBPACK_IMPORTED_MODULE_0__.Guid.create().toString();*/
         this.name = '';
     }
     getItem(index) {
