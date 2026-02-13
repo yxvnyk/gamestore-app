@@ -8,7 +8,7 @@ public static class GameRepositoryExtension
 {
     private const int AllItems = int.MaxValue;
 
-    public static IQueryable<Game> SortingOrDefault(this IQueryable<Game> query, string? sortBy)
+    public static IQueryable<Game> ApplySorting(this IQueryable<Game> query, string? sortBy)
     {
         var sort = SortingOptionsHelper.GetValidSortingMethod(sortBy);
         return sort switch
@@ -23,7 +23,7 @@ public static class GameRepositoryExtension
         };
     }
 
-    public static IQueryable<Game> Paging(this IQueryable<Game> query, int pageNumber, int pageSize)
+    public static IQueryable<Game> ApplyPaging(this IQueryable<Game> query, int pageNumber, int pageSize)
     {
         if (pageSize == AllItems)
         {
@@ -32,5 +32,28 @@ public static class GameRepositoryExtension
 
         var skip = (pageNumber - 1) * pageSize;
         return query.Skip(skip).Take(pageSize);
+    }
+
+    public static IQueryable<Game> ApplyPublishDateFiltration(this IQueryable<Game> query, string? filterBy)
+    {
+        var filter = PublishDateFilterHelper.GetValidFiltrationMethod(filterBy);
+
+        DateTime? cutoffDate = filter switch
+        {
+            PublishDateFilterOptions.LastWeek => DateTime.UtcNow.AddDays(-7),
+            PublishDateFilterOptions.LastMonth => DateTime.UtcNow.AddMonths(-1),
+            PublishDateFilterOptions.LastYear => DateTime.UtcNow.AddYears(-1),
+            PublishDateFilterOptions.TwoYears => DateTime.UtcNow.AddYears(-2),
+            PublishDateFilterOptions.ThreeYears => DateTime.UtcNow.AddYears(-3),
+            PublishDateFilterOptions.None => null,
+            _ => null,
+        };
+
+        if (cutoffDate.HasValue)
+        {
+            query = query.Where(g => g.CreatedDate >= cutoffDate.Value);
+        }
+
+        return query;
     }
 }

@@ -8,7 +8,7 @@ public class GetGamesRequest
 
     public string? Name { get; set; }
 
-    public DateTime? DatePublishing { get; set; }
+    public string? DatePublishing { get; set; }
 
     public string? Sort { get; set; }
 

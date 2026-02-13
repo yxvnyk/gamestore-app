@@ -70,8 +70,9 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         var count = await games.CountAsync();
 
         var items = await games
-            .SortingOrDefault(request.Sort)
-            .Paging(request.Page, request.ActualPageSize)
+            .ApplyPublishDateFiltration(request.DatePublishing)
+            .ApplySorting(request.Sort)
+            .ApplyPaging(request.Page, request.ActualPageSize)
             .ToListAsync();
 
         return new PagedList<Game>()
