@@ -11,6 +11,7 @@ public static class PublishDateFilterHelper
         { "last year", PublishDateFilterOptions.LastYear },
         { "2 years", PublishDateFilterOptions.TwoYears },
         { "3 years", PublishDateFilterOptions.ThreeYears },
+        { "All", PublishDateFilterOptions.None },
     };
 
     public static PublishDateFilterOptions GetValidFiltrationMethod(string? filterBy)

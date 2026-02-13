@@ -70,6 +70,8 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
         var count = await games.CountAsync();
 
         var items = await games
+            .ApplyGameNameFiltration(request.Name)
+            .ApplyPriceRangeFiltration(request.MinPrice, request.MaxPrice)
             .ApplyPublishDateFiltration(request.DatePublishing)
             .ApplySorting(request.Sort)
             .ApplyPaging(request.Page, request.ActualPageSize)
