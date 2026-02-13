@@ -100,15 +100,13 @@ public class GameService(IGameRepository gameRepository,
     {
         logger.LogTrace(nameof(this.GetAllGamesAsync));
 
-        request.Page = PaginationOptionsHelper.GetValidCurrentPage(request.Page);
-        request.ActualPageSize = PaginationOptionsHelper.GetValidPageSize(request.PageCount!);
-
         var pagedList = await _gameRepository.GetAllGamesAsync(request);
         var gameDtos = pagedList.Items.Select(_mapper.Map<GameDto>).ToList();
+
         var result = new GetGamesResponse
         {
             Games = gameDtos,
-            TotalPages = PaginationOptionsHelper.CalculateTotalNumberOfPages(pagedList.TotalCount, request.ActualPageSize),
+            TotalPages = PaginationOptionsHelper.CalculateTotalNumberOfPages(pagedList.TotalCount, request.PageSize),
             CurrentPage = request.Page,
         };
         return result;

@@ -67,17 +67,18 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
     {
         var games = _context.Games.AsNoTracking();
 
-        var count = await games.CountAsync();
-
-        var items = await games
+        games = games
             .FilterByGenres(request.Genres)
             .FilterByPlatforms(request.Platforms)
             .FilterByPublishers(request.Publishers)
             .FilterByGameName(request.Name)
             .FilterByPrice(request.MinPrice, request.MaxPrice)
-            .FilterByPublishDate(request.DatePublishing)
-            .ApplySorting(request.Sort)
-            .ApplyPaging(request.Page, request.ActualPageSize)
+            .FilterByPublishDate(request.DatePublishing);
+
+        var count = await games.CountAsync();
+
+        var items = await games.ApplySorting(request.Sort)
+            .ApplyPaging(request.Page, request.PageSize)
             .ToListAsync();
 
         return new PagedList<Game>()

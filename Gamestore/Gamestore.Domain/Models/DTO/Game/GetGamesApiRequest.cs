@@ -1,6 +1,6 @@
 ﻿namespace Gamestore.Domain.Models.DTO.Game;
 
-public class GetGamesRequest
+public class GetGamesApiRequest
 {
     public double? MinPrice { get; set; }
 
@@ -14,7 +14,7 @@ public class GetGamesRequest
 
     public int Page { get; set; } = 1;
 
-    public int PageSize { get; set; }
+    public string? PageCount { get; set; } = string.Empty;
 
     public ICollection<Guid>? Genres { get; set; }
 

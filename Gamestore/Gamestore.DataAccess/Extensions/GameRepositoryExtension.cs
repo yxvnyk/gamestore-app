@@ -7,9 +7,8 @@ namespace Gamestore.DataAccess.Extensions;
 public static class GameRepositoryExtension
 {
     private const int AllItems = int.MaxValue;
-    private const double LowestPossibleMinPrice = 0;
     private const double MaxPrice = double.MaxValue;
-    private const double LowestPossibleMaxPrice = 1;
+    private const double LowestPossiblePrice = 0;
 
     public static IQueryable<Game> ApplySorting(this IQueryable<Game> query, string? sortBy)
     {
@@ -72,14 +71,14 @@ public static class GameRepositoryExtension
 
     public static IQueryable<Game> FilterByPrice(this IQueryable<Game> query, double? minPrice, double? maxPrice)
     {
-        if (maxPrice is null or < LowestPossibleMaxPrice)
+        if (maxPrice is null or < LowestPossiblePrice)
         {
             maxPrice = MaxPrice;
         }
 
-        if (minPrice is null or < LowestPossibleMinPrice)
+        if (minPrice is null or < LowestPossiblePrice)
         {
-            minPrice = LowestPossibleMinPrice;
+            minPrice = LowestPossiblePrice;
         }
 
         return query = query.Where(g => g.Price >= minPrice && g.Price <= maxPrice);

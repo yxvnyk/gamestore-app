@@ -1,5 +1,6 @@
 ﻿using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Extensions;
 using Gamestore.Domain.Helpers;
 using Gamestore.Domain.Models.DTO.Comments;
 using Gamestore.Domain.Models.DTO.Game;
@@ -42,8 +43,10 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllGames([FromQuery] GetGamesRequest request)
+    public async Task<IActionResult> GetAllGames([FromQuery] GetGamesApiRequest apiRequest)
     {
+        var request = apiRequest.ToGetGameRequest();
+
         var games = await gameService.GetAllGamesAsync(request);
         return Ok(games);
     }

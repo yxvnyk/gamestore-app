@@ -1,6 +1,7 @@
 using System.Text.Json;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Extensions;
 using Gamestore.Domain.Models.DTO.File;
 using Gamestore.Domain.Models.DTO.Game;
 using Gamestore.Domain.Models.DTO.Genre;
@@ -170,7 +171,7 @@ public class GameControllerTests
     public async Task GetAllGamesReturnOk()
     {
         // Arrange
-        var request = new GetGamesRequest();
+        var request = new GetGamesApiRequest();
         var dtoList = _expectedGameDtos;
         var response = new GetGamesResponse()
         {
@@ -180,7 +181,7 @@ public class GameControllerTests
         };
 
         _mockGameService
-            .Setup(s => s.GetAllGamesAsync(request))
+            .Setup(s => s.GetAllGamesAsync(request.ToGetGameRequest()))
             .ReturnsAsync(response);
 
         var controller = CreateController();
@@ -189,7 +190,7 @@ public class GameControllerTests
         var result = await controller.GetAllGames(request);
 
         // Assert
-        _mockGameService.Verify(s => s.GetAllGamesAsync(request), Times.Once);
+        _mockGameService.Verify(s => s.GetAllGamesAsync(request.ToGetGameRequest()), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGames = Assert.IsType<List<GameDto>>(okResult.Value);
 
