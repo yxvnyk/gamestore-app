@@ -18,5 +18,11 @@ public class GetGamesRequest
 
     public int ActualPageSize { get; set; }
 
+    public ICollection<Guid>? Genres { get; set; }
+
+    public ICollection<Guid>? Platforms { get; set; }
+
+    public ICollection<Guid>? Publishers { get; set; }
+
     public string? Trigger { get; set; }
 }
