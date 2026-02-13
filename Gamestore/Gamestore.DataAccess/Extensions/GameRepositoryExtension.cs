@@ -17,7 +17,7 @@ public static class GameRepositoryExtension
             SortType.MostCommented => query.OrderByDescending(x => x.Comments.Count),
             SortType.PriceAsc => query.OrderBy(x => x.Price),
             SortType.PriceDesc => query.OrderByDescending(x => x.Price),
-            SortType.New => throw new NotImplementedException(),
+            SortType.New => query.OrderByDescending(x => x.CreatedDate),
             SortType.None => query,
             _ => query,
         };

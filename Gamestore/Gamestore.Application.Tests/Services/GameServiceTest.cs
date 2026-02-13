@@ -5,6 +5,7 @@ using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -326,8 +327,14 @@ public class GameServiceTest
     {
         // Arrange
         var request = new GetGamesRequest();
+        var pagedList = new PagedList<Game>()
+        {
+            Items = [],
+            TotalCount = 0,
+        };
+
         _mockGameRepo.Setup(r => r.GetAllGamesAsync(request))
-            .ReturnsAsync([]);
+            .ReturnsAsync(pagedList);
 
         var service = CreateService();
 
@@ -336,7 +343,7 @@ public class GameServiceTest
 
         // Assert
         Assert.NotNull(result);
-        Assert.Empty(result);
+        Assert.Empty(result.Games);
         _mockGameRepo.Verify(r => r.GetAllGamesAsync(request), Times.Once);
     }
 
@@ -356,12 +363,17 @@ public class GameServiceTest
         var game3 = new Game { Id = Guid.NewGuid(), Name = "Game3", Description = "Desc3", Key = "key3", GameGenres = genres };
 
         var games = new List<Game> { game1, game2, game3 };
+        var pagedList = new PagedList<Game>()
+        {
+            Items = games,
+            TotalCount = 3,
+        };
 
         var dto1 = new GameDto { Id = game1.Id, Name = game1.Name, Description = game1.Description, Key = game1.Key, };
         var dto2 = new GameDto { Id = game2.Id, Name = game2.Name, Description = game2.Description, Key = game2.Key };
         var dto3 = new GameDto { Id = game3.Id, Name = game3.Name, Description = game3.Description, Key = game3.Key };
 
-        _mockGameRepo.Setup(r => r.GetAllGamesAsync(request)).ReturnsAsync(games);
+        _mockGameRepo.Setup(r => r.GetAllGamesAsync(request)).ReturnsAsync(pagedList);
         _mockMapper.Setup(m => m.Map<GameDto>(game1)).Returns(dto1);
         _mockMapper.Setup(m => m.Map<GameDto>(game2)).Returns(dto2);
         _mockMapper.Setup(m => m.Map<GameDto>(game3)).Returns(dto3);
@@ -373,11 +385,11 @@ public class GameServiceTest
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(3, result.Count);
+        Assert.Equal(3, result.Games.Count);
 
-        Assert.Contains(result, r => r.Id == dto1.Id && r.Name == dto1.Name);
-        Assert.Contains(result, r => r.Id == dto2.Id && r.Name == dto2.Name);
-        Assert.Contains(result, r => r.Id == dto3.Id && r.Name == dto3.Name);
+        Assert.Contains(result.Games, r => r.Id == dto1.Id && r.Name == dto1.Name);
+        Assert.Contains(result.Games, r => r.Id == dto2.Id && r.Name == dto2.Name);
+        Assert.Contains(result.Games, r => r.Id == dto3.Id && r.Name == dto3.Name);
 
         // Verify repository and mapper calls
         _mockGameRepo.Verify(r => r.GetAllGamesAsync(request), Times.Once);

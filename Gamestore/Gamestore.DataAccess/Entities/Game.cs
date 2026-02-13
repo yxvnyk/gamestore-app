@@ -36,6 +36,9 @@ public class Game
     [ForeignKey("PublisherId")]
     public Publisher? Publisher { get; set; }
 
+    [Required]
+    public DateTime CreatedDate { get; set; }
+
     public ICollection<GameGenre> GameGenres { get; set; }
 
     public ICollection<GamePlatform> GamePlatforms { get; set; }

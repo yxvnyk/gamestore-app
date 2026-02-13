@@ -172,10 +172,16 @@ public class GameControllerTests
         // Arrange
         var request = new GetGamesRequest();
         var dtoList = _expectedGameDtos;
+        var response = new GetGamesResponse()
+        {
+            CurrentPage = 1,
+            Games = dtoList,
+            TotalPages = 1,
+        };
 
         _mockGameService
             .Setup(s => s.GetAllGamesAsync(request))
-            .ReturnsAsync(dtoList);
+            .ReturnsAsync(response);
 
         var controller = CreateController();
 
