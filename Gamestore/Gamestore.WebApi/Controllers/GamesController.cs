@@ -42,10 +42,9 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     }
 
     [HttpGet]
-    [ResponseCache(Duration = 60)]
-    public async Task<IActionResult> GetAllGames()
+    public async Task<IActionResult> GetAllGames([FromQuery] GetGamesRequest request)
     {
-        var games = await gameService.GetAllGamesAsync();
+        var games = await gameService.GetAllGamesAsync(request);
         return Ok(games);
     }
 

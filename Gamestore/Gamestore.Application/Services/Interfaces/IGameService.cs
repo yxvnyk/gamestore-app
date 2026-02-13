@@ -16,7 +16,7 @@ public interface IGameService
 
     Task<ICollection<GameDto>> GetGamesByCompanyNameAsync(string companyName);
 
-    Task<ICollection<GameDto>> GetAllGamesAsync();
+    Task<GetGamesResponse> GetAllGamesAsync(GetGamesRequest request);
 
     Task UpdateGameAsync(UpdateGameRequest updateRequest);
 

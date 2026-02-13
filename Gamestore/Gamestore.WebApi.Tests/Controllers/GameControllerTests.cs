@@ -170,19 +170,20 @@ public class GameControllerTests
     public async Task GetAllGamesReturnOk()
     {
         // Arrange
+        var request = new GetGamesRequest();
         var dtoList = _expectedGameDtos;
 
         _mockGameService
-            .Setup(s => s.GetAllGamesAsync())
+            .Setup(s => s.GetAllGamesAsync(request))
             .ReturnsAsync(dtoList);
 
         var controller = CreateController();
 
         // Act
-        var result = await controller.GetAllGames();
+        var result = await controller.GetAllGames(request);
 
         // Assert
-        _mockGameService.Verify(s => s.GetAllGamesAsync(), Times.Once);
+        _mockGameService.Verify(s => s.GetAllGamesAsync(request), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGames = Assert.IsType<List<GameDto>>(okResult.Value);
 

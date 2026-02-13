@@ -4,23 +4,28 @@ namespace Gamestore.Domain.Helpers;
 
 public static class SortingOptionsHelper
 {
-    private static readonly Dictionary<string, SortingOptions> Options = new()
+    private static readonly Dictionary<string, SortType> SupportedOptions = new()
     {
-        { "Most popular", SortingOptions.MostPopular },
-        { "Most commented", SortingOptions.MostCommented },
-        { "Price ASC", SortingOptions.PriceAsc },
-        { "Price DESC", SortingOptions.PriceDesc },
-        { "New", SortingOptions.New },
+        { "Most popular", SortType.MostPopular },
+        { "Most commented", SortType.MostCommented },
+        { "Price ASC", SortType.PriceAsc },
+        { "Price DESC", SortType.PriceDesc },
+        { "New", SortType.New },
     };
 
-    public static SortingOptions? GetValue(string option)
+    public static SortType GetValidSortingMethod(string? sortBy)
     {
-        Options.TryGetValue(option, out var result);
-        return result;
+        if (string.IsNullOrEmpty(sortBy))
+        {
+            return SortType.None;
+        }
+
+        // Normalize the input by trimming and converting to title case
+        return SupportedOptions.TryGetValue(sortBy, out var result) ? result : SortType.None;
     }
 
     public static IEnumerable<string> GetSupportedOptions()
     {
-        return Options.Keys;
+        return SupportedOptions.Keys;
     }
 }

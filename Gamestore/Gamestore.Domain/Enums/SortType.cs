@@ -1,6 +1,6 @@
 ﻿namespace Gamestore.Domain.Enums;
 
-public enum SortingOptions
+public enum SortType
 {
     None,
     MostPopular,
