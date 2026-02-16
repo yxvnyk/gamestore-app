@@ -172,6 +172,7 @@ public class GameControllerTests
     {
         // Arrange
         var request = new GetGamesApiRequest();
+        var serviceRequest = request.ToGetGameRequest();
         var dtoList = _expectedGameDtos;
         var response = new GetGamesResponse()
         {
@@ -181,7 +182,7 @@ public class GameControllerTests
         };
 
         _mockGameService
-            .Setup(s => s.GetAllGamesAsync(request.ToGetGameRequest()))
+            .Setup(s => s.GetAllGamesAsync(It.IsAny<GetGamesRequest>()))
             .ReturnsAsync(response);
 
         var controller = CreateController();
@@ -190,9 +191,16 @@ public class GameControllerTests
         var result = await controller.GetAllGames(request);
 
         // Assert
-        _mockGameService.Verify(s => s.GetAllGamesAsync(request.ToGetGameRequest()), Times.Once);
+        _mockGameService.Verify(
+            s =>
+    s.GetAllGamesAsync(It.Is<GetGamesRequest>(r =>
+        r.Page == serviceRequest.Page &&
+        r.PageSize == serviceRequest.PageSize)),
+            Times.Once);
+
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var returnedGames = Assert.IsType<List<GameDto>>(okResult.Value);
+        var responseWrapper = Assert.IsType<GetGamesResponse>(okResult.Value);
+        var returnedGames = responseWrapper.Games.ToList();
 
         Assert.Equal(dtoList.Count, returnedGames.Count);
         for (int i = 0; i < dtoList.Count; i++)

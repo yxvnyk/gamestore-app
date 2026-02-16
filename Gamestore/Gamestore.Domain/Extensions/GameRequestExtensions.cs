@@ -18,6 +18,11 @@ public static class GameRequestExtensions
             MinPrice = apiRequest.MinPrice,
             MaxPrice = apiRequest.MaxPrice,
             Genres = apiRequest.Genres,
+            DatePublishing = apiRequest.DatePublishing,
+            Platforms = apiRequest.Platforms,
+            Publishers = apiRequest.Publishers,
+            Sort = apiRequest.Sort,
+            Trigger = apiRequest.Trigger,
         };
     }
 }
