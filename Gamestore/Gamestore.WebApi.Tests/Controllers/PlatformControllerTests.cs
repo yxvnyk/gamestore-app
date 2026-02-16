@@ -141,7 +141,7 @@ public class PlatformControllerTests
         // Assert
         _mockPlatformService.Verify(s => s.UpdatePlatformAsync(dto.Platform), Times.Once);
         var resultValue = Assert.IsType<OkObjectResult>(result);
-        Assert.Equal("Platform successfuly updated", resultValue.Value);
+        Assert.Equal("{ message = Platform successfuly updated }", resultValue.Value.ToString());
     }
 
     [Fact]

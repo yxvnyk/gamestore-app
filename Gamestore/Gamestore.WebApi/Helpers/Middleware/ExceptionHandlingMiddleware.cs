@@ -22,11 +22,16 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
 
     private async Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
+        if (ex is AggregateException aggregateException)
+        {
+            ex = aggregateException.InnerException ?? ex;
+        }
+
         logger.LogException(ex);
         switch (ex)
         {
-            case BaseException apiEx:
-                await HandleApiExceptionAsync(context, apiEx);
+            case BaseCustomlException apiEx:
+                await HandCustomExceptionAsync(context, apiEx);
                 break;
             case DbUpdateException dbEx when IsUniqueKeyViolation(dbEx, "IX_Games_Key"):
                 await HandlDBUpdatelException(context, "A game with the same key already exists.");
@@ -58,7 +63,7 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
         }
     }
 
-    private static Task HandleApiExceptionAsync(HttpContext context, BaseException exception)
+    private static Task HandCustomExceptionAsync(HttpContext context, BaseCustomlException exception)
     {
         var details = new ProblemDetails()
         {

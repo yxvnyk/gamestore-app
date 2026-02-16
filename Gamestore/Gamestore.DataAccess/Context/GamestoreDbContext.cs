@@ -14,6 +14,10 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
 
     public DbSet<Publisher> Publishers { get; set; }
 
+    public DbSet<Order> Orders { get; set; }
+
+    public DbSet<OrderGame> OrderGames { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // This method should be empty because all configuraion set by
@@ -24,9 +28,11 @@ public class GamestoreDbContext(DbContextOptions<GamestoreDbContext> options) : 
     {
         modelBuilder.Entity<GameGenre>().ToTable("GameGenres");
         modelBuilder.Entity<GamePlatform>().ToTable("GamePlatforms");
+        modelBuilder.Entity<OrderGame>().ToTable("OrderGames");
 
         _ = modelBuilder.Entity<GameGenre>().HasKey(gg => new { gg.GameId, gg.GenreId });
         _ = modelBuilder.Entity<GamePlatform>().HasKey(gp => new { gp.GameId, gp.PlatformId });
+        _ = modelBuilder.Entity<OrderGame>().HasKey(og => new { og.OrderId, og.ProductId });
 
         // Cascade deleting
         _ = modelBuilder.Entity<Game>()

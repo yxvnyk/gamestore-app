@@ -8,9 +8,10 @@ namespace Gamestore.WebApi.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class GamesController(IGameService gameService, IGenreService genreService,
-    IPlatformService platformService, IPublisherService publisherService, IGenerateGameFile generateGameFile) : Controller
+    IPlatformService platformService, IPublisherService publisherService, IOrderItemService cartService, IGenerateGameFile generateGameFile) : Controller
 {
     private const string GameSuccessfullyUpdated = "Game successfuly updated";
+    private static readonly Guid StubCustomerId = Guid.Parse("11111111-1111-1111-1111-111111111111");
 
     [HttpPost]
     public async Task<IActionResult> CreateGame([FromBody] CreateGameRequest game)
@@ -88,5 +89,12 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     {
         var publisher = await publisherService.GetPublisherByGameKeyAsync(key);
         return Ok(publisher);
+    }
+
+    [HttpPost("{key}/buy")]
+    public async Task<IActionResult> AddGameToCart(string key)
+    {
+        await cartService.AddGameToCartAsync(key, StubCustomerId);
+        return Ok();
     }
 }

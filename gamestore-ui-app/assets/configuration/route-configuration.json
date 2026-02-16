@@ -21,5 +21,10 @@
   "Publisher": "/publisher",
   "UpdatePublisher": "/update-publisher",
   "DeletePublisher": "/delete-publisher",
-  "AddPublisher": "/add-publisher"
+  "AddPublisher": "/add-publisher",
+
+  "Order": "/order",
+  "Orders": "/orders",
+  "Basket": "/basket",
+  "MakeOrder": "/order"
 }

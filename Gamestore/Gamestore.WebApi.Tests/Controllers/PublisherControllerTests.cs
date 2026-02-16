@@ -141,7 +141,7 @@ public class PublisherControllerTests
         // Assert
         _mockPublisherService.Verify(s => s.UpdatePublisherAsync(dto.Publisher), Times.Once);
         var resultValue = Assert.IsType<OkObjectResult>(result);
-        Assert.Equal("Publisher successfuly updated", resultValue.Value);
+        Assert.Equal("{ message = Publisher successfuly updated }", resultValue.Value.ToString());
     }
 
     [Fact]
