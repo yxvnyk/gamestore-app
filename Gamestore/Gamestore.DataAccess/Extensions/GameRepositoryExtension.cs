@@ -81,7 +81,7 @@ public static class GameRepositoryExtension
             minPrice = LowestPossiblePrice;
         }
 
-        return query = query.Where(g => g.Price >= minPrice && g.Price <= maxPrice);
+        return query.Where(g => g.Price >= minPrice && g.Price <= maxPrice);
     }
 
     public static IQueryable<Game> FilterByGenres(this IQueryable<Game> query, ICollection<Guid>? genreIds)
