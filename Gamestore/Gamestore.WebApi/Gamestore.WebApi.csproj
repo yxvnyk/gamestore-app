@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gamestore.Application\Gamestore.Application.csproj" />
+    <ProjectReference Include="..\Gamestore.DataAccess\Gamestore.DataAccess.csproj" />
     <ProjectReference Include="..\Gamestore.Domain\Gamestore.Domain.csproj" />
     <ProjectReference Include="..\Gamestore.Infrastructure\Gamestore.Infrastructure.csproj" />
   </ItemGroup>

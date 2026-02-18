@@ -4,6 +4,7 @@ using Gamestore.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gamestore.DataAccess.Migrations
 {
     [DbContext(typeof(GamestoreDbContext))]
-    partial class GamestoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260207122607_Set Comment.Name max length")]
+    partial class SetCommentNamemaxlength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +49,6 @@ namespace Gamestore.DataAccess.Migrations
 
                     b.Property<Guid?>("ParentCommentId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -242,53 +242,6 @@ namespace Gamestore.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Gamestore.DataAccess.Entities.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Gamestore.DataAccess.Entities.OrderGame", b =>
-                {
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Discount")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderGames", (string)null);
-                });
-
             modelBuilder.Entity("Gamestore.DataAccess.Entities.Platform", b =>
                 {
                     b.Property<Guid>("Id")
@@ -365,7 +318,7 @@ namespace Gamestore.DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Gamestore.DataAccess.Entities.Comment", "ParentComment")
-                        .WithMany("ChildComments")
+                        .WithMany("Replies")
                         .HasForeignKey("ParentCommentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -432,28 +385,9 @@ namespace Gamestore.DataAccess.Migrations
                     b.Navigation("ParentGenre");
                 });
 
-            modelBuilder.Entity("Gamestore.DataAccess.Entities.OrderGame", b =>
-                {
-                    b.HasOne("Gamestore.DataAccess.Entities.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Gamestore.DataAccess.Entities.Game", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Gamestore.DataAccess.Entities.Comment", b =>
                 {
-                    b.Navigation("ChildComments");
+                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("Gamestore.DataAccess.Entities.Game", b =>

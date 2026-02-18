@@ -30,12 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gamestore.DataAccess\Gamestore.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
-	
-	<ItemGroup>
-	  <ProjectReference Include="..\Gamestore.DataAccess\Gamestore.DataAccess.csproj" />
-	</ItemGroup>
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>

@@ -26,4 +26,8 @@
 	  <ProjectReference Include="..\Gamestore.Domain\Gamestore.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Gamestore.Domain\Gamestore.Domain.csproj" />
+	</ItemGroup>
+
 </Project>

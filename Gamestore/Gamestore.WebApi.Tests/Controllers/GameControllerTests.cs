@@ -18,6 +18,7 @@ public class GameControllerTests
     private readonly Mock<IPlatformService> _mockPlatformService = new();
     private readonly Mock<IPublisherService> _mockPublisherService = new();
     private readonly Mock<IOrderItemService> _mockIOrderItemService = new();
+    private readonly Mock<ICommentService> _mockCommentService = new();
     private readonly Mock<IGenerateGameFile> _mockGenerateGameFile = new();
 
     private readonly List<GameDto> _expectedGameDtos =
@@ -354,6 +355,7 @@ public class GameControllerTests
             _mockPlatformService.Object,
             _mockPublisherService.Object,
             _mockIOrderItemService.Object,
+            _mockCommentService.Object,
             _mockGenerateGameFile.Object);
     }
 }

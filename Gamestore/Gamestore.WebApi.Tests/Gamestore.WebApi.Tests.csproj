@@ -35,6 +35,8 @@
 		<ProjectReference Include="..\Gamestore.Application\Gamestore.Application.csproj" />
 		<ProjectReference Include="..\Gamestore.Infrastructure\Gamestore.Infrastructure.csproj" />
 		<ProjectReference Include="..\Gamestore.WebApi\Gamestore.WebApi.csproj" />
+	  <ProjectReference Include="..\Gamestore.DataAccess\Gamestore.DataAccess.csproj" />
+	  <ProjectReference Include="..\Gamestore.WebApi\Gamestore.WebApi.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

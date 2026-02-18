@@ -30,6 +30,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IPublisherService, PublisherService>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IOrderItemService, OrderItemService>();
+        services.AddScoped<ICommentService, CommentService>();
 
         services.AddScoped<IPaymentStrategy, BankPaymentStrategy>();
         services.AddScoped<IPaymentStrategy, BoxPaymentStrategy>();
@@ -50,6 +51,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IPublisherRepository, PublisherRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
+
         return services;
     }
 

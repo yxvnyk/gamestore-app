@@ -1,5 +1,6 @@
 ﻿using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Models.DTO.Comments;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,10 @@ namespace Gamestore.WebApi.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class GamesController(IGameService gameService, IGenreService genreService,
-    IPlatformService platformService, IPublisherService publisherService, IOrderItemService cartService, IGenerateGameFile generateGameFile) : Controller
+    IPlatformService platformService, IPublisherService publisherService,
+    IOrderItemService orderItemService,
+    ICommentService commentService,
+    IGenerateGameFile generateGameFile) : Controller
 {
     private const string GameSuccessfullyUpdated = "Game successfuly updated";
     private static readonly Guid StubCustomerId = Guid.Parse("11111111-1111-1111-1111-111111111111");
@@ -91,10 +95,31 @@ public class GamesController(IGameService gameService, IGenreService genreServic
         return Ok(publisher);
     }
 
+    [HttpPost("{key}/comments")]
+    public async Task<IActionResult> CreateComment(string key, [FromBody] CommentCreateDto comment)
+    {
+        await commentService.CreateAsync(comment, key);
+        return Ok();
+    }
+
+    [HttpGet("{key}/comments")]
+    public async Task<IActionResult> GetCommentsByGameKey(string key)
+    {
+        var publisher = await commentService.GetByGameKeyAsync(key);
+        return Ok(publisher);
+    }
+
     [HttpPost("{key}/buy")]
     public async Task<IActionResult> AddGameToCart(string key)
     {
-        await cartService.AddGameToCartAsync(key, StubCustomerId);
+        await orderItemService.AddGameToCartAsync(key, StubCustomerId);
         return Ok();
+    }
+
+    [HttpDelete("{key}/comments/{id:guid}")]
+    public async Task<IActionResult> DeleteComment(string key, Guid id)
+    {
+        await commentService.DeleteAsync(key, id);
+        return NoContent();
     }
 }
