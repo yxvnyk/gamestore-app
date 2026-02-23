@@ -309,6 +309,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function CheckboxesInputComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
@@ -345,6 +346,7 @@ function CheckboxesInputComponent_div_2_Template(rf, ctx) { if (rf & 1) {
 class CheckboxesInputComponent extends _base_component__WEBPACK_IMPORTED_MODULE_0__.BaseComponent {
     constructor() {
         super(...arguments);
+        this.id = guid_typescript__WEBPACK_IMPORTED_MODULE_0__.Guid.create().toString();
         this.name = '';
     }
     getItem(index) {
@@ -2359,13 +2361,58 @@ class BasketPageComponent extends src_app_componetns_base_component__WEBPACK_IMP
             .cancelGameBuy(gameKey)
             .subscribe((_) => this.refreshBasketItems());
     }
-}
+    }
 BasketPageComponent.ɵfac = function BasketPageComponent_Factory(t) { return new (t || BasketPageComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_services_order_service__WEBPACK_IMPORTED_MODULE_1__.OrderService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_services_game_service__WEBPACK_IMPORTED_MODULE_2__.GameService)); };
 BasketPageComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: BasketPageComponent, selectors: [["gamestore-basket"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵInheritDefinitionFeature"]], decls: 1, vars: 1, consts: [["class", "basket-container", 4, "ngIf"], [1, "basket-container"], ["class", "empty-basket", 4, "ngIf"], ["class", "basket-item", 4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "empty-basket"], [1, "basket-item"], ["mat-button", "", 3, "routerLink"], ["mat-stroked-button", "", "color", "accent", "type", "button", 3, "click"], [1, "basket-item-info"], ["mat-raised-button", "", "color", "primary", 3, "routerLink"]], template: function BasketPageComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](0, BasketPageComponent_div_0_Template, 4, 3, "div", 0);
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", !!ctx.orderInfoList);
     } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_8__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_8__.NgForOf, _angular_material_button__WEBPACK_IMPORTED_MODULE_9__.MatAnchor, _angular_router__WEBPACK_IMPORTED_MODULE_10__.RouterLinkWithHref, _angular_material_button__WEBPACK_IMPORTED_MODULE_9__.MatButton], styles: [".basket-container[_ngcontent-%COMP%] {\n  padding: 15px;\n}\n.basket-container[_ngcontent-%COMP%]   .empty-basket[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 20px;\n}\n.basket-container[_ngcontent-%COMP%]   .basket-item[_ngcontent-%COMP%] {\n  margin-bottom: 10px;\n  margin-top: 10px;\n}\n.basket-container[_ngcontent-%COMP%]   .basket-item[_ngcontent-%COMP%]   .basket-item-info[_ngcontent-%COMP%] {\n  padding-top: 7px;\n}\n.basket-container[_ngcontent-%COMP%]   .basket-item[_ngcontent-%COMP%]   .basket-item-info[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  padding-left: 15px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhc2tldC1wYWdlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBQTtBQUNKO0FBQ0k7RUFDSSxrQkFBQTtFQUNBLGVBQUE7QUFDUjtBQUVJO0VBQ0ksbUJBQUE7RUFDQSxnQkFBQTtBQUFSO0FBRVE7RUFDSSxnQkFBQTtBQUFaO0FBRVk7RUFDSSxrQkFBQTtBQUFoQiIsImZpbGUiOiJiYXNrZXQtcGFnZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXNrZXQtY29udGFpbmVye1xyXG4gICAgcGFkZGluZzogMTVweDtcclxuXHJcbiAgICAuZW1wdHktYmFza2V0IHtcclxuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICAgICAgZm9udC1zaXplOiAyMHB4O1xyXG4gICAgfVxyXG5cclxuICAgIC5iYXNrZXQtaXRlbSB7XHJcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICAgICAgICBtYXJnaW4tdG9wOiAxMHB4O1xyXG5cclxuICAgICAgICAuYmFza2V0LWl0ZW0taW5mbyB7XHJcbiAgICAgICAgICAgIHBhZGRpbmctdG9wOiA3cHg7XHJcblxyXG4gICAgICAgICAgICBzcGFuIHtcclxuICAgICAgICAgICAgICAgIHBhZGRpbmctbGVmdDogMTVweDtcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgIH1cclxufSJdfQ== */"] });
+
+
+/***/ }),
+
+/***/ 6323:
+/*!*********************************************************!*\
+  !*** ./src/app/pages/basket-page/basket-page.module.ts ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BasketPageModule": () => (/* binding */ BasketPageModule)
+/* harmony export */ });
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 4364);
+/* harmony import */ var src_app_componetns_common_components_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/componetns/common-components.module */ 1951);
+/* harmony import */ var src_app_app_routing_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/app-routing.module */ 158);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/button */ 781);
+/* harmony import */ var src_app_services_game_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/game.service */ 1397);
+/* harmony import */ var src_app_services_order_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/order.service */ 8132);
+/* harmony import */ var _basket_page_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./basket-page.component */ 7266);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2316);
+
+
+
+
+
+
+
+
+class BasketPageModule {
+}
+BasketPageModule.ɵfac = function BasketPageModule_Factory(t) { return new (t || BasketPageModule)(); };
+BasketPageModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineNgModule"]({ type: BasketPageModule });
+BasketPageModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjector"]({ providers: [src_app_services_order_service__WEBPACK_IMPORTED_MODULE_3__.OrderService, src_app_services_game_service__WEBPACK_IMPORTED_MODULE_2__.GameService, _angular_common__WEBPACK_IMPORTED_MODULE_6__.DatePipe], imports: [[
+            _angular_common__WEBPACK_IMPORTED_MODULE_6__.CommonModule,
+            src_app_componetns_common_components_module__WEBPACK_IMPORTED_MODULE_0__.CommonComponentsModule,
+            src_app_app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule,
+            _angular_material_button__WEBPACK_IMPORTED_MODULE_7__.MatButtonModule,
+        ]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsetNgModuleScope"](BasketPageModule, { declarations: [_basket_page_component__WEBPACK_IMPORTED_MODULE_4__.BasketPageComponent], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_6__.CommonModule,
+        src_app_componetns_common_components_module__WEBPACK_IMPORTED_MODULE_0__.CommonComponentsModule,
+        src_app_app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule,
+        _angular_material_button__WEBPACK_IMPORTED_MODULE_7__.MatButtonModule] }); })();
 
 
 /***/ }),
@@ -3493,7 +3540,7 @@ class GamePageComponent extends src_app_componetns_base_component__WEBPACK_IMPOR
         this.orderService
             .buyGame(this.game.key)
             .subscribe((_) => this.router.navigateByUrl(this.links.get(this.pageRoutes.Basket)));
-    }
+}
 }
 GamePageComponent.ɵfac = function GamePageComponent_Factory(t) { return new (t || GamePageComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_game_service__WEBPACK_IMPORTED_MODULE_1__.GameService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_genre_service__WEBPACK_IMPORTED_MODULE_2__.GenreService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_platform_service__WEBPACK_IMPORTED_MODULE_3__.PlatformService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_publisher_service__WEBPACK_IMPORTED_MODULE_4__.PublisherService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_order_service__WEBPACK_IMPORTED_MODULE_5__.OrderService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_10__.ActivatedRoute), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_10__.Router)); };
 GamePageComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineComponent"]({ type: GamePageComponent, selectors: [["gamestore-game"]], viewQuery: function GamePageComponent_Query(rf, ctx) { if (rf & 1) {
@@ -4079,7 +4126,7 @@ class GamesPageComponent extends src_app_componetns_base_component__WEBPACK_IMPO
     onGamesLoaded(games) {
         this.gamesList = games !== null && games !== void 0 ? games : [];
         this.gamesLoadSubject.next();
-    }
+}
 }
 GamesPageComponent.ɵfac = function GamesPageComponent_Factory(t) { return new (t || GamesPageComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_game_service__WEBPACK_IMPORTED_MODULE_1__.GameService)); };
 GamesPageComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineComponent"]({ type: GamesPageComponent, selectors: [["gamestore-games"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵInheritDefinitionFeature"]], decls: 3, vars: 4, consts: [[3, "pagesSubject", "gamesLoadSubject", "apply"], [3, "listItems", "addLink"]], template: function GamesPageComponent_Template(rf, ctx) { if (rf & 1) {
@@ -5297,6 +5344,96 @@ OrderPageModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_7__
         src_app_app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule,
         _angular_material_button__WEBPACK_IMPORTED_MODULE_9__.MatButtonModule] }); })();
 _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵsetComponentScope"](_order_page_component__WEBPACK_IMPORTED_MODULE_4__.OrderPageComponent, [_angular_common__WEBPACK_IMPORTED_MODULE_8__.NgIf, _angular_material_button__WEBPACK_IMPORTED_MODULE_9__.MatAnchor, _angular_router__WEBPACK_IMPORTED_MODULE_10__.RouterLinkWithHref, _componetns_info_wrapper_component_info_wrapper_component__WEBPACK_IMPORTED_MODULE_5__.InfoWrapperComponent, _componetns_info_component_info_component__WEBPACK_IMPORTED_MODULE_6__.InfoComponent], []);
+
+
+/***/ }),
+
+/***/ 4158:
+/*!************************************************************!*\
+  !*** ./src/app/pages/orders-page/orders-page.component.ts ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OrdersPageComponent": () => (/* binding */ OrdersPageComponent)
+/* harmony export */ });
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 3927);
+/* harmony import */ var src_app_componetns_base_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/componetns/base.component */ 2844);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 2316);
+/* harmony import */ var src_app_services_order_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/order.service */ 8132);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 4364);
+
+
+
+
+
+class OrdersPageComponent extends src_app_componetns_base_component__WEBPACK_IMPORTED_MODULE_0__.BaseComponent {
+    constructor(orderService, datePipe) {
+        super();
+        this.orderService = orderService;
+        this.datePipe = datePipe;
+        this.ordersList = [];
+    }
+    ngOnInit() {
+        this.orderService
+            .getOrders()
+            .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)((orders) => orders.map((order) => {
+            const orderItem = {
+                title: !!order.date
+                    ? `${this.labels.orderCustomerId}:${order.customerId} - ${this.labels.orderDate}:${this.datePipe.transform(order.date, 'yyyy-MM-dd')}`
+                    : `${this.labels.orderCustomerId}:${order.customerId}`,
+                pageLink: `${this.links.get(this.pageRoutes.Order)}/${order.id}`,
+            };
+            return orderItem;
+        })))
+            .subscribe((x) => (this.ordersList = x !== null && x !== void 0 ? x : []));
+    }
+}
+OrdersPageComponent.ɵfac = function OrdersPageComponent_Factory(t) { return new (t || OrdersPageComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_services_order_service__WEBPACK_IMPORTED_MODULE_1__.OrderService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_4__.DatePipe)); };
+OrdersPageComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: OrdersPageComponent, selectors: [["gamestore-orders"]], features: [_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵInheritDefinitionFeature"]], decls: 2, vars: 1, consts: [[3, "listItems"]], template: function OrdersPageComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "article");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](1, "gamestore-list", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    } if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("listItems", ctx.ordersList);
+    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJvcmRlcnMtcGFnZS5jb21wb25lbnQuc2NzcyJ9 */"] });
+
+
+/***/ }),
+
+/***/ 5529:
+/*!*********************************************************!*\
+  !*** ./src/app/pages/orders-page/orders-page.module.ts ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OrdersPageModule": () => (/* binding */ OrdersPageModule)
+/* harmony export */ });
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 4364);
+/* harmony import */ var src_app_componetns_common_components_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/componetns/common-components.module */ 1951);
+/* harmony import */ var src_app_services_order_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/order.service */ 8132);
+/* harmony import */ var _orders_page_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./orders-page.component */ 4158);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2316);
+/* harmony import */ var _componetns_list_component_list_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../componetns/list-component/list.component */ 9860);
+
+
+
+
+
+
+class OrdersPageModule {
+}
+OrdersPageModule.ɵfac = function OrdersPageModule_Factory(t) { return new (t || OrdersPageModule)(); };
+OrdersPageModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineNgModule"]({ type: OrdersPageModule });
+OrdersPageModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector"]({ providers: [src_app_services_order_service__WEBPACK_IMPORTED_MODULE_1__.OrderService, _angular_common__WEBPACK_IMPORTED_MODULE_5__.DatePipe], imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_5__.CommonModule, src_app_componetns_common_components_module__WEBPACK_IMPORTED_MODULE_0__.CommonComponentsModule]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsetNgModuleScope"](OrdersPageModule, { declarations: [_orders_page_component__WEBPACK_IMPORTED_MODULE_2__.OrdersPageComponent], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.CommonModule, src_app_componetns_common_components_module__WEBPACK_IMPORTED_MODULE_0__.CommonComponentsModule] }); })();
+_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsetComponentScope"](_orders_page_component__WEBPACK_IMPORTED_MODULE_2__.OrdersPageComponent, [_componetns_list_component_list_component__WEBPACK_IMPORTED_MODULE_3__.ListComponent], []);
 
 
 /***/ }),
