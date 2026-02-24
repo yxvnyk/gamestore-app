@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using GameStore.Application.Helpers.Interfaces;
+using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Extensions;
+using Gamestore.Domain.Helpers;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
 
@@ -12,7 +14,7 @@ namespace Gamestore.Application.Services;
 public class GameService(IGameRepository gameRepository,
     IGenreRepository genreRepository, IPlatformRepository platformRepository, IPublisherRepository publisherRepository,
     IKeyGenerator uniqueKeyGenerator,
-    IMapper mapper, ILogger<GameService> logger) : Interfaces.IGameService
+    IMapper mapper, ILogger<GameService> logger) : IGameService
 {
     private readonly IGameRepository _gameRepository = gameRepository;
     private readonly IGenreRepository _genreRepository = genreRepository;
@@ -94,13 +96,20 @@ public class GameService(IGameRepository gameRepository,
         return gameDtos;
     }
 
-    public async Task<ICollection<GameDto>> GetAllGamesAsync()
+    public async Task<GetGamesResponse> GetAllGamesAsync(GetGamesRequest request)
     {
         logger.LogTrace(nameof(this.GetAllGamesAsync));
 
-        var gameEntities = await _gameRepository.GetAllGamesAsync();
-        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
-        return gameDtos;
+        var pagedList = await _gameRepository.GetAllGamesAsync(request);
+        var gameDtos = pagedList.Items.Select(_mapper.Map<GameDto>).ToList();
+
+        var result = new GetGamesResponse
+        {
+            Games = gameDtos,
+            TotalPages = PaginationOptionsHelper.CalculateTotalNumberOfPages(pagedList.TotalCount, request.PageSize),
+            CurrentPage = request.Page,
+        };
+        return result;
     }
 
     public async Task CreateGameAsync(CreateGameRequest createRequest)

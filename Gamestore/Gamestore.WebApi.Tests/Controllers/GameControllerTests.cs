@@ -1,6 +1,7 @@
 using System.Text.Json;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Extensions;
 using Gamestore.Domain.Models.DTO.File;
 using Gamestore.Domain.Models.DTO.Game;
 using Gamestore.Domain.Models.DTO.Genre;
@@ -170,21 +171,36 @@ public class GameControllerTests
     public async Task GetAllGamesReturnOk()
     {
         // Arrange
+        var request = new GetGamesApiRequest();
+        var serviceRequest = request.ToGetGameRequest();
         var dtoList = _expectedGameDtos;
+        var response = new GetGamesResponse()
+        {
+            CurrentPage = 1,
+            Games = dtoList,
+            TotalPages = 1,
+        };
 
         _mockGameService
-            .Setup(s => s.GetAllGamesAsync())
-            .ReturnsAsync(dtoList);
+            .Setup(s => s.GetAllGamesAsync(It.IsAny<GetGamesRequest>()))
+            .ReturnsAsync(response);
 
         var controller = CreateController();
 
         // Act
-        var result = await controller.GetAllGames();
+        var result = await controller.GetAllGames(request);
 
         // Assert
-        _mockGameService.Verify(s => s.GetAllGamesAsync(), Times.Once);
+        _mockGameService.Verify(
+            s =>
+    s.GetAllGamesAsync(It.Is<GetGamesRequest>(r =>
+        r.Page == serviceRequest.Page &&
+        r.PageSize == serviceRequest.PageSize)),
+            Times.Once);
+
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var returnedGames = Assert.IsType<List<GameDto>>(okResult.Value);
+        var responseWrapper = Assert.IsType<GetGamesResponse>(okResult.Value);
+        var returnedGames = responseWrapper.Games.ToList();
 
         Assert.Equal(dtoList.Count, returnedGames.Count);
         for (int i = 0; i < dtoList.Count; i++)

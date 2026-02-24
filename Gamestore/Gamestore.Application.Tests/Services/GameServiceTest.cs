@@ -5,6 +5,7 @@ using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -325,24 +326,32 @@ public class GameServiceTest
     public async Task GetAllGamesAsync_NoGames_ReturnEmptyCollection()
     {
         // Arrange
-        _mockGameRepo.Setup(r => r.GetAllGamesAsync())
-            .ReturnsAsync([]);
+        var request = new GetGamesRequest();
+        var pagedList = new PagedList<Game>()
+        {
+            Items = [],
+            TotalCount = 0,
+        };
+
+        _mockGameRepo.Setup(r => r.GetAllGamesAsync(request))
+            .ReturnsAsync(pagedList);
 
         var service = CreateService();
 
         // Act
-        var result = await service.GetAllGamesAsync();
+        var result = await service.GetAllGamesAsync(request);
 
         // Assert
         Assert.NotNull(result);
-        Assert.Empty(result);
-        _mockGameRepo.Verify(r => r.GetAllGamesAsync(), Times.Once);
+        Assert.Empty(result.Games);
+        _mockGameRepo.Verify(r => r.GetAllGamesAsync(request), Times.Once);
     }
 
     [Fact]
     public async Task GetAllGamesAsync_CorrectCollection_ReturnGamesCollection()
     {
         // Arrange
+        var request = new GetGamesRequest();
         var genreId = Guid.NewGuid();
         var genres = new List<GameGenre>
         {
@@ -354,12 +363,17 @@ public class GameServiceTest
         var game3 = new Game { Id = Guid.NewGuid(), Name = "Game3", Description = "Desc3", Key = "key3", GameGenres = genres };
 
         var games = new List<Game> { game1, game2, game3 };
+        var pagedList = new PagedList<Game>()
+        {
+            Items = games,
+            TotalCount = 3,
+        };
 
         var dto1 = new GameDto { Id = game1.Id, Name = game1.Name, Description = game1.Description, Key = game1.Key, };
         var dto2 = new GameDto { Id = game2.Id, Name = game2.Name, Description = game2.Description, Key = game2.Key };
         var dto3 = new GameDto { Id = game3.Id, Name = game3.Name, Description = game3.Description, Key = game3.Key };
 
-        _mockGameRepo.Setup(r => r.GetAllGamesAsync()).ReturnsAsync(games);
+        _mockGameRepo.Setup(r => r.GetAllGamesAsync(request)).ReturnsAsync(pagedList);
         _mockMapper.Setup(m => m.Map<GameDto>(game1)).Returns(dto1);
         _mockMapper.Setup(m => m.Map<GameDto>(game2)).Returns(dto2);
         _mockMapper.Setup(m => m.Map<GameDto>(game3)).Returns(dto3);
@@ -367,18 +381,18 @@ public class GameServiceTest
         var gameService = CreateService();
 
         // Act
-        var result = await gameService.GetAllGamesAsync();
+        var result = await gameService.GetAllGamesAsync(request);
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(3, result.Count);
+        Assert.Equal(3, result.Games.Count);
 
-        Assert.Contains(result, r => r.Id == dto1.Id && r.Name == dto1.Name);
-        Assert.Contains(result, r => r.Id == dto2.Id && r.Name == dto2.Name);
-        Assert.Contains(result, r => r.Id == dto3.Id && r.Name == dto3.Name);
+        Assert.Contains(result.Games, r => r.Id == dto1.Id && r.Name == dto1.Name);
+        Assert.Contains(result.Games, r => r.Id == dto2.Id && r.Name == dto2.Name);
+        Assert.Contains(result.Games, r => r.Id == dto3.Id && r.Name == dto3.Name);
 
         // Verify repository and mapper calls
-        _mockGameRepo.Verify(r => r.GetAllGamesAsync(), Times.Once);
+        _mockGameRepo.Verify(r => r.GetAllGamesAsync(request), Times.Once);
         _mockMapper.Verify(m => m.Map<GameDto>(It.IsAny<Game>()), Times.Exactly(3));
     }
 

@@ -1,6 +1,10 @@
 {
   "baseApiUrl": "https://localhost:7260/",
 
+  "getGameFileApiUrl": "games/{key}/file",
+  "getPublishedDateOptionsApiUrl": "games/publish-date-options",
+  "getSortingOptionsApiUrl": "games/sorting-options",
+  "getPaggingOptionsApiUrl": "games/pagination-options",
   "gameApiUrl": "games/{key}",
   "gameByIdApiUrl": "games/find/{id}",
   "gamesApiUrl": "games",

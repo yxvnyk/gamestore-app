@@ -1,6 +1,7 @@
 using Gamestore.DataAccess.Context;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories;
+using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Tests;
@@ -191,6 +192,7 @@ public class GameRepositoryTests
     {
         // Arrange
         var options = CreateContextOptions();
+        var reuest = new GetGamesRequest();
         var games = new List<Game>()
         {
             new()
@@ -216,8 +218,8 @@ public class GameRepositoryTests
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
-            var gamesCollection = await repository.GetAllGamesAsync();
-            var result = gamesCollection.ToList();
+            var gamesCollection = await repository.GetAllGamesAsync(reuest);
+            var result = gamesCollection.Items;
 
             // Assert
             for (int i = 0; i < result.Count; i++)

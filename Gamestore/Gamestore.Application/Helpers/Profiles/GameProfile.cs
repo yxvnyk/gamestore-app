@@ -10,6 +10,7 @@ public class GameProfile : Profile
     {
         CreateMap<CreateGameRequest, Game>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
             .ForMember(dest => dest.Publisher, opt => opt.Ignore())
             .ForMember(dest => dest.Comments, opt => opt.Ignore())
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Game.Name))
@@ -29,6 +30,7 @@ public class GameProfile : Profile
 
         CreateMap<UpdateGameRequest, Game>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
             .ForMember(dest => dest.Publisher, opt => opt.Ignore())
             .ForMember(dest => dest.Comments, opt => opt.Ignore())
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Game.Name))
