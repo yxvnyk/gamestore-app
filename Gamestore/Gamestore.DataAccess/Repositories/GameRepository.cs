@@ -1,6 +1,9 @@
 ﻿using Gamestore.DataAccess.Context;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Extensions;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.Domain.Models;
+using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Repositories;
@@ -60,9 +63,29 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
             .Where(g => g.Publisher.CompanyName == companyName).ToListAsync();
     }
 
-    public async Task<ICollection<Game>> GetAllGamesAsync()
+    public async Task<PagedList<Game>> GetAllGamesAsync(GetGamesRequest request)
     {
-        return await _context.Games.ToListAsync();
+        var games = _context.Games.AsNoTracking();
+
+        games = games
+            .FilterByGenres(request.Genres)
+            .FilterByPlatforms(request.Platforms)
+            .FilterByPublishers(request.Publishers)
+            .FilterByGameName(request.Name)
+            .FilterByPrice(request.MinPrice, request.MaxPrice)
+            .FilterByPublishDate(request.DatePublishing);
+
+        var count = await games.CountAsync();
+
+        var items = await games.ApplySorting(request.Sort)
+            .ApplyPaging(request.Page, request.PageSize)
+            .ToListAsync();
+
+        return new PagedList<Game>()
+        {
+            Items = items,
+            TotalCount = count,
+        };
     }
 
     public async Task<Guid?> GetGameIdByKeyAsync(string key)

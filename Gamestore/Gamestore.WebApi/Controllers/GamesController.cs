@@ -1,5 +1,7 @@
 ﻿using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Extensions;
+using Gamestore.Domain.Helpers;
 using Gamestore.Domain.Models.DTO.Comments;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.AspNetCore.Mvc;
@@ -41,10 +43,11 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     }
 
     [HttpGet]
-    [ResponseCache(Duration = 60)]
-    public async Task<IActionResult> GetAllGames()
+    public async Task<IActionResult> GetAllGames([FromQuery] GetGamesApiRequest apiRequest)
     {
-        var games = await gameService.GetAllGamesAsync();
+        var request = apiRequest.ToGetGameRequest();
+
+        var games = await gameService.GetAllGamesAsync(request);
         return Ok(games);
     }
 
@@ -121,5 +124,23 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     {
         await commentService.DeleteAsync(key, id);
         return NoContent();
+    }
+
+    [HttpGet("pagination-options")]
+    public IActionResult GetPaginationOptions()
+    {
+        return Ok(PaginationOptionsHelper.GetSupportedOptions());
+    }
+
+    [HttpGet("sorting-options")]
+    public IActionResult GetSortingOptions()
+    {
+        return Ok(SortingOptionsHelper.GetSupportedOptions());
+    }
+
+    [HttpGet("publish-date-options")]
+    public IActionResult GetPublishDateOptions()
+    {
+        return Ok(PublishDateFilterHelper.GetSupportedOptions());
     }
 }

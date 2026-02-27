@@ -1,5 +1,5 @@
 ﻿using Gamestore.Application.Services.Interfaces;
-using Gamestore.Domain.Models;
+using Gamestore.Domain.Helpers;
 using Gamestore.Domain.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +19,6 @@ public class CommentsController(ICommentService commentService) : Controller
     [HttpGet("ban/durations")]
     public IActionResult GetBanDurationOptions()
     {
-        return Ok(BanDurationOptions.GetSupportedDurations());
+        return Ok(BanDurationHelper.GetSupportedDurations());
     }
 }
