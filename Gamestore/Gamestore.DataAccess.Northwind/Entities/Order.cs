@@ -1,10 +1,15 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Gamestore.DataAccess.Northwind.Helpers;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Gamestore.DataAccess.Northwind.Entities;
 
 public class Order
 {
     [BsonId]
+    public ObjectId InternalId { get; set; }
+
+    [BsonElement("OrderID")]
     public int OrderId { get; set; }
 
     [BsonElement("CustomerID")]
@@ -14,12 +19,15 @@ public class Order
     public int EmployeeId { get; set; }
 
     [BsonElement("OrderDate")]
+    [BsonSerializer(typeof(SqlDateTimeSerializer))]
     public DateTime? OrderDate { get; set; }
 
     [BsonElement("RequiredDate")]
+    [BsonSerializer(typeof(SqlDateTimeSerializer))]
     public DateTime? RequiredDate { get; set; }
 
     [BsonElement("ShippedDate")]
+    [BsonSerializer(typeof(SqlDateTimeSerializer))]
     public DateTime? ShippedDate { get; set; }
 
     [BsonElement("ShipVia")]

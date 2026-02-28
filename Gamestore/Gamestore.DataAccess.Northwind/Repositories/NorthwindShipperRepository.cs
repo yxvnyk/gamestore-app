@@ -6,7 +6,7 @@ using MongoDB.Driver.Linq;
 
 namespace Gamestore.DataAccess.Northwind.Repositories;
 
-public class ShipperRepository(NorthwindDbContext context) : IShipperRepository
+public class NorthwindShipperRepository(NorthwindDbContext context) : INorthwindShipperRepository
 {
     private readonly NorthwindDbContext _context = context;
 

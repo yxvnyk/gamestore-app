@@ -75,4 +75,11 @@ public class OrdersController(IOrderService orderService, IOrderItemService cart
         // return success if there is no data or file to return
         return Ok();
     }
+
+    [HttpGet("history")]
+    public async Task<IActionResult> GetOrdersHistory()
+    {
+        var orderHistory = await orderService.GetOrderHistoryAsync();
+        return Ok(orderHistory);
+    }
 }

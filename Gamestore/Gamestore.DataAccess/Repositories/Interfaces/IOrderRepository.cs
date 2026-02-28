@@ -12,6 +12,8 @@ public interface IOrderRepository
 
     Task<Order> GetOrderByIdAsync(Guid id);
 
+    Task<IEnumerable<Order>> GetAllAsync();
+
     Task<bool> IsOrderEmptyAsync(Guid orderId);
 
     Task<Guid?> GetOpenOrderIdByCustomerIdAsync(Guid customerId);

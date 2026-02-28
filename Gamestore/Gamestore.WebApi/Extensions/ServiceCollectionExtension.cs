@@ -48,6 +48,14 @@ public static class ServiceCollectionExtension
         return services;
     }
 
+    public static IServiceCollection AddNorthwindDataAccess(this IServiceCollection services)
+    {
+        services.AddScoped<INorthwindOrderRepository, NorthwindOrderRepository>();
+        services.AddScoped<INorthwindShipperRepository, NorthwindShipperRepository>();
+
+        return services;
+    }
+
     public static IServiceCollection AddDataAccess(this IServiceCollection services)
     {
         services.AddScoped<IGameRepository, GameRepository>();
@@ -57,8 +65,6 @@ public static class ServiceCollectionExtension
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderItemRepository, OrderItemRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
-
-        services.AddScoped<IShipperRepository, ShipperRepository>();
 
         return services;
     }

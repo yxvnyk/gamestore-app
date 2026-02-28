@@ -39,6 +39,7 @@ builder.Services.AddTransient<TotalGamesHeaderMiddleware>();
 builder.Services.ConfigureGamestoreDatabase(builder.Configuration);
 builder.Services.ConfigureNorthwindDatabase(builder.Configuration);
 builder.Services.AddDataAccess();
+builder.Services.AddNorthwindDataAccess();
 builder.Services.AddApplicationServices();
 builder.Services.ConfigurePayments(builder.Configuration);
 builder.Services.ConfigurePaymentOptions(builder.Configuration);

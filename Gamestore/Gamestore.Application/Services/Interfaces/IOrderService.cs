@@ -18,5 +18,7 @@ public interface IOrderService
 
     Task<bool> DeleteByIdAsync(Guid id);
 
+    Task<IEnumerable<OrderDto>> GetOrderHistoryAsync();
+
     Task UpdateAsync(Order entity);
 }

@@ -1,6 +1,6 @@
 ﻿namespace Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 
-public interface IShipperRepository
+public interface INorthwindShipperRepository
 {
     Task<IEnumerable<dynamic>> GetAllAsync();
 }

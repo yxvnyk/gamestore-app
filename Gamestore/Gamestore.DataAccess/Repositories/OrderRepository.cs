@@ -48,6 +48,11 @@ public class OrderRepository(GamestoreDbContext context) : IOrderRepository
             .FirstOrDefaultAsync();
     }
 
+    public async Task<IEnumerable<Order>> GetAllAsync()
+    {
+        return await _context.Orders.ToListAsync();
+    }
+
     public async Task<bool> IsOrderEmptyAsync(Guid orderId)
     {
         return !await _context.OrderGames

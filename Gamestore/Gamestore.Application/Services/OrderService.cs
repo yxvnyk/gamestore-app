@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Enums;
 using Gamestore.Domain.Exceptions;
@@ -9,8 +10,26 @@ using Microsoft.Extensions.Logging;
 
 namespace Gamestore.Application.Services;
 
-public class OrderService(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IMapper mapper, ILogger<OrderService> logger) : IOrderService
+public class OrderService(IOrderRepository orderRepository,
+    INorthwindOrderRepository northwindOrderRepository,
+    IOrderItemRepository orderItemRepository, IMapper mapper, ILogger<OrderService> logger) : IOrderService
 {
+    public async Task<IEnumerable<OrderDto>> GetOrderHistoryAsync()
+    {
+        var northwindTask = northwindOrderRepository.GetHistoryAsync();
+        var gamestoreTask = orderRepository.GetAllAsync();
+
+        await Task.WhenAll(northwindTask, gamestoreTask);
+
+        var northwindOrders = northwindTask.Result;
+        var gamestoreOrders = gamestoreTask.Result;
+
+        var orderHistory = mapper.Map<IEnumerable<OrderDto>>(northwindOrders);
+        orderHistory = orderHistory.Concat(mapper.Map<IEnumerable<OrderDto>>(gamestoreOrders));
+
+        return orderHistory;
+    }
+
     public async Task<IEnumerable<OrderDto>> GetPaidAndCancelledOrdersAsync()
     {
         logger.LogInformation(nameof(this.GetPaidAndCancelledOrdersAsync));

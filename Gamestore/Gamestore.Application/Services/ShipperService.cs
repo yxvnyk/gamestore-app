@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Gamestore.Application.Services;
 
-public class ShipperService(IShipperRepository shipperRepository, ILogger<ShipperService> logger) : IShipperService
+public class ShipperService(INorthwindShipperRepository shipperRepository, ILogger<ShipperService> logger) : IShipperService
 {
     public async Task<IEnumerable<dynamic>> GetAllAsync()
     {
