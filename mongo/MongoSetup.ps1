@@ -25,4 +25,4 @@ New-Item ($DataDirectory + "\shard1") -Type Directory -Force
 net start $Shard1Svc
 Write-Host "Mongo installed"
 # run db init
-.\mongobin\mongo --host localhost --port 27017 --shell
+.\mongobin\mongosh.msi --host localhost --port 27017 --shell
