@@ -8,6 +8,9 @@ using Gamestore.Application.Services.Interfaces.Payments;
 using Gamestore.Application.Services.Payments;
 using Gamestore.Application.Services.Payments.Strategies;
 using Gamestore.DataAccess.Context;
+using Gamestore.DataAccess.Northwind.Context;
+using Gamestore.DataAccess.Northwind.Repositories;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Models.Configuration;
@@ -38,6 +41,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IInventoryService, InventoryService>();
         services.AddScoped<IPaymentService, PaymentService>();
 
+        services.AddScoped<IShipperService, ShipperService>();
+
         services.AddAutoMapper(typeof(GameProfile));
 
         return services;
@@ -53,13 +58,24 @@ public static class ServiceCollectionExtension
         services.AddScoped<IOrderItemRepository, OrderItemRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
 
+        services.AddScoped<IShipperRepository, ShipperRepository>();
+
         return services;
     }
 
-    public static IServiceCollection ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureGamestoreDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<GamestoreDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("GamestoreDb")));
+
+        return services;
+    }
+
+    public static IServiceCollection ConfigureNorthwindDatabase(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<NorthwindDatabaseSettings>(configuration.GetSection("NorthwindDb"));
+        services.AddSingleton<NorthwindDbContext>();
+
         return services;
     }
 
