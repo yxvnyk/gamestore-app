@@ -25,7 +25,7 @@ public class Game
     public double Price { get; set; }
 
     [Required]
-    public int UnitInStock { get; set; }
+    public int UnitsInStock { get; set; }
 
     [Required]
     public int Discount { get; set; }
@@ -38,6 +38,18 @@ public class Game
 
     [Required]
     public DateTime CreatedDate { get; set; }
+
+    [MaxLength(20)]
+    public string QuantityPerUnit { get; set; }
+
+    [Required]
+    public int UnitsOnOrder { get; set; }
+
+    [Required]
+    public int ReorderLevel { get; set; }
+
+    [Required]
+    public bool Discontinued { get; set; }
 
     public ICollection<GameGenre> GameGenres { get; set; }
 

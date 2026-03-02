@@ -134,7 +134,7 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository
     {
         return await _context.Games
             .Where(g => g.Id == gameId)
-            .Select(g => g.UnitInStock)
+            .Select(g => g.UnitsInStock)
             .FirstOrDefaultAsync();
     }
 

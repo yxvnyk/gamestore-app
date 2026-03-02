@@ -17,7 +17,7 @@ public class GameProfile : Profile
             .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Game.Key))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Game.Description))
             .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Game.Price))
-            .ForMember(dest => dest.UnitInStock, opt => opt.MapFrom(src => src.Game.UnitInStock))
+            .ForMember(dest => dest.UnitsInStock, opt => opt.MapFrom(src => src.Game.UnitInStock))
             .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Game.Discount))
             .ForMember(dest => dest.GameGenres, opt => opt.MapFrom(src =>
                 src.Genres.Select(id => new GameGenre { GenreId = id })))
@@ -37,7 +37,7 @@ public class GameProfile : Profile
             .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Game.Key))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Game.Description))
             .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Game.Price))
-            .ForMember(dest => dest.UnitInStock, opt => opt.MapFrom(src => src.Game.UnitInStock))
+            .ForMember(dest => dest.UnitsInStock, opt => opt.MapFrom(src => src.Game.UnitInStock))
             .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Game.Discount))
             .ForMember(dest => dest.PublisherId, opt => opt.MapFrom(src => src.Publisher))
             .ForMember(dest => dest.GameGenres, opt => opt.Ignore())

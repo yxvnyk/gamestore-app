@@ -16,12 +16,12 @@ public class InventoryService(IGameRepository gameRepository) : IInventoryServic
         {
             var game = await gameRepository.GetGameByIdAsync(item.ProductId);
 
-            if (game.UnitInStock < item.Quantity)
+            if (game.UnitsInStock < item.Quantity)
             {
-                throw new OrderLimitationException($"Not enough stock for '{game.Key}'. Required: {item.Quantity}, Available: {game.UnitInStock}");
+                throw new OrderLimitationException($"Not enough stock for '{game.Key}'. Required: {item.Quantity}, Available: {game.UnitsInStock}");
             }
 
-            game.UnitInStock -= item.Quantity;
+            game.UnitsInStock -= item.Quantity;
             await gameRepository.UpdateGameAsync(game);
         }
 
@@ -35,7 +35,7 @@ public class InventoryService(IGameRepository gameRepository) : IInventoryServic
         foreach (var item in items)
         {
             var game = await gameRepository.GetGameByIdAsync(item.ProductId);
-            game.UnitInStock += item.Quantity;
+            game.UnitsInStock += item.Quantity;
             await gameRepository.UpdateGameAsync(game);
         }
 

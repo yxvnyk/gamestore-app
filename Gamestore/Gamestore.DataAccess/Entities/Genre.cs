@@ -15,10 +15,14 @@ public class Genre
     [MaxLength(50)]
     public string Name { get; set; }
 
+    public string? Description { get; set; }
+
     public Guid? ParentGenreId { get; set; }
 
     [ForeignKey("ParentGenreId")]
     public Genre? ParentGenre { get; set; }
+
+    public byte[]? Picture { get; set; }
 
     public ICollection<GameGenre> GameGenres { get; set; }
 }
