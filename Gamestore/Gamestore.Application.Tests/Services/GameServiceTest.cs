@@ -1,10 +1,11 @@
 using AutoMapper;
-using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Generators;
+using Gamestore.Domain.Interfaces;
 using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
@@ -479,7 +480,7 @@ public class GameServiceTest
         _mockPlatformRepo.Setup(r => r.PlatformExistsAsync(It.IsAny<Guid>())).ReturnsAsync(true);
         _mockPublisherRepo.Setup(r => r.PublisherExistAsync(It.IsAny<Guid>())).ReturnsAsync(true);
 
-        _mockKeyGen.Setup(g => g.GenerateUniqueKeyAsync(gameDto.Game.Name)).ReturnsAsync("game1");
+        _mockKeyGen.Setup(g => g.GenerateUniqueKeyAsync((IUniqueKeyRepository)_mockGameRepo.Object, gameDto.Game.Name)).ReturnsAsync("game1");
 
         var gameService = CreateService();
 
@@ -487,7 +488,7 @@ public class GameServiceTest
         await gameService.CreateGameAsync(gameDto);
 
         // Assert
-        _mockKeyGen.Verify(m => m.GenerateUniqueKeyAsync("game"), Times.Once);
+        _mockKeyGen.Verify(m => m.GenerateUniqueKeyAsync((IUniqueKeyRepository)_mockGameRepo.Object, "game"), Times.Once);
 
         _mockMapper.Verify(m => m.Map<Game>(gameDto), Times.Once);
 

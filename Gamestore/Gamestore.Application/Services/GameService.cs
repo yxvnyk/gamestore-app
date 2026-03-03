@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
-using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Extensions;
+using Gamestore.Domain.Generators;
 using Gamestore.Domain.Helpers;
+using Gamestore.Domain.Interfaces;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
 
@@ -126,7 +127,7 @@ public class GameService(IGameRepository gameRepository,
 
         if (string.IsNullOrWhiteSpace(gameEntity.Key))
         {
-            gameEntity.Key = await _uniqueKeyGenerator.GenerateUniqueKeyAsync(gameEntity.Name);
+            gameEntity.Key = await _uniqueKeyGenerator.GenerateUniqueKeyAsync((IUniqueKeyRepository)_gameRepository, gameEntity.Name);
         }
 
         await _gameRepository.CreateGameAsync(gameEntity);

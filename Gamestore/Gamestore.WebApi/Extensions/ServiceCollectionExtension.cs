@@ -13,6 +13,7 @@ using Gamestore.DataAccess.Northwind.Repositories;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.Domain.Generators;
 using Gamestore.Domain.Models.Configuration;
 using Gamestore.Infrastructure.ExternalServices;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,6 @@ public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddSingleton<IGenerateGameFile, GameFileGenerator>();
         services.AddSingleton<IPdfInvoiceGenerator, PdfInvoiceGenerator>();
         services.AddScoped<IKeyGenerator, UniqueKeyGenerator>();
 
@@ -52,6 +52,15 @@ public static class ServiceCollectionExtension
     {
         services.AddScoped<INorthwindOrderRepository, NorthwindOrderRepository>();
         services.AddScoped<INorthwindShipperRepository, NorthwindShipperRepository>();
+        services.AddScoped<INorthwindProductRepository, NorthwindProductRepository>();
+        services.AddScoped<NothwindDbInitializer>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddDomainServices(this IServiceCollection services)
+    {
+        services.AddSingleton<IGenerateGameFile, GameFileGenerator>();
 
         return services;
     }

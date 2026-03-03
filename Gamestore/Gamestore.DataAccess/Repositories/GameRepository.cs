@@ -2,13 +2,14 @@
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Extensions;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.Domain.Interfaces;
 using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gamestore.DataAccess.Repositories;
 
-public class GameRepository(GamestoreDbContext context) : IGameRepository
+public class GameRepository(GamestoreDbContext context) : IGameRepository, IUniqueKeyRepository
 {
     private readonly GamestoreDbContext _context = context;
 

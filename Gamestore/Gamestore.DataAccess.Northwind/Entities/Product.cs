@@ -6,7 +6,13 @@ namespace Gamestore.DataAccess.Northwind.Entities;
 public class Product
 {
     [BsonId]
+    public ObjectId InternalId { get; set; }
+
+    [BsonElement("ProductID")]
     public int ProductId { get; set; }
+
+    [BsonElement("GameKey")]
+    public string GameKey { get; set; }
 
     [BsonElement("ProductName")]
     public string ProductName { get; set; }

@@ -36,6 +36,7 @@ builder.Services.AddTransient<RequestDetailsLoggingMiddleware>();
 
 builder.Services.AddTransient<TotalGamesHeaderMiddleware>();
 
+builder.Services.AddDomainServices();
 builder.Services.ConfigureGamestoreDatabase(builder.Configuration);
 builder.Services.ConfigureNorthwindDatabase(builder.Configuration);
 builder.Services.AddDataAccess();
@@ -48,6 +49,8 @@ builder.Services.ConfigurePaymentService(builder.Configuration);
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+await app.InitializeNorthwindDatabaseAsync();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseMiddleware<RequestDetailsLoggingMiddleware>();

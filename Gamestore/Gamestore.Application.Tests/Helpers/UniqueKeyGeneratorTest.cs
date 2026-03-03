@@ -1,5 +1,6 @@
-﻿using Gamestore.Application.Helpers.Generators;
-using Gamestore.DataAccess.Repositories.Interfaces;
+﻿using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.Domain.Generators;
+using Gamestore.Domain.Interfaces;
 using Moq;
 
 namespace Gamestore.Application.Tests.Helpers;
@@ -19,10 +20,10 @@ public class UniqueKeyGeneratorTest
         _mockGameRepo.SetupSequence(repo => repo.GameKeyExistAsync(It.IsAny<string>()))
             .ReturnsAsync(false);
 
-        var keyGenerator = new UniqueKeyGenerator(_mockGameRepo.Object);
+        var keyGenerator = new UniqueKeyGenerator();
 
         // Act
-        var result = await keyGenerator.GenerateUniqueKeyAsync(name);
+        var result = await keyGenerator.GenerateUniqueKeyAsync((IUniqueKeyRepository)_mockGameRepo.Object, name);
 
         // Assert
         Assert.Equal(expected, result);
@@ -43,10 +44,10 @@ public class UniqueKeyGeneratorTest
         _mockGameRepo.SetupSequence(repo => repo.GameKeyExistAsync("key-3"))
             .ReturnsAsync(false);
 
-        var keyGenerator = new UniqueKeyGenerator(_mockGameRepo.Object);
+        var keyGenerator = new UniqueKeyGenerator();
 
         // Act
-        var result = await keyGenerator.GenerateUniqueKeyAsync(name);
+        var result = await keyGenerator.GenerateUniqueKeyAsync((IUniqueKeyRepository)_mockGameRepo.Object, name);
 
         // Assert
         Assert.Equal(expectedKey, result);

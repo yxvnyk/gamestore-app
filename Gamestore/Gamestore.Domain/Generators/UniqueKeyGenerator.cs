@@ -1,19 +1,16 @@
-﻿using GameStore.Application.Helpers.Interfaces;
-using Gamestore.DataAccess.Repositories.Interfaces;
+﻿using Gamestore.Domain.Interfaces;
 
-namespace Gamestore.Application.Helpers.Generators;
+namespace Gamestore.Domain.Generators;
 
-public class UniqueKeyGenerator(IGameRepository gameRepository) : IKeyGenerator
+public class UniqueKeyGenerator : IKeyGenerator
 {
-    private readonly IGameRepository _gameRepository = gameRepository;
-
-    public async Task<string> GenerateUniqueKeyAsync(string name)
+    public async Task<string> GenerateUniqueKeyAsync(IUniqueKeyRepository repository, string name)
     {
         var baseKey = ToKey(name);
         var key = baseKey;
         int suffix = 1;
 
-        while (await _gameRepository.GameKeyExistAsync(key))
+        while (await repository.GameKeyExistAsync(key))
         {
             key = $"{baseKey}-{suffix}";
             suffix++;
