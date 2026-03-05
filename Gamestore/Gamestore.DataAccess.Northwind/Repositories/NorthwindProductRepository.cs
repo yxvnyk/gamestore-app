@@ -1,9 +1,12 @@
 ﻿using Gamestore.DataAccess.Northwind.Context;
 using Gamestore.DataAccess.Northwind.Entities;
+using Gamestore.DataAccess.Northwind.Extension;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.Domain.Interfaces;
+using Gamestore.Domain.Models.DTO.Game;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace Gamestore.DataAccess.Northwind.Repositories;
 
@@ -17,9 +20,16 @@ public class NorthwindProductRepository(NorthwindDbContext context) : INorthwind
         return await _context.Products.Find(filter).AnyAsync();
     }
 
-    public async Task<IEnumerable<Product>> GetAllAsync()
+    public async Task<IEnumerable<Product>> GetAllAsync(GetGamesRequest request)
     {
-        return await _context.Products.Find(_ => true).ToListAsync();
+        var query = _context.Products.AsQueryable();
+        query = query
+            .FilterByCategories(request.Genres)
+            .FilterBySuppliers(request.Publishers)
+            .FilterByProductName(request.Name)
+            .FilterByPrice(request.MinPrice, request.MaxPrice);
+
+        return await query.ToListAsync();
     }
 
     public async Task<bool> DeleteByKeyAsync(string key)
@@ -31,7 +41,7 @@ public class NorthwindProductRepository(NorthwindDbContext context) : INorthwind
 
     public async Task UpdateAsync(BsonDocument productDoc, string gameKey)
     {
-        if (productDoc.ElementCount != 0)
+        if (productDoc.ElementCount == 0)
         {
             return;
         }

@@ -97,6 +97,7 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
         logger.LogTrace(nameof(this.GetGamesByCompanyNameAsync));
 
         var gameEntities = await _gameRepository.GetGamesByCompanyNameAsync(companyName);
+
         var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
         return gameDtos;
     }
@@ -106,7 +107,7 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
         logger.LogTrace(nameof(this.GetAllGamesAsync));
 
         var getGamesTask = _gameRepository.GetAllGamesAsync(request);
-        var getProductsTask = _northwindProductRepository.GetAllAsync();
+        var getProductsTask = _northwindProductRepository.GetAllAsync(request);
 
         await Task.WhenAll(getGamesTask, getProductsTask);
 
@@ -116,15 +117,12 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
         var gameDtos = _mapper.Map<IEnumerable<GameDto>>(games);
         var combinedList = gameDtos.Concat(_mapper.Map<IEnumerable<GameDto>>(products));
 
-        var sortedList = combinedList.ApplySorting(request.Sort);
-
-        var totalItemCount = sortedList.Count();
-
-        var pagedList = sortedList.ApplyPaging(request.Page, request.PageSize);
+        var totalItemCount = combinedList.Count();
+        var finalList = combinedList.ApplySorting(request.Sort).ApplyPaging(request.Page, request.PageSize);
 
         var result = new GetGamesResponse
         {
-            Games = pagedList,
+            Games = finalList,
             TotalPages = PaginationOptionsHelper.CalculateTotalNumberOfPages(totalItemCount, request.PageSize),
             CurrentPage = request.Page,
         };

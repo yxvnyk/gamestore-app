@@ -96,17 +96,19 @@ public static class GameRepositoryExtension
         return query.Where(g => g.Price >= minPrice && g.Price <= maxPrice);
     }
 
-    public static IQueryable<Game> FilterByGenres(this IQueryable<Game> query, ICollection<Guid>? genreIds)
+    public static IQueryable<Game> FilterByGenres(this IQueryable<Game> query, ICollection<string>? genreIds)
     {
         if (genreIds == null || genreIds.Count == 0)
         {
             return query;
         }
 
+        ICollection<Guid> parsedIds = ParsetoGuidCollection(genreIds);
+
         // return filtered query
         return query
             .Where(g => g.GameGenres
-            .Any(gg => genreIds
+            .Any(gg => parsedIds
                 .Contains(gg.GenreId)));
     }
 
@@ -124,16 +126,37 @@ public static class GameRepositoryExtension
                 .Contains(gg.PlatformId)));
     }
 
-    public static IQueryable<Game> FilterByPublishers(this IQueryable<Game> query, ICollection<Guid>? publisherIds)
+    public static IQueryable<Game> FilterByPublishers(this IQueryable<Game> query, ICollection<string>? publisherIds)
     {
         if (publisherIds == null || publisherIds.Count == 0)
         {
             return query;
         }
 
+        ICollection<Guid> parsedIds = ParsetoGuidCollection(publisherIds);
+
         // return filtered query
         return query
-            .Where(g => publisherIds
+            .Where(g => parsedIds
                 .Contains(g.PublisherId));
+    }
+
+    private static ICollection<Guid> ParsetoGuidCollection(ICollection<string>? ids)
+    {
+        ICollection<Guid> parsedIds = [];
+        foreach (var id in ids)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                continue;
+            }
+
+            if (Guid.TryParse(id, out var parsedId))
+            {
+                parsedIds.Add(parsedId);
+            }
+        }
+
+        return parsedIds;
     }
 }

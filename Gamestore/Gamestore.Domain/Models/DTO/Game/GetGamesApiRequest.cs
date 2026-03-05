@@ -16,11 +16,11 @@ public class GetGamesApiRequest
 
     public string? PageCount { get; set; } = string.Empty;
 
-    public ICollection<Guid>? Genres { get; set; }
+    public ICollection<string>? Genres { get; set; }
 
     public ICollection<Guid>? Platforms { get; set; }
 
-    public ICollection<Guid>? Publishers { get; set; }
+    public ICollection<string>? Publishers { get; set; }
 
     public string? Trigger { get; set; }
 }
