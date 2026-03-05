@@ -2,11 +2,12 @@ using AutoMapper;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.DataAccess.Wrappers;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Generators;
 using Gamestore.Domain.Interfaces;
-using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -18,6 +19,7 @@ public class GameServiceTest
     private readonly IMapper _mapper;
 
     private readonly Mock<IGameRepository> _mockGameRepo = new();
+    private readonly Mock<INorthwindProductRepository> _mockNorthwindRepo = new();
     private readonly Mock<IGenreRepository> _mockGenreRepo = new();
     private readonly Mock<IPlatformRepository> _mockPlatformRepo = new();
     private readonly Mock<IPublisherRepository> _mockPublisherRepo = new();
@@ -328,10 +330,20 @@ public class GameServiceTest
     {
         // Arrange
         var request = new GetGamesRequest();
-        var pagedList = new PagedList<Game>()
+        var pagedList = new[]
         {
-            Items = [],
-            TotalCount = 0,
+            new GameWithStats
+            {
+                Game = null,
+                CreatedDate = null,
+                CommentCount = 0,
+            },
+            new GameWithStats
+            {
+                Game = null,
+                CommentCount = 0,
+                CreatedDate = null,
+            },
         };
 
         _mockGameRepo.Setup(r => r.GetAllGamesAsync(request))
@@ -344,7 +356,7 @@ public class GameServiceTest
 
         // Assert
         Assert.NotNull(result);
-        Assert.Empty(result.Games);
+        Assert.NotEmpty(result.Games);
         _mockGameRepo.Verify(r => r.GetAllGamesAsync(request), Times.Once);
     }
 
@@ -364,10 +376,26 @@ public class GameServiceTest
         var game3 = new Game { Id = Guid.NewGuid(), Name = "Game3", Description = "Desc3", Key = "key3", GameGenres = genres };
 
         var games = new List<Game> { game1, game2, game3 };
-        var pagedList = new PagedList<Game>()
+        var pagedList = new[]
         {
-            Items = games,
-            TotalCount = 3,
+            new GameWithStats
+            {
+                Game = game1,
+                CreatedDate = null,
+                CommentCount = 0,
+            },
+            new GameWithStats
+            {
+                Game = game2,
+                CommentCount = 0,
+                CreatedDate = null,
+            },
+            new GameWithStats
+            {
+                Game = game3,
+                CommentCount = 0,
+                CreatedDate = null,
+            },
         };
 
         var dto1 = new GameDto { Id = game1.Id, Name = game1.Name, Description = game1.Description, Key = game1.Key, };
@@ -386,7 +414,7 @@ public class GameServiceTest
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(3, result.Games.Count);
+        Assert.Equal(3, result.Games.Count());
 
         Assert.Contains(result.Games, r => r.Id == dto1.Id && r.Name == dto1.Name);
         Assert.Contains(result.Games, r => r.Id == dto2.Id && r.Name == dto2.Name);
@@ -575,6 +603,7 @@ public class GameServiceTest
 
     private GameService CreateService() => new(
     _mockGameRepo.Object,
+    _mockNorthwindRepo.Object,
     _mockGenreRepo.Object,
     _mockPlatformRepo.Object,
     _mockPublisherRepo.Object,

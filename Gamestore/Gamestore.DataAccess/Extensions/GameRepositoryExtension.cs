@@ -1,4 +1,5 @@
 ﻿using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Wrappers;
 using Gamestore.Domain.Enums;
 using Gamestore.Domain.Helpers;
 
@@ -34,6 +35,17 @@ public static class GameRepositoryExtension
 
         var skip = (pageNumber - 1) * pageSize;
         return query.Skip(skip).Take(pageSize);
+    }
+
+    public static IQueryable<GameWithStats> MapToGameWithStats(this IQueryable<Game> query)
+    {
+        var prejectedQuery = query.Select(g => new GameWithStats
+        {
+            Game = g,
+            CommentCount = g.Comments.Count,
+            CreatedDate = g.CreatedDate,
+        });
+        return prejectedQuery;
     }
 
     public static IQueryable<Game> FilterByPublishDate(this IQueryable<Game> query, string? filterBy)

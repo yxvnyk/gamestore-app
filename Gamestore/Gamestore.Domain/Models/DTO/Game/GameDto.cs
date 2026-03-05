@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Gamestore.Domain.Models.DTO.Game;
 
 public class GameDto
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
 
     [Required]
     [MaxLength(50)]
@@ -24,4 +25,10 @@ public class GameDto
 
     [Required]
     public int UnitInStock { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public int? CommentCount { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public DateTime? CreatedDate { get; set; }
 }

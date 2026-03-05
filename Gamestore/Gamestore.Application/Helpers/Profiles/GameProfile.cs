@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Entities;
+using Gamestore.DataAccess.Wrappers;
 using Gamestore.Domain.Models.DTO.Game;
 
 namespace Gamestore.Application.Helpers.Profiles;
@@ -27,6 +29,21 @@ public class GameProfile : Profile
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
         _ = CreateMap<Game, GameDto>();
+
+        _ = CreateMap<Product, GameDto>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ProductName))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.QuantityPerUnit))
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.UnitPrice))
+            .ForMember(dest => dest.UnitInStock, opt => opt.MapFrom(src => src.UnitsInStock))
+            .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Discontinued))
+            .ForMember(dest => dest.CommentCount, opt => opt.Ignore());
+
+        _ = CreateMap<GameWithStats, GameDto>()
+            .IncludeMembers(src => src.Game)
+            .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.Game.CreatedDate))
+            .ForMember(dest => dest.CommentCount, opt => opt.MapFrom(src => src.CommentCount));
 
         CreateMap<UpdateGameRequest, Game>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())

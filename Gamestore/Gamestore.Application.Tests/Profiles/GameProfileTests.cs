@@ -31,6 +31,9 @@ public class GameProfileTests
                 Name = "Test",
                 Key = "doom",
                 Description = "Shooter",
+                Discount = 10,
+                Price = 10,
+                UnitInStock = 100,
             },
             Genres = [Guid.NewGuid(), Guid.NewGuid()],
             Platforms = [Guid.NewGuid()],
@@ -43,6 +46,9 @@ public class GameProfileTests
         Assert.Equal("Test", result.Name);
         Assert.Equal("doom", result.Key);
         Assert.Equal("Shooter", result.Description);
+        Assert.Equal(10, result.Discount);
+        Assert.Equal(10, result.Price);
+        Assert.Equal(10, result.UnitsInStock);
         Assert.Equal(2, result.GameGenres.Count);
         Assert.Single(result.GamePlatforms);
 
@@ -61,6 +67,9 @@ public class GameProfileTests
                 Name = "Updated",
                 Key = "updated-key",
                 Description = "Updated desc",
+                Discount = 20,
+                Price = 20,
+                UnitInStock = 200,
             },
         };
 
@@ -70,6 +79,9 @@ public class GameProfileTests
             Name = "Old",
             Key = "old-key",
             Description = "Old desc",
+            Discount = 10,
+            Price = 10,
+            UnitsInStock = 100,
         };
 
         // Act
@@ -144,6 +156,9 @@ public class GameProfileTests
                 Name = null,
                 Key = null,
                 Description = null,
+                Discount = 0,
+                Price = 0,
+                UnitInStock = 0,
             },
             Genres = [Guid.NewGuid(), Guid.NewGuid()],
             Platforms = [Guid.NewGuid(), Guid.NewGuid()],
@@ -155,6 +170,8 @@ public class GameProfileTests
         // Assert
         Assert.Null(result.Name);
         Assert.Null(result.Key);
-        Assert.Null(result.Description);
+        Assert.Equal(0, result.Discount);
+        Assert.Equal(0, result.Price);
+        Assert.Equal(0, result.UnitsInStock);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Gamestore.DataAccess.Entities;
-using Gamestore.Domain.Models;
+using Gamestore.DataAccess.Wrappers;
 using Gamestore.Domain.Models.DTO.Game;
 
 namespace Gamestore.DataAccess.Repositories.Interfaces;
@@ -18,7 +18,7 @@ public interface IGameRepository
 
     Task<ICollection<Game>> GetGamesByCompanyNameAsync(string companyName);
 
-    Task<PagedList<Game>> GetAllGamesAsync(GetGamesRequest request);
+    Task<IEnumerable<GameWithStats>> GetAllGamesAsync(GetGamesRequest request);
 
     Task<Guid?> GetGameIdByKeyAsync(string key);
 

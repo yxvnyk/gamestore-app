@@ -1,5 +1,4 @@
-﻿using Gamestore.DataAccess.Repositories.Interfaces;
-using Gamestore.Domain.Generators;
+﻿using Gamestore.Domain.Generators;
 using Gamestore.Domain.Interfaces;
 using Moq;
 
@@ -7,7 +6,7 @@ namespace Gamestore.Application.Tests.Helpers;
 
 public class UniqueKeyGeneratorTest
 {
-    private readonly Mock<IGameRepository> _mockGameRepo = new();
+    private readonly Mock<IUniqueKeyRepository> _mockUniqueKeyRepo = new();
 
     [Theory]
     [InlineData("key", "key")]
@@ -17,13 +16,13 @@ public class UniqueKeyGeneratorTest
     public async Task GenerateUniqueKeyAsync_UniqueKey_ReturnSameStringInKeyFormat(string name, string expected)
     {
         // Arrange
-        _mockGameRepo.SetupSequence(repo => repo.GameKeyExistAsync(It.IsAny<string>()))
+        _mockUniqueKeyRepo.SetupSequence(repo => repo.GameKeyExistAsync(It.IsAny<string>()))
             .ReturnsAsync(false);
 
         var keyGenerator = new UniqueKeyGenerator();
 
         // Act
-        var result = await keyGenerator.GenerateUniqueKeyAsync((IUniqueKeyRepository)_mockGameRepo.Object, name);
+        var result = await keyGenerator.GenerateUniqueKeyAsync(_mockUniqueKeyRepo.Object, name);
 
         // Assert
         Assert.Equal(expected, result);
@@ -35,19 +34,19 @@ public class UniqueKeyGeneratorTest
         // Arrange
         string name = "key";
         string expectedKey = "key-3";
-        _mockGameRepo.SetupSequence(repo => repo.GameKeyExistAsync("key"))
+        _mockUniqueKeyRepo.SetupSequence(repo => repo.GameKeyExistAsync("key"))
             .ReturnsAsync(true);
-        _mockGameRepo.SetupSequence(repo => repo.GameKeyExistAsync("key-1"))
+        _mockUniqueKeyRepo.SetupSequence(repo => repo.GameKeyExistAsync("key-1"))
             .ReturnsAsync(true);
-        _mockGameRepo.SetupSequence(repo => repo.GameKeyExistAsync("key-2"))
+        _mockUniqueKeyRepo.SetupSequence(repo => repo.GameKeyExistAsync("key-2"))
             .ReturnsAsync(true);
-        _mockGameRepo.SetupSequence(repo => repo.GameKeyExistAsync("key-3"))
+        _mockUniqueKeyRepo.SetupSequence(repo => repo.GameKeyExistAsync("key-3"))
             .ReturnsAsync(false);
 
         var keyGenerator = new UniqueKeyGenerator();
 
         // Act
-        var result = await keyGenerator.GenerateUniqueKeyAsync((IUniqueKeyRepository)_mockGameRepo.Object, name);
+        var result = await keyGenerator.GenerateUniqueKeyAsync(_mockUniqueKeyRepo.Object, name);
 
         // Assert
         Assert.Equal(expectedKey, result);

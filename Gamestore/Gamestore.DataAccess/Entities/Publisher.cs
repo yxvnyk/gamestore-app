@@ -18,28 +18,28 @@ public class Publisher
     public string? Description { get; set; }
 
     [MaxLength(100)]
-    public string ContactName { get; set; }
+    public string? ContactName { get; set; }
 
     [MaxLength(100)]
-    public string ContactTitle { get; set; }
+    public string? ContactTitle { get; set; }
 
     [MaxLength(100)]
-    public string Address { get; set; }
+    public string? Address { get; set; }
 
     [MaxLength(100)]
-    public string City { get; set; }
+    public string? City { get; set; }
 
     [MaxLength(100)]
     public string? Region { get; set; }
 
     [MaxLength(100)]
-    public string PostalCode { get; set; }
+    public string? PostalCode { get; set; }
 
     [MaxLength(100)]
-    public string Country { get; set; }
+    public string? Country { get; set; }
 
     [MaxLength(100)]
-    public string Phone { get; set; }
+    public string? Phone { get; set; }
 
     [MaxLength(100)]
     public string? Fax { get; set; }

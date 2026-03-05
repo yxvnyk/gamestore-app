@@ -2,7 +2,7 @@
 
 public class GetGamesResponse
 {
-    public ICollection<GameDto> Games { get; set; }
+    public IEnumerable<GameDto> Games { get; set; }
 
     public int TotalPages { get; set; }
 

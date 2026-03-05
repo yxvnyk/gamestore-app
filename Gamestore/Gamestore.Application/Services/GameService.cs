@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Gamestore.Application.Extensions;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Extensions;
@@ -12,12 +14,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Gamestore.Application.Services;
 
-public class GameService(IGameRepository gameRepository,
+public class GameService(IGameRepository gameRepository, INorthwindProductRepository northwindProductRepository,
     IGenreRepository genreRepository, IPlatformRepository platformRepository, IPublisherRepository publisherRepository,
     IKeyGenerator uniqueKeyGenerator,
     IMapper mapper, ILogger<GameService> logger) : IGameService
 {
     private readonly IGameRepository _gameRepository = gameRepository;
+    private readonly INorthwindProductRepository _northwindProductRepository = northwindProductRepository;
     private readonly IGenreRepository _genreRepository = genreRepository;
     private readonly IPlatformRepository _platformRepository = platformRepository;
     private readonly IPublisherRepository _publisherRepository = publisherRepository;
@@ -59,6 +62,7 @@ public class GameService(IGameRepository gameRepository,
         logger.LogTrace(nameof(this.GetGameAsync));
 
         var gameEntity = await _gameRepository.GetGameByKeyAsync(key);
+
         return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotFoundException($"Game with key '{key}' not found.");
     }
 
@@ -101,13 +105,27 @@ public class GameService(IGameRepository gameRepository,
     {
         logger.LogTrace(nameof(this.GetAllGamesAsync));
 
-        var pagedList = await _gameRepository.GetAllGamesAsync(request);
-        var gameDtos = pagedList.Items.Select(_mapper.Map<GameDto>).ToList();
+        var getGamesTask = _gameRepository.GetAllGamesAsync(request);
+        var getProductsTask = _northwindProductRepository.GetAllAsync();
+
+        await Task.WhenAll(getGamesTask, getProductsTask);
+
+        var games = await getGamesTask;
+        var products = await getProductsTask;
+
+        var gameDtos = _mapper.Map<IEnumerable<GameDto>>(games);
+        var combinedList = gameDtos.Concat(_mapper.Map<IEnumerable<GameDto>>(products));
+
+        var sortedList = combinedList.ApplySorting(request.Sort);
+
+        var totalItemCount = sortedList.Count();
+
+        var pagedList = sortedList.ApplyPaging(request.Page, request.PageSize);
 
         var result = new GetGamesResponse
         {
-            Games = gameDtos,
-            TotalPages = PaginationOptionsHelper.CalculateTotalNumberOfPages(pagedList.TotalCount, request.PageSize),
+            Games = pagedList,
+            TotalPages = PaginationOptionsHelper.CalculateTotalNumberOfPages(totalItemCount, request.PageSize),
             CurrentPage = request.Page,
         };
         return result;

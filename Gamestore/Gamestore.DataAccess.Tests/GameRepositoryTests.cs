@@ -219,7 +219,7 @@ public class GameRepositoryTests
         {
             var repository = new GameRepository(context);
             var gamesCollection = await repository.GetAllGamesAsync(reuest);
-            var result = gamesCollection.Items;
+            var result = gamesCollection.Select(g => g.Game).ToList();
 
             // Assert
             for (int i = 0; i < result.Count; i++)

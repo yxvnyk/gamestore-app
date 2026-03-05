@@ -36,20 +36,16 @@ public class Game
     [ForeignKey("PublisherId")]
     public Publisher? Publisher { get; set; }
 
-    [Required]
-    public DateTime CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
 
     [MaxLength(20)]
-    public string QuantityPerUnit { get; set; }
+    public string? QuantityPerUnit { get; set; }
 
-    [Required]
-    public int UnitsOnOrder { get; set; }
+    public int? UnitsOnOrder { get; set; }
 
-    [Required]
-    public int ReorderLevel { get; set; }
+    public int? ReorderLevel { get; set; }
 
-    [Required]
-    public bool Discontinued { get; set; }
+    public bool? Discontinued { get; set; }
 
     public ICollection<GameGenre> GameGenres { get; set; }
 
