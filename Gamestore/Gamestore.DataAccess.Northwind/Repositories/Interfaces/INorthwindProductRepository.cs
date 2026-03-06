@@ -11,4 +11,10 @@ public interface INorthwindProductRepository
     Task<bool> DeleteByKeyAsync(string key);
 
     Task UpdateAsync(BsonDocument productDoc, string gameKey);
+
+    Task<IEnumerable<Product>> GetBySupplierNameAsync(string companyName);
+
+    Task<Product> GetAsync(string gameKey);
+
+    Task<Product> GetAsync(int id);
 }

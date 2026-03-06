@@ -14,7 +14,7 @@ public class InventoryService(IGameRepository gameRepository) : IInventoryServic
 
         foreach (var item in items)
         {
-            var game = await gameRepository.GetGameByIdAsync(item.ProductId);
+            var game = await gameRepository.GetByIdAsync(item.ProductId);
 
             if (game.UnitsInStock < item.Quantity)
             {
@@ -34,7 +34,7 @@ public class InventoryService(IGameRepository gameRepository) : IInventoryServic
 
         foreach (var item in items)
         {
-            var game = await gameRepository.GetGameByIdAsync(item.ProductId);
+            var game = await gameRepository.GetByIdAsync(item.ProductId);
             game.UnitsInStock += item.Quantity;
             await gameRepository.UpdateGameAsync(game);
         }

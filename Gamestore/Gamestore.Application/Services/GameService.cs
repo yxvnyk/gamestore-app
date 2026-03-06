@@ -27,34 +27,11 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
     private readonly IKeyGenerator _uniqueKeyGenerator = uniqueKeyGenerator;
     private readonly IMapper _mapper = mapper;
 
-    public async Task UpdateGameAsync(UpdateGameRequest updateRequest)
+    public Task UpdateGameAsync(UpdateGameRequest updateRequest)
     {
         logger.LogTrace(nameof(this.UpdateGameAsync));
 
-        var entity = await _gameRepository.GetGameWithJoinsAsync(updateRequest.Game.Id)
-            ?? throw new NotFoundException($"Game with ID {updateRequest.Game.Id} does not exist.");
-        entity.GameGenres.Clear();
-        entity.GamePlatforms.Clear();
-
-        if (updateRequest.Game is not null)
-        {
-            await ValidateEntitiesExistAsync(updateRequest.Genres!, _genreRepository.GenreExistsAsync, "Genre");
-        }
-
-        if (updateRequest.Platforms is not null)
-        {
-            await ValidateEntitiesExistAsync(updateRequest.Platforms, _platformRepository.PlatformExistsAsync, "Platform");
-        }
-
-        if (updateRequest.Publisher.HasValue)
-        {
-            await ValidatePublisherExistAsync(updateRequest.Publisher.Value);
-        }
-
-        _mapper.Map(updateRequest, entity);
-        entity.GameGenres = [.. updateRequest.Genres!.Distinct().Select(id => new GameGenre { GenreId = id })];
-        entity.GamePlatforms = [.. updateRequest.Platforms!.Distinct().Select(id => new GamePlatform { PlatformId = id })];
-        await _gameRepository.UpdateGameAsync(entity);
+        throw new NotImplementedException();
     }
 
     public async Task<GameDto> GetGameAsync(string key)
@@ -62,16 +39,38 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
         logger.LogTrace(nameof(this.GetGameAsync));
 
         var gameEntity = await _gameRepository.GetGameByKeyAsync(key);
+        if (gameEntity == null)
+        {
+            var product = await _northwindProductRepository.GetAsync(key);
+            return product is not null ? _mapper.Map<GameDto>(product) : throw new NotFoundException($"Game with key '{key}' not found.");
+        }
 
-        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotFoundException($"Game with key '{key}' not found.");
+        return _mapper.Map<GameDto>(gameEntity);
     }
 
-    public async Task<GameDto> GetGameAsync(Guid id)
+    public async Task<GameDto> GetGameByIdAsync(string id)
     {
         logger.LogTrace(nameof(this.GetGameAsync));
 
-        var gameEntity = await _gameRepository.GetGameByIdAsync(id);
-        return gameEntity is not null ? _mapper.Map<GameDto>(gameEntity) : throw new NotFoundException($"Game with ID '{id}' not found.");
+        if (Guid.TryParse(id, out var guidId))
+        {
+            var gameEntity = await _gameRepository.GetByIdAsync(guidId);
+            if (gameEntity != null)
+            {
+                return _mapper.Map<GameDto>(gameEntity);
+            }
+        }
+
+        if (int.TryParse(id.ToString(), out var integerId))
+        {
+            var product = await _northwindProductRepository.GetAsync(integerId);
+            if (product != null)
+            {
+                return _mapper.Map<GameDto>(product);
+            }
+        }
+
+        throw new NotFoundException($"Game with ID '{id}' not found.");
     }
 
     public async Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id)
@@ -96,10 +95,18 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
     {
         logger.LogTrace(nameof(this.GetGamesByCompanyNameAsync));
 
-        var gameEntities = await _gameRepository.GetGamesByCompanyNameAsync(companyName);
+        var getGamesTask = _gameRepository.GetByCompanyNameAsync(companyName);
+        var getProductsTask = _northwindProductRepository.GetBySupplierNameAsync(companyName);
 
-        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
-        return gameDtos;
+        await Task.WhenAll(getGamesTask, getProductsTask);
+
+        var games = await getProductsTask;
+        var products = await getProductsTask;
+
+        var gameDtos = _mapper.Map<IEnumerable<GameDto>>(games);
+        var combinedList = gameDtos.Concat(_mapper.Map<IEnumerable<GameDto>>(products));
+
+        return [.. combinedList];
     }
 
     public async Task<GetGamesResponse> GetAllGamesAsync(GetGamesRequest request)
@@ -133,8 +140,8 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
     {
         logger.LogTrace(nameof(this.CreateGameAsync));
 
-        await ValidateEntitiesExistAsync(createRequest.Genres, _genreRepository.GenreExistsAsync, "Genre");
-        await ValidateEntitiesExistAsync(createRequest.Platforms, _platformRepository.PlatformExistsAsync, "Platform");
+        await ValidateGamestoreEntitiesExistAsync(createRequest.Genres, _genreRepository.GenreExistsAsync, "Genre");
+        await ValidateGamestoreEntitiesExistAsync(createRequest.Platforms, _platformRepository.PlatformExistsAsync, "Platform");
         await ValidatePublisherExistAsync(createRequest.Publisher);
 
         createRequest.Genres = [.. createRequest.Genres.Distinct()];
@@ -163,7 +170,7 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
         return await _gameRepository.GetTotalGamesCountAsync();
     }
 
-    private static async Task ValidateEntitiesExistAsync(IEnumerable<Guid> ids, Func<Guid, Task<bool>> isExistFunc, string entityName)
+    private static async Task ValidateGamestoreEntitiesExistAsync(IEnumerable<Guid> ids, Func<Guid, Task<bool>> isExistFunc, string entityName)
     {
         var uniqueIds = ids.Distinct();
         foreach (var id in uniqueIds)

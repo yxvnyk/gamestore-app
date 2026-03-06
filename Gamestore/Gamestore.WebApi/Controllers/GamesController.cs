@@ -38,7 +38,7 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGameById(Guid id)
     {
-        var game = await gameService.GetGameAsync(id);
+        var game = await gameService.GetGameByIdAsync(id.ToString());
         return Ok(game);
     }
 

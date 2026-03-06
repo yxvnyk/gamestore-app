@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Extensions;
@@ -10,7 +11,9 @@ using Microsoft.Extensions.Logging;
 namespace Gamestore.Application.Services;
 
 public class GenreService(IGenreRepository genreRepository,
-    IGameRepository gameRepository, IMapper mapper, ILogger<GenreService> logger) : IGenreService
+    IGameRepository gameRepository,
+    INorthwindCategoryRepository northwindCategoryRepository,
+    IMapper mapper, ILogger<GenreService> logger) : IGenreService
 {
     public async Task CreateGenreAsync(GenreCreateDto genre)
     {
@@ -38,13 +41,30 @@ public class GenreService(IGenreRepository genreRepository,
         logger.LogTrace(nameof(this.GetGenresByGameKeyAsync));
 
         var gameExists = await gameRepository.GameKeyExistAsync(key);
-        if (!gameExists)
+        if (gameExists)
         {
-            throw new NotFoundException($"Game with key '{key}' not found.");
+            var genreEntities = await genreRepository.GetGenresByGameKeyAsync(key);
+            if (genreEntities != null)
+            {
+                return mapper.Map<IEnumerable<GenreDto>>(genreEntities);
+            }
         }
 
-        var genreEntities = await genreRepository.GetGenresByGameKeyAsync(key);
-        return [.. genreEntities.Select(mapper.Map<GenreDto>)];
+        var categoryExists = await northwindCategoryRepository.GameKeyExistAsync(key);
+        if (categoryExists)
+        {
+            var categoryEntity = await northwindCategoryRepository.GetByGameKeyAsync(key);
+            if (categoryEntity == null)
+            {
+                return [];
+            }
+
+            List<GenreDto> categories = [];
+            categories.Add(mapper.Map<GenreDto>(categoryEntity));
+            return categories;
+        }
+
+        throw new NotFoundException($"Game with key '{key}' not found.");
     }
 
     public async Task<GenreFullDto?> GetGenreByIdAsync(Guid id)

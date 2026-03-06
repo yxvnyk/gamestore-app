@@ -26,21 +26,21 @@ public class GameControllerTests
     [
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-123",
             Name = "Sample Game 1",
             Description = "Description for Sample Game 1",
         },
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-456",
             Name = "Sample Game 2",
             Description = "Description for Sample Game 2",
         },
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-789",
             Name = "Sample Game 3",
             Description = "Description for Sample Game 3",
@@ -51,17 +51,17 @@ public class GameControllerTests
     [
         new GenreDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Name = "Action",
         },
         new GenreDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Name = "Adventure",
         },
         new GenreDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Name = "RPG",
         }
     ];
@@ -149,7 +149,7 @@ public class GameControllerTests
         };
 
         _mockGameService
-            .Setup(s => s.GetGameAsync(id))
+            .Setup(s => s.GetGameByIdAsync(id.ToString()))
             .ReturnsAsync(expectedGameDto);
 
         var controller = CreateController();
@@ -158,7 +158,7 @@ public class GameControllerTests
         var result = await controller.GetGameById(id);
 
         // Assert
-        _mockGameService.Verify(s => s.GetGameAsync(id), Times.Once);
+        _mockGameService.Verify(s => s.GetGameByIdAsync(id.ToString()), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGame = Assert.IsType<GameDto>(okResult.Value);
 

@@ -16,21 +16,21 @@ public class PlatformControllerTests
     [
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-123",
             Name = "Sample Game 1",
             Description = "Description for Sample Game 1",
         },
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-456",
             Name = "Sample Game 2",
             Description = "Description for Sample Game 2",
         },
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-789",
             Name = "Sample Game 3",
             Description = "Description for Sample Game 3",

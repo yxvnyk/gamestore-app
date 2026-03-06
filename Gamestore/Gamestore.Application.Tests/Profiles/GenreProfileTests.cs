@@ -53,7 +53,7 @@ public class GenreProfileTests
         var dto = _mapper.Map<GenreDto>(entity);
 
         // Assert
-        Assert.Equal(entity.Id, dto.Id);
+        Assert.Equal(entity.Id.ToString(), dto.Id);
         Assert.Equal("Action", dto.Name);
     }
 

@@ -8,7 +8,7 @@ public interface IGameService
 
     Task<GameDto> GetGameAsync(string key);
 
-    Task<GameDto> GetGameAsync(Guid id);
+    Task<GameDto> GetGameByIdAsync(string id);
 
     Task<ICollection<GameDto>> GetGamesByGenreAsync(Guid id);
 

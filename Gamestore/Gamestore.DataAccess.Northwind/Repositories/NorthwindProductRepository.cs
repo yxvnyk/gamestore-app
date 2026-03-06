@@ -32,6 +32,36 @@ public class NorthwindProductRepository(NorthwindDbContext context) : INorthwind
         return await query.ToListAsync();
     }
 
+    public async Task<IEnumerable<Product>> GetBySupplierNameAsync(string companyName)
+    {
+        var supplierId = await _context.Suppliers.AsQueryable()
+        .Where(s => s.CompanyName == companyName)
+        .Select(s => s.SupplierId)
+        .FirstOrDefaultAsync();
+
+        if (supplierId == 0)
+        {
+            return [];
+        }
+
+        var query = _context.Products.AsQueryable()
+            .Where(p => p.SupplierId == supplierId);
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<Product> GetAsync(string gameKey)
+    {
+        return await _context.Products.AsQueryable()
+            .FirstOrDefaultAsync(p => p.GameKey == gameKey);
+    }
+
+    public async Task<Product> GetAsync(int id)
+    {
+        return await _context.Products.AsQueryable()
+            .FirstOrDefaultAsync(p => p.ProductId == id);
+    }
+
     public async Task<bool> DeleteByKeyAsync(string key)
     {
         var filter = Builders<Product>.Filter.Eq(p => p.GameKey, key);

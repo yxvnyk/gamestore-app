@@ -10,7 +10,7 @@ public interface IPlatformService
 
     Task<IEnumerable<PlatformDto>> GetAllPlatformsAsync();
 
-    Task<IEnumerable<PlatformDto>> GetPlatformsByGameKeyAsync(string key);
+    Task<IEnumerable<PlatformDto>?> GetPlatformsByGameKeyAsync(string key);
 
     Task UpdatePlatformAsync(PlatformUpdateDto model);
 

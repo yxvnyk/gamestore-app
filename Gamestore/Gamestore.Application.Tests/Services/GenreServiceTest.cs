@@ -1,6 +1,7 @@
 using AutoMapper;
 using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Models.DTO.Genre;
@@ -13,6 +14,7 @@ public class GenreServiceTest
 {
     private readonly Mock<IGameRepository> _mockGameRepo = new();
     private readonly Mock<IGenreRepository> _mockGenreRepo = new();
+    private readonly Mock<INorthwindCategoryRepository> _mockCategoryRepo = new();
     private readonly Mock<ILogger<GenreService>> _mockLogger = new();
     private readonly Mock<IMapper> _mockMapper = new();
 
@@ -343,7 +345,7 @@ public class GenreServiceTest
     private static GenreDto CreateGenreDto(Genre genre)
         => new()
         {
-            Id = genre.Id,
+            Id = genre.Id.ToString(),
             Name = genre.Name,
         };
 
@@ -351,6 +353,7 @@ public class GenreServiceTest
  CreateService() => new(
       _mockGenreRepo.Object,
       _mockGameRepo.Object,
+      _mockCategoryRepo.Object,
       _mockMapper.Object,
       _mockLogger.Object);
 }

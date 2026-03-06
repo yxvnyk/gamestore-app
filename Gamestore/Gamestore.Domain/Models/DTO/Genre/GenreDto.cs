@@ -5,7 +5,7 @@ namespace Gamestore.Domain.Models.DTO.Genre;
 public class GenreDto
 {
     [Required]
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     [Required]
     [MaxLength(50)]

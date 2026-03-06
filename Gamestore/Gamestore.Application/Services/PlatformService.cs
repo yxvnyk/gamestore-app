@@ -43,14 +43,14 @@ public class PlatformService(IPlatformRepository platformRepository,
         return platformEntity is not null ? mapper.Map<PlatformDto>(platformEntity) : throw new NotFoundException($"Platform with ID {id} does not exist.");
     }
 
-    public async Task<IEnumerable<PlatformDto>> GetPlatformsByGameKeyAsync(string key)
+    public async Task<IEnumerable<PlatformDto>?> GetPlatformsByGameKeyAsync(string key)
     {
         logger.LogTrace(nameof(this.GetPlatformsByGameKeyAsync));
 
         var gameExists = await gameRepository.GameKeyExistAsync(key);
         if (!gameExists)
         {
-            throw new NotFoundException($"Game with key {key} not found.");
+            return null;
         }
 
         var platformEntities = await platformRepository.GetPlatformsByGameKeyAsync(key);

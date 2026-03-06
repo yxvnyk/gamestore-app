@@ -16,21 +16,21 @@ public class PublisherControllerTests
     [
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-123",
             Name = "Sample Game 1",
             Description = "Description for Sample Game 1",
         },
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-456",
             Name = "Sample Game 2",
             Description = "Description for Sample Game 2",
         },
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-789",
             Name = "Sample Game 3",
             Description = "Description for Sample Game 3",
@@ -41,17 +41,17 @@ public class PublisherControllerTests
     [
         new PublisherDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             CompanyName = "Action",
         },
         new PublisherDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             CompanyName = "Adventure",
         },
         new PublisherDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             CompanyName = "RPG",
         }
     ];
@@ -78,7 +78,7 @@ public class PublisherControllerTests
         var id = Guid.NewGuid();
         var expectedGenreDto = new PublisherDto
         {
-            Id = id,
+            Id = id.ToString(),
             CompanyName = "Company Name",
         };
 

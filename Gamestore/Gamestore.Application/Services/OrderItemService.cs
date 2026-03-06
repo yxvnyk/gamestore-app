@@ -138,7 +138,7 @@ public class OrderItemService(
 
     private async Task CreateNewCartItemAsync(Guid orderId, Guid gameId)
     {
-        var game = await gameRepository.GetGameByIdAsync(gameId)
+        var game = await gameRepository.GetByIdAsync(gameId)
                    ?? throw new NotFoundException($"Game {gameId} not found during item creation.");
 
         var orderGame = new OrderGame

@@ -59,7 +59,7 @@ public class GameRepositoryTests
         {
             var repository = new GameRepository(context);
             await repository.UpdateGameAsync(updatedGame);
-            var result = await repository.GetGameByIdAsync(id);
+            var result = await repository.GetByIdAsync(id);
 
             // Assert
             Assert.NotNull(result);
@@ -132,7 +132,7 @@ public class GameRepositoryTests
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
-            var result = await repository.GetGameByIdAsync(id);
+            var result = await repository.GetByIdAsync(id);
 
             // Assert
             Assert.NotNull(result);

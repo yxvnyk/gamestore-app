@@ -4,7 +4,7 @@ namespace Gamestore.Domain.Models.DTO.Publisher;
 
 public class PublisherDto
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     [Required]
     [MaxLength(100)]

@@ -138,7 +138,7 @@ public class GameServiceTest
         };
         var gameDto = new GameDto
         {
-            Id = gameId,
+            Id = gameId.ToString(),
             Name = gameName,
             Description = gameDescription,
             Key = gameKey,
@@ -163,12 +163,12 @@ public class GameServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
-        _mockGameRepo.Setup(repo => repo.GetGameByIdAsync(gameId)).ReturnsAsync((Game?)null);
+        _mockGameRepo.Setup(repo => repo.GetByIdAsync(gameId)).ReturnsAsync((Game?)null);
         var gameService = CreateService();
 
         // Act & Assert
-        await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.GetGameAsync(gameId));
-        _mockGameRepo.Verify(r => r.GetGameByIdAsync(gameId), Times.Once);
+        await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.GetGameByIdAsync(gameId.ToString()));
+        _mockGameRepo.Verify(r => r.GetByIdAsync(gameId), Times.Once);
     }
 
     [Fact]
@@ -188,12 +188,12 @@ public class GameServiceTest
 
         var gameDto = CreateGameDto(game);
 
-        _mockGameRepo.Setup(repo => repo.GetGameByIdAsync(gameId)).ReturnsAsync(game);
+        _mockGameRepo.Setup(repo => repo.GetByIdAsync(gameId)).ReturnsAsync(game);
         _mockMapper.Setup(m => m.Map<GameDto>(game)).Returns(gameDto);
         var gameService = CreateService();
 
         // Act
-        var result = await gameService.GetGameAsync(gameId);
+        var result = await gameService.GetGameByIdAsync(gameId.ToString());
 
         // Assert
         Assert.Equal(gameDto.Id, result.Id);
@@ -237,9 +237,9 @@ public class GameServiceTest
 
         var games = new List<Game> { game1, game2, game3 };
 
-        var dto1 = new GameDto { Id = game1.Id, Name = game1.Name, Description = game1.Description, Key = game1.Key, };
-        var dto2 = new GameDto { Id = game2.Id, Name = game2.Name, Description = game2.Description, Key = game2.Key };
-        var dto3 = new GameDto { Id = game3.Id, Name = game3.Name, Description = game3.Description, Key = game3.Key };
+        var dto1 = new GameDto { Id = game1.Id.ToString(), Name = game1.Name, Description = game1.Description, Key = game1.Key, };
+        var dto2 = new GameDto { Id = game2.Id.ToString(), Name = game2.Name, Description = game2.Description, Key = game2.Key };
+        var dto3 = new GameDto { Id = game3.Id.ToString(), Name = game3.Name, Description = game3.Description, Key = game3.Key };
 
         _mockGameRepo.Setup(r => r.GetGamesByPlatformAsync(platformId)).ReturnsAsync(games);
         _mockMapper.Setup(m => m.Map<GameDto>(game1)).Returns(dto1);
@@ -298,9 +298,9 @@ public class GameServiceTest
 
         var games = new List<Game> { game1, game2, game3 };
 
-        var dto1 = new GameDto { Id = game1.Id, Name = game1.Name, Description = game1.Description, Key = game1.Key, };
-        var dto2 = new GameDto { Id = game2.Id, Name = game2.Name, Description = game2.Description, Key = game2.Key };
-        var dto3 = new GameDto { Id = game3.Id, Name = game3.Name, Description = game3.Description, Key = game3.Key };
+        var dto1 = new GameDto { Id = game1.Id.ToString(), Name = game1.Name, Description = game1.Description, Key = game1.Key, };
+        var dto2 = new GameDto { Id = game2.Id.ToString(), Name = game2.Name, Description = game2.Description, Key = game2.Key };
+        var dto3 = new GameDto { Id = game3.Id.ToString(), Name = game3.Name, Description = game3.Description, Key = game3.Key };
 
         _mockGameRepo.Setup(r => r.GetGamesByGenreAsync(genreId)).ReturnsAsync(games);
         _mockMapper.Setup(m => m.Map<GameDto>(game1)).Returns(dto1);
@@ -398,9 +398,9 @@ public class GameServiceTest
             },
         };
 
-        var dto1 = new GameDto { Id = game1.Id, Name = game1.Name, Description = game1.Description, Key = game1.Key, };
-        var dto2 = new GameDto { Id = game2.Id, Name = game2.Name, Description = game2.Description, Key = game2.Key };
-        var dto3 = new GameDto { Id = game3.Id, Name = game3.Name, Description = game3.Description, Key = game3.Key };
+        var dto1 = new GameDto { Id = game1.Id.ToString(), Name = game1.Name, Description = game1.Description, Key = game1.Key, };
+        var dto2 = new GameDto { Id = game2.Id.ToString(), Name = game2.Name, Description = game2.Description, Key = game2.Key };
+        var dto3 = new GameDto { Id = game3.Id.ToString(), Name = game3.Name, Description = game3.Description, Key = game3.Key };
 
         _mockGameRepo.Setup(r => r.GetAllGamesAsync(request)).ReturnsAsync(pagedList);
         _mockMapper.Setup(m => m.Map<GameDto>(game1)).Returns(dto1);
@@ -434,7 +434,7 @@ public class GameServiceTest
         {
             Game = new GameDto
             {
-                Id = gameId,
+                Id = gameId.ToString(),
                 Name = "Test Game",
                 Description = "Test Description",
                 Key = "test-game",
@@ -460,7 +460,7 @@ public class GameServiceTest
         {
             Game = new GameDto
             {
-                Id = gameId,
+                Id = gameId.ToString(),
                 Name = "Test Game",
                 Description = "Test Description",
                 Key = "test-game",
@@ -492,7 +492,7 @@ public class GameServiceTest
         {
             Game = new GameDto
             {
-                Id = gameId,
+                Id = gameId.ToString(),
                 Name = "game",
                 Key = key,
             },
@@ -583,7 +583,7 @@ public class GameServiceTest
     private static GameDto CreateGameDto(Game game)
         => new()
         {
-            Id = game.Id,
+            Id = game.Id.ToString(),
             Name = game.Name,
             Description = game.Description,
             Key = game.Key,

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Models.DTO.Publisher;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace Gamestore.Application.Services;
 
 public class PublisherService(IPublisherRepository publisherRepository,
+    INorthwindSupplierRepository northwindSupplierRepository,
     IMapper mapper, ILogger<PublisherService> logger) : IPublisherService
 {
     public async Task CreatePublisherAsync(PublisherCreateDto publisher)
@@ -54,7 +56,19 @@ public class PublisherService(IPublisherRepository publisherRepository,
         logger.LogTrace(nameof(this.GetPublisherByGameKeyAsync));
 
         var publisher = await publisherRepository.GetPublisherByGameKeyAsync(key);
-        return mapper.Map<PublisherDto>(publisher);
+        if (publisher != null)
+        {
+            return mapper.Map<PublisherDto>(publisher);
+        }
+
+        var supplier = await northwindSupplierRepository.GetByGameKeyAsync(key);
+        if (supplier != null)
+        {
+            return mapper.Map<PublisherDto>(publisher);
+        }
+
+        // null
+        return null;
     }
 
     public async Task<IEnumerable<PublisherDto>> GetAllPublishersAsync()

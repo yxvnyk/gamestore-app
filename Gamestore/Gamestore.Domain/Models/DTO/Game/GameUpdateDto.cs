@@ -5,7 +5,7 @@ namespace Gamestore.Domain.Models.DTO.Game;
 public class GameUpdateDto
 {
     [Required]
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     [MaxLength(50)]
     public string? Name { get; set; }

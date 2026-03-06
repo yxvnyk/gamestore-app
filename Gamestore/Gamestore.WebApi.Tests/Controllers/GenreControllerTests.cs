@@ -16,21 +16,21 @@ public class GenreControllerTests
     [
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-123",
             Name = "Sample Game 1",
             Description = "Description for Sample Game 1",
         },
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-456",
             Name = "Sample Game 2",
             Description = "Description for Sample Game 2",
         },
         new GameDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Key = "game-key-789",
             Name = "Sample Game 3",
             Description = "Description for Sample Game 3",
@@ -41,17 +41,17 @@ public class GenreControllerTests
     [
         new GenreDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Name = "Action",
         },
         new GenreDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Name = "Adventure",
         },
         new GenreDto
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.NewGuid().ToString(),
             Name = "RPG",
         }
     ];
@@ -61,17 +61,17 @@ public class GenreControllerTests
          new GenreDto
          {
              Name = "Sample Genre Name",
-             Id = Guid.Empty,
+             Id = string.Empty,
          },
          new GenreDto
          {
              Name = "Sample Genre Name",
-             Id = Guid.Empty,
+             Id = string.Empty,
          },
          new GenreDto
          {
              Name = "Sample Genre Name",
-             Id = Guid.Empty,
+             Id = string.Empty,
          },
     ];
 

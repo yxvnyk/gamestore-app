@@ -31,8 +31,9 @@ public class GameProfile : Profile
         _ = CreateMap<Game, GameDto>();
 
         _ = CreateMap<Product, GameDto>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId))
             .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
+            .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.GameKey))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ProductName))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.QuantityPerUnit))
             .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.UnitPrice))

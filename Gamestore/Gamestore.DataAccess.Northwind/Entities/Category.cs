@@ -3,9 +3,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Gamestore.DataAccess.Northwind.Entities;
 
+[BsonIgnoreExtraElements]
 public class Category
 {
     [BsonId]
+    public ObjectId InternalId { get; set; }
+
+    [BsonElement("CategoryID")]
     public int CategoryId { get; set; }
 
     [BsonElement("CategoryName")]
@@ -15,5 +19,5 @@ public class Category
     public string Description { get; set; }
 
     [BsonElement("Picture")]
-    public byte[] Picture { get; set; }
+    public string Picture { get; set; }
 }

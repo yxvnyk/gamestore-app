@@ -109,7 +109,7 @@ public class GameProfileTests
         var dto = _mapper.Map<GameDto>(game);
 
         // Assert
-        Assert.Equal(game.Id, dto.Id);
+        Assert.Equal(game.Id.ToString(), dto.Id);
         Assert.Equal(game.Name, dto.Name);
         Assert.Equal(game.Key, dto.Key);
         Assert.Equal(game.Description, dto.Description);

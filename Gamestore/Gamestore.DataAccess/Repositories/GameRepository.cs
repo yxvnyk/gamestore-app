@@ -57,7 +57,7 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository, IUniq
             .Where(g => g.GameGenres.Any(gp => gp.GenreId == id)).ToListAsync();
     }
 
-    public async Task<ICollection<Game>> GetGamesByCompanyNameAsync(string companyName)
+    public async Task<ICollection<Game>> GetByCompanyNameAsync(string companyName)
     {
         return await _context.Games
             .Include(g => g.Publisher)
@@ -88,7 +88,7 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository, IUniq
             .FirstOrDefaultAsync();
     }
 
-    public async Task<Game?> GetGameByIdAsync(Guid id)
+    public async Task<Game?> GetByIdAsync(Guid id)
     {
         var game = await _context.Games.FindAsync(id);
         return game;

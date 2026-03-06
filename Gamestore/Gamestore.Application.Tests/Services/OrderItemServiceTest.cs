@@ -32,7 +32,7 @@ public class OrderItemServiceTest
         _mockOrderRepo.Setup(r => r.GetOpenOrderIdByCustomerIdAsync(customerId)).ReturnsAsync((Guid?)null);
         _mockOrderRepo.Setup(r => r.AddAsync(It.IsAny<Order>())).ReturnsAsync(createdOrderId);
         _mockOrderItemRepo.Setup(r => r.GetByOrderIdProductIdAsync(createdOrderId, gameId)).ReturnsAsync((OrderGame?)null);
-        _mockGameRepo.Setup(r => r.GetGameByIdAsync(gameId)).ReturnsAsync(new Game { Id = gameId, Price = 5.5, Discount = 1 });
+        _mockGameRepo.Setup(r => r.GetByIdAsync(gameId)).ReturnsAsync(new Game { Id = gameId, Price = 5.5, Discount = 1 });
 
         // Act
         await service.AddGameToCartAsync(gameKey, customerId);

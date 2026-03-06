@@ -10,13 +10,13 @@ public interface IGameRepository
 
     Task<Game?> GetGameByKeyAsync(string key);
 
-    Task<Game?> GetGameByIdAsync(Guid id);
+    Task<Game?> GetByIdAsync(Guid id);
 
     Task<ICollection<Game>> GetGamesByGenreAsync(Guid id);
 
     Task<ICollection<Game>> GetGamesByPlatformAsync(Guid id);
 
-    Task<ICollection<Game>> GetGamesByCompanyNameAsync(string companyName);
+    Task<ICollection<Game>> GetByCompanyNameAsync(string companyName);
 
     Task<IEnumerable<GameWithStats>> GetAllGamesAsync(GetGamesRequest request);
 
