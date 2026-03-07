@@ -1,3 +1,4 @@
+using Gamestore.Application.Models;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.Domain.Models.DTO.Game;
 using Gamestore.Domain.Models.DTO.Genre;
@@ -94,11 +95,12 @@ public class GenreControllerTests
     public async Task GetGenreByIdReturnOk()
     {
         // Arrange
-        var id = Guid.NewGuid();
+        var guid = Guid.NewGuid();
+        var id = new Identity(guid, null);
         var expectedGenreDto = new GenreFullDto
         {
             Name = "Sample Genre Name",
-            Id = id,
+            Id = id.ToString(),
             ParentGenreId = null,
         };
 
@@ -125,19 +127,21 @@ public class GenreControllerTests
     {
         // Arrange
         var id = Guid.NewGuid();
+        var identity = new Identity(id, null);
+
         var expectedGenreDtos = _genreDtosWithSameParentId;
 
         _mockGenreService
-            .Setup(s => s.GetGenresByParentIdAsync(id))
+            .Setup(s => s.GetGenresByParentIdAsync(identity))
             .ReturnsAsync(expectedGenreDtos);
 
         var controller = CreateController();
 
         // Act
-        var result = await controller.GetGenreByParentId(id);
+        var result = await controller.GetGenreByParentId(identity);
 
         // Assert
-        _mockGenreService.Verify(s => s.GetGenresByParentIdAsync(id), Times.Once);
+        _mockGenreService.Verify(s => s.GetGenresByParentIdAsync(identity), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGenres = Assert.IsAssignableFrom<List<GenreDto>>(okResult.Value);
 
@@ -235,16 +239,17 @@ public class GenreControllerTests
         // Arrange
         var expectedGames = _expectedGameDtos;
         var id = Guid.NewGuid();
+        var identity = new Identity(id, null);
         var controller = CreateController();
         _mockGameService
-            .Setup(s => s.GetGamesByGenreAsync(id))
+            .Setup(s => s.GetByGenreAsync(identity))
             .ReturnsAsync(expectedGames);
 
         // Act
-        var result = await controller.GetGamesByGenre(id);
+        var result = await controller.GetGamesByGenre(identity);
 
         // Assert
-        _mockGameService.Verify(s => s.GetGamesByGenreAsync(id), Times.Once);
+        _mockGameService.Verify(s => s.GetByGenreAsync(identity), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGames = Assert.IsType<List<GameDto>>(okResult.Value);
 

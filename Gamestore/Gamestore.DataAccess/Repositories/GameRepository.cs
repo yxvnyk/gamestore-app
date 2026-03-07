@@ -49,7 +49,7 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository, IUniq
             .Where(g => g.GamePlatforms.Any(gp => gp.PlatformId == id)).ToListAsync();
     }
 
-    public async Task<ICollection<Game>> GetGamesByGenreAsync(Guid id)
+    public async Task<ICollection<Game>> GetByGenreAsync(Guid id)
     {
         return await _context.Games
             .Include(g => g.GameGenres)

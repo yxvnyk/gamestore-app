@@ -19,4 +19,12 @@ public class NorthwindOrderRepository(NorthwindDbContext context) : INorthwindOr
 
         return await query.ToListAsync();
     }
+
+    public async Task<Order?> GetOrderByIdAsync(int id)
+    {
+        var query = await _context.Orders.AsQueryable()
+            .Where(o => o.OrderId == id)
+            .FirstOrDefaultAsync();
+        return query;
+    }
 }

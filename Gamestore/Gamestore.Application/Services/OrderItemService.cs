@@ -1,7 +1,9 @@
 ﻿using System.Transactions;
 using AutoMapper;
+using Gamestore.Application.Models;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Enums;
 using Gamestore.Domain.Exceptions;
@@ -12,6 +14,7 @@ namespace Gamestore.Application.Services;
 
 public class OrderItemService(
     IOrderItemRepository orderItemRepository,
+    INorthwindOrderDetailsRepository northwindOrderDetailsRepository,
     IGameRepository gameRepository,
     IOrderRepository orderRepository,
     IMapper mapper,
@@ -37,10 +40,24 @@ public class OrderItemService(
         return mapper.Map<IEnumerable<OrderItemDto>>(items);
     }
 
-    public async Task<IEnumerable<OrderItemDto>> GetOrderItemsByOrderIdAsync(Guid orderId)
+    public async Task<IEnumerable<OrderItemDto>> GetOrderItemsByOrderIdAsync(Identity id)
     {
-        var items = await orderItemRepository.GetByOrderIdAsync(orderId);
-        return mapper.Map<IEnumerable<OrderItemDto>>(items);
+        if (id.IsGuid)
+        {
+            var items = await orderItemRepository.GetByOrderIdAsync(id.GuidId!.Value);
+            return mapper.Map<IEnumerable<OrderItemDto>>(items);
+        }
+
+        if (id.IsInt)
+        {
+            var orderDetails = await northwindOrderDetailsRepository.GetByOrderIdAsync(id.IntId!.Value);
+            if (orderDetails != null)
+            {
+                return mapper.Map<IEnumerable<OrderItemDto>>(orderDetails);
+            }
+        }
+
+        return [];
     }
 
     public async Task DeleteAsync(string gameKey, Guid customerId)

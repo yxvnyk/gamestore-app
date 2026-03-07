@@ -31,7 +31,7 @@ public class PublishersController(IPublisherService publisherService, IGameServi
         return result ? NoContent() : NotFound($"Publisher with ID {id} not found.");
     }
 
-    [HttpGet("{companyName:alpha}")]
+    [HttpGet("{companyName}")]
     public async Task<IActionResult> GetPublisherByCompanyName(string companyName)
     {
         var publisher = await publisherService.GetPublisherByCompanyNameAsync(companyName);
@@ -49,7 +49,7 @@ public class PublishersController(IPublisherService publisherService, IGameServi
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGamesByPublisherName(string companyName)
     {
-        var game = await gameService.GetGamesByCompanyNameAsync(companyName);
+        var game = await gameService.GeByCompanyNameAsync(companyName);
         return Ok(game);
     }
 }

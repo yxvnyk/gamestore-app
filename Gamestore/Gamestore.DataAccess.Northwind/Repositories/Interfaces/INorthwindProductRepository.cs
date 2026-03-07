@@ -17,4 +17,8 @@ public interface INorthwindProductRepository
     Task<Product> GetAsync(string gameKey);
 
     Task<Product> GetAsync(int id);
+
+    Task<IEnumerable<Product>> GetByCategoryAsync(int id);
+
+    Task<IEnumerable<Product>> GetBySupplierAsync(int id);
 }

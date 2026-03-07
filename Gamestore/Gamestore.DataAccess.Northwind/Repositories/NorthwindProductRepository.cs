@@ -50,6 +50,40 @@ public class NorthwindProductRepository(NorthwindDbContext context) : INorthwind
         return await query.ToListAsync();
     }
 
+    public async Task<IEnumerable<Product>> GetByCategoryAsync(int id)
+    {
+        var categoryExist = await _context.Categories.AsQueryable()
+        .Where(s => s.CategoryId == id)
+        .AnyAsync();
+
+        if (!categoryExist)
+        {
+            return [];
+        }
+
+        var query = _context.Products.AsQueryable()
+            .Where(p => p.CategoryId == id);
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<IEnumerable<Product>> GetBySupplierAsync(int id)
+    {
+        var supplierExist = await _context.Suppliers.AsQueryable()
+        .Where(s => s.SupplierId == id)
+        .AnyAsync();
+
+        if (!supplierExist)
+        {
+            return [];
+        }
+
+        var query = _context.Products.AsQueryable()
+            .Where(p => p.SupplierId == id);
+
+        return await query.ToListAsync();
+    }
+
     public async Task<Product> GetAsync(string gameKey)
     {
         return await _context.Products.AsQueryable()

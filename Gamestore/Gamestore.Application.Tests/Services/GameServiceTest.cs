@@ -1,5 +1,6 @@
 using AutoMapper;
 using Gamestore.Application.Helpers.Profiles;
+using Gamestore.Application.Models;
 using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
@@ -46,12 +47,12 @@ public class GameServiceTest
         {
             Game = new GameUpdateDto
             {
-                Id = gameId,
+                Id = gameId.ToString(),
                 Name = "Test Game",
                 Description = "Test Description",
                 Key = "test-game",
             },
-            Genres = [Guid.NewGuid(), Guid.NewGuid()],
+            Genres = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()],
             Platforms = [Guid.NewGuid()],
         };
 
@@ -68,13 +69,13 @@ public class GameServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
-        var genres = new Guid[] { Guid.NewGuid(), Guid.NewGuid() };
+        var genres = new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
         var platforms = new Guid[] { Guid.NewGuid(), Guid.NewGuid() };
         var gameDto = new UpdateGameRequest
         {
             Game = new GameUpdateDto
             {
-                Id = gameId,
+                Id = gameId.ToString(),
                 Name = "Test Game",
                 Description = "Test Description",
                 Key = "test-game",
@@ -103,7 +104,7 @@ public class GameServiceTest
         _mockMapper.Verify(m => m.Map(gameDto, entity), Times.Once);
         _mockGameRepo.Verify(r => r.UpdateGameAsync(entity), Times.Once);
 
-        Assert.All(entity.GameGenres, gg => Assert.Contains(gg.GenreId, genres));
+        Assert.All(entity.GameGenres, gg => Assert.Contains(gg.GenreId.ToString(), genres));
         Assert.All(entity.GamePlatforms, gp => Assert.Contains(gp.PlatformId, platforms));
     }
 
@@ -116,7 +117,7 @@ public class GameServiceTest
         var gameService = CreateService();
 
         // Act & Assert
-        await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.GetGameAsync(gameKey));
+        await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.GetAsync(gameKey));
         _mockGameRepo.Verify(r => r.GetGameByKeyAsync(gameKey), Times.Once);
     }
 
@@ -149,7 +150,7 @@ public class GameServiceTest
         var gameService = CreateService();
 
         // Act
-        var result = await gameService.GetGameAsync(gameKey);
+        var result = await gameService.GetAsync(gameKey);
 
         // Assert
         Assert.Equal(gameDto.Id, result.Id);
@@ -163,11 +164,12 @@ public class GameServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
+        var identity = new Identity(gameId, null);
         _mockGameRepo.Setup(repo => repo.GetByIdAsync(gameId)).ReturnsAsync((Game?)null);
         var gameService = CreateService();
 
         // Act & Assert
-        await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.GetGameByIdAsync(gameId.ToString()));
+        await Assert.ThrowsAsync<NotFoundException>(async () => await gameService.GetByIdAsync(identity));
         _mockGameRepo.Verify(r => r.GetByIdAsync(gameId), Times.Once);
     }
 
@@ -177,6 +179,7 @@ public class GameServiceTest
         // Arrange
         var gameKey = "exist-game";
         var gameId = Guid.NewGuid();
+        var identity = new Identity(gameId, null);
         var gameName = "name";
         var gameDescription = "Exist Description";
 
@@ -193,7 +196,7 @@ public class GameServiceTest
         var gameService = CreateService();
 
         // Act
-        var result = await gameService.GetGameByIdAsync(gameId.ToString());
+        var result = await gameService.GetByIdAsync(identity);
 
         // Assert
         Assert.Equal(gameDto.Id, result.Id);
@@ -213,7 +216,7 @@ public class GameServiceTest
         var service = CreateService();
 
         // Act
-        var result = await service.GetGamesByPlatformAsync(platformId);
+        var result = await service.GetByPlatformAsync(platformId);
 
         // Assert
         Assert.NotNull(result);
@@ -249,7 +252,7 @@ public class GameServiceTest
         var gameService = CreateService();
 
         // Act
-        var result = await gameService.GetGamesByPlatformAsync(platformId);
+        var result = await gameService.GetByPlatformAsync(platformId);
 
         // Assert
         Assert.NotNull(result);
@@ -268,18 +271,19 @@ public class GameServiceTest
     {
         // Arrange
         var platformId = Guid.NewGuid();
-        _mockGameRepo.Setup(r => r.GetGamesByGenreAsync(platformId))
+        var identity = new Identity(platformId, null);
+        _mockGameRepo.Setup(r => r.GetByGenreAsync(platformId))
             .ReturnsAsync([]);
 
         var service = CreateService();
 
         // Act
-        var result = await service.GetGamesByGenreAsync(platformId);
+        var result = await service.GetByGenreAsync(identity);
 
         // Assert
         Assert.NotNull(result);
         Assert.Empty(result);
-        _mockGameRepo.Verify(r => r.GetGamesByGenreAsync(platformId), Times.Once);
+        _mockGameRepo.Verify(r => r.GetByGenreAsync(platformId), Times.Once);
     }
 
     [Fact]
@@ -287,6 +291,7 @@ public class GameServiceTest
     {
         // Arrange
         var genreId = Guid.NewGuid();
+        var identity = new Identity(genreId, null);
         var genres = new List<GameGenre>
         {
             new() { GenreId = genreId },
@@ -302,7 +307,7 @@ public class GameServiceTest
         var dto2 = new GameDto { Id = game2.Id.ToString(), Name = game2.Name, Description = game2.Description, Key = game2.Key };
         var dto3 = new GameDto { Id = game3.Id.ToString(), Name = game3.Name, Description = game3.Description, Key = game3.Key };
 
-        _mockGameRepo.Setup(r => r.GetGamesByGenreAsync(genreId)).ReturnsAsync(games);
+        _mockGameRepo.Setup(r => r.GetByGenreAsync(genreId)).ReturnsAsync(games);
         _mockMapper.Setup(m => m.Map<GameDto>(game1)).Returns(dto1);
         _mockMapper.Setup(m => m.Map<GameDto>(game2)).Returns(dto2);
         _mockMapper.Setup(m => m.Map<GameDto>(game3)).Returns(dto3);
@@ -310,7 +315,7 @@ public class GameServiceTest
         var gameService = CreateService();
 
         // Act
-        var result = await gameService.GetGamesByGenreAsync(genreId);
+        var result = await gameService.GetByGenreAsync(identity);
 
         // Assert
         Assert.NotNull(result);
@@ -321,7 +326,7 @@ public class GameServiceTest
         Assert.Contains(result, r => r.Id == dto3.Id && r.Name == dto3.Name);
 
         // Verify repository and mapper calls
-        _mockGameRepo.Verify(r => r.GetGamesByGenreAsync(genreId), Times.Once);
+        _mockGameRepo.Verify(r => r.GetByGenreAsync(genreId), Times.Once);
         _mockMapper.Verify(m => m.Map<GameDto>(It.IsAny<Game>()), Times.Exactly(3));
     }
 

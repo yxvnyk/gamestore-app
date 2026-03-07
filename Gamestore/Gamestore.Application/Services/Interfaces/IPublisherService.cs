@@ -10,7 +10,7 @@ public interface IPublisherService
 
     Task CreatePublisherAsync(PublisherCreateDto publisher);
 
-    Task<PublisherDto> GetPublisherByCompanyNameAsync(string companyName);
+    Task<PublisherDto?> GetPublisherByCompanyNameAsync(string companyName);
 
     Task<PublisherDto?> GetPublisherByGameKeyAsync(string key);
 

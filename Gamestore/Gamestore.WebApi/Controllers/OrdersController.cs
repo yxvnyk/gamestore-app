@@ -1,6 +1,8 @@
-﻿using Gamestore.Application.Services.Interfaces;
+﻿using Gamestore.Application.Models;
+using Gamestore.Application.Services.Interfaces;
 using Gamestore.Application.Services.Interfaces.Payments;
 using Gamestore.Domain.Models.DTO.Payment;
+using Gamestore.WebApi.Helpers.Helpers.Binders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
@@ -18,8 +20,8 @@ public class OrdersController(IOrderService orderService, IOrderItemService cart
         return Ok(orders);
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetOrderById(Guid id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetOrderById([ModelBinder(BinderType = typeof(IdentityModelBinder))] Identity id)
     {
         var orders = await orderService.GetOrderByIdAsync(id);
         return Ok(orders);
@@ -32,8 +34,8 @@ public class OrdersController(IOrderService orderService, IOrderItemService cart
         return NoContent();
     }
 
-    [HttpGet("{id:guid}/details")]
-    public async Task<IActionResult> GetOrderDetailsById(Guid id)
+    [HttpGet("{id}/details")]
+    public async Task<IActionResult> GetOrderDetailsById([ModelBinder(BinderType = typeof(IdentityModelBinder))] Identity id)
     {
         var orderDetails = await cartService.GetOrderItemsByOrderIdAsync(id);
         return Ok(orderDetails);

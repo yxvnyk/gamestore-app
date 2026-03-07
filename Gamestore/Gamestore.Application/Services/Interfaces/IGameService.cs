@@ -1,4 +1,5 @@
-﻿using Gamestore.Domain.Models.DTO.Game;
+﻿using Gamestore.Application.Models;
+using Gamestore.Domain.Models.DTO.Game;
 
 namespace Gamestore.Application.Services.Interfaces;
 
@@ -6,15 +7,15 @@ public interface IGameService
 {
     Task CreateGameAsync(CreateGameRequest createRequest);
 
-    Task<GameDto> GetGameAsync(string key);
+    Task<GameDto> GetAsync(string key);
 
-    Task<GameDto> GetGameByIdAsync(string id);
+    Task<GameDto> GetByIdAsync(Identity id);
 
-    Task<ICollection<GameDto>> GetGamesByGenreAsync(Guid id);
+    Task<ICollection<GameDto>> GetByGenreAsync(Identity id);
 
-    Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id);
+    Task<ICollection<GameDto>> GetByPlatformAsync(Guid id);
 
-    Task<ICollection<GameDto>> GetGamesByCompanyNameAsync(string companyName);
+    Task<ICollection<GameDto>> GeByCompanyNameAsync(string companyName);
 
     Task<GetGamesResponse> GetAllGamesAsync(GetGamesRequest request);
 

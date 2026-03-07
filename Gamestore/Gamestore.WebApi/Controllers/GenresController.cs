@@ -1,5 +1,7 @@
-﻿using Gamestore.Application.Services.Interfaces;
+﻿using Gamestore.Application.Models;
+using Gamestore.Application.Services.Interfaces;
 using Gamestore.Domain.Models.DTO.Genre;
+using Gamestore.WebApi.Helpers.Helpers.Binders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
@@ -17,9 +19,9 @@ public class GenresController(IGenreService genreService, IGameService gameServi
         return Ok();
     }
 
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id}")]
     [ResponseCache(Duration = 60)]
-    public async Task<IActionResult> GetGenreById(Guid id)
+    public async Task<IActionResult> GetGenreById([ModelBinder(BinderType = typeof(IdentityModelBinder))] Identity id)
     {
         var genre = await genreService.GetGenreByIdAsync(id);
         return Ok(genre);
@@ -33,9 +35,9 @@ public class GenresController(IGenreService genreService, IGameService gameServi
         return Ok(genres);
     }
 
-    [HttpGet("{id:guid}/genres")]
+    [HttpGet("{id}/genres")]
     [ResponseCache(Duration = 60)]
-    public async Task<IActionResult> GetGenreByParentId(Guid id)
+    public async Task<IActionResult> GetGenreByParentId([ModelBinder(BinderType = typeof(IdentityModelBinder))] Identity id)
     {
         var genres = await genreService.GetGenresByParentIdAsync(id);
         return Ok(genres);
@@ -55,11 +57,11 @@ public class GenresController(IGenreService genreService, IGameService gameServi
         return result ? NoContent() : NotFound($"Genre with ID {id} not found.");
     }
 
-    [HttpGet("{id:guid}/games")]
+    [HttpGet("{id}/games")]
     [ResponseCache(Duration = 60)]
-    public async Task<IActionResult> GetGamesByGenre(Guid id)
+    public async Task<IActionResult> GetGamesByGenre([ModelBinder(BinderType = typeof(IdentityModelBinder))] Identity id)
     {
-        var game = await gameService.GetGamesByGenreAsync(id);
+        var game = await gameService.GetByGenreAsync(id);
         return Ok(game);
     }
 }

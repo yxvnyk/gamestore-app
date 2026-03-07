@@ -1,6 +1,7 @@
 using AutoMapper;
 using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Models.DTO.OrderItem;
@@ -12,6 +13,7 @@ namespace Gamestore.Application.Tests.Services;
 public class OrderItemServiceTest
 {
     private readonly Mock<IOrderItemRepository> _mockOrderItemRepo = new();
+    private readonly Mock<INorthwindOrderDetailsRepository> _mockNorthwindOrderDetailsRepository = new();
     private readonly Mock<IGameRepository> _mockGameRepo = new();
     private readonly Mock<IOrderRepository> _mockOrderRepo = new();
     private readonly Mock<ILogger<OrderItemService>> _mockLogger = new();
@@ -172,7 +174,7 @@ public class OrderItemServiceTest
         _mockOrderItemRepo.Setup(r => r.GetByOrderIdProductIdAsync(orderId, productId)).ReturnsAsync(orderGame);
         _mockMapper.Setup(m => m.Map<OrderItemDto>(It.IsAny<OrderGame>())).Returns((OrderGame og) => new OrderItemDto
         {
-            ProductId = og.ProductId,
+            ProductId = og.ProductId.ToString(),
             Price = og.Price,
             Quantity = og.Quantity,
             Discount = og.Discount,
@@ -183,7 +185,7 @@ public class OrderItemServiceTest
 
         // Assert
         Assert.NotNull(dto);
-        Assert.Equal(productId, dto!.ProductId);
+        Assert.Equal(productId.ToString(), dto!.ProductId);
         Assert.Equal(7.7, dto.Price);
         Assert.Equal(3, dto.Quantity);
         Assert.Equal(2, dto.Discount);
@@ -208,6 +210,7 @@ public class OrderItemServiceTest
 
     private OrderItemService CreateService() => new(
         _mockOrderItemRepo.Object,
+        _mockNorthwindOrderDetailsRepository.Object,
         _mockGameRepo.Object,
         _mockOrderRepo.Object,
         _mockMapper.Object,

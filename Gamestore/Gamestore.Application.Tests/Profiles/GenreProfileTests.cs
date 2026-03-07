@@ -72,7 +72,7 @@ public class GenreProfileTests
         var dto = _mapper.Map<GenreFullDto>(entity);
 
         // Assert
-        Assert.Equal(entity.Id, dto.Id);
+        Assert.Equal(entity.Id.ToString(), dto.Id);
         Assert.Equal("RPG", dto.Name);
         Assert.Equal(entity.ParentGenreId, dto.ParentGenreId);
     }

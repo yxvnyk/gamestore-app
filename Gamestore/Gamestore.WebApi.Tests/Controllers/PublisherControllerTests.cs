@@ -189,14 +189,14 @@ public class PublisherControllerTests
         var companyName = "Sample Company Name";
         var controller = CreateController();
         _mockGameService
-            .Setup(s => s.GetGamesByCompanyNameAsync(companyName))
+            .Setup(s => s.GeByCompanyNameAsync(companyName))
             .ReturnsAsync(expectedGames);
 
         // Act
         var result = await controller.GetGamesByPublisherName(companyName);
 
         // Assert
-        _mockGameService.Verify(s => s.GetGamesByCompanyNameAsync(companyName), Times.Once);
+        _mockGameService.Verify(s => s.GeByCompanyNameAsync(companyName), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGames = Assert.IsType<List<GameDto>>(okResult.Value);
 

@@ -51,7 +51,7 @@ public class PlatformsController(IPlatformService platformService, IGameService 
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGamesByPlatform(Guid id)
     {
-        var game = await gameService.GetGamesByPlatformAsync(id);
+        var game = await gameService.GetByPlatformAsync(id);
         return Ok(game);
     }
 }

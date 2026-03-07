@@ -12,7 +12,7 @@ public interface IGameRepository
 
     Task<Game?> GetByIdAsync(Guid id);
 
-    Task<ICollection<Game>> GetGamesByGenreAsync(Guid id);
+    Task<ICollection<Game>> GetByGenreAsync(Guid id);
 
     Task<ICollection<Game>> GetGamesByPlatformAsync(Guid id);
 

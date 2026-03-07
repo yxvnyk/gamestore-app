@@ -118,7 +118,7 @@ public class GameControllerTests
         };
 
         _mockGameService
-            .Setup(s => s.GetGameAsync(key))
+            .Setup(s => s.GetAsync(key))
             .ReturnsAsync(expectedGameDto);
 
         var controller = CreateController();
@@ -127,7 +127,7 @@ public class GameControllerTests
         var result = await controller.GetGameByKey(key);
 
         // Assert
-        _mockGameService.Verify(s => s.GetGameAsync(key), Times.Once);
+        _mockGameService.Verify(s => s.GetAsync(key), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGame = Assert.IsType<GameDto>(okResult.Value);
 
@@ -149,7 +149,7 @@ public class GameControllerTests
         };
 
         _mockGameService
-            .Setup(s => s.GetGameByIdAsync(id.ToString()))
+            .Setup(s => s.GetByIdAsync(id.ToString()))
             .ReturnsAsync(expectedGameDto);
 
         var controller = CreateController();
@@ -158,7 +158,7 @@ public class GameControllerTests
         var result = await controller.GetGameById(id);
 
         // Assert
-        _mockGameService.Verify(s => s.GetGameByIdAsync(id.ToString()), Times.Once);
+        _mockGameService.Verify(s => s.GetByIdAsync(id.ToString()), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGame = Assert.IsType<GameDto>(okResult.Value);
 
@@ -286,7 +286,7 @@ public class GameControllerTests
         };
 
         _mockGameService
-            .Setup(s => s.GetGameAsync(key))
+            .Setup(s => s.GetAsync(key))
             .ReturnsAsync(expectedGameDto);
         _mockGenerateGameFile.Setup(s => s.GenerateFileDto(expectedGameDto))
             .Returns(fileDto);

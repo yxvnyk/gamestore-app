@@ -33,4 +33,24 @@ public class NorthwindSupplierRepository(NorthwindDbContext context) : INorthwin
         .Where(c => c.SupplierId == supplierId)
         .FirstOrDefaultAsync();
     }
+
+    public async Task<Supplier?> GetByCompanyNameAsync(string name)
+    {
+        var supplier = await _context.Suppliers.AsQueryable()
+            .Where(p => p.ContactName == name)
+            .FirstOrDefaultAsync();
+
+        return supplier;
+    }
+
+    public async Task<IEnumerable<Supplier>> GetAllAsync()
+    {
+        return await _context.Suppliers.AsQueryable().ToListAsync();
+    }
+
+    public async Task<Supplier>? GetAsync(int id)
+    {
+        return await _context.Suppliers.AsQueryable()
+            .FirstOrDefaultAsync(c => c.SupplierId == id);
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Gamestore.Domain.Models.DTO.OrderItem;
+﻿using Gamestore.Application.Models;
+using Gamestore.Domain.Models.DTO.OrderItem;
 
 namespace Gamestore.Application.Services.Interfaces;
 
@@ -12,5 +13,5 @@ public interface IOrderItemService
 
     Task AddGameToCartAsync(string gameKey, Guid customerId);
 
-    Task<IEnumerable<OrderItemDto>> GetOrderItemsByOrderIdAsync(Guid orderId);
+    Task<IEnumerable<OrderItemDto>> GetOrderItemsByOrderIdAsync(Identity id);
 }

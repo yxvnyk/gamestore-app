@@ -43,14 +43,18 @@ public class Order
     public string ShipAddress { get; set; }
 
     [BsonElement("ShipCity")]
-    public string ShipCity { get; set; }
+    [BsonSerializer(typeof(StringSerializer))]
+    public string? ShipCity { get; set; }
 
     [BsonElement("ShipRegion")]
+    [BsonSerializer(typeof(StringSerializer))]
     public string? ShipRegion { get; set; }
 
     [BsonElement("ShipPostalCode")]
+    [BsonSerializer(typeof(StringSerializer))]
     public string ShipPostalCode { get; set; }
 
     [BsonElement("ShipCountry")]
+    [BsonSerializer(typeof(StringSerializer))]
     public string ShipCountry { get; set; }
 }

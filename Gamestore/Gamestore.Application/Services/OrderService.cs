@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Gamestore.Application.Models;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
@@ -38,12 +39,26 @@ public class OrderService(IOrderRepository orderRepository,
         return [.. orders.Select(mapper.Map<OrderDto>)];
     }
 
-    public async Task<OrderDto> GetOrderByIdAsync(Guid id)
+    public async Task<OrderDto> GetOrderByIdAsync(Identity id)
     {
         logger.LogInformation(nameof(this.GetOrderByIdAsync));
 
-        var order = await orderRepository.GetOrderByIdAsync(id);
-        return order is not null ? mapper.Map<OrderDto>(order) : throw new NotFoundException($"Order with ID {id} does not exist.");
+        if (id.IsGuid)
+        {
+            var order = await orderRepository.GetOrderByIdAsync(id.GuidId!.Value);
+            return mapper.Map<OrderDto>(order);
+        }
+
+        if (id.IsInt)
+        {
+            var orderDetails = await northwindOrderRepository.GetOrderByIdAsync(id.IntId!.Value);
+            if (orderDetails != null)
+            {
+                return mapper.Map<OrderDto>(orderDetails);
+            }
+        }
+
+        return null;
     }
 
     public async Task<Guid> GetOpenOrderIdAsync(Guid customerId)

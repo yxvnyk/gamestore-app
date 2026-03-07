@@ -357,7 +357,7 @@ public class GameRepositoryTests
         using (var context = new GamestoreDbContext(options))
         {
             var repository = new GameRepository(context);
-            var result = await repository.GetGamesByGenreAsync(genreId);
+            var result = await repository.GetByGenreAsync(genreId);
 
             // Assert
             foreach (var item in result)
@@ -379,7 +379,7 @@ public class GameRepositoryTests
         // Act
         using var context = new GamestoreDbContext(options);
         var repository = new GameRepository(context);
-        var result = await repository.GetGamesByGenreAsync(genreId);
+        var result = await repository.GetByGenreAsync(genreId);
 
         // Assert
         Assert.Empty(result);

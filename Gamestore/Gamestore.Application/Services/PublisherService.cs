@@ -43,12 +43,25 @@ public class PublisherService(IPublisherRepository publisherRepository,
         return await publisherRepository.DeletePublisherAsync(id);
     }
 
-    public async Task<PublisherDto> GetPublisherByCompanyNameAsync(string companyName)
+    public async Task<PublisherDto?> GetPublisherByCompanyNameAsync(string companyName)
     {
         logger.LogTrace(nameof(this.GetPublisherByCompanyNameAsync));
 
         var publisher = await publisherRepository.GetPublisherByCompanyNameAsync(companyName);
-        return mapper.Map<PublisherDto>(publisher);
+        if (publisher != null)
+        {
+            return mapper.Map<PublisherDto>(publisher);
+        }
+
+        var supplier = await northwindSupplierRepository.GetByCompanyNameAsync(companyName);
+
+        if (supplier != null)
+        {
+            return mapper.Map<PublisherDto>(supplier);
+        }
+
+        // null
+        return null;
     }
 
     public async Task<PublisherDto?> GetPublisherByGameKeyAsync(string key)
@@ -75,8 +88,18 @@ public class PublisherService(IPublisherRepository publisherRepository,
     {
         logger.LogTrace(nameof(this.GetAllPublishersAsync));
 
-        var publishers = await publisherRepository.GetAllPublishersAsync();
-        return [.. publishers.Select(mapper.Map<PublisherDto>)];
+        var publisherTask = publisherRepository.GetAllPublishersAsync();
+        var supplierTask = northwindSupplierRepository.GetAllAsync();
+
+        await Task.WhenAll(publisherTask, supplierTask);
+
+        var publishers = await publisherTask;
+        var suppliers = await supplierTask;
+
+        var publishersDtos = mapper.Map<IEnumerable<PublisherDto>>(publishers);
+        publishersDtos = publishersDtos.Concat(mapper.Map<IEnumerable<PublisherDto>>(suppliers));
+
+        return publishersDtos;
     }
 
     public async Task VerifyCompanyName(string? companyName)

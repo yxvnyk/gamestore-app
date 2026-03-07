@@ -1,4 +1,5 @@
-﻿using Gamestore.DataAccess.Entities;
+﻿using Gamestore.Application.Models;
+using Gamestore.DataAccess.Entities;
 using Gamestore.Domain.Enums;
 using Gamestore.Domain.Models.DTO.Order;
 
@@ -8,7 +9,7 @@ public interface IOrderService
 {
     Task<IEnumerable<OrderDto>> GetPaidAndCancelledOrdersAsync();
 
-    Task<OrderDto> GetOrderByIdAsync(Guid id);
+    Task<OrderDto> GetOrderByIdAsync(Identity id);
 
     Task<double> CalculataOrderTotalAsync(Guid orderId);
 

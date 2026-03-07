@@ -16,6 +16,17 @@ public class NorthwindCategoryRepository(NorthwindDbContext context) : INorthwin
         return await _context.Products.Find(filter).AnyAsync();
     }
 
+    public async Task<IEnumerable<Category>> GetAllAsync()
+    {
+        return await _context.Categories.AsQueryable().ToListAsync();
+    }
+
+    public async Task<Category>? GetAsync(int id)
+    {
+        return await _context.Categories.AsQueryable()
+            .FirstOrDefaultAsync(c => c.CategoryId == id);
+    }
+
     public async Task<Category?> GetByGameKeyAsync(string key)
     {
         var categoryId = await _context.Products.AsQueryable()

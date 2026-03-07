@@ -5,6 +5,9 @@ namespace Gamestore.DataAccess.Northwind.Entities;
 
 public class OrderDetails
 {
+    [BsonId]
+    public ObjectId InternalId { get; set; }
+
     [BsonElement("OrderID")]
     public int OrderId { get; set; }
 

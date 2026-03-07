@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Extensions;
+using Gamestore.Application.Models;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
@@ -34,9 +35,9 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
         throw new NotImplementedException();
     }
 
-    public async Task<GameDto> GetGameAsync(string key)
+    public async Task<GameDto> GetAsync(string key)
     {
-        logger.LogTrace(nameof(this.GetGameAsync));
+        logger.LogTrace(nameof(this.GetAsync));
 
         var gameEntity = await _gameRepository.GetGameByKeyAsync(key);
         if (gameEntity == null)
@@ -48,22 +49,22 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
         return _mapper.Map<GameDto>(gameEntity);
     }
 
-    public async Task<GameDto> GetGameByIdAsync(string id)
+    public async Task<GameDto> GetByIdAsync(Identity id)
     {
-        logger.LogTrace(nameof(this.GetGameAsync));
+        logger.LogTrace(nameof(this.GetAsync));
 
-        if (Guid.TryParse(id, out var guidId))
+        if (id.IsGuid)
         {
-            var gameEntity = await _gameRepository.GetByIdAsync(guidId);
+            var gameEntity = await _gameRepository.GetByIdAsync(id.GuidId!.Value);
             if (gameEntity != null)
             {
                 return _mapper.Map<GameDto>(gameEntity);
             }
         }
 
-        if (int.TryParse(id.ToString(), out var integerId))
+        if (id.IsInt)
         {
-            var product = await _northwindProductRepository.GetAsync(integerId);
+            var product = await _northwindProductRepository.GetAsync(id.IntId!.Value);
             if (product != null)
             {
                 return _mapper.Map<GameDto>(product);
@@ -73,27 +74,43 @@ public class GameService(IGameRepository gameRepository, INorthwindProductReposi
         throw new NotFoundException($"Game with ID '{id}' not found.");
     }
 
-    public async Task<ICollection<GameDto>> GetGamesByPlatformAsync(Guid id)
+    public async Task<ICollection<GameDto>> GetByPlatformAsync(Guid id)
     {
-        logger.LogTrace(nameof(this.GetGamesByPlatformAsync));
+        logger.LogTrace(nameof(this.GetByPlatformAsync));
 
         var gameEntities = await _gameRepository.GetGamesByPlatformAsync(id);
         var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
         return gameDtos;
     }
 
-    public async Task<ICollection<GameDto>> GetGamesByGenreAsync(Guid id)
+    public async Task<ICollection<GameDto>> GetByGenreAsync(Identity id)
     {
-        logger.LogTrace(nameof(this.GetGamesByGenreAsync));
+        logger.LogTrace(nameof(this.GetByGenreAsync));
 
-        var gameEntities = await _gameRepository.GetGamesByGenreAsync(id);
-        var gameDtos = gameEntities.Select(_mapper.Map<GameDto>).ToList();
-        return gameDtos;
+        if (id.IsGuid)
+        {
+            var game = await _gameRepository.GetByGenreAsync(id.GuidId!.Value);
+            if (game != null)
+            {
+                return _mapper.Map<ICollection<GameDto>>(game);
+            }
+        }
+
+        if (id.IsInt)
+        {
+            var product = await _northwindProductRepository.GetByCategoryAsync(id.IntId!.Value);
+            if (product != null)
+            {
+                return _mapper.Map<ICollection<GameDto>>(product);
+            }
+        }
+
+        return [];
     }
 
-    public async Task<ICollection<GameDto>> GetGamesByCompanyNameAsync(string companyName)
+    public async Task<ICollection<GameDto>> GeByCompanyNameAsync(string companyName)
     {
-        logger.LogTrace(nameof(this.GetGamesByCompanyNameAsync));
+        logger.LogTrace(nameof(this.GeByCompanyNameAsync));
 
         var getGamesTask = _gameRepository.GetByCompanyNameAsync(companyName);
         var getProductsTask = _northwindProductRepository.GetBySupplierNameAsync(companyName);

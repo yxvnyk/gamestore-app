@@ -1,4 +1,5 @@
 using AutoMapper;
+using Gamestore.Application.Models;
 using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
@@ -172,9 +173,10 @@ public class GenreServiceTest
     {
         // Arrange
         var genreId = Guid.NewGuid();
+        var identity = new Identity(genreId, null);
         var genreDto = new GenreFullDto
         {
-            Id = genreId,
+            Id = genreId.ToString(),
             Name = "Genre 1",
             ParentGenreId = null,
         };
@@ -186,7 +188,7 @@ public class GenreServiceTest
         var service = CreateService();
 
         // Act
-        var result = await service.GetGenreByIdAsync(genreId);
+        var result = await service.GetGenreByIdAsync(identity);
 
         // Assert
         _mockGenreRepo.Verify(r => r.GetGenreByIdAsync(genreId), Times.Once);
@@ -198,12 +200,13 @@ public class GenreServiceTest
     {
         // Arrange
         var genreId = Guid.NewGuid();
+        var identity = new Identity(genreId, null);
         _mockGenreRepo.Setup(repo => repo.GetGenreByIdAsync(genreId))!.ReturnsAsync((Genre?)null);
 
         var service = CreateService();
 
         // Act
-        var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await service.GetGenreByIdAsync(genreId));
+        var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await service.GetGenreByIdAsync(identity));
 
         // Assert
         Assert.Contains(genreId.ToString(), ex.Message);
@@ -215,12 +218,14 @@ public class GenreServiceTest
     {
         // Arrange
         var genreId = Guid.NewGuid();
+        var identity = new Identity(genreId, null);
+
         _mockGenreRepo.Setup(repo => repo.GenreExistsAsync(genreId))!.ReturnsAsync(false);
 
         var service = CreateService();
 
         // Act
-        var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await service.GetGenresByParentIdAsync(genreId));
+        var ex = await Assert.ThrowsAsync<NotFoundException>(async () => await service.GetGenresByParentIdAsync(identity));
 
         // Assert
         Assert.Contains(genreId.ToString(), ex.Message);
@@ -232,6 +237,7 @@ public class GenreServiceTest
     {
         // Arrange
         var parentGenreId = Guid.NewGuid();
+        var identity = new Identity(parentGenreId, null);
 
         var genre1 = CreateGenre("Genre 1");
         var genre2 = CreateGenre("Genre 2");
@@ -250,7 +256,7 @@ public class GenreServiceTest
         var service = CreateService();
 
         // Act
-        var resutl = await service.GetGenresByParentIdAsync(parentGenreId);
+        var resutl = await service.GetGenresByParentIdAsync(identity);
 
         // Assert
         _mockGenreRepo.Verify(r => r.GetGenresByParentIdAsync(parentGenreId), Times.Once);

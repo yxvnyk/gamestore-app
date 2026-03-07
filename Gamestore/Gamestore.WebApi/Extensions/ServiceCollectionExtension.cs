@@ -55,6 +55,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<INorthwindProductRepository, NorthwindProductRepository>();
         services.AddScoped<INorthwindCategoryRepository, NorthwindCategoryRepository>();
         services.AddScoped<INorthwindSupplierRepository, NorthwindSupplierRepository>();
+        services.AddScoped<INorthwindOrderDetailsRepository, NorthwindOrderDetailsRepository>();
 
         services.AddScoped<NothwindDbInitializer>();
 

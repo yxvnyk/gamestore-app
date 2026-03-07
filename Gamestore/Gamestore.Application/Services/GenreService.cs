@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Gamestore.Application.Models;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
@@ -32,8 +33,18 @@ public class GenreService(IGenreRepository genreRepository,
     {
         logger.LogTrace(nameof(this.GetAllGenresAsync));
 
-        var genreEntities = await genreRepository.GetAllGenresAsync();
-        return [.. genreEntities.Select(mapper.Map<GenreDto>)];
+        var genreTask = genreRepository.GetAllGenresAsync();
+        var categoryTask = northwindCategoryRepository.GetAllAsync();
+
+        await Task.WhenAll(genreTask, categoryTask);
+
+        var genres = await genreTask;
+        var categories = await categoryTask;
+
+        var genreDtos = mapper.Map<IEnumerable<GenreDto>>(genres);
+        genreDtos = genreDtos.Concat(mapper.Map<IEnumerable<GenreDto>>(categories));
+
+        return genreDtos;
     }
 
     public async Task<IEnumerable<GenreDto>> GetGenresByGameKeyAsync(string key)
@@ -67,24 +78,46 @@ public class GenreService(IGenreRepository genreRepository,
         throw new NotFoundException($"Game with key '{key}' not found.");
     }
 
-    public async Task<GenreFullDto?> GetGenreByIdAsync(Guid id)
+    public async Task<GenreFullDto?> GetGenreByIdAsync(Identity id)
     {
         logger.LogTrace(nameof(this.GetGenreByIdAsync));
 
-        var genreEntity = await genreRepository.GetGenreByIdAsync(id);
-        return genreEntity is not null ? mapper.Map<GenreFullDto>(genreEntity) : throw new NotFoundException($"Genre with ID '{id}' not found.");
+        if (id.IsGuid)
+        {
+            var genreEntity = await genreRepository.GetGenreByIdAsync(id.GuidId!.Value);
+            if (genreEntity != null)
+            {
+                return mapper.Map<GenreFullDto>(genreEntity);
+            }
+        }
+
+        if (id.IsInt)
+        {
+            var genreEntity = await northwindCategoryRepository.GetAsync(id.IntId!.Value);
+            if (genreEntity != null)
+            {
+                return mapper.Map<GenreFullDto>(genreEntity);
+            }
+        }
+
+        throw new NotFoundException($"Genre with ID '{id}' not found.");
     }
 
-    public async Task<List<GenreDto>> GetGenresByParentIdAsync(Guid id)
+    public async Task<List<GenreDto>> GetGenresByParentIdAsync(Identity id)
     {
         logger.LogTrace(nameof(this.GetGenresByParentIdAsync));
 
-        if (!await genreRepository.GenreExistsAsync(id))
+        if (!id.IsGuid)
+        {
+            return [];
+        }
+
+        if (!await genreRepository.GenreExistsAsync(id.GuidId!.Value))
         {
             throw new NotFoundException($"Parent genre with ID {id} does not exist.");
         }
 
-        var genreEntities = await genreRepository.GetGenresByParentIdAsync(id);
+        var genreEntities = await genreRepository.GetGenresByParentIdAsync(id.GuidId!.Value);
         return [.. genreEntities.Select(mapper.Map<GenreDto>)];
     }
 

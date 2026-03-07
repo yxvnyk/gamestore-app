@@ -188,14 +188,14 @@ public class PlatformControllerTests
         var id = Guid.NewGuid();
         var controller = CreateController();
         _mockGameService
-            .Setup(s => s.GetGamesByPlatformAsync(id))
+            .Setup(s => s.GetByPlatformAsync(id))
             .ReturnsAsync(expectedGames);
 
         // Act
         var result = await controller.GetGamesByPlatform(id);
 
         // Assert
-        _mockGameService.Verify(s => s.GetGamesByPlatformAsync(id), Times.Once);
+        _mockGameService.Verify(s => s.GetByPlatformAsync(id), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGames = Assert.IsType<List<GameDto>>(okResult.Value);
 

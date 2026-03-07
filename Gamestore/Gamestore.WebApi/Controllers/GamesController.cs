@@ -1,9 +1,11 @@
 ﻿using GameStore.Application.Helpers.Interfaces;
+using Gamestore.Application.Models;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.Domain.Extensions;
 using Gamestore.Domain.Helpers;
 using Gamestore.Domain.Models.DTO.Comments;
 using Gamestore.Domain.Models.DTO.Game;
+using Gamestore.WebApi.Helpers.Helpers.Binders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
@@ -30,15 +32,15 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGameByKey(string key)
     {
-        var game = await gameService.GetGameAsync(key);
+        var game = await gameService.GetAsync(key);
         return Ok(game);
     }
 
-    [HttpGet("find/{id:guid}")]
+    [HttpGet("find/{id}")]
     [ResponseCache(Duration = 60)]
-    public async Task<IActionResult> GetGameById(Guid id)
+    public async Task<IActionResult> GetGameById([ModelBinder(BinderType = typeof(IdentityModelBinder))] Identity id)
     {
-        var game = await gameService.GetGameByIdAsync(id.ToString());
+        var game = await gameService.GetByIdAsync(id);
         return Ok(game);
     }
 
@@ -69,7 +71,7 @@ public class GamesController(IGameService gameService, IGenreService genreServic
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGameFileByKey(string key)
     {
-        GameDto game = await gameService.GetGameAsync(key);
+        GameDto game = await gameService.GetAsync(key);
         var file = generateGameFile.GenerateFileDto(game);
 
         return File(file.Content, "text/plain", file.FileName);
