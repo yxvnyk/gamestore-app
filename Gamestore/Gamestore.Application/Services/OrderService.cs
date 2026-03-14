@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Gamestore.Application.Models;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Enums;
 using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Order;
 using Microsoft.Extensions.Logging;
 

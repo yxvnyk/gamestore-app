@@ -3,6 +3,8 @@ using Gamestore.Application.Helpers.Interfaces;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.Application.Services;
+using Gamestore.Application.Services.Integration;
+using Gamestore.Application.Services.Integration.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.Application.Services.Interfaces.Payments;
 using Gamestore.Application.Services.Payments;
@@ -40,6 +42,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IPaymentStrategy, VisaPaymentStrategy>();
         services.AddScoped<IInventoryService, InventoryService>();
         services.AddScoped<IPaymentService, PaymentService>();
+
+        services.AddScoped<ICategoryIntegrationService, CategoryIntegrationService>();
 
         services.AddScoped<IShipperService, ShipperService>();
 

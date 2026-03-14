@@ -2,6 +2,7 @@ using System.Text.Json;
 using GameStore.Application.Helpers.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.Domain.Extensions;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.File;
 using Gamestore.Domain.Models.DTO.Game;
 using Gamestore.Domain.Models.DTO.Genre;
@@ -141,6 +142,7 @@ public class GameControllerTests
     {
         // Arrange
         var id = Guid.NewGuid();
+        var identity = new Identity(id, null);
         var expectedGameDto = new GameDto
         {
             Key = "key",
@@ -149,16 +151,16 @@ public class GameControllerTests
         };
 
         _mockGameService
-            .Setup(s => s.GetByIdAsync(id.ToString()))
+            .Setup(s => s.GetByIdAsync(identity))
             .ReturnsAsync(expectedGameDto);
 
         var controller = CreateController();
 
         // Act
-        var result = await controller.GetGameById(id);
+        var result = await controller.GetGameById(identity);
 
         // Assert
-        _mockGameService.Verify(s => s.GetByIdAsync(id.ToString()), Times.Once);
+        _mockGameService.Verify(s => s.GetByIdAsync(identity), Times.Once);
         var okResult = Assert.IsType<OkObjectResult>(result);
         var returnedGame = Assert.IsType<GameDto>(okResult.Value);
 

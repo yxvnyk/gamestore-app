@@ -1,6 +1,5 @@
 using AutoMapper;
 using Gamestore.Application.Helpers.Profiles;
-using Gamestore.Application.Models;
 using Gamestore.Application.Services;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
@@ -9,6 +8,7 @@ using Gamestore.DataAccess.Wrappers;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Generators;
 using Gamestore.Domain.Interfaces;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
 using Moq;

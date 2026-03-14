@@ -1,6 +1,6 @@
-﻿using Gamestore.Application.Models;
-using Gamestore.DataAccess.Entities;
+﻿using Gamestore.DataAccess.Entities;
 using Gamestore.Domain.Enums;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Order;
 
 namespace Gamestore.Application.Services.Interfaces;

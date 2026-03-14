@@ -1,10 +1,11 @@
 using AutoMapper;
-using Gamestore.Application.Models;
 using Gamestore.Application.Services;
+using Gamestore.Application.Services.Integration.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Genre;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -15,6 +16,7 @@ public class GenreServiceTest
 {
     private readonly Mock<IGameRepository> _mockGameRepo = new();
     private readonly Mock<IGenreRepository> _mockGenreRepo = new();
+    private readonly Mock<ICategoryIntegrationService> _categoryIntegrationService = new();
     private readonly Mock<INorthwindCategoryRepository> _mockCategoryRepo = new();
     private readonly Mock<ILogger<GenreService>> _mockLogger = new();
     private readonly Mock<IMapper> _mockMapper = new();
@@ -269,11 +271,12 @@ public class GenreServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
+        var identiy = new Identity(gameId, null);
         var parent = Guid.NewGuid();
         var name = "Test Genre";
         var genreDto = new GenreUpdateDto
         {
-            Id = gameId,
+            Id = identiy,
             Name = name,
             ParentGenreId = parent,
         };
@@ -300,11 +303,12 @@ public class GenreServiceTest
     {
         // Arrange
         var genreId = Guid.NewGuid();
+        var identity = new Identity(genreId, null);
         var parent = Guid.NewGuid();
         var name = "Test Genre";
         var genreDto = new GenreUpdateDto
         {
-            Id = genreId,
+            Id = identity,
             Name = name,
             ParentGenreId = parent,
         };
@@ -360,6 +364,7 @@ public class GenreServiceTest
       _mockGenreRepo.Object,
       _mockGameRepo.Object,
       _mockCategoryRepo.Object,
+      _categoryIntegrationService.Object,
       _mockMapper.Object,
       _mockLogger.Object);
 }

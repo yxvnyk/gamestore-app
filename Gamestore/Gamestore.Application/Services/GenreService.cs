@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
-using Gamestore.Application.Models;
+using Gamestore.Application.Services.Integration.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Extensions;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Genre;
 using Microsoft.Extensions.Logging;
 
@@ -14,6 +15,7 @@ namespace Gamestore.Application.Services;
 public class GenreService(IGenreRepository genreRepository,
     IGameRepository gameRepository,
     INorthwindCategoryRepository northwindCategoryRepository,
+    ICategoryIntegrationService categoryIntegrationService,
     IMapper mapper, ILogger<GenreService> logger) : IGenreService
 {
     public async Task CreateGenreAsync(GenreCreateDto genre)
@@ -125,9 +127,18 @@ public class GenreService(IGenreRepository genreRepository,
     {
         logger.LogTrace(nameof(this.UpdateGenreAsync));
 
-        var entity = await genreRepository.GetGenreByIdAsync(model.Id) ?? throw new NotFoundException($"Genre with ID {model.Id} does not exist.");
-        mapper.Map(model, entity);
-        await genreRepository.UpdateGenreAsync(entity);
+        var id = model.Id;
+
+        if (id.IsGuid)
+        {
+            var entity = await genreRepository.GetGenreByIdAsync(id.GuidId!.Value) ?? throw new NotFoundException($"Genre with ID {id.GuidId!.Value} does not exist.");
+            mapper.Map(model, entity);
+            await genreRepository.UpdateGenreAsync(entity);
+
+            return;
+        }
+
+        await categoryIntegrationService.PromoteToGenreAndUpdateAsync(model);
     }
 
     public async Task<bool> DeleteByIdAsync(Guid id)

@@ -1,4 +1,4 @@
-﻿using Gamestore.Application.Models;
+﻿using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Genre;
 
 namespace Gamestore.Application.Services.Interfaces;

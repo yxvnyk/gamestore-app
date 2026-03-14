@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Extensions;
-using Gamestore.Application.Models;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
@@ -10,6 +9,7 @@ using Gamestore.Domain.Extensions;
 using Gamestore.Domain.Generators;
 using Gamestore.Domain.Helpers;
 using Gamestore.Domain.Interfaces;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
 

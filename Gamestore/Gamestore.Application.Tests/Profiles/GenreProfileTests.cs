@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.DataAccess.Entities;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Genre;
 
 namespace Gamestore.Application.Tests.Profiles;
@@ -80,17 +81,20 @@ public class GenreProfileTests
     [Fact]
     public void Map_GenreUpdateDto_To_Genre_UpdatesName_AndParent()
     {
+        var id = Guid.NewGuid();
+        var identity = new Identity(id, null);
+
         // Arrange
         var entity = new Genre
         {
-            Id = Guid.NewGuid(),
+            Id = id,
             Name = "Old",
             ParentGenreId = Guid.NewGuid(),
         };
 
         var dto = new GenreUpdateDto
         {
-            Id = entity.Id,
+            Id = identity,
             Name = "New",
             ParentGenreId = Guid.NewGuid(),
         };
@@ -108,7 +112,7 @@ public class GenreProfileTests
     {
         // Arrange
         var originalId = Guid.NewGuid();
-
+        var identity = new Identity(originalId, null);
         var entity = new Genre
         {
             Id = originalId,
@@ -117,7 +121,7 @@ public class GenreProfileTests
 
         var dto = new GenreUpdateDto
         {
-            Id = Guid.NewGuid(),
+            Id = identity,
             Name = "Updated Name",
         };
 
@@ -131,17 +135,20 @@ public class GenreProfileTests
     [Fact]
     public void Map_GenreUpdateDto_AllowsPartialUpdate_WhenNameIsNull()
     {
+        var id = Guid.NewGuid();
+        var identity = new Identity(id, null);
+
         // Arrange
         var entity = new Genre
         {
-            Id = Guid.NewGuid(),
+            Id = id,
             Name = null,
             ParentGenreId = Guid.NewGuid(),
         };
 
         var dto = new GenreUpdateDto
         {
-            Id = entity.Id,
+            Id = identity,
             Name = "Before",
             ParentGenreId = Guid.NewGuid(),
         };

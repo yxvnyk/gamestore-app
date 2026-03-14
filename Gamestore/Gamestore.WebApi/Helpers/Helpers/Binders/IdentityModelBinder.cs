@@ -1,4 +1,4 @@
-﻿using Gamestore.Application.Models;
+﻿using Gamestore.Domain.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Gamestore.WebApi.Helpers.Helpers.Binders;

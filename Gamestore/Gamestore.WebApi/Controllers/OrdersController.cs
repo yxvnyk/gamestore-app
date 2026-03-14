@@ -1,6 +1,6 @@
-﻿using Gamestore.Application.Models;
-using Gamestore.Application.Services.Interfaces;
+﻿using Gamestore.Application.Services.Interfaces;
 using Gamestore.Application.Services.Interfaces.Payments;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Payment;
 using Gamestore.WebApi.Helpers.Helpers.Binders;
 using Microsoft.AspNetCore.Mvc;

@@ -21,6 +21,18 @@ public class GenreProfile : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.CategoryId));
 
+        _ = CreateMap<Category, Genre>()
+            .ForMember(dest => dest.LegacyId, opt => opt.MapFrom(src => src.CategoryId))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.Picture, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.Picture)
+             ? null
+            : Convert.FromBase64String(src.Picture)))
+            .ForMember(dest => dest.ParentGenreId, opt => opt.Ignore())
+            .ForMember(dest => dest.ParentGenre, opt => opt.Ignore())
+            .ForMember(dest => dest.GameGenres, opt => opt.Ignore())
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
         _ = CreateMap<Category, GenreFullDto>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.ParentGenreId, opt => opt.Ignore())

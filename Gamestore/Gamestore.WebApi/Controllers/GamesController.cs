@@ -1,8 +1,8 @@
 ﻿using GameStore.Application.Helpers.Interfaces;
-using Gamestore.Application.Models;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.Domain.Extensions;
 using Gamestore.Domain.Helpers;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Comments;
 using Gamestore.Domain.Models.DTO.Game;
 using Gamestore.WebApi.Helpers.Helpers.Binders;

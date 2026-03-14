@@ -24,5 +24,7 @@ public class Genre
 
     public byte[]? Picture { get; set; }
 
+    public int? LegacyId { get; set; }
+
     public ICollection<GameGenre> GameGenres { get; set; }
 }
