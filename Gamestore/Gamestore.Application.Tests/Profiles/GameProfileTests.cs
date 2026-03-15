@@ -2,6 +2,7 @@
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.DataAccess.Entities;
 using Gamestore.Domain.Models.DTO.Game;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Gamestore.Application.Tests.Profiles;
 
@@ -11,10 +12,12 @@ public class GameProfileTests
 
     public GameProfileTests()
     {
-        var config = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<GameProfile>();
-        });
+        var config = new MapperConfiguration(
+            cfg =>
+            {
+                cfg.AddProfile<GenreProfile>();
+            },
+            NullLoggerFactory.Instance);
 
         config.AssertConfigurationIsValid();
         _mapper = config.CreateMapper();

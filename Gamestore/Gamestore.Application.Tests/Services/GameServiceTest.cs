@@ -11,6 +11,7 @@ using Gamestore.Domain.Interfaces;
 using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 
 namespace Gamestore.Application.Tests.Services;
@@ -30,10 +31,12 @@ public class GameServiceTest
 
     public GameServiceTest()
     {
-        var config = new MapperConfiguration(cfg =>
+        var config = new MapperConfiguration(
+            cfg =>
         {
             cfg.AddProfile<GameProfile>();
-        });
+        },
+            NullLoggerFactory.Instance);
 
         _mapper = config.CreateMapper();
     }

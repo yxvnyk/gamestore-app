@@ -14,6 +14,8 @@ public class Publisher
     [MaxLength(100)]
     public string CompanyName { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     [MaxLength(500)]
     public string? Description { get; set; }
 

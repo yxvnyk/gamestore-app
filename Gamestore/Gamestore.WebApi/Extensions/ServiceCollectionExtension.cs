@@ -1,7 +1,6 @@
 ﻿using Gamestore.Application.Helpers.Generators;
 using Gamestore.Application.Helpers.Interfaces;
 using GameStore.Application.Helpers.Interfaces;
-using Gamestore.Application.Helpers.Profiles;
 using Gamestore.Application.Services;
 using Gamestore.Application.Services.Integration;
 using Gamestore.Application.Services.Integration.Interfaces;
@@ -47,7 +46,9 @@ public static class ServiceCollectionExtension
 
         services.AddScoped<IShipperService, ShipperService>();
 
-        services.AddAutoMapper(typeof(GameProfile));
+        services.AddAutoMapper(cfg =>
+        {
+        });
 
         return services;
     }

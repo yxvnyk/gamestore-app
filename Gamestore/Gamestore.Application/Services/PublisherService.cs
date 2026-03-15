@@ -4,6 +4,7 @@ using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Publisher;
 using Microsoft.Extensions.Logging;
 
@@ -38,9 +39,11 @@ public class PublisherService(IPublisherRepository publisherRepository,
         await publisherRepository.UpdatePublisherAsync(entity);
     }
 
-    public async Task<bool> DeletePublisherAsync(Guid id)
+    public async Task<bool> DeletePublisherAsync(Identity identity)
     {
-        return await publisherRepository.DeletePublisherAsync(id);
+        return identity.IsInt
+            ? throw new BusinessRuleValidationException()
+            : await publisherRepository.DeletePublisherAsync(identity.GuidId!.Value);
     }
 
     public async Task<PublisherDto?> GetPublisherByCompanyNameAsync(string companyName)

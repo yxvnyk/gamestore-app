@@ -38,6 +38,8 @@ public class Game
 
     public DateTime? CreatedDate { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     [MaxLength(20)]
     public string? QuantityPerUnit { get; set; }
 

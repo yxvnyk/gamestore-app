@@ -141,10 +141,12 @@ public class GenreService(IGenreRepository genreRepository,
         await categoryIntegrationService.PromoteToGenreAndUpdateAsync(model);
     }
 
-    public async Task<bool> DeleteByIdAsync(Guid id)
+    public async Task<bool> DeleteByIdAsync(Identity id)
     {
         logger.LogTrace(nameof(this.DeleteByIdAsync));
 
-        return await genreRepository.DeleteByIdAsync(id);
+        return id.IsInt
+            ? throw new BusinessRuleValidationException("Legacy items from Northwind database cannot be deleted.")
+            : await genreRepository.DeleteByIdAsync(id.GuidId!.Value);
     }
 }

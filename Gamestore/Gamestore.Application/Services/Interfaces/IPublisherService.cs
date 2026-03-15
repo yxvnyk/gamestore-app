@@ -1,4 +1,5 @@
-﻿using Gamestore.Domain.Models.DTO.Publisher;
+﻿using Gamestore.Domain.Models;
+using Gamestore.Domain.Models.DTO.Publisher;
 
 namespace Gamestore.Application.Services.Interfaces;
 
@@ -6,7 +7,7 @@ public interface IPublisherService
 {
     Task UpdatePublisherAsync(PublisherUpdateDto publisher);
 
-    Task<bool> DeletePublisherAsync(Guid id);
+    Task<bool> DeletePublisherAsync(Identity identity);
 
     Task CreatePublisherAsync(PublisherCreateDto publisher);
 

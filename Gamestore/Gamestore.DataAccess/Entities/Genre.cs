@@ -26,5 +26,7 @@ public class Genre
 
     public int? LegacyId { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public ICollection<GameGenre> GameGenres { get; set; }
 }

@@ -17,5 +17,5 @@ public interface IGenreService
 
     Task UpdateGenreAsync(GenreUpdateDto model);
 
-    Task<bool> DeleteByIdAsync(Guid id);
+    Task<bool> DeleteByIdAsync(Identity identity);
 }

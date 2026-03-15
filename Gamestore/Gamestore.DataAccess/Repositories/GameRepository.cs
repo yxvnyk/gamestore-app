@@ -114,7 +114,7 @@ public class GameRepository(GamestoreDbContext context) : IGameRepository, IUniq
         var exist = await _context.Games.FirstOrDefaultAsync(g => g.Key == key);
         if (exist != null)
         {
-            _ = _context.Games.Remove(exist);
+            exist.IsDeleted = true;
             _ = await _context.SaveChangesAsync();
             return true;
         }
