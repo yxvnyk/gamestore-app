@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Gamestore.Application.Services.Integration.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
@@ -12,6 +13,7 @@ namespace Gamestore.Application.Services;
 
 public class PublisherService(IPublisherRepository publisherRepository,
     INorthwindSupplierRepository northwindSupplierRepository,
+    ISupplierIntegrationService supplierIntegrationService,
     IMapper mapper, ILogger<PublisherService> logger) : IPublisherService
 {
     public async Task CreatePublisherAsync(PublisherCreateDto publisher)
@@ -28,15 +30,20 @@ public class PublisherService(IPublisherRepository publisherRepository,
         await publisherRepository.CreatePublisherAsync(gameEntity);
     }
 
-    public async Task UpdatePublisherAsync(PublisherUpdateDto publisher)
+    public async Task UpdatePublisherAsync(PublisherUpdateDto updateDto)
     {
         logger.LogTrace(nameof(this.CreatePublisherAsync));
 
-        var entity = await publisherRepository.GetPublisherByIdAsync(publisher.Id) ?? throw new NotFoundException("Publisher not found");
-        await VerifyCompanyName(publisher.CompanyName);
+        await VerifyCompanyName(updateDto.CompanyName);
+        if (updateDto.Id.IsGuid)
+        {
+            var entity = await publisherRepository.GetPublisherByIdAsync(updateDto.Id.GuidId!.Value) ?? throw new NotFoundException("Publisher not found");
 
-        mapper.Map(publisher, entity);
-        await publisherRepository.UpdatePublisherAsync(entity);
+            mapper.Map(updateDto, entity);
+            await publisherRepository.UpdatePublisherAsync(entity);
+        }
+
+        await supplierIntegrationService.PromoteToPublisherAndUpdateAsync(updateDto);
     }
 
     public async Task<bool> DeletePublisherAsync(Identity identity)
@@ -80,7 +87,7 @@ public class PublisherService(IPublisherRepository publisherRepository,
         var supplier = await northwindSupplierRepository.GetByGameKeyAsync(key);
         if (supplier != null)
         {
-            return mapper.Map<PublisherDto>(publisher);
+            return mapper.Map<PublisherDto>(supplier);
         }
 
         // null

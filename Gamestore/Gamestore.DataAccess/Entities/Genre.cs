@@ -22,7 +22,7 @@ public class Genre
     [ForeignKey("ParentGenreId")]
     public Genre? ParentGenre { get; set; }
 
-    public byte[]? Picture { get; set; }
+    public string? Picture { get; set; }
 
     public int? LegacyId { get; set; }
 

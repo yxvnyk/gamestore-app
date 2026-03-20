@@ -1,4 +1,5 @@
 using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Gamestore.Domain.Models.DTO.Publisher;
 using Gamestore.WebApi.Controllers;
@@ -149,16 +150,18 @@ public class PublisherControllerTests
     {
         // Arrange
         var id = Guid.NewGuid();
+        var identity = new Identity(id, null);
+
         var controller = CreateController();
         _mockPublisherService
-            .Setup(s => s.DeletePublisherAsync(id))
+            .Setup(s => s.DeletePublisherAsync(identity))
             .ReturnsAsync(true);
 
         // Act
-        var result = await controller.DeletePublisher(id);
+        var result = await controller.DeletePublisher(identity);
 
         // Assert
-        _mockPublisherService.Verify(s => s.DeletePublisherAsync(id), Times.Once);
+        _mockPublisherService.Verify(s => s.DeletePublisherAsync(identity), Times.Once);
         Assert.IsType<NoContentResult>(result);
     }
 
@@ -167,16 +170,18 @@ public class PublisherControllerTests
     {
         // Arrange
         var id = Guid.NewGuid();
+        var identity = new Identity(id, null);
+
         var controller = CreateController();
         _mockPublisherService
-            .Setup(s => s.DeletePublisherAsync(id))
+            .Setup(s => s.DeletePublisherAsync(identity))
             .ReturnsAsync(false);
 
         // Act
-        var result = await controller.DeletePublisher(id);
+        var result = await controller.DeletePublisher(identity);
 
         // Assert
-        _mockPublisherService.Verify(s => s.DeletePublisherAsync(id), Times.Once);
+        _mockPublisherService.Verify(s => s.DeletePublisherAsync(identity), Times.Once);
         Assert.IsType<NotFoundObjectResult>(result);
     }
 

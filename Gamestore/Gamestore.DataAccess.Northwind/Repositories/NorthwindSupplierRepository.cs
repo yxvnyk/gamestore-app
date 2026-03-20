@@ -37,7 +37,7 @@ public class NorthwindSupplierRepository(NorthwindDbContext context) : INorthwin
     public async Task<Supplier?> GetByCompanyNameAsync(string name)
     {
         var supplier = await _context.Suppliers.AsQueryable()
-            .Where(p => p.ContactName == name)
+            .Where(p => p.CompanyName == name)
             .FirstOrDefaultAsync();
 
         return supplier;

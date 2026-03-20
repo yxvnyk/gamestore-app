@@ -23,6 +23,13 @@ namespace Gamestore.WebApi.Extensions;
 
 public static class ServiceCollectionExtension
 {
+    public static IServiceCollection AddApplicationIntegrationServices(this IServiceCollection services)
+    {
+        services.AddScoped<ISupplierIntegrationService, SupplierIntegrationService>();
+        services.AddScoped<ICategoryIntegrationService, CategoryIntegrationService>();
+        return services;
+    }
+
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddSingleton<IPdfInvoiceGenerator, PdfInvoiceGenerator>();
@@ -42,13 +49,9 @@ public static class ServiceCollectionExtension
         services.AddScoped<IInventoryService, InventoryService>();
         services.AddScoped<IPaymentService, PaymentService>();
 
-        services.AddScoped<ICategoryIntegrationService, CategoryIntegrationService>();
-
         services.AddScoped<IShipperService, ShipperService>();
 
-        services.AddAutoMapper(cfg =>
-        {
-        });
+        services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 
         return services;
     }

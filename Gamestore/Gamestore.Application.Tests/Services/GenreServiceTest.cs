@@ -330,12 +330,13 @@ public class GenreServiceTest
     public async Task DeleteByIdAsync_HappyDelete_ReturnTrue()
     {
         // Arrange
+        var identity = new Identity(Guid.NewGuid(), null);
         _mockGenreRepo.Setup(r => r.DeleteByIdAsync(It.IsAny<Guid>())).ReturnsAsync(true);
 
         var service = CreateService();
 
         // Act
-        var result = await service.DeleteByIdAsync(Guid.NewGuid());
+        var result = await service.DeleteByIdAsync(identity);
 
         // Assert
         Assert.True(result);

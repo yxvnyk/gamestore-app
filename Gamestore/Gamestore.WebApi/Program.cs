@@ -40,6 +40,7 @@ builder.Services.AddDomainServices();
 builder.Services.ConfigureGamestoreDatabase(builder.Configuration);
 builder.Services.ConfigureNorthwindDatabase(builder.Configuration);
 builder.Services.AddDataAccess();
+builder.Services.AddApplicationIntegrationServices();
 builder.Services.AddNorthwindDataAccess();
 builder.Services.AddApplicationServices();
 builder.Services.ConfigurePayments(builder.Configuration);

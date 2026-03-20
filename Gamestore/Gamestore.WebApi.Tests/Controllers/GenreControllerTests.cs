@@ -202,16 +202,18 @@ public class GenreControllerTests
     {
         // Arrange
         var id = Guid.NewGuid();
+        var identity = new Identity(id, null);
+
         var controller = CreateController();
         _mockGenreService
-            .Setup(s => s.DeleteByIdAsync(id))
+            .Setup(s => s.DeleteByIdAsync(identity))
             .ReturnsAsync(true);
 
         // Act
-        var result = await controller.DeleteGenre(id);
+        var result = await controller.DeleteGenre(identity);
 
         // Assert
-        _mockGenreService.Verify(s => s.DeleteByIdAsync(id), Times.Once);
+        _mockGenreService.Verify(s => s.DeleteByIdAsync(identity), Times.Once);
         Assert.IsType<NoContentResult>(result);
     }
 
@@ -220,16 +222,18 @@ public class GenreControllerTests
     {
         // Arrange
         var id = Guid.NewGuid();
+        var identity = new Identity(id, null);
+
         var controller = CreateController();
         _mockGenreService
-            .Setup(s => s.DeleteByIdAsync(id))
+            .Setup(s => s.DeleteByIdAsync(identity))
             .ReturnsAsync(false);
 
         // Act
-        var result = await controller.DeleteGenre(id);
+        var result = await controller.DeleteGenre(identity);
 
         // Assert
-        _mockGenreService.Verify(s => s.DeleteByIdAsync(id), Times.Once);
+        _mockGenreService.Verify(s => s.DeleteByIdAsync(identity), Times.Once);
         Assert.IsType<NotFoundObjectResult>(result);
     }
 

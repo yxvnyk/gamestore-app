@@ -5,7 +5,7 @@ namespace Gamestore.Application.Services.Interfaces;
 
 public interface IPublisherService
 {
-    Task UpdatePublisherAsync(PublisherUpdateDto publisher);
+    Task UpdatePublisherAsync(PublisherUpdateDto updateDto);
 
     Task<bool> DeletePublisherAsync(Identity identity);
 

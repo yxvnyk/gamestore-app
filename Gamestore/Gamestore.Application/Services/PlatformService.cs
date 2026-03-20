@@ -50,7 +50,7 @@ public class PlatformService(IPlatformRepository platformRepository,
         var gameExists = await gameRepository.GameKeyExistAsync(key);
         if (!gameExists)
         {
-            return null;
+            return [];
         }
 
         var platformEntities = await platformRepository.GetPlatformsByGameKeyAsync(key);

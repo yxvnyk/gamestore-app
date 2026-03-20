@@ -1,5 +1,7 @@
 ﻿using Gamestore.Application.Services.Interfaces;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Publisher;
+using Gamestore.WebApi.Helpers.Helpers.Binders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gamestore.WebApi.Controllers;
@@ -25,7 +27,7 @@ public class PublishersController(IPublisherService publisherService, IGameServi
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> DeletePublisher(Guid id)
+    public async Task<IActionResult> DeletePublisher([ModelBinder(BinderType = typeof(IdentityModelBinder))] Identity id)
     {
         bool result = await publisherService.DeletePublisherAsync(id);
         return result ? NoContent() : NotFound($"Publisher with ID {id} not found.");
@@ -45,7 +47,7 @@ public class PublishersController(IPublisherService publisherService, IGameServi
         return Ok(publishers);
     }
 
-    [HttpGet("{companyName:alpha}/games")]
+    [HttpGet("{companyName}/games")]
     [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetGamesByPublisherName(string companyName)
     {

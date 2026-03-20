@@ -1,5 +1,4 @@
-﻿using System.Security.Principal;
-using AutoMapper;
+﻿using AutoMapper;
 using Gamestore.Application.Extensions;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;

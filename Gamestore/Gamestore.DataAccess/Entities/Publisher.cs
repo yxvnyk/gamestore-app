@@ -16,6 +16,8 @@ public class Publisher
 
     public bool IsDeleted { get; set; }
 
+    public int? LegacyId { get; set; }
+
     [MaxLength(500)]
     public string? Description { get; set; }
 

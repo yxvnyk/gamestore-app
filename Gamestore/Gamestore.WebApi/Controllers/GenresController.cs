@@ -51,7 +51,7 @@ public class GenresController(IGenreService genreService, IGameService gameServi
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> DeleteGenre(Guid id)
+    public async Task<IActionResult> DeleteGenre([ModelBinder(BinderType = typeof(IdentityModelBinder))] Identity id)
     {
         bool result = await genreService.DeleteByIdAsync(id);
         return result ? NoContent() : NotFound($"Genre with ID {id} not found.");
