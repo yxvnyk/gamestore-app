@@ -4,7 +4,6 @@ using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
-using Gamestore.Domain.Models;
 
 namespace Gamestore.Application.Services.Integration;
 
@@ -14,15 +13,8 @@ public class ProductIntegrationService(INorthwindProductRepository productReposi
     ICategoryIntegrationService categoryIntegrationService,
     IMapper mapper) : IProductIntegrationService
 {
-    public async Task<Guid> EnsurePromotedAsync(Identity identity)
+    public async Task<Guid> EnsurePromotedAsync(int id)
     {
-        if (identity.IsGuid)
-        {
-            return identity.GuidId!.Value;
-        }
-
-        var id = identity.IntId!.Value;
-
         var product = await productRepository.GetAsync(id) ?? throw new NotFoundException($"Game with ID {id} does not exist.");
 
         var promotedId = await gameRepository.GetGameIdByKeyAsync(product.GameKey);

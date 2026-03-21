@@ -37,7 +37,7 @@ public static class ServiceCollectionExtension
         services.AddSingleton<IPdfInvoiceGenerator, PdfInvoiceGenerator>();
         services.AddScoped<IKeyGenerator, UniqueKeyGenerator>();
 
-        services.AddScoped<IGameUpdateService, GameUpdateService>();
+        services.AddScoped<IGameDependencyResolver, GameDependencyResolver>();
         services.AddScoped<IGameService, GameService>();
         services.AddScoped<IGenreService, GenreService>();
         services.AddScoped<IPlatformService, PlatformService>();

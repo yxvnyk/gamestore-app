@@ -1,8 +1,6 @@
-﻿using Gamestore.Domain.Models;
-
-namespace Gamestore.Application.Services.Integration.Interfaces;
+﻿namespace Gamestore.Application.Services.Integration.Interfaces;
 
 public interface IProductIntegrationService
 {
-    Task<Guid> EnsurePromotedAsync(Identity identity);
+    Task<Guid> EnsurePromotedAsync(int id);
 }
