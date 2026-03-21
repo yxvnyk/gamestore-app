@@ -13,4 +13,6 @@ public interface INorthwindSupplierRepository
     Task<Supplier>? GetAsync(int id);
 
     Task<Supplier?> GetByCompanyNameAsync(string name);
+
+    Task<bool> SupplierExistsAsync(int id);
 }

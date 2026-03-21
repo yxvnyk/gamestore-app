@@ -16,6 +16,8 @@ public interface IGenreRepository
 
     Task<IEnumerable<Genre>> GetGenresByParentIdAsync(Guid id);
 
+    Task<Guid?> GetIdByLegacyIdAsync(int id);
+
     Task UpdateGenreAsync(Genre entity);
 
     Task<bool> DeleteByIdAsync(Guid id);

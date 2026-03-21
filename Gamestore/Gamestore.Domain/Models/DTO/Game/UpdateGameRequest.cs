@@ -7,9 +7,9 @@ public class UpdateGameRequest
     [Required]
     public GameUpdateDto Game { get; set; }
 
-    public string[]? Genres { get; set; }
+    public Identity[]? Genres { get; set; }
 
     public Guid[]? Platforms { get; set; }
 
-    public string? Publisher { get; set; }
+    public Identity? Publisher { get; set; }
 }

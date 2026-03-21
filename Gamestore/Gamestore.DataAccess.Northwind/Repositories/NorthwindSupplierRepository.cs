@@ -16,6 +16,12 @@ public class NorthwindSupplierRepository(NorthwindDbContext context) : INorthwin
         return await _context.Products.Find(filter).AnyAsync();
     }
 
+    public async Task<bool> SupplierExistsAsync(int id)
+    {
+        var filter = Builders<Supplier>.Filter.Eq(p => p.SupplierId, id);
+        return await _context.Suppliers.Find(filter).AnyAsync();
+    }
+
     public async Task<Supplier?> GetByGameKeyAsync(string key)
     {
         var supplierId = await _context.Products.AsQueryable()

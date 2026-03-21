@@ -27,6 +27,8 @@ public static class ServiceCollectionExtension
     {
         services.AddScoped<ISupplierIntegrationService, SupplierIntegrationService>();
         services.AddScoped<ICategoryIntegrationService, CategoryIntegrationService>();
+        services.AddScoped<IProductIntegrationService, ProductIntegrationService>();
+
         return services;
     }
 
@@ -35,6 +37,7 @@ public static class ServiceCollectionExtension
         services.AddSingleton<IPdfInvoiceGenerator, PdfInvoiceGenerator>();
         services.AddScoped<IKeyGenerator, UniqueKeyGenerator>();
 
+        services.AddScoped<IGameUpdateService, GameUpdateService>();
         services.AddScoped<IGameService, GameService>();
         services.AddScoped<IGenreService, GenreService>();
         services.AddScoped<IPlatformService, PlatformService>();

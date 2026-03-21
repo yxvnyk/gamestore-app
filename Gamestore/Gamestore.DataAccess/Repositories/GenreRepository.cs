@@ -32,6 +32,15 @@ public class GenreRepository(GamestoreDbContext context) : IGenreRepository
         .ToListAsync();
     }
 
+    public async Task<Guid?> GetIdByLegacyIdAsync(int id)
+    {
+        return await _context.Genres.
+            AsNoTracking()
+            .Where(p => p.LegacyId == id)
+            .Select(p => p.Id)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<Genre> GetGenreByIdAsync(Guid id)
     {
         return await _context.Genres.FindAsync(id);

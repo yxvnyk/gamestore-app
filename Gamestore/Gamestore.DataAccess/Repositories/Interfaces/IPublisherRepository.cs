@@ -21,4 +21,6 @@ public interface IPublisherRepository
     Task<bool> PublisherExistAsync(Guid id);
 
     Task<bool> PublisherCompanyNameExistAsync(string companyName);
+
+    Task<Guid?> GetIdByLegacyIdAsync(int id);
 }

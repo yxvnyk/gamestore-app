@@ -19,4 +19,19 @@ public class CategoryIntegrationService(INorthwindCategoryRepository categoryRep
 
         await genreRepository.CreateGenreAsync(genre);
     }
+
+    public async Task<Guid> EnsurePromotedAsync(int id)
+    {
+        var category = await categoryRepository.GetAsync(id) ?? throw new NotFoundException($"Category with ID {id} does not exist.");
+
+        var promotedId = await genreRepository.GetIdByLegacyIdAsync(category.CategoryId);
+        if (promotedId is not null && promotedId != Guid.Empty)
+        {
+            return promotedId!.Value;
+        }
+
+        var genre = mapper.Map<Genre>(category);
+        await genreRepository.CreateGenreAsync(genre);
+        return genre.Id;
+    }
 }

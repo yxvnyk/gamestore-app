@@ -19,4 +19,19 @@ public class SupplierIntegrationService(INorthwindSupplierRepository supplierRep
 
         await publisherRepository.CreatePublisherAsync(publisher);
     }
+
+    public async Task<Guid> EnsurePromotedAsync(int id)
+    {
+        var supplier = await supplierRepository.GetAsync(id) ?? throw new NotFoundException($"Supplier with ID {id} does not exist.");
+
+        var promotedId = await publisherRepository.GetIdByLegacyIdAsync(supplier.SupplierId);
+        if (promotedId is not null && promotedId != Guid.Empty)
+        {
+            return promotedId.Value;
+        }
+
+        var publisher = mapper.Map<Publisher>(supplier);
+        await publisherRepository.CreatePublisherAsync(publisher);
+        return publisher.Id;
+    }
 }

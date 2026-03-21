@@ -11,4 +11,6 @@ public interface INorthwindCategoryRepository
     Task<IEnumerable<Category>> GetAllAsync();
 
     Task<Category>? GetAsync(int id);
+
+    Task<bool> CategoryExistsAsync(int id);
 }

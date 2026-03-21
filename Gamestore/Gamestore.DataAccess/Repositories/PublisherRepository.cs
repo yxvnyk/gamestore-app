@@ -50,6 +50,15 @@ public class PublisherRepository(GamestoreDbContext context) : IPublisherReposit
         return publisher;
     }
 
+    public async Task<Guid?> GetIdByLegacyIdAsync(int id)
+    {
+        return await _context.Publishers.
+            AsNoTracking()
+            .Where(p => p.LegacyId == id)
+            .Select(p => p.Id)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<Publisher?> GetPublisherByIdAsync(Guid id)
     {
         return await _context.Publishers.FindAsync(id);
