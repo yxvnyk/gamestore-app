@@ -9,7 +9,8 @@ using MongoDB.Driver.Linq;
 
 namespace Gamestore.DataAccess.Northwind.Repositories;
 
-public class NorthwindProductRepository(NorthwindDbContext context) : INorthwindProductRepository, IUniqueKeyRepository
+public class NorthwindProductRepository(NorthwindDbContext context,
+    IAuditLogService auditLogServices) : INorthwindProductRepository, IUniqueKeyRepository
 {
     private readonly NorthwindDbContext _context = context;
 
@@ -106,8 +107,24 @@ public class NorthwindProductRepository(NorthwindDbContext context) : INorthwind
     {
         var filter = Builders<Product>.Filter.Eq(p => p.GameKey, key);
 
+        var oldProduct = await _context.Products
+            .FindAsync(filter);
+
         var update = Builders<Product>.Update.Set(p => p.UnitsInStock, -quantityToDeduct);
 
         await _context.Products.UpdateOneAsync(filter, update);
+
+        var newProduct = await _context.Products
+            .FindAsync(filter);
+
+        await auditLogServices.LogChangeAsync(
+            action: "Modified",
+            entityType: nameof(Product),
+            oldValues: oldProduct.GetType()
+            .GetProperties()
+            .ToDictionary(p => p.Name, p => p.GetValue(oldProduct)),
+            newValues: newProduct.GetType()
+            .GetProperties()
+            .ToDictionary(p => p.Name, p => p.GetValue(oldProduct)));
     }
 }

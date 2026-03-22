@@ -18,6 +18,7 @@ public class NorthwindDbContext
     private const string ShippersCollectionName = "shippers";
     private const string SuppliersCollectionName = "suppliers";
     private const string TerritoriesCollectionName = "territories";
+    private const string AuditLogCollectionName = "audit-log";
 
     private readonly IMongoDatabase _database;
 
@@ -46,4 +47,6 @@ public class NorthwindDbContext
     public IMongoCollection<Supplier> Suppliers => _database.GetCollection<Supplier>(SuppliersCollectionName);
 
     public IMongoCollection<Territory> Territories => _database.GetCollection<Territory>(TerritoriesCollectionName);
+
+    public IMongoCollection<AuditLog> AuditLog => _database.GetCollection<AuditLog>(AuditLogCollectionName);
 }

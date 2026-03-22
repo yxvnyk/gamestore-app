@@ -15,6 +15,7 @@ using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Generators;
+using Gamestore.Domain.Interfaces;
 using Gamestore.Domain.Models.Configuration;
 using Gamestore.Infrastructure.ExternalServices;
 using Microsoft.EntityFrameworkCore;
@@ -67,6 +68,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<INorthwindCategoryRepository, NorthwindCategoryRepository>();
         services.AddScoped<INorthwindSupplierRepository, NorthwindSupplierRepository>();
         services.AddScoped<INorthwindOrderDetailsRepository, NorthwindOrderDetailsRepository>();
+        services.AddScoped<IAuditLogService, NorthwindAuditLogService>();
 
         services.AddScoped<NothwindDbInitializer>();
 
@@ -95,8 +97,13 @@ public static class ServiceCollectionExtension
 
     public static IServiceCollection ConfigureGamestoreDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<GamestoreDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("GamestoreDb")));
+        services.AddScoped<AuditInterceptor>();
+        services.AddDbContext<GamestoreDbContext>((sp, options) =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("GamestoreDb"));
+            var inteceptor = sp.GetRequiredService<AuditInterceptor>();
+            options.AddInterceptors(inteceptor);
+        });
 
         return services;
     }

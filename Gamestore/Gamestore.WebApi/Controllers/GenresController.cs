@@ -28,7 +28,6 @@ public class GenresController(IGenreService genreService, IGameService gameServi
     }
 
     [HttpGet]
-    [ResponseCache(Duration = 60)]
     public async Task<IActionResult> GetAllGenres()
     {
         var genres = await genreService.GetAllGenresAsync();
