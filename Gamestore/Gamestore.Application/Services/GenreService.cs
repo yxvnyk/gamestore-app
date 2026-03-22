@@ -2,6 +2,7 @@
 using Gamestore.Application.Services.Integration.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
@@ -43,8 +44,7 @@ public class GenreService(IGenreRepository genreRepository,
         var genres = await genreTask;
         var categories = await categoryTask;
 
-        var genreDtos = mapper.Map<IEnumerable<GenreDto>>(genres);
-        genreDtos = genreDtos.Concat(mapper.Map<IEnumerable<GenreDto>>(categories));
+        var genreDtos = RemoveGenreDuplications(genres, categories);
 
         return genreDtos;
     }
@@ -53,31 +53,36 @@ public class GenreService(IGenreRepository genreRepository,
     {
         logger.LogTrace(nameof(this.GetGenresByGameKeyAsync));
 
-        var gameExists = await gameRepository.GameKeyExistAsync(key);
-        if (gameExists)
+        var sqlGameExistsTask = gameRepository.GameKeyExistAsync(key);
+        var mongoCategoryTask = northwindCategoryRepository.GetByGameKeyAsync(key);
+
+        await Task.WhenAll(sqlGameExistsTask, mongoCategoryTask);
+
+        var isSqlGameFound = sqlGameExistsTask.Result;
+        var mongoCategory = mongoCategoryTask.Result;
+
+        if (!isSqlGameFound && mongoCategory == null)
         {
-            var genreEntities = await genreRepository.GetGenresByGameKeyAsync(key);
-            if (genreEntities != null)
+            throw new NotFoundException($"Game with key '{key}' not found.");
+        }
+
+        var genres = new List<GenreDto>();
+
+        if (isSqlGameFound)
+        {
+            var sqlGenres = await genreRepository.GetGenresByGameKeyAsync(key);
+            if (sqlGenres != null && sqlGenres.Any())
             {
-                return mapper.Map<IEnumerable<GenreDto>>(genreEntities);
+                genres.AddRange(mapper.Map<IEnumerable<GenreDto>>(sqlGenres));
             }
         }
 
-        var categoryExists = await northwindCategoryRepository.GameKeyExistAsync(key);
-        if (categoryExists)
+        if (mongoCategory != null)
         {
-            var categoryEntity = await northwindCategoryRepository.GetByGameKeyAsync(key);
-            if (categoryEntity == null)
-            {
-                return [];
-            }
-
-            List<GenreDto> categories = [];
-            categories.Add(mapper.Map<GenreDto>(categoryEntity));
-            return categories;
+            genres.Add(mapper.Map<GenreDto>(mongoCategory));
         }
 
-        throw new NotFoundException($"Game with key '{key}' not found.");
+        return [.. genres.DistinctBy(g => g.Name.ToLowerInvariant())];
     }
 
     public async Task<GenreFullDto?> GetGenreByIdAsync(Identity id)
@@ -93,16 +98,10 @@ public class GenreService(IGenreRepository genreRepository,
             }
         }
 
-        if (id.IsInt)
-        {
-            var genreEntity = await northwindCategoryRepository.GetAsync(id.IntId!.Value);
-            if (genreEntity != null)
-            {
-                return mapper.Map<GenreFullDto>(genreEntity);
-            }
-        }
-
-        throw new NotFoundException($"Genre with ID '{id}' not found.");
+        var categoryEntity = await northwindCategoryRepository.GetAsync(id.IntId!.Value);
+        return categoryEntity != null
+            ? mapper.Map<GenreFullDto>(categoryEntity)
+            : throw new NotFoundException($"Genre with ID '{id}' not found.");
     }
 
     public async Task<List<GenreDto>> GetGenresByParentIdAsync(Identity id)
@@ -148,5 +147,16 @@ public class GenreService(IGenreRepository genreRepository,
         return identity.IsInt
             ? throw new BusinessRuleValidationException("Legacy items from Northwind database cannot be deleted.")
             : await genreRepository.DeleteByIdAsync(identity.GuidId!.Value);
+    }
+
+    private IEnumerable<GenreDto> RemoveGenreDuplications(IEnumerable<Genre> genres, IEnumerable<Category> categories)
+    {
+        var gameLegacyIds = genres.Select(g => g.LegacyId).ToHashSet();
+        var uniqueProducts = categories.Where(p => !gameLegacyIds.Contains(p.CategoryId))
+            .ToList();
+
+        var genreDtos = mapper.Map<IEnumerable<GenreDto>>(genres);
+        var combinedList = genreDtos.Concat(mapper.Map<IEnumerable<GenreDto>>(uniqueProducts));
+        return combinedList;
     }
 }

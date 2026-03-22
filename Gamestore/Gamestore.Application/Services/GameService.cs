@@ -2,8 +2,10 @@
 using Gamestore.Application.Extensions;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
+using Gamestore.DataAccess.Wrappers;
 using Gamestore.Domain.Exceptions;
 using Gamestore.Domain.Extensions;
 using Gamestore.Domain.Generators;
@@ -113,11 +115,10 @@ public class GameService(IGameRepository gameRepository,
 
         await Task.WhenAll(getGamesTask, getProductsTask);
 
-        var games = await getProductsTask;
+        var games = await getGamesTask;
         var products = await getProductsTask;
 
-        var gameDtos = mapper.Map<IEnumerable<GameDto>>(games);
-        var combinedList = gameDtos.Concat(mapper.Map<IEnumerable<GameDto>>(products));
+        var combinedList = RemoveProductDuplications(games, products);
 
         return [.. combinedList];
     }
@@ -134,8 +135,7 @@ public class GameService(IGameRepository gameRepository,
         var games = await getGamesTask;
         var products = await getProductsTask;
 
-        var gameDtos = mapper.Map<IEnumerable<GameDto>>(games);
-        var combinedList = gameDtos.Concat(mapper.Map<IEnumerable<GameDto>>(products));
+        var combinedList = RemoveProductDuplications(games, products);
 
         var totalItemCount = combinedList.Count();
         var finalList = combinedList.ApplySorting(request.Sort).ApplyPaging(request.Page, request.PageSize);
@@ -219,5 +219,27 @@ public class GameService(IGameRepository gameRepository,
         }
 
         await gameRepository.UpdateGameAsync(entity);
+    }
+
+    private IEnumerable<GameDto> RemoveProductDuplications(IEnumerable<GameWithStats> games, IEnumerable<Product> products)
+    {
+        var gameKeys = games.Select(g => g.Game.Key.ToLowerInvariant()).ToHashSet();
+        var uniqueProducts = products.Where(p => !gameKeys.Contains(p.GameKey.ToLowerInvariant()))
+            .ToList();
+
+        var gameDtos = mapper.Map<IEnumerable<GameDto>>(games);
+        var combinedList = gameDtos.Concat(mapper.Map<IEnumerable<GameDto>>(uniqueProducts));
+        return combinedList;
+    }
+
+    private IEnumerable<GameDto> RemoveProductDuplications(IEnumerable<Game> games, IEnumerable<Product> products)
+    {
+        var gameKeys = games.Select(g => g.Key.ToLowerInvariant()).ToHashSet();
+        var uniqueProducts = products.Where(p => !gameKeys.Contains(p.GameKey.ToLowerInvariant()))
+            .ToList();
+
+        var gameDtos = mapper.Map<IEnumerable<GameDto>>(games);
+        var combinedList = gameDtos.Concat(mapper.Map<IEnumerable<GameDto>>(uniqueProducts));
+        return combinedList;
     }
 }

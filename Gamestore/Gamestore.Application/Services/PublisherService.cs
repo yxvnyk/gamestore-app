@@ -2,6 +2,7 @@
 using Gamestore.Application.Services.Integration.Interfaces;
 using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
@@ -106,8 +107,7 @@ public class PublisherService(IPublisherRepository publisherRepository,
         var publishers = await publisherTask;
         var suppliers = await supplierTask;
 
-        var publishersDtos = mapper.Map<IEnumerable<PublisherDto>>(publishers);
-        publishersDtos = publishersDtos.Concat(mapper.Map<IEnumerable<PublisherDto>>(suppliers));
+        var publishersDtos = RemoveGenreDuplications(publishers, suppliers);
 
         return publishersDtos;
     }
@@ -124,5 +124,16 @@ public class PublisherService(IPublisherRepository publisherRepository,
         {
             throw new NotUniqueCompanyNameException();
         }
+    }
+
+    private IEnumerable<PublisherDto> RemoveGenreDuplications(IEnumerable<Publisher> publisher, IEnumerable<Supplier> supplier)
+    {
+        var publisherLegacyIds = publisher.Select(g => g.LegacyId).ToHashSet();
+        var uniqueSuppliers = supplier.Where(p => !publisherLegacyIds.Contains(p.SupplierId))
+            .ToList();
+
+        var genreDtos = mapper.Map<IEnumerable<PublisherDto>>(publisher);
+        var combinedList = genreDtos.Concat(mapper.Map<IEnumerable<PublisherDto>>(uniqueSuppliers));
+        return combinedList;
     }
 }
