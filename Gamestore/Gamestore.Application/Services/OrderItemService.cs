@@ -89,7 +89,7 @@ public class OrderItemService(
 
     public async Task AddGameToCartAsync(string gameKey, Guid customerId)
     {
-        logger.LogInformation("Adding game {GameKey} to cart for customer {CustomerId}", gameKey, customerId);
+        logger.LogInformation($"Adding game {gameKey} to cart for customer {customerId}", gameKey, customerId);
 
         var gameId = await GetGameIdOrThrowAsync(gameKey);
         var unitsInStock = await gameRepository.GetUnitsInStockAsync(gameId);

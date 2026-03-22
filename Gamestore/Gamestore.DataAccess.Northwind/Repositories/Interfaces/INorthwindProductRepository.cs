@@ -1,6 +1,5 @@
 ﻿using Gamestore.DataAccess.Northwind.Entities;
 using Gamestore.Domain.Models.DTO.Game;
-using MongoDB.Bson;
 
 namespace Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 
@@ -10,7 +9,7 @@ public interface INorthwindProductRepository
 
     Task<bool> DeleteByKeyAsync(string key);
 
-    Task UpdateAsync(BsonDocument productDoc, string gameKey);
+    Task SetUnitsInStockAsync(string key, int quantityToDeduct);
 
     Task<IEnumerable<Product>> GetBySupplierNameAsync(string companyName);
 
@@ -21,4 +20,6 @@ public interface INorthwindProductRepository
     Task<IEnumerable<Product>> GetByCategoryAsync(int id);
 
     Task<IEnumerable<Product>> GetBySupplierAsync(int id);
+
+    Task<bool> GameKeyExistAsync(string key);
 }

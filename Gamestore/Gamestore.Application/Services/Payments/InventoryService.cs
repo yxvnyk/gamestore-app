@@ -1,12 +1,14 @@
 ﻿using System.Transactions;
 using Gamestore.Application.Services.Interfaces.Payments;
 using Gamestore.DataAccess.Entities;
+using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
 using Gamestore.Domain.Exceptions;
 
 namespace Gamestore.Application.Services.Payments;
 
-public class InventoryService(IGameRepository gameRepository) : IInventoryService
+public class InventoryService(IGameRepository gameRepository,
+    INorthwindProductRepository northwindProductRepository) : IInventoryService
 {
     public async Task ReserveStockGameForOrderAsync(IEnumerable<OrderGame> items)
     {
@@ -23,6 +25,7 @@ public class InventoryService(IGameRepository gameRepository) : IInventoryServic
 
             game.UnitsInStock -= item.Quantity;
             await gameRepository.UpdateGameAsync(game);
+            await northwindProductRepository.SetUnitsInStockAsync(game.Key, item.Quantity);
         }
 
         scope.Complete();
@@ -37,6 +40,7 @@ public class InventoryService(IGameRepository gameRepository) : IInventoryServic
             var game = await gameRepository.GetByIdAsync(item.ProductId);
             game.UnitsInStock += item.Quantity;
             await gameRepository.UpdateGameAsync(game);
+            await northwindProductRepository.SetUnitsInStockAsync(game.Key, item.Quantity);
         }
 
         scope.Complete();

@@ -218,7 +218,20 @@ public class GameService(IGameRepository gameRepository,
             entity.PublisherId = await dependencyResolver.ResolveAndValidatePublisherAsync(updateRequest.Publisher);
         }
 
+        await SynchrnizeWithProduct(entity);
         await gameRepository.UpdateGameAsync(entity);
+    }
+
+    private async Task SynchrnizeWithProduct(Game entity)
+    {
+        try
+        {
+            await northwindProductRepository.SetUnitsInStockAsync(entity.Key, entity.UnitsInStock);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "CRITICAL: Failed to sync UnitsInStock for Game {Key} in MongoDB. SQL is updated, but Mongo is out of sync. Manual intervention required.", entity.Key);
+        }
     }
 
     private IEnumerable<GameDto> RemoveProductDuplications(IEnumerable<GameWithStats> games, IEnumerable<Product> products)

@@ -4,7 +4,6 @@ using Gamestore.DataAccess.Northwind.Extension;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.Domain.Interfaces;
 using Gamestore.Domain.Models.DTO.Game;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
@@ -103,14 +102,12 @@ public class NorthwindProductRepository(NorthwindDbContext context) : INorthwind
         return result.DeletedCount > 0;
     }
 
-    public async Task UpdateAsync(BsonDocument productDoc, string gameKey)
+    public async Task SetUnitsInStockAsync(string key, int quantityToDeduct)
     {
-        if (productDoc.ElementCount == 0)
-        {
-            return;
-        }
+        var filter = Builders<Product>.Filter.Eq(p => p.GameKey, key);
 
-        var filter = Builders<Product>.Filter.Eq("GameKey", gameKey);
-        await _context.Products.UpdateOneAsync(filter, productDoc);
+        var update = Builders<Product>.Update.Set(p => p.UnitsInStock, -quantityToDeduct);
+
+        await _context.Products.UpdateOneAsync(filter, update);
     }
 }

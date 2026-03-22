@@ -25,7 +25,16 @@ public class GameProfile : Profile
                 src.Platforms.Select(id => new GamePlatform { PlatformId = id })))
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
-        _ = CreateMap<Game, GameDto>();
+        _ = CreateMap<Game, GameDto>()
+             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+            .ForMember(dest => dest.UnitInStock, opt => opt.MapFrom(src => src.UnitsInStock))
+            .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Discount))
+            .ForMember(dest => dest.CommentCount, opt => opt.MapFrom(src => src.Comments.Count()));
 
         _ = CreateMap<Product, GameDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId))
