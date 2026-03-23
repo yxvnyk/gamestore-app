@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.DataAccess.Entities;
+using Gamestore.Domain.Models;
 using Gamestore.Domain.Models.DTO.Game;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -38,7 +39,7 @@ public class GameProfileTests
                 Price = 10,
                 UnitInStock = 100,
             },
-            Genres = [Guid.NewGuid(), Guid.NewGuid()],
+            Genres = [new Identity(Guid.NewGuid(), null), new Identity(Guid.NewGuid(), null)],
             Platforms = [Guid.NewGuid()],
         };
 
@@ -163,7 +164,7 @@ public class GameProfileTests
                 Price = 0,
                 UnitInStock = 0,
             },
-            Genres = [Guid.NewGuid(), Guid.NewGuid()],
+            Genres = [new Identity(Guid.NewGuid(), null), new Identity(Guid.NewGuid(), null)],
             Platforms = [Guid.NewGuid(), Guid.NewGuid()],
         };
 

@@ -1,6 +1,7 @@
 using AutoMapper;
 using Gamestore.Application.Helpers.Profiles;
 using Gamestore.Application.Services;
+using Gamestore.Application.Services.Interfaces;
 using Gamestore.DataAccess.Entities;
 using Gamestore.DataAccess.Northwind.Repositories.Interfaces;
 using Gamestore.DataAccess.Repositories.Interfaces;
@@ -22,9 +23,7 @@ public class GameServiceTest
 
     private readonly Mock<IGameRepository> _mockGameRepo = new();
     private readonly Mock<INorthwindProductRepository> _mockNorthwindRepo = new();
-    private readonly Mock<IGenreRepository> _mockGenreRepo = new();
-    private readonly Mock<IPlatformRepository> _mockPlatformRepo = new();
-    private readonly Mock<IPublisherRepository> _mockPublisherRepo = new();
+    private readonly Mock<IGameDependencyResolver> _mockDependencyResolver = new();
     private readonly Mock<IKeyGenerator> _mockKeyGen = new();
     private readonly Mock<ILogger<GameService>> _mockLogger = new();
     private readonly Mock<IMapper> _mockMapper = new();
@@ -46,16 +45,17 @@ public class GameServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
+        var identity = new Identity(gameId, null);
         var gameDto = new UpdateGameRequest
         {
             Game = new GameUpdateDto
             {
-                Id = gameId.ToString(),
+                Id = identity,
                 Name = "Test Game",
                 Description = "Test Description",
                 Key = "test-game",
             },
-            Genres = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()],
+            Genres = [new Identity(Guid.NewGuid(), null), new Identity(Guid.NewGuid(), null)],
             Platforms = [Guid.NewGuid()],
         };
 
@@ -72,13 +72,14 @@ public class GameServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
-        var genres = new string[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+        var identity = new Identity(gameId, null);
+        var genres = new Identity[] { new(Guid.NewGuid(), null), new(Guid.NewGuid(), null) };
         var platforms = new Guid[] { Guid.NewGuid(), Guid.NewGuid() };
         var gameDto = new UpdateGameRequest
         {
             Game = new GameUpdateDto
             {
-                Id = gameId.ToString(),
+                Id = identity,
                 Name = "Test Game",
                 Description = "Test Description",
                 Key = "test-game",
@@ -95,8 +96,7 @@ public class GameServiceTest
         };
 
         _mockGameRepo.Setup(repo => repo.GetGameWithJoinsAsync(gameId)).ReturnsAsync(entity);
-        _mockGenreRepo.Setup(repo => repo.GenreExistsAsync(It.IsAny<Guid>())).ReturnsAsync(true);
-        _mockPlatformRepo.Setup(repo => repo.PlatformExistsAsync(It.IsAny<Guid>())).ReturnsAsync(true);
+        _mockDependencyResolver.Setup(repo => repo.GetGameGuidOrPromote(identity)).ReturnsAsync(gameId);
 
         var gameService = CreateService();
 
@@ -107,7 +107,7 @@ public class GameServiceTest
         _mockMapper.Verify(m => m.Map(gameDto, entity), Times.Once);
         _mockGameRepo.Verify(r => r.UpdateGameAsync(entity), Times.Once);
 
-        Assert.All(entity.GameGenres, gg => Assert.Contains(gg.GenreId.ToString(), genres));
+        Assert.All(entity.GameGenres, gg => Assert.Contains(gg.GenreId.ToString(), genres.Select(g => g.GuidId!.Value.ToString())));
         Assert.All(entity.GamePlatforms, gp => Assert.Contains(gp.PlatformId, platforms));
     }
 
@@ -447,11 +447,11 @@ public class GameServiceTest
                 Description = "Test Description",
                 Key = "test-game",
             },
-            Genres = [Guid.NewGuid(), Guid.NewGuid()],
+            Genres = [new Identity(Guid.NewGuid(), null), new Identity(Guid.NewGuid(), null)],
             Platforms = [Guid.NewGuid()],
         };
 
-        _mockGenreRepo.Setup(r => r.GenreExistsAsync(It.IsAny<Guid>())).ReturnsAsync(false);
+        _mockDependencyResolver.Setup(r => r.ResolveAndValidateGenresAsync(gameDto.Genres));
 
         var gameService = CreateService();
 
@@ -473,11 +473,11 @@ public class GameServiceTest
                 Description = "Test Description",
                 Key = "test-game",
             },
-            Genres = [Guid.NewGuid(), Guid.NewGuid()],
+            Genres = [new Identity(Guid.NewGuid(), null), new Identity(Guid.NewGuid(), null)],
             Platforms = [Guid.NewGuid()],
         };
 
-        _mockPlatformRepo.Setup(r => r.PlatformExistsAsync(It.IsAny<Guid>())).ReturnsAsync(false);
+        _mockDependencyResolver.Setup(r => r.ValidatePlatformsExistAsync(gameDto.Platforms));
 
         var gameService = CreateService();
 
@@ -493,8 +493,9 @@ public class GameServiceTest
     {
         // Arrange
         var gameId = Guid.NewGuid();
-        var genreId = Guid.NewGuid();
+        var genreId = new Identity(Guid.NewGuid(), null);
         var platformId = Guid.NewGuid();
+        var publisher = new Identity(Guid.NewGuid(), null);
 
         var gameDto = new CreateGameRequest
         {
@@ -506,15 +507,16 @@ public class GameServiceTest
             },
             Genres = [genreId],
             Platforms = [platformId],
+            Publisher = publisher,
         };
 
         var entity1 = _mapper.Map<Game>(gameDto);
 
         _mockMapper.Setup(m => m.Map<Game>(gameDto)).Returns(entity1);
 
-        _mockGenreRepo.Setup(r => r.GenreExistsAsync(It.IsAny<Guid>())).ReturnsAsync(true);
-        _mockPlatformRepo.Setup(r => r.PlatformExistsAsync(It.IsAny<Guid>())).ReturnsAsync(true);
-        _mockPublisherRepo.Setup(r => r.PublisherExistAsync(It.IsAny<Guid>())).ReturnsAsync(true);
+        _mockDependencyResolver.Setup(r => r.ResolveAndValidateGenresAsync(gameDto.Genres));
+        _mockDependencyResolver.Setup(r => r.ValidatePlatformsExistAsync(gameDto.Platforms));
+        _mockDependencyResolver.Setup(r => r.ResolveAndValidatePublisherAsync(publisher));
 
         _mockKeyGen.Setup(g => g.GenerateUniqueKeyAsync((IUniqueKeyRepository)_mockGameRepo.Object, gameDto.Game.Name)).ReturnsAsync("game1");
 
@@ -612,9 +614,7 @@ public class GameServiceTest
     private GameService CreateService() => new(
     _mockGameRepo.Object,
     _mockNorthwindRepo.Object,
-    _mockGenreRepo.Object,
-    _mockPlatformRepo.Object,
-    _mockPublisherRepo.Object,
+    _mockDependencyResolver.Object,
     _mockKeyGen.Object,
     _mockMapper.Object,
     _mockLogger.Object);
