@@ -30,7 +30,6 @@ public class GameService(IGameRepository gameRepository,
         var id = await dependencyResolver.GetGameGuidOrPromote(updateRequest.Game.Id);
 
         await UpdateGameAsync(updateRequest, id);
-        return;
     }
 
     public async Task<GameDto> GetAsync(string key)

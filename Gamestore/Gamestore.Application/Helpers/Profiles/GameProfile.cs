@@ -34,7 +34,7 @@ public class GameProfile : Profile
             .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
             .ForMember(dest => dest.UnitInStock, opt => opt.MapFrom(src => src.UnitsInStock))
             .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Discount))
-            .ForMember(dest => dest.CommentCount, opt => opt.MapFrom(src => src.Comments.Count()));
+            .ForMember(dest => dest.CommentCount, opt => opt.MapFrom(src => src.Comments.Count));
 
         _ = CreateMap<Product, GameDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId))
