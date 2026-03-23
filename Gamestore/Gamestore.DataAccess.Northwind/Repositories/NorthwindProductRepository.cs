@@ -117,6 +117,7 @@ public class NorthwindProductRepository(NorthwindDbContext context,
         var newProduct = await _context.Products
             .FindAsync(filter);
 
+        // return
         await auditLogServices.LogChangeAsync(
             action: "Modified",
             entityType: nameof(Product),
