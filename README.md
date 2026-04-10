@@ -43,5 +43,5 @@ The task consists of multiple epics. The description of each epic is in the corr
 | 6.   | Comments and Moderation | Add user comments and content moderation features. | [game-store-epic-06](epic-06.md) |
 | 7.   | Filters | Implement game filtering and pagination features. | [game-store-epic-07](epic-07.md) |
 | 8.   | NoSQL Database | Integrate a NoSQL database alongside the existing relational database. | [game-store-epic-08](epic-08.md) |
-| 9.   | Authorization | Implement role-based access control for different user types.
-Each feature is developed in its corresponding branch. Once all features are completed and merged, you will get the final version of the application in the `main` branch.
+| 9.   | Authorization | Implement role-based access control for different user types.|
+
